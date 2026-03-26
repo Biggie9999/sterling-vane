@@ -23,9 +23,19 @@ const config = {
         mono: ["var(--font-jet)", "monospace"],
       },
       colors: {
-        border: "hsl(var(--border))",
+        border: {
+          DEFAULT: "hsl(var(--border))",
+          light: "var(--border-light)",
+          dark: "var(--border-dark)",
+        },
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        gold: {
+          DEFAULT: "var(--gold)",
+          light: "var(--gold-light)",
+        },
+        warmGrey: "var(--warm-grey)",
+        ivory: "var(--ivory)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {

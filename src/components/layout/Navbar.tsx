@@ -36,17 +36,17 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
         isScrolled
-          ? "bg-black/80 backdrop-blur-md border-border-dark py-4"
-          : "bg-transparent border-transparent py-6"
+          ? "bg-white/90 backdrop-blur-md border-slate-200 py-4 shadow-sm"
+          : "bg-white/60 backdrop-blur-md border-transparent py-6"
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex flex-col items-start group">
-          <span className="font-serif text-2xl tracking-wide text-white group-hover:text-gold transition-colors">
+          <span className="font-serif text-2xl tracking-wide text-brand-blue group-hover:text-brand-accent transition-colors">
             Sterling Vane
           </span>
-          <span className="font-mono text-[0.65rem] tracking-[0.2em] text-warmGrey uppercase mt-1">
+          <span className="font-mono text-[0.65rem] tracking-[0.2em] text-slate-500 uppercase mt-1">
             Global Holdings
           </span>
         </Link>
@@ -58,13 +58,13 @@ export function Navbar() {
               key={link.name}
               href={link.href}
               className={cn(
-                "relative text-sm font-sans tracking-wide transition-colors hover:text-white pb-1 group",
-                pathname === link.href ? "text-white" : "text-warmGrey"
+                "relative text-sm font-sans tracking-wide transition-colors hover:text-brand-accent pb-1 group",
+                pathname === link.href ? "text-brand-blue font-semibold" : "text-slate-600"
               )}
             >
               {link.name}
               <span className={cn(
-                "absolute left-0 bottom-0 w-full h-[1px] bg-gold transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100",
+                "absolute left-0 bottom-0 w-full h-[2px] bg-brand-accent transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100",
                 pathname === link.href && "scale-x-100"
               )} />
             </Link>
@@ -73,7 +73,7 @@ export function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center space-x-4">
-          <Link href="/login" className="text-sm font-mono uppercase tracking-widest text-white hover:text-gold transition-colors">
+          <Link href="/login" className="text-sm font-mono uppercase tracking-widest text-slate-700 hover:text-brand-accent transition-colors">
             Investor Login
           </Link>
           <GoldButton href="/apply" className="py-2 px-5 text-xs">
@@ -83,7 +83,7 @@ export function Navbar() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-slate-800"
           onClick={() => setIsMobileMenuOpen(true)}
         >
           <Menu className="w-6 h-6" />
