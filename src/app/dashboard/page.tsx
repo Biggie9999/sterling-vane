@@ -1,5 +1,5 @@
+import Link from "next/link"
 import { GhostButton } from "@/components/shared/GhostButton"
-import { GoldButton } from "@/components/shared/GoldButton"
 import { ArrowRight, Download, Calendar as CalIcon } from "lucide-react"
 
 export default function DashboardOverviewPage() {
