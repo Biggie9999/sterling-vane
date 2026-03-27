@@ -19,11 +19,40 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        // Accept any generic formatted entry so the prototype functions flawlessly
-        if (credentials?.email && credentials?.password) {
-          return { id: "1", name: "Guest Investor", email: credentials.email }
+        if (!credentials?.email) return null
+
+        try {
+          // Standard app behavior: Find or Create user on the fly for demo purposes
+          // In production, you'd add password hashing and a formal sign-up route
+          let user = await prisma.user.findUnique({
+            where: { email: credentials.email }
+          })
+
+          if (!user) {
+            user = await prisma.user.create({
+              data: {
+                email: credentials.email,
+                name: credentials.email.split("@")[0].charAt(0).toUpperCase() + credentials.email.split("@")[0].slice(1),
+                role: "INVESTOR"
+              }
+            })
+
+            // Also create empty investor profile
+            await prisma.investorProfile.create({
+              data: {
+                userId: user.id,
+                tier: "ENTRY",
+                totalInvested: 0,
+                applicationStatus: "PENDING"
+              }
+            })
+          }
+
+          return user
+        } catch (error) {
+          console.error("Auth authorize error:", error)
+          return null
         }
-        return null
       }
     })
   ],
@@ -38,6 +67,14 @@ export const authOptions: NextAuthOptions = {
       if (token && session.user) {
         // @ts-ignore
         session.user.id = token.sub
+        
+        // Populate session user with more info if needed
+        const dbUser = await prisma.user.findUnique({
+             where: { id: token.sub as string }
+        })
+        if (dbUser) {
+             session.user.name = dbUser.name
+        }
       }
       return session
     }

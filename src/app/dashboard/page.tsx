@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
-import { ArrowRight, Download, Calendar, TrendingUp, DollarSign, BarChart3, Clock, AlertCircle } from "lucide-react"
+import { ArrowRight, Download, Calendar, TrendingUp, DollarSign, BarChart3, Clock, AlertCircle, Loader2 } from "lucide-react"
 
 // Monthly portfolio data reflecting 30/60/90 milestone trajectory
 const CHART_DATA = [
@@ -15,12 +15,6 @@ const CHART_DATA = [
   { month: "Jun", value: 95000, milestone: "+90%" },
 ]
 const MILESTONE_IDX = [1, 3, 5]
-
-const PORTFOLIO = [
-  { name: "The Pacific Glass House", location: "Santa Monica, CA", status: "Operating", yield: "$18,400" },
-  { name: "The Palm Royale Retreat", location: "Miami Beach, FL", status: "Operating", yield: "$21,200" },
-  { name: "The Manhattan Velvet Suite", location: "Midtown, NY", status: "Stabilizing", yield: "$14,600" },
-]
 
 function ROIBar({ value, label }: { value: number; label: string }) {
   return (
@@ -36,7 +30,7 @@ function ROIBar({ value, label }: { value: number; label: string }) {
   )
 }
 
-function PortfolioChart() {
+function PortfolioChart({ data = CHART_DATA }) {
   const [hovered, setHovered] = useState<number | null>(null)
   const [animated, setAnimated] = useState(false)
 
@@ -50,15 +44,15 @@ function PortfolioChart() {
   const cW = W - PAD.left - PAD.right
   const cH = H - PAD.top - PAD.bottom
 
-  const minV = Math.min(...CHART_DATA.map(d => d.value)) * 0.93
-  const maxV = Math.max(...CHART_DATA.map(d => d.value)) * 1.04
+  const minV = Math.min(...data.map(d => d.value)) * 0.93
+  const maxV = Math.max(...data.map(d => d.value)) * 1.04
 
-  const xS = (i: number) => PAD.left + (i / (CHART_DATA.length - 1)) * cW
+  const xS = (i: number) => PAD.left + (i / (data.length - 1)) * cW
   const yS = (v: number) => PAD.top + cH - ((v - minV) / (maxV - minV)) * cH
   const fmt = (v: number) => `$${(v / 1000).toFixed(0)}K`
 
-  const linePath = CHART_DATA.map((d, i) => `${i === 0 ? "M" : "L"}${xS(i).toFixed(1)},${yS(d.value).toFixed(1)}`).join(" ")
-  const areaPath = `${linePath} L${xS(CHART_DATA.length - 1).toFixed(1)},${(PAD.top + cH).toFixed(1)} L${xS(0).toFixed(1)},${(PAD.top + cH).toFixed(1)} Z`
+  const linePath = data.map((d, i) => `${i === 0 ? "M" : "L"}${xS(i).toFixed(1)},${yS(d.value).toFixed(1)}`).join(" ")
+  const areaPath = `${linePath} L${xS(data.length - 1).toFixed(1)},${(PAD.top + cH).toFixed(1)} L${xS(0).toFixed(1)},${(PAD.top + cH).toFixed(1)} Z`
 
   return (
     <svg
@@ -104,13 +98,13 @@ function PortfolioChart() {
 
       {/* Milestone glow rings */}
       {MILESTONE_IDX.map(i => (
-        <circle key={i} cx={xS(i)} cy={yS(CHART_DATA[i].value)} r="8"
+        <circle key={i} cx={xS(i)} cy={yS(data[i].value)} r="8"
           fill="#006AFF" opacity={animated ? 0.15 : 0}
           style={{ transition: "opacity 1.4s ease" }} />
       ))}
 
       {/* Points + hit areas */}
-      {CHART_DATA.map((d, i) => (
+      {data.map((d, i) => (
         <g key={i}>
           <rect x={xS(i) - 22} y={PAD.top} width={44} height={cH} fill="transparent"
             onMouseEnter={() => setHovered(i)} style={{ cursor: "crosshair" }} />
@@ -131,7 +125,7 @@ function PortfolioChart() {
 
       {/* Hover tooltip */}
       {hovered !== null && (() => {
-        const d = CHART_DATA[hovered]
+        const d = data[hovered]
         const tx = xS(hovered)
         const ty = yS(d.value)
         const bx = Math.min(Math.max(tx - 40, PAD.left), W - PAD.right - 82)
@@ -150,14 +144,55 @@ function PortfolioChart() {
 
 export default function DashboardOverviewPage() {
   const { data: session } = useSession()
-  const firstName = (session?.user?.name || session?.user?.email || "Investor").split(" ")[0].split("@")[0]
+  const [dashboardData, setDashboardData] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchDashboard() {
+      try {
+        const res = await fetch("/api/user/dashboard")
+        const data = await res.json()
+        if (!data.error) {
+          setDashboardData(data)
+        }
+      } catch (err) {
+        console.error("Failed to fetch dashboard:", err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    if (session) {
+      fetchDashboard()
+    }
+  }, [session])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-10 h-10 text-[#006AFF] animate-spin" />
+      </div>
+    )
+  }
+
+  const firstName = dashboardData?.firstName || (session?.user?.name || session?.user?.email || "Investor").split(" ")[0].split("@")[0]
+  
+  const hasInvestments = dashboardData?.hasInvestments || false
+  const stats = dashboardData?.stats || {
+    totalInvested: "$0",
+    currentValue: "$0",
+    returnsToDate: "$0",
+    nextDistribution: "None scheduled",
+    growthPercent: "0%"
+  }
 
   const kpis = [
-    { label: "Total Invested", value: "$50,000", change: "Accredited Position", icon: DollarSign, up: true },
-    { label: "Current Value", value: "$62,400", change: "+24.8% since entry", icon: TrendingUp, up: true },
-    { label: "Returns to Date", value: "$12,400", change: "Realised + accrued", icon: BarChart3, up: true },
-    { label: "Next Distribution", value: "Q2 2026", change: "Est. $4,200", icon: Clock, up: null },
+    { label: "Total Invested", value: stats.totalInvested, change: "Accredited Position", icon: DollarSign, up: true },
+    { label: "Current Value", value: stats.currentValue, change: `${stats.growthPercent} since entry`, icon: TrendingUp, up: true },
+    { label: "Returns to Date", value: stats.returnsToDate, change: "Realised + accrued", icon: BarChart3, up: true },
+    { label: "Next Distribution", value: stats.nextDistribution, change: "Estimate", icon: Clock, up: null },
   ]
+
+  const portfolio = dashboardData?.investments || []
 
   return (
     <div className="space-y-8 sm:space-y-10">
@@ -216,7 +251,14 @@ export default function DashboardOverviewPage() {
               <span className="w-2.5 h-2.5 rounded-full bg-[#006AFF]" /> 2026 Trajectory
             </div>
           </div>
-          <PortfolioChart />
+          {hasInvestments ? (
+             <PortfolioChart />
+          ) : (
+            <div className="h-[200px] flex flex-col items-center justify-center border-2 border-dashed border-slate-100 rounded-2xl">
+              <TrendingUp className="w-8 h-8 text-slate-200 mb-2" />
+              <p className="text-slate-400 text-sm font-medium">Growth data will appear after first investment</p>
+            </div>
+          )}
 
           {/* ROI Progress Bars */}
           <div className="mt-8 pt-6 border-t border-slate-100 space-y-4">
@@ -249,20 +291,27 @@ export default function DashboardOverviewPage() {
           {/* Positions */}
           <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-5">Your Positions</p>
-            <div className="space-y-4">
-              {PORTFOLIO.map((p) => (
-                <div key={p.name} className="flex items-center justify-between gap-3">
-                  <div className="flex-1 min-w-0">
-                    <p className="text-slate-900 text-sm font-bold truncate mb-0.5">{p.name}</p>
-                    <p className="text-slate-500 text-xs font-medium">{p.location}</p>
+            {portfolio.length > 0 ? (
+              <div className="space-y-4">
+                {portfolio.map((p: any) => (
+                  <div key={p.id} className="flex items-center justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-slate-900 text-sm font-bold truncate mb-0.5">{p.name}</p>
+                      <p className="text-slate-500 text-xs font-medium">{p.location}</p>
+                    </div>
+                    <div className="text-right shrink-0 border-l border-slate-100 pl-4">
+                      <p className="text-slate-900 text-sm font-bold">{p.yield}</p>
+                      <p className={`text-[10px] font-bold uppercase tracking-widest ${p.status === "Operating" ? "text-emerald-500" : "text-amber-500"}`}>{p.status}</p>
+                    </div>
                   </div>
-                  <div className="text-right shrink-0 border-l border-slate-100 pl-4">
-                    <p className="text-slate-900 text-sm font-bold">{p.yield}</p>
-                    <p className={`text-[10px] font-bold uppercase tracking-widest ${p.status === "Operating" ? "text-emerald-500" : "text-amber-500"}`}>{p.status}</p>
-                  </div>
+                ))}
+              </div>
+            ) : (
+                <div className="text-center py-6">
+                   <p className="text-slate-400 text-xs">No active positions yet.</p>
+                   <Link href="/marketplace" className="text-[#006AFF] text-xs font-bold mt-2 inline-block">Start Investing →</Link>
                 </div>
-              ))}
-            </div>
+            )}
             <Link href="/dashboard/portfolio" className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-center text-xs text-slate-500 hover:text-[#006AFF] transition-colors font-bold uppercase tracking-widest">
               View Full Portfolio <ArrowRight className="w-3 h-3 ml-2" />
             </Link>

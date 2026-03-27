@@ -76,9 +76,26 @@ function ApplyForm() {
     else if (step === 3) { setStep(4) }
     else {
       setLoading(true)
-      await new Promise(r => setTimeout(r, 1500)) // Simulate processing
-      setLoading(false)
-      router.push("/dashboard/pending")
+      try {
+        const res = await fetch("/api/user/apply", {
+             method: "POST",
+             body: JSON.stringify({ 
+                  propertyId: selectedPropertyId,
+                  amount: totalAmount,
+                  accreditation: form.accreditation
+             })
+        });
+        const data = await res.json();
+        if (data.success) {
+             router.push("/dashboard?status=pending")
+        } else {
+             alert(data.error || "Submission error")
+        }
+      } catch (err) {
+        console.error("Submission failed:", err)
+      } finally {
+        setLoading(false)
+      }
     }
   }
 
