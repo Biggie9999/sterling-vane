@@ -1,56 +1,83 @@
+"use client"
+
 import { Star } from "lucide-react"
 
-const testimonials = [
-  {
-    quote: "Sterling Vane operates with a level of precision rarely seen in private syndications. The 90-day liquidity option completely changed how I allocate my cash reserves.",
-    name: "James T.",
-    location: "New York, USA",
-    tier: "Growth Tier"
-  },
-  {
-    quote: "I was skeptical of short-term rental funds, but receiving my first 32% annualized distribution on schedule erased all doubts. Unmatched execution.",
-    name: "Elena M.",
-    location: "Dubai, UAE",
-    tier: "Private Tier"
-  },
-  {
-    quote: "The transparency is what sold me. I log into my portal, I see exactly how the Miami asset is performing this week, and I know exactly when my wire arrives.",
-    name: "Marcus L.",
-    location: "London, UK",
-    tier: "Growth Tier"
-  }
-]
-
 export function Testimonials() {
-  return (
-    <section className="py-24 bg-black luxury-grain border-y border-border-dark">
-      <div className="container mx-auto px-6">
-        <h2 className="font-serif text-3xl md:text-4xl text-white text-center mb-16">
-          The standard is proven.
-        </h2>
+  const testimonials = [
+    {
+      id: 1,
+      imageFile: "1.jpg",
+      quote: "I know I am crazy to invest that much but now $440,000 in ROI in 6 months, this is all Investors dream. Thank you for this Opportunity Mr. Vane.",
+      alt: "Mr Vane Convertible Testimonial"
+    },
+    {
+      id: 2,
+      imageFile: "2.jpg",
+      quote: "I get to live the jetset lifestyle while my money works, thanks for this opportunity Vane, you're a blessing.",
+      alt: "Jetset Lifestyle Testimonial"
+    },
+    {
+      id: 3,
+      imageFile: "3.jpg",
+      quote: "DEBT NAILED $87K IN 4 WEEKS THANK YOU STERLING VANE.",
+      alt: "Debt Nailed Testimonial"
+    },
+    {
+      id: 4,
+      imageFile: "4.jpg",
+      quote: "Trusting you with my $90,000 retirement fund is the ultimate retirement fund. You changed my life in a short time. I am forever indebted to you for this once in a lifetime opportunity.",
+      alt: "Ford Raptor Retirement Testimonial"
+    },
+    {
+      id: 5,
+      imageFile: "5.jpg",
+      quote: "Vacationing while my money works for me. I couldn't be more grateful Mr. Sterling Vane. This is the most secure investment i have made!",
+      alt: "Balcony Vacation Testimonial"
+    }
+  ]
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((test, idx) => (
-            <div key={idx} className="bg-[#0f0f0f] border border-border-dark p-8 relative flex flex-col justify-between">
-              <div>
-                <div className="flex space-x-1 mb-6">
+  return (
+    <section className="bg-brand-light py-24 border-t border-slate-100">
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="text-center mb-16 max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6">Proven Velocity</h2>
+          <p className="text-lg text-slate-600 leading-relaxed">
+            The Sovereign Collection attracts capital from all over the world, but our investors all share the same experience: rapid appreciation and unparalleled cash velocity.
+          </p>
+        </div>
+
+        {/* Dynamic masonry grid behavior for 5 items */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 pb-10">
+          {testimonials.map((t) => (
+            <div key={t.id} className="break-inside-avoid relative group rounded-[2rem] overflow-hidden shadow-smooth border border-slate-200 bg-white">
+              <div className="bg-slate-100 w-full overflow-hidden aspect-[4/5] relative">
+                <img 
+                  src={`/testimonials/${t.imageFile}`} 
+                  alt={t.alt}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  onError={(e) => {
+                    // Fallback visual helper
+                    const target = e.target as HTMLImageElement;
+                    if (!target.classList.contains("failed")) {
+                      target.classList.add("failed");
+                      target.style.display = 'none';
+                      if (target.parentElement) {
+                        const fallback = document.createElement("div");
+                        fallback.className = "flex flex-col items-center justify-center p-8 text-center h-full text-slate-400 bg-slate-100 absolute inset-0";
+                        fallback.innerHTML = `<span class="font-bold text-slate-800 mb-2">Image Missing</span><span class="text-xs">Drag your image here into<br /> <code class="bg-white p-1 rounded">public/testimonials/${t.imageFile}</code></span>`;
+                        target.parentElement.appendChild(fallback);
+                      }
+                    }
+                  }}
+                />
+              </div>
+              <div className="p-8 bg-white border-t border-slate-100 relative z-10">
+                <div className="flex text-brand-accent mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-gold fill-gold" />
+                    <Star key={i} className="w-5 h-5 fill-current mr-1" />
                   ))}
                 </div>
-                <p className="font-sans text-warmGrey italic leading-relaxed mb-8">
-                  "{test.quote}"
-                </p>
-              </div>
-              
-              <div className="border-t border-white/10 pt-6 flex items-center justify-between">
-                <div>
-                  <p className="font-serif text-white text-lg">{test.name}</p>
-                  <p className="font-mono text-[10px] tracking-widest uppercase text-warmGrey mt-1">{test.location}</p>
-                </div>
-                <div className="px-3 py-1 bg-gold/10 border border-gold/30 rounded-sm">
-                  <p className="font-mono text-[10px] tracking-widest uppercase text-gold">{test.tier}</p>
-                </div>
+                <p className="text-slate-800 font-medium leading-relaxed italic text-lg">&quot;{t.quote}&quot;</p>
               </div>
             </div>
           ))}

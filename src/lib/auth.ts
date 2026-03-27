@@ -19,9 +19,9 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        // Simplified auth for mockup purposes
-        if (credentials?.email === "test@sterlingvane.com" && credentials.password === "password") {
-          return { id: "1", name: "Test User", email: "test@sterlingvane.com" }
+        // Accept any generic formatted entry so the prototype functions flawlessly
+        if (credentials?.email && credentials?.password) {
+          return { id: "1", name: "Guest Investor", email: credentials.email }
         }
         return null
       }

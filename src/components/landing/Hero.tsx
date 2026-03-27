@@ -1,94 +1,89 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { GoldButton } from "@/components/shared/GoldButton";
-import { GhostButton } from "@/components/shared/GhostButton";
-import { ArrowRight } from "lucide-react";
+import { Search } from "lucide-react";
 
 export function Hero() {
-  const headline = "The Next Chapter in Luxury Hospitality.";
-  const words = headline.split(" ");
+  const router = useRouter();
+  const [location, setLocation] = useState("");
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-black luxury-grain">
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black pointer-events-none z-0"></div>
+    <section className="relative w-full h-[600px] md:h-[750px] flex items-center justify-center pt-24 overflow-hidden bg-slate-50">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat w-full h-full"
+        style={{ backgroundImage: "url('/hero.png')", backgroundPosition: "center 80%" }}
+      >
+        <div className="absolute inset-0 bg-black/20" /> {/* Subtle overlay for text readability */}
+      </div>
 
-      <div className="container mx-auto px-6 relative z-10 text-center max-w-5xl">
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] text-white mb-8">
-          {words.map((word, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: i * 0.08,
-                ease: [0.21, 0.47, 0.32, 0.98],
+      <div className="container mx-auto px-6 relative z-10 w-full flex flex-col items-center">
+        <motion.h1 
+          className="font-sans font-extrabold text-4xl md:text-6xl lg:text-[5.5rem] text-white tracking-tight mb-8 drop-shadow-xl text-center leading-[1.05]"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          Find your next luxury escape.
+        </motion.h1>
+
+        {/* Airbnb-style Search Pill */}
+        <motion.div 
+          className="bg-white rounded-full shadow-2xl p-2 md:p-3 w-full max-w-4xl flex flex-col md:flex-row items-center border border-slate-200 divide-y md:divide-y-0 md:divide-x divide-slate-200"
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+        >
+          {/* Location */}
+          <div className="flex-[1.5] w-full flex flex-col px-6 py-3 cursor-pointer hover:bg-slate-50 rounded-full transition-colors group">
+            <span className="text-xs font-bold text-slate-800">Where</span>
+            <input 
+              type="text" 
+              placeholder="Search destinations (e.g. Bali)" 
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && location) {
+                  router.push(`/?location=${encodeURIComponent(location)}`);
+                }
               }}
-              className="inline-block mr-[0.25em]"
+              className="bg-transparent text-sm text-slate-500 outline-none w-full truncate placeholder-slate-400 group-hover:bg-slate-50"
+            />
+          </div>
+
+          {/* Check In */}
+          <div className="flex-1 w-full flex flex-col px-6 py-3 cursor-pointer hover:bg-slate-50 rounded-full transition-colors hidden sm:flex">
+            <span className="text-xs font-bold text-slate-800">Check in</span>
+            <span className="text-sm text-slate-500">Add dates</span>
+          </div>
+
+          {/* Check Out */}
+          <div className="flex-1 w-full flex flex-col px-6 py-3 cursor-pointer hover:bg-slate-50 rounded-full transition-colors hidden md:flex">
+            <span className="text-xs font-bold text-slate-800">Check out</span>
+            <span className="text-sm text-slate-500">Add dates</span>
+          </div>
+
+          {/* Guests & Search Button */}
+          <div className="flex-1 w-full flex items-center justify-between px-6 py-3 cursor-pointer hover:bg-slate-50 rounded-full transition-colors">
+            <div className="flex flex-col">
+              <span className="text-xs font-bold text-slate-800">Who</span>
+              <span className="text-sm text-slate-500">Add guests</span>
+            </div>
+            <button 
+              onClick={() => {
+                if (location) {
+                  router.push(`/?location=${encodeURIComponent(location)}`);
+                }
+              }}
+              className="bg-[#FF385C] hover:bg-[#E31C5F] text-white p-4 rounded-full transition-colors shadow-lg flex items-center justify-center ml-2"
             >
-              {word}
-            </motion.span>
-          ))}
-        </h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-          className="font-sans text-lg md:text-xl text-warmGrey max-w-2xl mx-auto mb-12 leading-relaxed"
-        >
-          A private asset fund built on premium real estate. 30% returns in 90 days. <strong className="text-white font-medium">12 investor slots remaining.</strong>
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
-        >
-          <GoldButton href="/apply" icon={<ArrowRight className="w-4 h-4" />}>
-            Apply to Invest
-          </GoldButton>
-          <GhostButton href="/portfolio">
-            View the Collection
-          </GhostButton>
-        </motion.div>
-
-        {/* Stats Strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 border-t border-b border-border-dark py-8"
-        >
-          <div className="text-center md:border-r border-border-dark">
-            <p className="font-serif text-3xl md:text-4xl text-white mb-2">$42M</p>
-            <p className="font-mono text-[0.65rem] tracking-widest text-gold uppercase">Total Portfolio Value</p>
-          </div>
-          <div className="text-center md:border-r border-border-dark">
-            <p className="font-serif text-3xl md:text-4xl text-white mb-2">18</p>
-            <p className="font-mono text-[0.65rem] tracking-widest text-gold uppercase">Active Units</p>
-          </div>
-          <div className="text-center md:border-r border-border-dark">
-            <p className="font-serif text-3xl md:text-4xl text-white mb-2">32%</p>
-            <p className="font-mono text-[0.65rem] tracking-widest text-gold uppercase">Avg. Quarterly ROI</p>
-          </div>
-          <div className="text-center">
-            <p className="font-serif text-3xl md:text-4xl text-white mb-2">45</p>
-            <p className="font-mono text-[0.65rem] tracking-widest text-gold uppercase">Investors Onboarded</p>
+              <Search className="w-5 h-5" />
+            </button>
           </div>
         </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce"
-      >
-        <div className="w-[1px] h-12 bg-gradient-to-b from-gold/50 to-transparent"></div>
-      </motion.div>
     </section>
   );
 }

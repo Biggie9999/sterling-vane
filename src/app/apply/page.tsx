@@ -2,24 +2,37 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 import { CheckCircle2, ChevronRight, Lock } from "lucide-react"
 
 export default function ApplyPage() {
+  const router = useRouter()
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [email, setEmail] = useState("")
 
   const handleNext = () => {
     if (step < 4) setStep(step + 1)
     else submitApplication()
   }
 
-  const submitApplication = () => {
+  const submitApplication = async () => {
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      setSuccess(true)
-    }, 1500)
+    
+    // Simulate background processing for realism
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    
+    // Auto-login the generated user using our mock backend
+    await signIn("credentials", {
+      email: email || "investor@sovereign.com",
+      password: "password123",
+      redirect: false,
+    })
+    
+    setLoading(false)
+    setSuccess(true)
   }
 
   if (success) {
@@ -33,9 +46,9 @@ export default function ApplyPage() {
           <p className="text-slate-600 mb-8 leading-relaxed">
             Our principal team will review your application. If aligned, you will receive an invitation to access the investor portal within 48 hours.
           </p>
-          <Link href="/" className="inline-block px-8 py-4 bg-brand-blue text-white rounded-lg font-semibold w-full hover:bg-slate-800 transition-colors shadow-sm">
-            Return Home
-          </Link>
+          <button onClick={() => router.push("/dashboard")} className="inline-block px-8 py-4 bg-brand-blue text-white rounded-lg font-semibold w-full hover:bg-slate-800 transition-colors shadow-sm">
+            Access Dashboard
+          </button>
         </div>
       </div>
     )
@@ -76,7 +89,13 @@ export default function ApplyPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Corporate Email</label>
-                  <input type="email" className="w-full bg-slate-50 border border-slate-200 px-4 py-3 outline-none focus:ring-2 focus:ring-brand-accent rounded-lg text-slate-900" placeholder="james@company.com" />
+                  <input 
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 px-4 py-3 outline-none focus:ring-2 focus:ring-brand-accent rounded-lg text-slate-900" 
+                    placeholder="james@company.com" 
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>

@@ -73,11 +73,11 @@ export function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center space-x-4">
-          <Link href="/login" className="text-sm font-mono uppercase tracking-widest text-slate-700 hover:text-brand-accent transition-colors">
-            Investor Login
+          <Link href="/login" className="text-sm font-sans font-semibold tracking-wide text-brand-blue hover:text-brand-accent transition-colors px-4 py-2 hover:bg-slate-50 rounded-full">
+            Sign In
           </Link>
-          <GoldButton href="/apply" className="py-2 px-5 text-xs">
-            Apply to Invest
+          <GoldButton href="/apply" className="py-2 px-5 text-xs rounded-full">
+            Get Started
           </GoldButton>
         </div>
 
@@ -116,11 +116,11 @@ export function Navbar() {
             ))}
           </nav>
           <div className="flex flex-col space-y-4 pb-8">
-            <GhostButton href="/login" className="w-full justify-center border-border-dark text-white">
-              Investor Login
+            <GhostButton href="/login" className="w-full justify-center border-border-dark text-white rounded-full">
+              Sign In
             </GhostButton>
-            <GoldButton href="/apply" className="w-full justify-center">
-              Apply to Invest
+            <GoldButton href="/apply" className="w-full justify-center rounded-full">
+              Get Started
             </GoldButton>
           </div>
         </div>
