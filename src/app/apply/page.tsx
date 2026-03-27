@@ -19,7 +19,8 @@ const WIRE_DETAILS = {
   accountName: "Sterling Vane Development Group LLC",
   swiftCode: "CHASUS33",
   bankAddress: "383 Madison Avenue, New York, NY 10017",
-  minimumAmount: 5000,
+  minimumAmount: 10000,
+  maximumAmount: 5000000,
 }
 
 const INTENTS = [
@@ -315,27 +316,40 @@ function ApplyForm() {
                     ))}
                   </div>
 
-                  {/* Shares Slider */}
+                  {/* Investment Amount Slider */}
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
                     <div className="flex justify-between items-center mb-4">
-                      <p className="text-sm font-bold text-slate-700">Number of Shares</p>
+                      <p className="text-sm font-bold text-slate-700">Investment Amount</p>
                       <span className="text-xs bg-white border border-slate-200 px-3 py-1 rounded-full text-slate-500 font-medium">
                         1 share = ${selectedProperty.pricePerShare.toLocaleString()}
                       </span>
                     </div>
-                    <div className="flex items-center gap-4 mb-4">
-                      <input type="range" min={minShares} max="20" value={form.shares}
-                        onChange={e => update("shares", e.target.value)} className="flex-1 accent-[#006AFF]" />
-                      <div className="w-14 h-12 bg-white border border-slate-200 rounded-xl flex items-center justify-center font-bold text-lg text-slate-900">
-                        {form.shares}
+                    <div className="flex items-center gap-4 mb-3">
+                      <input
+                        type="range"
+                        min={minShares}
+                        max={Math.floor(WIRE_DETAILS.maximumAmount / selectedProperty.pricePerShare)}
+                        value={form.shares}
+                        onChange={e => update("shares", e.target.value)}
+                        className="flex-1 accent-[#006AFF]"
+                      />
+                    </div>
+                    <div className="flex justify-between text-xs text-slate-400 font-bold mb-4">
+                      <span>Min: ${WIRE_DETAILS.minimumAmount.toLocaleString()}</span>
+                      <span>Max: ${WIRE_DETAILS.maximumAmount.toLocaleString()}</span>
+                    </div>
+                    <div className="bg-white border border-slate-200 rounded-xl p-4">
+                      <div className="flex justify-between items-center mb-1">
+                        <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Shares</p>
+                        <p className="font-bold text-slate-900">{form.shares}</p>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Total Investment</p>
+                        <p className="font-serif text-2xl font-bold text-[#006AFF]">${totalAmount.toLocaleString()}</p>
                       </div>
                     </div>
-                    <div className="flex justify-between items-center pt-4 border-t border-slate-200">
-                      <p className="text-sm font-medium text-slate-600">Total Investment</p>
-                      <p className="font-serif text-2xl font-bold text-slate-900">${totalAmount.toLocaleString()}</p>
-                    </div>
                     {totalAmount < WIRE_DETAILS.minimumAmount && (
-                      <p className="text-red-500 text-xs font-bold mt-2">Minimum investment is $5,000. Please increase shares.</p>
+                      <p className="text-red-500 text-xs font-bold mt-2 text-center">Minimum investment is $10,000. Please increase shares.</p>
                     )}
                   </div>
                 </div>

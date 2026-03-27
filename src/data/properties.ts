@@ -25,7 +25,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
     location: "Miami, FL",
     market: "Miami, FL",
     type: "Growth",
-    pricePerShare: 15000,
+    pricePerShare: 50000,
     totalShares: 200,
     availableShares: 45,
     propertyValue: 12500000,
@@ -42,7 +42,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
       "https://images.unsplash.com/photo-1613490908592-fd5e16283b0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
     ],
-    description: "An architectural masterpiece set against the stunning Miami skyline. Features sweeping infinity pools, floor-to-ceiling glass, and a private dock. Built to out-perform the market, this asset follows our standard accelerated return structure targeting returns of 30% by month 2, 60% by month 4, and reaching 90% by month 6 through aggressive high-end short-term rentals to UHNW travelers.",
+    description: "An architectural masterpiece set against the stunning Miami skyline. Features sweeping infinity pools, floor-to-ceiling glass, and a private dock. Built to out-perform the market — this asset follows our accelerated return structure targeting 30% by month 2, 60% by month 4, and 90% by month 6 through aggressive high-end short-term rentals to UHNW travelers.",
     status: "Funding Stage"
   },
   {
@@ -51,7 +51,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
     location: "Montecito, CA",
     market: "Los Angeles, CA",
     type: "Principal",
-    pricePerShare: 25000,
+    pricePerShare: 75000,
     totalShares: 150,
     availableShares: 12,
     propertyValue: 24000000,
@@ -67,7 +67,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
       "https://images.unsplash.com/photo-1600607688126-af44163ad6dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
     ],
-    description: "An ultra-luxury compound nestled in the hills of Montecito. This asset is fully stabilized, delivering exceptional short-term rent premiums from A-list clientele. Featuring breathtaking ocean views and private terraced gardens. Capital appreciation is locked in via exclusive zoning rights. We strictly manage this asset to deliver our flagship return schedule: 30% at month 2, 60% at month 4, and 90% at month 6.",
+    description: "An ultra-luxury compound nestled in the hills of Montecito. Fully stabilized, delivering exceptional short-term rent premiums from A-list clientele. Capital appreciation locked in via exclusive zoning rights. We strictly manage this asset to deliver our flagship return schedule: 30% at month 2, 60% at month 4, and 90% at month 6.",
     status: "Funding Stage"
   },
   {
@@ -76,7 +76,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
     location: "New York, NY",
     market: "New York, NY",
     type: "Seed",
-    pricePerShare: 10000,
+    pricePerShare: 50000,
     totalShares: 400,
     availableShares: 220,
     propertyValue: 8000000,
@@ -92,7 +92,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
       "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
       "https://images.unsplash.com/photo-1600607687644-aac4c1566903?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
     ],
-    description: "Sitting high above the Manhattan skyline, this penthouse was acquired off-market and is currently undergoing a bespoke repositioning to attract exclusive corporate and diplomatic short-term leases. By investing now, owners are primed to secure our tier-1 milestone projection: 30% yield in 60 days, 60% in 120 days, and a massive 90% return profile by 180 days.",
+    description: "Sitting high above the Manhattan skyline, this penthouse was acquired off-market and is undergoing bespoke repositioning for exclusive corporate and diplomatic short-term leases. Investors are primed to capture 30% yield in 60 days, 60% in 120 days, and 90% return profile by 180 days.",
     status: "Coming Soon"
   },
   {
@@ -101,7 +101,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
     location: "Tokyo, Japan",
     market: "Tokyo, Japan",
     type: "Principal",
-    pricePerShare: 35000,
+    pricePerShare: 100000,
     totalShares: 300,
     availableShares: 85,
     propertyValue: 31000000,
@@ -117,7 +117,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
       "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
       "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
     ],
-    description: "Our flagship international expansion asset. The Aman Residences Skytower combines Japanese minimalist zen aesthetics with world-class smart home technology. Located right in the heart of Minato City. Returns on this property are aggressive and fully underwritten to match our signature performance benchmark (30% by month 2, 60% by month 4, 90% by month 6).",
+    description: "Our flagship international expansion asset. The Aman Residences Skytower combines Japanese minimalist zen aesthetics with world-class smart home technology, located in the heart of Minato City. Aggressively underwritten to match our signature performance benchmark: 30% by month 2, 60% by month 4, 90% by month 6.",
     status: "Fully Funded"
   },
   {
@@ -126,7 +126,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
     location: "Tulum, Mexico",
     market: "Tulum, Mexico",
     type: "Growth",
-    pricePerShare: 5000,
+    pricePerShare: 50000,
     totalShares: 1000,
     availableShares: 450,
     propertyValue: 6500000,
@@ -143,7 +143,7 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
       "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb65?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
       "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
     ],
-    description: "An unbelievable eco-resort compound buried in the Tulum jungle. Complete with cenotes, open-air living spaces, and a private chef's kitchen. It is one of our highest-yield producing assets in the hemisphere. Upon successful funding, investors jump immediately onto the institutional track: targeting 30% yield in exactly 2 months, jumping to 60% by month 4, and closing out at 90% ROI by month 6.",
+    description: "An unbelievable eco-resort compound in the Tulum jungle — with cenotes, open-air living spaces, and a private chef's kitchen. One of our highest-yield producing assets in the hemisphere. Investors jump onto our institutional track: 30% yield in 2 months, 60% at month 4, and 90% ROI by month 6.",
     status: "Funding Stage"
   }
 ];
