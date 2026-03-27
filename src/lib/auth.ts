@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { prisma } from "@/lib/prisma"
+import bcrypt from "bcryptjs"
 
 export const authOptions: NextAuthOptions = {
   // @ts-ignore
@@ -19,33 +20,21 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.email) return null
+        if (!credentials?.email || !credentials?.password) return null
 
         try {
-          // Standard app behavior: Find or Create user on the fly for demo purposes
-          // In production, you'd add password hashing and a formal sign-up route
-          let user = await prisma.user.findUnique({
+          const user = await prisma.user.findUnique({
             where: { email: credentials.email }
           })
 
-          if (!user) {
-            user = await prisma.user.create({
-              data: {
-                email: credentials.email,
-                name: credentials.email.split("@")[0].charAt(0).toUpperCase() + credentials.email.split("@")[0].slice(1),
-                role: "INVESTOR"
-              }
-            })
+          if (!user || !user.password) {
+            return null
+          }
 
-            // Also create empty investor profile
-            await prisma.investorProfile.create({
-              data: {
-                userId: user.id,
-                tier: "ENTRY",
-                totalInvested: 0,
-                applicationStatus: "PENDING"
-              }
-            })
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
+
+          if (!isPasswordValid) {
+            return null
           }
 
           return user
@@ -59,6 +48,21 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
+  },
+  events: {
+    async createUser({ user }) {
+      if (user.id) {
+        // Automatically create an investor profile for Google OAuth users
+        await prisma.investorProfile.create({
+          data: {
+            userId: user.id,
+            tier: "ENTRY",
+            totalInvested: 0,
+            applicationStatus: "PENDING"
+          }
+        })
+      }
+    }
   },
   pages: {
     signIn: "/login",

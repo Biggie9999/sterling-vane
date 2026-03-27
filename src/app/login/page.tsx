@@ -123,12 +123,32 @@ function AuthInner() {
     if (!name.trim()) { setError("Please enter your full name."); return }
     setLoading(true)
     setError("")
-    // Simulate sending OTP to email (replace with supabase.auth.signInWithOtp({ email }) when configured)
-    // Real: await supabase.auth.signInWithOtp({ email, options: { data: { name } } })
-    await new Promise(r => setTimeout(r, 1200))
-    setLoading(false)
-    setStage("verify")
-    setResendTimer(60)
+
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data.error || "Failed to create account")
+        setLoading(false)
+        return
+      }
+      
+      const signInRes = await signIn("credentials", { email, password, redirect: false })
+      if (signInRes?.error) {
+        setError("Account created, but failed to log in.")
+        setLoading(false)
+      } else {
+        router.push("/dashboard")
+        router.refresh()
+      }
+    } catch (err) {
+      setError("An error occurred during sign up.")
+      setLoading(false)
+    }
   }
 
   const handleOTPVerify = async (code: string) => {
@@ -314,7 +334,7 @@ function AuthInner() {
                   </div>
                   <button type="submit" disabled={loading}
                     className="w-full flex items-center justify-center gap-2 bg-[#006AFF] hover:bg-[#0050CC] text-white py-4 rounded-xl font-bold transition-all disabled:opacity-60 shadow-lg mt-2">
-                    {loading ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <>Send Verification Code <ArrowRight className="w-4 h-4" /></>}
+                    {loading ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <>Create Account <ArrowRight className="w-4 h-4" /></>}
                   </button>
                 </form>
                 <p className="text-xs text-slate-400 text-center mt-4">By creating an account you agree to our Terms of Service and Privacy Policy.</p>
