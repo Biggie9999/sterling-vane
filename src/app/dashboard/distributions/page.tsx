@@ -19,79 +19,81 @@ export default function DistributionsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-[#006AFF] mb-2">Cash Velocity</p>
-        <h1 className="font-serif text-3xl text-white mb-1">Distributions</h1>
-        <p className="text-warmGrey text-sm">Projected quarterly distributions based on PPM target returns. Subject to operational performance.</p>
+        <p className="text-[#006AFF] font-bold text-[10px] uppercase tracking-widest mb-2">Cash Velocity</p>
+        <h1 className="font-serif text-3xl font-bold text-slate-900 mb-1">Distributions</h1>
+        <p className="text-slate-500 text-sm font-medium">Projected quarterly distributions based on PPM target returns. Subject to operational performance.</p>
       </div>
 
-      {/* Summary Strip */}
+      {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { label: "Total Projected (2026)", value: `$${totalProjected.toLocaleString()}`, icon: DollarSign },
           { label: "Projected Annual Yield", value: "52.9%", icon: TrendingUp },
           { label: "Distribution Frequency", value: "Quarterly", icon: Clock },
           { label: "Next Payment", value: "Mar 31, 2026", icon: CheckCircle2 },
-        ].map((s) => (
-          <div key={s.label} className="bg-[#111] border border-[#222] rounded-xl p-5">
+        ].map(s => (
+          <div key={s.label} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <s.icon className="w-4 h-4 text-[#006AFF]" />
-              <p className="font-mono text-[10px] uppercase tracking-widest text-warmGrey">{s.label}</p>
+              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">{s.label}</p>
             </div>
-            <p className="font-serif text-xl text-white">{s.value}</p>
+            <p className="font-serif text-2xl font-bold text-slate-900">{s.value}</p>
           </div>
         ))}
       </div>
 
-      {/* Disclaimer */}
-      <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-xs text-amber-400 leading-relaxed">
-        <strong>Disclosure:</strong> Distribution projections are based on internal underwriting assumptions as stated in the Private Placement Memorandum. Past performance does not guarantee future results. Distributions are subject to operating cash flow, reserves, and capital needs. For verified targets, refer to Section 7 of the PPM.
+      {/* Upcoming table */}
+      <div>
+        <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-4">Upcoming Distributions</p>
+        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-100 bg-slate-50">
+                  {["Period", "Pay Date", "Amount", "Yield", "Status", "Note"].map(h => (
+                    <th key={h} className="text-left px-5 py-4 font-bold text-[10px] uppercase tracking-widest text-slate-400">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {DISTRIBUTIONS.map((d, i) => (
+                  <tr key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
+                    <td className="px-5 py-4 text-slate-900 font-semibold">{d.period}</td>
+                    <td className="px-5 py-4 text-slate-600">{d.date}</td>
+                    <td className="px-5 py-4 text-[#006AFF] font-bold">{d.amount}</td>
+                    <td className="px-5 py-4 text-emerald-600 font-bold">{d.yield}</td>
+                    <td className="px-5 py-4">
+                      <span className="bg-amber-100 text-amber-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">{d.status}</span>
+                    </td>
+                    <td className="px-5 py-4 text-slate-400 text-xs hidden lg:table-cell">{d.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
-      {/* Upcoming */}
-      <div>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-warmGrey mb-3">Upcoming Distributions</p>
-        <div className="bg-[#111] border border-[#222] rounded-xl overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-[#222]">
-                {["Period", "Pay Date", "Amount", "Yield", "Status", "Note"].map((h) => (
-                  <th key={h} className="text-left px-5 py-4 font-mono text-[10px] uppercase tracking-widest text-warmGrey/60">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {DISTRIBUTIONS.map((d, i) => (
-                <tr key={i} className="border-b border-[#1a1a1a] hover:bg-white/[0.02] transition-colors">
-                  <td className="px-5 py-4 text-white font-medium">{d.period}</td>
-                  <td className="px-5 py-4 text-warmGrey">{d.date}</td>
-                  <td className="px-5 py-4 text-[#006AFF] font-bold">{d.amount}</td>
-                  <td className="px-5 py-4 text-emerald-400">{d.yield}</td>
-                  <td className="px-5 py-4">
-                    <span className="bg-amber-500/10 text-amber-400 text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full border border-amber-500/20">{d.status}</span>
-                  </td>
-                  <td className="px-5 py-4 text-warmGrey/60 text-xs hidden lg:table-cell">{d.note}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      {/* Disclaimer */}
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-800 leading-relaxed">
+        <strong>Disclosure:</strong> Distribution projections are based on internal underwriting assumptions as stated in the Private Placement Memorandum. Past performance does not guarantee future results. Distributions are subject to operating cash flow, reserves, and capital needs.
       </div>
 
       {/* Payment History */}
       {HISTORY.length > 0 && (
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-widest text-warmGrey mb-3">Payment History</p>
-          <div className="bg-[#111] border border-[#222] rounded-xl overflow-hidden">
+          <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-4">Payment History</p>
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
             <table className="w-full text-sm">
               <tbody>
                 {HISTORY.map((d, i) => (
-                  <tr key={i} className="border-b border-[#1a1a1a]">
-                    <td className="px-5 py-4 text-white font-medium">{d.period}</td>
-                    <td className="px-5 py-4 text-warmGrey">{d.date}</td>
+                  <tr key={i} className="border-b border-slate-100 last:border-0">
+                    <td className="px-5 py-4 text-slate-900 font-semibold">{d.period}</td>
+                    <td className="px-5 py-4 text-slate-600">{d.date}</td>
                     <td className="px-5 py-4 text-[#006AFF] font-bold">{d.amount}</td>
-                    <td className="px-5 py-4 text-emerald-400">{d.yield}</td>
+                    <td className="px-5 py-4 text-emerald-600 font-bold">{d.yield}</td>
                     <td className="px-5 py-4">
-                      <span className="bg-emerald-500/10 text-emerald-400 text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full border border-emerald-500/20">{d.status}</span>
+                      <span className="bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">{d.status}</span>
                     </td>
                   </tr>
                 ))}

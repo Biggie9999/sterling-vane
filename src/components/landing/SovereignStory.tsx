@@ -10,7 +10,7 @@ export function SovereignStory() {
         
         {/* The Introduction */}
         <div className="mb-20">
-          <p className="text-[#006AFF] font-bold tracking-widest uppercase text-xs mb-4 max-w-2xl mx-auto text-center">Executive Summary</p>
+          <p className="text-[#006AFF] font-bold tracking-widest uppercase text-xs mb-4 max-w-2xl mx-auto text-center">Our Investment Thesis</p>
           <h2 className="text-4xl md:text-5xl font-serif text-[#1a1a1a] mb-8 leading-tight text-center max-w-3xl mx-auto">
             Institutional-grade alternative assets.
           </h2>
