@@ -101,14 +101,7 @@ function AuthInner() {
   const handleGoogleAuth = async () => {
     setLoading(true)
     setError("")
-    // When Google OAuth is configured in .env (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
-    // this will redirect to Google's consent screen
-    const res = await signIn("google", { callbackUrl: "/dashboard" })
-    // If env vars aren't set, show a helpful message
-    if (!res) {
-      setError("Google OAuth requires GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET in your .env.local. For now, use email/password.")
-      setLoading(false)
-    }
+    signIn("google", { callbackUrl: "/dashboard" })
   }
 
   const handleSignIn = async (e: React.FormEvent) => {
