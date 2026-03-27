@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState, useRef, useEffect } from "react"
 import { ArrowRight, Download, Calendar, TrendingUp, DollarSign, BarChart3, Clock, AlertCircle, Loader2 } from "lucide-react"
 
@@ -143,9 +144,16 @@ function PortfolioChart({ data = CHART_DATA }) {
 }
 
 export default function DashboardOverviewPage() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const [dashboardData, setDashboardData] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login")
+    }
+  }, [status, router])
 
   useEffect(() => {
     async function fetchDashboard() {
@@ -161,10 +169,13 @@ export default function DashboardOverviewPage() {
         setIsLoading(false)
       }
     }
+
     if (session) {
       fetchDashboard()
+    } else if (status === "unauthenticated") {
+      setIsLoading(false)
     }
-  }, [session])
+  }, [session, status])
 
   if (isLoading) {
     return (

@@ -46,8 +46,11 @@ export async function GET() {
     // For demo: current value is invested + estimated growth
     const currentValue = totalInvested * 1.24 // Mocking 24% growth
 
+    const fullName = user.name || session.user.name || ""
+    const firstName = fullName ? fullName.split(" ")[0] : (session.user.email || "Investor").split("@")[0]
+
     const dashboardData = {
-      firstName: user.name.split(" ")[0],
+      firstName,
       stats: {
         totalInvested: `$${totalInvested.toLocaleString()}`,
         currentValue: `$${currentValue.toLocaleString()}`,

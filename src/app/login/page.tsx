@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Suspense } from "react"
@@ -175,6 +175,14 @@ function AuthInner() {
     setResendTimer(60)
     setError("")
   }
+
+  const { data: session, status } = useSession()
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/dashboard")
+    }
+  }, [status, router])
 
   const switchMode = (m: AuthMode) => {
     setMode(m); setError(""); setStage("details"); setEmail(""); setPassword(""); setName("")
