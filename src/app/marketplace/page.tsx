@@ -4,58 +4,85 @@ import { useState, useMemo } from "react"
 import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
 import Link from "next/link"
-import { Search, MapPin, ChevronRight, Bed, Bath, Maximize } from "lucide-react"
+import { Search, MapPin, ChevronRight, Bed, Bath, Maximize, X, SlidersHorizontal, TrendingUp, Home, Key } from "lucide-react"
 import { DEMO_PROPERTIES } from "@/data/properties"
 
+const TYPE_OPTIONS = [
+  { label: "All Listings", value: "" },
+  { label: "Invest", value: "invest" },
+  { label: "Buy", value: "buy" },
+  { label: "Rent", value: "rent" },
+]
+
+const SORT_OPTIONS = [
+  { label: "Best Match", value: "default" },
+  { label: "Highest Yield", value: "yield" },
+  { label: "Lowest Price", value: "price_asc" },
+  { label: "Highest Price", value: "price_desc" },
+]
+
 function ListingCard({ item }: { item: typeof DEMO_PROPERTIES[0] }) {
+  const fundedPct = Math.round(((item.totalShares - item.availableShares) / item.totalShares) * 100)
   return (
-    <Link href={`/properties/${item.id}`} className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer block">
+    <Link href={`/properties/${item.id}`} className="group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer block">
       {/* Image */}
-      <div className="relative h-64 w-full bg-slate-100 overflow-hidden">
-        <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#1a1a1a] rounded-full shadow-sm">
+      <div className="relative h-56 w-full bg-slate-100 overflow-hidden">
+        <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-slate-900 rounded-full shadow-sm">
           {item.type} Asset
         </div>
-        <div className="absolute top-4 right-4 z-20 bg-black/70 backdrop-blur-sm px-2 py-1 text-[10px] font-mono text-white rounded-full flex items-center gap-1.5 border border-white/10">
-          <span className={`w-1.5 h-1.5 rounded-full ${item.status === "Funding Stage" ? "bg-emerald-400" : "bg-[#006AFF]"}`}></span>
+        <div className={`absolute top-4 right-4 z-20 px-2.5 py-1 text-[10px] font-bold rounded-full flex items-center gap-1.5 ${item.status === "Funding Stage" ? "bg-emerald-500 text-white" : item.status === "Fully Funded" ? "bg-slate-900 text-white" : "bg-[#006AFF] text-white"}`}>
+          <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
           {item.status}
         </div>
-        
-        <img
-          src={item.images[0]}
-          alt={item.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-        />
+        <img src={item.images[0]} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
       </div>
 
       {/* Info */}
-      <div className="p-6 flex flex-col flex-1">
+      <div className="p-5 flex flex-col flex-1">
         <div className="flex justify-between items-start mb-3">
-          <div className="flex-1 min-w-0 pr-4">
-            <h3 className="text-lg font-serif font-bold text-[#1a1a1a] mb-1 truncate">{item.name}</h3>
-            <p className="text-sm text-[#666] flex items-center">
+          <div className="flex-1 min-w-0 pr-3">
+            <h3 className="text-base font-serif font-bold text-slate-900 mb-1 truncate">{item.name}</h3>
+            <p className="text-xs text-slate-500 flex items-center">
               <MapPin className="w-3 h-3 mr-1 shrink-0 text-[#006AFF]" />
               <span className="truncate">{item.location}</span>
             </p>
           </div>
           <div className="text-right shrink-0">
-            <p className="text-xs font-bold text-[#888] uppercase tracking-wider mb-1">Share Price</p>
-            <p className="text-lg font-bold text-[#1a1a1a]">${item.pricePerShare.toLocaleString()}</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Share</p>
+            <p className="text-base font-bold text-slate-900">${item.pricePerShare.toLocaleString()}</p>
           </div>
         </div>
 
-        <div className="flex items-center space-x-5 py-4 border-t border-slate-100 mt-auto">
-          <div className="flex items-center text-[#666] text-sm font-medium">
-            <Bed className="w-4 h-4 mr-1.5 text-[#006AFF]" /> {item.bedrooms} bd
+        {/* Key metric row */}
+        <div className="flex items-center gap-4 py-3 border-y border-slate-100 my-2">
+          <div>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Yield</p>
+            <p className="text-sm font-bold text-[#006AFF]">{item.targetYield}%</p>
           </div>
-          <div className="flex items-center text-[#666] text-sm font-medium">
-            <Bath className="w-4 h-4 mr-1.5 text-[#006AFF]" /> {item.bathrooms} ba
+          <div className="w-px h-8 bg-slate-100" />
+          <div>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Cap Rate</p>
+            <p className="text-sm font-bold text-slate-900">{item.capRate}%</p>
           </div>
-          <div className="flex items-center text-[#666] text-sm font-medium">
-            <Maximize className="w-4 h-4 mr-1.5 text-[#006AFF]" /> {item.sqft.toLocaleString()} sqft
+          <div className="w-px h-8 bg-slate-100" />
+          <div>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Value</p>
+            <p className="text-sm font-bold text-slate-900">${(item.propertyValue / 1e6).toFixed(1)}M</p>
           </div>
         </div>
 
-        <div className="w-full inline-flex justify-between items-center py-3 px-4 bg-[#FAF9F6] text-[#1a1a1a] font-bold uppercase tracking-widest rounded-lg transition-colors text-xs mt-2 border border-slate-200 group-hover:bg-[#1a1a1a] group-hover:text-white group-hover:border-[#1a1a1a]">
+        {/* Funding bar */}
+        <div className="mt-2 mb-3">
+          <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-1.5">
+            <span className="text-slate-400">Funded</span>
+            <span className="text-[#006AFF]">{fundedPct}%</span>
+          </div>
+          <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+            <div className="bg-[#006AFF] h-full rounded-full" style={{ width: `${fundedPct}%` }} />
+          </div>
+        </div>
+
+        <div className="w-full inline-flex justify-between items-center py-3 px-4 bg-slate-50 text-slate-900 font-bold uppercase tracking-widest rounded-xl transition-colors text-xs mt-auto border border-slate-200 group-hover:bg-[#006AFF] group-hover:text-white group-hover:border-[#006AFF]">
           <span>View Data Room</span>
           <ChevronRight className="w-4 h-4" />
         </div>
@@ -66,86 +93,122 @@ function ListingCard({ item }: { item: typeof DEMO_PROPERTIES[0] }) {
 
 function MarketplaceInner() {
   const searchParams = useSearchParams()
-  const [inputValue, setInputValue] = useState(searchParams.get("location") || "")
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("location") || "")
+  const [query, setQuery] = useState(searchParams.get("location") || "")
+  const [inputVal, setInputVal] = useState(searchParams.get("location") || "")
+  const [activeType, setActiveType] = useState(searchParams.get("type") || "")
+  const [sort, setSort] = useState("default")
+  const [showFilters, setShowFilters] = useState(false)
 
-  const handleSearch = () => {
-    setSearchQuery(inputValue.trim())
-  }
+  const activeFiltersCount = [query, activeType].filter(Boolean).length
 
-  const filteredProperties = useMemo(() => {
-    if (!searchQuery) return DEMO_PROPERTIES;
-    const lowerQuery = searchQuery.toLowerCase();
-    return DEMO_PROPERTIES.filter(p => 
-      p.location.toLowerCase().includes(lowerQuery) || 
-      p.name.toLowerCase().includes(lowerQuery) ||
-      p.market.toLowerCase().includes(lowerQuery)
-    )
-  }, [searchQuery])
+  const filtered = useMemo(() => {
+    let list = [...DEMO_PROPERTIES]
+    if (query) {
+      const q = query.toLowerCase()
+      list = list.filter(p => p.location.toLowerCase().includes(q) || p.name.toLowerCase().includes(q) || p.market.toLowerCase().includes(q))
+    }
+    if (activeType === "invest") list = list.filter(p => ["Seed", "Growth", "Principal"].includes(p.type))
+    if (activeType === "buy") list = list.filter(p => p.status === "Stabilized" || p.status === "Fully Funded")
+    if (sort === "yield") list = list.sort((a, b) => b.targetYield - a.targetYield)
+    if (sort === "price_asc") list = list.sort((a, b) => a.pricePerShare - b.pricePerShare)
+    if (sort === "price_desc") list = list.sort((a, b) => b.pricePerShare - a.pricePerShare)
+    return list
+  }, [query, activeType, sort])
+
+  const hasActiveFilters = query || activeType
 
   return (
-    <div className="bg-[#FAF9F6] min-h-screen pt-24 sm:pt-32 pb-24">
+    <div className="bg-white min-h-screen pt-20 sm:pt-28 pb-24">
       {/* Header */}
-      <div className="container mx-auto px-4 sm:px-6 mb-12 max-w-5xl text-center">
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#1a1a1a] mb-6 tracking-tight">
-          The Sovereign Collection
-        </h1>
-        <p className="text-base sm:text-lg text-[#666] leading-relaxed mb-10 max-w-2xl mx-auto">
-          Explore our premier portfolio of high-yield luxury assets. Available for immediate fractional allocation.
-        </p>
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 mb-8 sm:mb-12">
+        <div className="text-center mb-8 sm:mb-10">
+          <p className="text-[#006AFF] font-bold text-[10px] uppercase tracking-widest mb-3">Phase 1 Offerings</p>
+          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight">The Sovereign Collection</h1>
+          <p className="text-slate-600 text-sm sm:text-lg font-medium max-w-xl mx-auto">
+            Institutional-grade luxury assets available for immediate fractional allocation.
+          </p>
+        </div>
 
-        {/* Search Bar */}
-        <div className="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto">
-          <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888]" />
+        {/* Search + Filter Bar */}
+        <div className="flex flex-col sm:flex-row gap-3 max-w-4xl mx-auto">
+          {/* Search input */}
+          <div className="flex-1 relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
             <input
               type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="Search markets (e.g., Miami, Aspen)..."
-              className="w-full pl-11 pr-4 py-4 rounded-xl border border-slate-200 bg-white text-base font-medium text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#006AFF] shadow-sm"
+              value={inputVal}
+              onChange={(e) => setInputVal(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") setQuery(inputVal.trim()) }}
+              placeholder="Search markets (Miami, Aspen, Tokyo…)"
+              className="w-full pl-11 pr-4 py-4 rounded-2xl border border-slate-200 bg-slate-50 text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#006AFF] focus:bg-white transition-all"
             />
           </div>
-          <button
-            onClick={handleSearch}
-            className="px-8 py-4 bg-[#1a1a1a] text-white rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-[#006AFF] transition-colors flex items-center justify-center gap-2 shrink-0 shadow-md"
-          >
-            Search
+
+          {/* Filter drawer toggle (mobile) */}
+          <button onClick={() => setShowFilters(v => !v)}
+            className={`sm:hidden flex items-center justify-center gap-2 px-5 py-4 rounded-2xl border font-bold text-sm transition-all ${showFilters || activeFiltersCount > 0 ? "border-[#006AFF] bg-[#006AFF] text-white" : "border-slate-200 bg-slate-50 text-slate-700"}`}>
+            <SlidersHorizontal className="w-4 h-4" />
+            Filters {activeFiltersCount > 0 && `(${activeFiltersCount})`}
           </button>
+
+          {/* Desktop search button */}
+          <button onClick={() => setQuery(inputVal.trim())}
+            className="hidden sm:flex items-center justify-center gap-2 px-8 py-4 bg-[#006AFF] text-white rounded-2xl font-bold text-sm hover:bg-[#0050CC] transition-colors shrink-0 shadow-md">
+            <Search className="w-4 h-4" /> Search
+          </button>
+        </div>
+
+        {/* Filter chips - always visible on desktop, collapsible on mobile */}
+        <div className={`mt-4 max-w-4xl mx-auto ${showFilters ? "block" : "hidden sm:block"}`}>
+          <div className="flex flex-wrap gap-3 items-center">
+            {/* Type chips */}
+            <div className="flex flex-wrap gap-2">
+              {TYPE_OPTIONS.map(t => (
+                <button key={t.value} onClick={() => setActiveType(t.value)}
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${activeType === t.value ? "bg-[#006AFF] text-white shadow-md" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}>
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Divider */}
+            <div className="hidden sm:block w-px h-5 bg-slate-200" />
+
+            {/* Sort */}
+            <select value={sort} onChange={e => setSort(e.target.value)}
+              className="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-slate-100 text-slate-600 border-none outline-none cursor-pointer hover:bg-slate-200 transition-colors">
+              {SORT_OPTIONS.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+            </select>
+          </div>
         </div>
       </div>
 
-      {/* Content Area */}
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-        {filteredProperties.length > 0 ? (
-          <>
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200">
-              <p className="text-sm font-bold text-[#1a1a1a] uppercase tracking-widest">
-                Showing {filteredProperties.length} {filteredProperties.length === 1 ? 'Asset' : 'Assets'}
-              </p>
-              {searchQuery && (
-                <button onClick={() => { setInputValue(""); setSearchQuery(""); }} className="text-xs font-bold text-[#888] hover:text-[#1a1a1a] uppercase tracking-widest transition-colors flex items-center">
-                  Clear Filters
-                </button>
-              )}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProperties.map((item) => (
-                <ListingCard key={item.id} item={item} />
-              ))}
-            </div>
-          </>
+      {/* Results */}
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
+        <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+            {filtered.length} {filtered.length === 1 ? "Asset" : "Assets"} {query && `in "${query}"`}
+          </p>
+          {hasActiveFilters && (
+            <button onClick={() => { setQuery(""); setInputVal(""); setActiveType(""); }}
+              className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 transition-colors">
+              <X className="w-3.5 h-3.5" /> Clear all
+            </button>
+          )}
+        </div>
+
+        {filtered.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
+            {filtered.map((item) => <ListingCard key={item.id} item={item} />)}
+          </div>
         ) : (
-          <div className="text-center py-24 bg-white rounded-3xl border border-slate-200 shadow-sm max-w-3xl mx-auto">
-            <MapPin className="w-12 h-12 mx-auto mb-6 text-[#006AFF] opacity-50" />
-            <p className="font-serif text-2xl text-[#1a1a1a] mb-3">No assets available in "{searchQuery}"</p>
-            <p className="text-[#888] mb-8 max-w-md mx-auto">Our acquisitions team is continuously underwriting new markets. Try searching for Miami or Aspen.</p>
-            <button 
-              onClick={() => { setInputValue(""); setSearchQuery(""); }}
-              className="px-6 py-3 bg-[#FAF9F6] border border-slate-200 text-[#1a1a1a] font-bold text-sm uppercase tracking-widest rounded-xl hover:bg-slate-100 transition-colors"
-            >
-              View All Properties
+          <div className="text-center py-24 bg-slate-50 rounded-3xl border border-slate-200 max-w-3xl mx-auto">
+            <MapPin className="w-12 h-12 mx-auto mb-6 text-[#006AFF] opacity-40" />
+            <p className="font-serif text-2xl font-bold text-slate-900 mb-3">No assets match your filters</p>
+            <p className="text-slate-500 mb-8 max-w-md mx-auto">Try broadening your search or clearing your filters.</p>
+            <button onClick={() => { setQuery(""); setInputVal(""); setActiveType(""); }}
+              className="px-6 py-3 bg-[#006AFF] text-white font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-[#0050CC] transition-colors">
+              View All Assets
             </button>
           </div>
         )}
@@ -157,7 +220,7 @@ function MarketplaceInner() {
 export default function MarketplacePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF9F6]">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="w-8 h-8 rounded-full border-2 border-[#006AFF] border-t-transparent animate-spin" />
       </div>
     }>
