@@ -25,7 +25,7 @@ export function FeaturedProperties() {
               <div className="relative h-72 w-full overflow-hidden bg-slate-100">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10" />
                 <div className="absolute top-4 left-4 z-20 font-sans text-[10px] font-bold uppercase tracking-widest px-3 py-1 flex items-center gap-2 bg-white/95 backdrop-blur-md rounded-full shadow-md text-[#1a1a1a]">
-                  <span className={`w-1.5 h-1.5 rounded-full ${prop.status === "Funding Stage" ? "bg-emerald-500" : prop.status === "Coming Soon" ? "bg-[#C9A84C]" : "bg-slate-400"}`}></span>
+                  <span className={`w-1.5 h-1.5 rounded-full ${prop.status === "Funding Stage" ? "bg-emerald-500" : prop.status === "Coming Soon" ? "bg-[#006AFF]" : "bg-slate-400"}`}></span>
                   {prop.status}
                 </div>
                 
@@ -38,7 +38,7 @@ export function FeaturedProperties() {
               </div>
 
               <div className="p-8 relative z-20">
-                <p className="font-sans text-[10px] font-bold tracking-[0.2em] text-[#C9A84C] uppercase mb-3">
+                <p className="font-sans text-[10px] font-bold tracking-[0.2em] text-[#006AFF] uppercase mb-3">
                   {prop.location}
                 </p>
                 <h3 className="font-serif text-2xl text-[#1a1a1a] mb-6 min-h-[64px]">
@@ -52,12 +52,12 @@ export function FeaturedProperties() {
                   </div>
                   <div className="text-right">
                     <p className="font-sans text-xs text-[#888] font-bold uppercase tracking-widest mb-1.5">Target Yield</p>
-                    <p className="font-sans text-[#C9A84C] text-xl font-semibold">{prop.targetYield}%</p>
+                    <p className="font-sans text-[#006AFF] text-xl font-semibold">{prop.targetYield}%</p>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#C9A84C]/20 pointer-events-none transition-colors duration-500 rounded-2xl"></div>
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#006AFF]/20 pointer-events-none transition-colors duration-500 rounded-2xl"></div>
             </div>
           ))}
         </div>

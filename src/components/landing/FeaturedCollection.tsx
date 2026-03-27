@@ -8,7 +8,7 @@ import { DEMO_PROPERTIES } from "@/data/properties"
 
 function PropertyCard({ p }: { p: typeof DEMO_PROPERTIES[0] }) {
   return (
-    <div className="group relative flex-shrink-0 w-[85vw] sm:w-[340px] md:w-auto rounded-3xl overflow-hidden cursor-pointer shadow-sm border border-[#E5E5E5] bg-white">
+    <Link href={`/properties/${p.id}`} className="group relative flex-shrink-0 w-[85vw] sm:w-[340px] md:w-auto rounded-3xl overflow-hidden cursor-pointer shadow-sm border border-[#E5E5E5] bg-white block">
       {/* Image */}
       <div className="relative h-[480px] md:h-[520px] overflow-hidden">
         <img
@@ -24,14 +24,14 @@ function PropertyCard({ p }: { p: typeof DEMO_PROPERTIES[0] }) {
             {p.type} Asset
           </span>
           <div className="flex items-center gap-1.5 bg-black/50 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full border border-white/10">
-            <span className={`w-1.5 h-1.5 rounded-full ${p.status === "Funding Stage" ? "bg-emerald-400" : "bg-[#C9A84C]"}`}></span>
+            <span className={`w-1.5 h-1.5 rounded-full ${p.status === "Funding Stage" ? "bg-emerald-400" : "bg-[#006AFF]"}`}></span>
             {p.status}
           </div>
         </div>
 
         {/* Content overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-8">
-          <div className="flex items-center gap-2 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest mb-3">
+          <div className="flex items-center gap-2 text-[#006AFF] text-[10px] font-bold uppercase tracking-widest mb-3">
             <MapPin className="w-3 h-3" />
             {p.location}
           </div>
@@ -45,12 +45,12 @@ function PropertyCard({ p }: { p: typeof DEMO_PROPERTIES[0] }) {
             </div>
             <div className="text-right">
               <p className="text-white/60 text-[10px] uppercase tracking-widest mb-1.5 font-bold">Target Yield</p>
-              <p className="text-[#C9A84C] font-semibold text-xl">{p.targetYield}%</p>
+              <p className="text-[#006AFF] font-semibold text-xl">{p.targetYield}%</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
@@ -63,7 +63,7 @@ export function FeaturedCollection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-16">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div>
-            <p className="text-[#C9A84C] font-sans text-[10px] font-bold tracking-[0.25em] uppercase mb-4">
+            <p className="text-[#006AFF] font-sans text-[10px] font-bold tracking-[0.25em] uppercase mb-4">
               Phase 1 Offerings
             </p>
             <h2 className="font-serif text-4xl md:text-5xl text-[#1a1a1a] leading-tight">
@@ -76,7 +76,7 @@ export function FeaturedCollection() {
             </p>
             <Link
               href="/marketplace"
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#1a1a1a] hover:text-[#C9A84C] transition-colors uppercase tracking-widest"
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#1a1a1a] hover:text-[#006AFF] transition-colors uppercase tracking-widest"
             >
               Access Data Room <ArrowRight className="w-4 h-4" />
             </Link>
@@ -115,7 +115,7 @@ export function FeaturedCollection() {
           <div className="col-span-4 flex flex-col gap-6">
             <div className="flex-1 rounded-3xl bg-[#1a1a1a] p-10 flex flex-col justify-between shadow-xl">
               <div>
-                 <p className="font-sans font-bold text-[10px] tracking-widest uppercase text-[#C9A84C] mb-4">Investment Summary</p>
+                 <p className="font-sans font-bold text-[10px] tracking-widest uppercase text-[#006AFF] mb-4">Investment Summary</p>
                  <h3 className="font-serif text-3xl text-white mb-4 leading-snug">Structural Alpha in Residential Real Estate</h3>
                  <p className="text-white/70 text-sm leading-relaxed max-w-sm">
                    By circumventing the inefficiencies of traditional long-term leasing, we deliver institutional-grade yield via hospitality management of premium single-family assets.

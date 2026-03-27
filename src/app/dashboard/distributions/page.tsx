@@ -19,7 +19,7 @@ export default function DistributionsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-[#C9A84C] mb-2">Cash Velocity</p>
+        <p className="font-mono text-[10px] uppercase tracking-widest text-[#006AFF] mb-2">Cash Velocity</p>
         <h1 className="font-serif text-3xl text-white mb-1">Distributions</h1>
         <p className="text-warmGrey text-sm">Projected quarterly distributions based on PPM target returns. Subject to operational performance.</p>
       </div>
@@ -34,7 +34,7 @@ export default function DistributionsPage() {
         ].map((s) => (
           <div key={s.label} className="bg-[#111] border border-[#222] rounded-xl p-5">
             <div className="flex items-center gap-2 mb-3">
-              <s.icon className="w-4 h-4 text-[#C9A84C]" />
+              <s.icon className="w-4 h-4 text-[#006AFF]" />
               <p className="font-mono text-[10px] uppercase tracking-widest text-warmGrey">{s.label}</p>
             </div>
             <p className="font-serif text-xl text-white">{s.value}</p>
@@ -64,7 +64,7 @@ export default function DistributionsPage() {
                 <tr key={i} className="border-b border-[#1a1a1a] hover:bg-white/[0.02] transition-colors">
                   <td className="px-5 py-4 text-white font-medium">{d.period}</td>
                   <td className="px-5 py-4 text-warmGrey">{d.date}</td>
-                  <td className="px-5 py-4 text-[#C9A84C] font-bold">{d.amount}</td>
+                  <td className="px-5 py-4 text-[#006AFF] font-bold">{d.amount}</td>
                   <td className="px-5 py-4 text-emerald-400">{d.yield}</td>
                   <td className="px-5 py-4">
                     <span className="bg-amber-500/10 text-amber-400 text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full border border-amber-500/20">{d.status}</span>
@@ -88,7 +88,7 @@ export default function DistributionsPage() {
                   <tr key={i} className="border-b border-[#1a1a1a]">
                     <td className="px-5 py-4 text-white font-medium">{d.period}</td>
                     <td className="px-5 py-4 text-warmGrey">{d.date}</td>
-                    <td className="px-5 py-4 text-[#C9A84C] font-bold">{d.amount}</td>
+                    <td className="px-5 py-4 text-[#006AFF] font-bold">{d.amount}</td>
                     <td className="px-5 py-4 text-emerald-400">{d.yield}</td>
                     <td className="px-5 py-4">
                       <span className="bg-emerald-500/10 text-emerald-400 text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full border border-emerald-500/20">{d.status}</span>

@@ -71,7 +71,7 @@ export default function AdminPage() {
             <p className="font-mono text-[10px] uppercase tracking-widest text-red-400 mb-1">Admin Panel — Restricted Access</p>
             <h1 className="font-serif text-2xl text-white">Sterling Vane Operations</h1>
           </div>
-          <button className="flex items-center gap-2 text-xs bg-[#C9A84C] text-black font-bold px-4 py-2.5 rounded-lg hover:bg-[#E8C96A] transition-colors">
+          <button className="flex items-center gap-2 text-xs bg-[#006AFF] text-black font-bold px-4 py-2.5 rounded-lg hover:bg-[#E8C96A] transition-colors">
             <Download className="w-4 h-4" /> Export Report
           </button>
         </div>
@@ -104,7 +104,7 @@ export default function AdminPage() {
               ].map((k) => (
                 <div key={k.label} className="bg-[#111] border border-[#222] rounded-xl p-5">
                   <div className="flex items-center gap-2 mb-4">
-                    <k.icon className="w-4 h-4 text-[#C9A84C]" />
+                    <k.icon className="w-4 h-4 text-[#006AFF]" />
                     <p className="font-mono text-[10px] uppercase tracking-widest text-warmGrey">{k.label}</p>
                   </div>
                   <p className="font-serif text-3xl text-white mb-1">{k.value}</p>
@@ -117,11 +117,11 @@ export default function AdminPage() {
             <div className="bg-[#111] border border-[#222] rounded-xl p-6">
               <div className="flex justify-between items-center mb-2">
                 <p className="font-mono text-xs uppercase tracking-widest text-warmGrey">Phase 1 Capital Raise Progress</p>
-                <p className="text-[#C9A84C] font-bold text-sm">{((totalRaised / targetRaise) * 100).toFixed(0)}%</p>
+                <p className="text-[#006AFF] font-bold text-sm">{((totalRaised / targetRaise) * 100).toFixed(0)}%</p>
               </div>
               <div className="h-3 bg-white/5 rounded-full overflow-hidden mb-3">
                 <div
-                  className="h-full bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] rounded-full transition-all"
+                  className="h-full bg-gradient-to-r from-[#006AFF] to-[#E8C96A] rounded-full transition-all"
                   style={{ width: `${(totalRaised / targetRaise) * 100}%` }}
                 />
               </div>
@@ -181,7 +181,7 @@ export default function AdminPage() {
                         <p className="text-warmGrey text-sm">{wire.email}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className="text-[#C9A84C] font-bold text-2xl">${wire.amount.toLocaleString()}</p>
+                        <p className="text-[#006AFF] font-bold text-2xl">${wire.amount.toLocaleString()}</p>
                         <p className="text-warmGrey text-xs">{wire.tier} Position</p>
                       </div>
                     </div>
@@ -235,7 +235,7 @@ export default function AdminPage() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <p className="text-warmGrey text-sm">{INVESTORS.length} investors · ${totalRaised.toLocaleString()} committed capital</p>
-              <button className="flex items-center gap-2 text-xs border border-[#333] text-warmGrey px-4 py-2 rounded-lg hover:text-white hover:border-[#C9A84C]/40 transition-all">
+              <button className="flex items-center gap-2 text-xs border border-[#333] text-warmGrey px-4 py-2 rounded-lg hover:text-white hover:border-[#006AFF]/40 transition-all">
                 <Plus className="w-3 h-3" /> Add Investor
               </button>
             </div>
@@ -257,7 +257,7 @@ export default function AdminPage() {
                           <p className="text-white font-medium">{inv.name}</p>
                           <p className="text-warmGrey text-xs">{inv.email}</p>
                         </td>
-                        <td className="px-5 py-4 text-[#C9A84C] font-bold">${inv.amount.toLocaleString()}</td>
+                        <td className="px-5 py-4 text-[#006AFF] font-bold">${inv.amount.toLocaleString()}</td>
                         <td className="px-5 py-4 text-warmGrey text-xs">{inv.market}</td>
                         <td className="px-5 py-4">
                           <span className={`text-[10px] font-mono px-2 py-1 rounded-full border ${inv.status === "Active" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" : "bg-amber-500/10 text-amber-400 border-amber-500/20"}`}>
@@ -297,10 +297,10 @@ export default function AdminPage() {
                   <div>
                     <div className="flex justify-between text-xs text-warmGrey mb-1.5">
                       <span>Occupancy</span>
-                      <span className="text-[#C9A84C] font-bold">{u.occupancy}%</span>
+                      <span className="text-[#006AFF] font-bold">{u.occupancy}%</span>
                     </div>
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-[#C9A84C] rounded-full" style={{ width: `${u.occupancy}%` }} />
+                      <div className="h-full bg-[#006AFF] rounded-full" style={{ width: `${u.occupancy}%` }} />
                     </div>
                   </div>
                 )}
@@ -331,7 +331,7 @@ export default function AdminPage() {
                 ))}
               </div>
               <div className="flex gap-3">
-                <button className="px-6 py-3 bg-[#C9A84C] text-black font-bold rounded-lg text-sm hover:bg-[#E8C96A] transition-colors">
+                <button className="px-6 py-3 bg-[#006AFF] text-black font-bold rounded-lg text-sm hover:bg-[#E8C96A] transition-colors">
                   Initiate Q1 Distribution
                 </button>
                 <button className="px-6 py-3 border border-[#333] text-warmGrey rounded-lg text-sm hover:text-white hover:border-[#555] transition-colors">

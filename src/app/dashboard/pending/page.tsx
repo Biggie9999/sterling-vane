@@ -23,8 +23,8 @@ export default function PendingConfirmationPage() {
       <div className="w-full max-w-lg text-center">
         {/* Icon */}
         <div className="relative inline-flex items-center justify-center mb-8">
-          <div className="w-24 h-24 bg-[#C9A84C]/10 border border-[#C9A84C]/20 rounded-full flex items-center justify-center">
-            <Clock className="w-10 h-10 text-[#C9A84C]" />
+          <div className="w-24 h-24 bg-[#006AFF]/10 border border-[#006AFF]/20 rounded-full flex items-center justify-center">
+            <Clock className="w-10 h-10 text-[#006AFF]" />
           </div>
           <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-amber-500/20 rounded-full border border-amber-500/30 flex items-center justify-center">
             <span className="text-amber-400 text-xs font-bold">!</span>
@@ -32,7 +32,7 @@ export default function PendingConfirmationPage() {
         </div>
 
         {/* Heading */}
-        <p className="font-mono text-[0.6rem] tracking-[0.3em] text-[#C9A84C] uppercase mb-4">Wire Transfer Received — Pending Confirmation</p>
+        <p className="font-mono text-[0.6rem] tracking-[0.3em] text-[#006AFF] uppercase mb-4">Wire Transfer Received — Pending Confirmation</p>
         <h1 className="font-serif text-3xl sm:text-4xl text-white mb-4">
           Your allocation is<br />in review, {firstName}.
         </h1>
@@ -44,7 +44,7 @@ export default function PendingConfirmationPage() {
         {/* Reference */}
         <div className="bg-[#0A0A0A]/50 border border-white/10 rounded-2xl p-5 mb-8 text-left">
           <p className="text-white/30 text-xs font-mono uppercase tracking-widest mb-2">Your Wire Reference</p>
-          <p className="text-[#C9A84C] font-mono text-lg font-bold">{ref}</p>
+          <p className="text-[#006AFF] font-mono text-lg font-bold">{ref}</p>
           <p className="text-white/30 text-xs mt-1">Include this in your bank wire memo</p>
         </div>
 
@@ -61,17 +61,17 @@ export default function PendingConfirmationPage() {
               <div key={item.step} className="flex items-center gap-4">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                   item.done ? "bg-emerald-500/20 border border-emerald-500/30" :
-                  item.active ? "bg-[#C9A84C]/20 border border-[#C9A84C]/30" :
+                  item.active ? "bg-[#006AFF]/20 border border-[#006AFF]/30" :
                   "bg-white/5 border border-white/10"
                 }`}>
                   {item.done ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> :
-                   item.active ? <Clock className="w-4 h-4 text-[#C9A84C] animate-pulse" /> :
+                   item.active ? <Clock className="w-4 h-4 text-[#006AFF] animate-pulse" /> :
                    <span className="text-white/20 text-xs font-mono">{item.step}</span>}
                 </div>
                 <span className={`text-sm ${item.done ? "text-emerald-400" : item.active ? "text-white font-semibold" : "text-white/30"}`}>
                   {item.label}
                 </span>
-                {item.active && <span className="ml-auto text-[#C9A84C] text-[10px] font-mono uppercase tracking-widest bg-[#C9A84C]/10 px-2 py-1 rounded-full">In Progress</span>}
+                {item.active && <span className="ml-auto text-[#006AFF] text-[10px] font-mono uppercase tracking-widest bg-[#006AFF]/10 px-2 py-1 rounded-full">In Progress</span>}
               </div>
             ))}
           </div>
@@ -82,7 +82,7 @@ export default function PendingConfirmationPage() {
           <p className="text-white/40 text-xs font-mono uppercase tracking-widest mb-4">Need Help?</p>
           <button onClick={copyEmail} className="flex items-center justify-between w-full hover:bg-white/5 p-2 rounded-lg transition-colors">
             <div className="flex items-center gap-3">
-              <Mail className="w-4 h-4 text-[#C9A84C]" />
+              <Mail className="w-4 h-4 text-[#006AFF]" />
               <span className="text-white text-sm">ir@sterlingvane.com</span>
             </div>
             {emailCopied ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-white/30" />}

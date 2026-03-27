@@ -16,7 +16,7 @@ export default function SettingsPage() {
   return (
     <div className="space-y-8 max-w-2xl">
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-[#C9A84C] mb-2">Account Settings</p>
+        <p className="font-mono text-[10px] uppercase tracking-widest text-[#006AFF] mb-2">Account Settings</p>
         <h1 className="font-serif text-3xl text-white mb-1">Settings</h1>
         <p className="text-warmGrey text-sm">Manage your investor account and notification preferences.</p>
       </div>
@@ -24,7 +24,7 @@ export default function SettingsPage() {
       {/* Profile */}
       <section className="bg-[#111] border border-[#222] rounded-xl p-6 space-y-5">
         <div className="flex items-center gap-3 mb-2">
-          <User className="w-4 h-4 text-[#C9A84C]" />
+          <User className="w-4 h-4 text-[#006AFF]" />
           <h2 className="text-white font-semibold">Profile Information</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -34,24 +34,24 @@ export default function SettingsPage() {
           ].map((f) => (
             <div key={f.label}>
               <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">{f.label}</label>
-              <input defaultValue={f.value} placeholder={f.placeholder} className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#C9A84C]/50 transition-colors" />
+              <input defaultValue={f.value} placeholder={f.placeholder} className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50 transition-colors" />
             </div>
           ))}
         </div>
         <div>
           <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Email</label>
-          <input defaultValue={session?.user?.email || ""} className="w-full bg-[#1a1a1a] border border-[#333] text-warmGrey text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#C9A84C]/50" />
+          <input defaultValue={session?.user?.email || ""} className="w-full bg-[#1a1a1a] border border-[#333] text-warmGrey text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
         </div>
         <div>
           <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Phone Number</label>
-          <input placeholder="+1 (555) 000-0000" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#C9A84C]/50" />
+          <input placeholder="+1 (555) 000-0000" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
         </div>
       </section>
 
       {/* Accreditation */}
       <section className="bg-[#111] border border-[#222] rounded-xl p-6">
         <div className="flex items-center gap-3 mb-4">
-          <Shield className="w-4 h-4 text-[#C9A84C]" />
+          <Shield className="w-4 h-4 text-[#006AFF]" />
           <h2 className="text-white font-semibold">Accreditation Status</h2>
         </div>
         <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
@@ -66,7 +66,7 @@ export default function SettingsPage() {
       {/* Notifications */}
       <section className="bg-[#111] border border-[#222] rounded-xl p-6 space-y-4">
         <div className="flex items-center gap-3 mb-2">
-          <Bell className="w-4 h-4 text-[#C9A84C]" />
+          <Bell className="w-4 h-4 text-[#006AFF]" />
           <h2 className="text-white font-semibold">Notification Preferences</h2>
         </div>
         {[
@@ -82,7 +82,7 @@ export default function SettingsPage() {
             </div>
             <div className="relative shrink-0">
               <input type="checkbox" defaultChecked={n.default} className="sr-only peer" />
-              <div className="w-10 h-6 bg-[#333] rounded-full peer peer-checked:bg-[#C9A84C] transition-colors" />
+              <div className="w-10 h-6 bg-[#333] rounded-full peer peer-checked:bg-[#006AFF] transition-colors" />
               <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4" />
             </div>
           </label>
@@ -92,22 +92,22 @@ export default function SettingsPage() {
       {/* Banking */}
       <section className="bg-[#111] border border-[#222] rounded-xl p-6">
         <div className="flex items-center gap-3 mb-4">
-          <CreditCard className="w-4 h-4 text-[#C9A84C]" />
+          <CreditCard className="w-4 h-4 text-[#006AFF]" />
           <h2 className="text-white font-semibold">Distribution Banking</h2>
         </div>
         <div className="space-y-4">
           <div>
             <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Bank Name</label>
-            <input placeholder="Chase Bank" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#C9A84C]/50" />
+            <input placeholder="Chase Bank" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Routing Number</label>
-              <input placeholder="•••••••••" type="password" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#C9A84C]/50" />
+              <input placeholder="•••••••••" type="password" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
             </div>
             <div>
               <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Account Number</label>
-              <input placeholder="•••••••••••" type="password" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#C9A84C]/50" />
+              <input placeholder="•••••••••••" type="password" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function SettingsPage() {
       <div className="flex items-center gap-4">
         <button
           onClick={handleSave}
-          className="px-8 py-3.5 bg-[#C9A84C] text-black font-bold rounded-xl hover:bg-[#E8C96A] transition-colors"
+          className="px-8 py-3.5 bg-[#006AFF] text-black font-bold rounded-xl hover:bg-[#E8C96A] transition-colors"
         >
           Save Changes
         </button>

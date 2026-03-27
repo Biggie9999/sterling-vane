@@ -10,7 +10,7 @@ export function SovereignStory() {
         
         {/* The Introduction */}
         <div className="mb-20">
-          <p className="text-[#C9A84C] font-bold tracking-widest uppercase text-xs mb-4 max-w-2xl mx-auto text-center">Executive Summary</p>
+          <p className="text-[#006AFF] font-bold tracking-widest uppercase text-xs mb-4 max-w-2xl mx-auto text-center">Executive Summary</p>
           <h2 className="text-4xl md:text-5xl font-serif text-[#1a1a1a] mb-8 leading-tight text-center max-w-3xl mx-auto">
             Institutional-grade alternative assets.
           </h2>
@@ -36,13 +36,13 @@ export function SovereignStory() {
             <p className="text-[#666] leading-relaxed mb-6">Our Phase 1 portfolio has been underwritten with conservative assumptions targeting the following metrics:</p>
             <ul className="space-y-4 mb-6">
               <li className="flex items-center text-[#1a1a1a] font-medium pb-2 border-b border-[#E5E5E5]">
-                <Check className="w-5 h-5 text-[#C9A84C] mr-3" /> Minimum Investment: $10,000 / Share
+                <Check className="w-5 h-5 text-[#006AFF] mr-3" /> Minimum Investment: $10,000 / Share
               </li>
               <li className="flex items-center text-[#1a1a1a] font-medium pb-2 border-b border-[#E5E5E5]">
-                <Check className="w-5 h-5 text-[#C9A84C] mr-3" /> Target Annual Yield: 14.8%
+                <Check className="w-5 h-5 text-[#006AFF] mr-3" /> Target Annual Yield: 14.8%
               </li>
               <li className="flex items-center text-[#1a1a1a] font-medium">
-                <Check className="w-5 h-5 text-[#C9A84C] mr-3" /> Target IRR (3-Year Hold): 18.5%
+                <Check className="w-5 h-5 text-[#006AFF] mr-3" /> Target IRR (3-Year Hold): 18.5%
               </li>
             </ul>
             <p className="text-sm text-[#888] italic">Distributions are paid quarterly following a 90-day stabilization period post-acquisition.</p>
@@ -61,7 +61,7 @@ export function SovereignStory() {
 
         {/* 90% Returns Block */}
         <div className="bg-[#1a1a1a] text-white rounded-3xl p-10 md:p-16 mb-20 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#006AFF]/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
           <div className="relative z-10">
             <h2 className="text-3xl md:text-4xl font-serif mb-6 drop-shadow-sm">The Premium Rent Arbitrage</h2>
             <p className="text-white/80 text-lg mb-8 max-w-2xl leading-relaxed">
@@ -70,7 +70,7 @@ export function SovereignStory() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white/5 p-6 rounded-xl border border-white/10">
                 <p className="text-sm text-white/50 mb-1">Target Annual Cash Yield</p>
-                <p className="text-3xl font-bold text-[#C9A84C]">14.8%</p>
+                <p className="text-3xl font-bold text-[#006AFF]">14.8%</p>
               </div>
               <div className="bg-white/5 p-6 rounded-xl border border-white/10">
                 <p className="text-sm text-white/50 mb-1">Target 3-Year Equity Multiple</p>
@@ -82,8 +82,8 @@ export function SovereignStory() {
               </div>
             </div>
             
-            <div className="inline-flex items-center px-4 py-2 bg-[#C9A84C]/20 text-[#C9A84C] rounded-full border border-[#C9A84C]/30 font-semibold text-sm">
-              <span className="w-2 h-2 rounded-full bg-[#C9A84C] mr-2 animate-pulse"></span>
+            <div className="inline-flex items-center px-4 py-2 bg-[#006AFF]/20 text-[#006AFF] rounded-full border border-[#006AFF]/30 font-semibold text-sm">
+              <span className="w-2 h-2 rounded-full bg-[#006AFF] mr-2 animate-pulse"></span>
               Phase 1 Subscription Closing Soon
             </div>
             <p className="text-white/80 mt-6 max-w-2xl leading-relaxed">

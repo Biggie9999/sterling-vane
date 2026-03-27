@@ -44,22 +44,22 @@ export function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled || !isHomePage
-            ? "bg-white border-b border-slate-200 shadow-sm py-3"
-            : "bg-transparent py-5"
+            ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-4"
+            : "bg-transparent py-6"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex flex-col items-start group shrink-0">
             <span className={cn(
-              "font-serif text-xl sm:text-2xl tracking-wide transition-colors",
-              isScrolled || !isHomePage ? "text-[#1a1a1a]" : "text-white drop-shadow-md"
+              "font-serif text-xl sm:text-2xl font-bold tracking-wide transition-colors",
+              isScrolled || !isHomePage ? "text-slate-900" : "text-white drop-shadow-lg"
             )}>
               Sterling Vane
             </span>
             <span className={cn(
               "font-mono text-[0.6rem] tracking-[0.2em] uppercase transition-colors",
-              isScrolled || !isHomePage ? "text-[#C9A84C]" : "text-white/70"
+              isScrolled || !isHomePage ? "text-[#006AFF]" : "text-white/70"
             )}>
               Global Holdings
             </span>
@@ -126,7 +126,7 @@ export function Navbar() {
                 </Link>
                 <Link
                   href="/apply"
-                  className="text-sm font-semibold px-5 py-2.5 rounded-full bg-[#C9A84C] hover:bg-[#b8942f] text-white transition-all shadow-md hover:shadow-lg hover:-translate-y-px"
+                  className="text-sm font-semibold px-5 py-2.5 rounded-full bg-[#006AFF] hover:bg-[#0050CC] text-white transition-all shadow-md hover:shadow-lg hover:-translate-y-px"
                 >
                   Get Started
                 </Link>
@@ -168,19 +168,19 @@ export function Navbar() {
         <div
           ref={drawerRef}
           className={cn(
-            "absolute top-0 right-0 h-full w-[80vw] max-w-sm bg-[#0A0A0A] flex flex-col transition-transform duration-300 ease-out shadow-2xl",
+            "absolute top-0 right-0 h-full w-[80vw] max-w-sm bg-white border-l border-slate-200 flex flex-col transition-transform duration-300 ease-out shadow-2xl",
             isOpen ? "translate-x-0" : "translate-x-full"
           )}
         >
           {/* Drawer Header */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+          <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
             <div>
-              <p className="font-serif text-xl text-white">Sterling Vane</p>
-              <p className="font-mono text-[0.6rem] tracking-widest text-[#C9A84C] uppercase">Global Holdings</p>
+              <p className="font-serif text-xl font-bold text-slate-900">Sterling Vane</p>
+              <p className="font-mono text-[0.6rem] tracking-widest font-bold text-[#006AFF] uppercase">Global Holdings</p>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 text-slate-900 hover:bg-slate-200 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -193,32 +193,32 @@ export function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "flex items-center justify-between px-4 py-4 rounded-xl text-lg font-medium transition-all",
+                  "flex items-center justify-between px-4 py-4 rounded-xl text-lg font-bold transition-all",
                   pathname === link.href
-                    ? "text-[#C9A84C] bg-white/5"
-                    : "text-white/80 hover:text-white hover:bg-white/5"
+                    ? "text-[#006AFF] bg-[#006AFF]/10 border border-[#006AFF]/20"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 )}
                 style={{ transitionDelay: isOpen ? `${i * 50}ms` : "0ms" }}
               >
                 {link.name}
-                <ChevronRight className="w-4 h-4 opacity-40" />
+                <ChevronRight className="w-4 h-4 opacity-40 text-slate-400" />
               </Link>
             ))}
           </nav>
 
           {/* Drawer Footer CTA */}
-          <div className="px-6 pb-10 pt-4 border-t border-white/10 flex flex-col gap-3">
+          <div className="px-6 pb-10 pt-4 border-t border-slate-100 flex flex-col gap-3">
             {session ? (
               <>
                 <Link
                   href="/dashboard"
-                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border border-white/20 text-white font-medium text-sm hover:bg-white/5 transition-colors"
+                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border border-slate-200 text-slate-900 font-bold text-sm hover:bg-slate-50 transition-colors"
                 >
-                  <LayoutDashboard className="w-4 h-4" /> Dashboard
+                  <LayoutDashboard className="w-4 h-4 text-[#006AFF]" /> Dashboard
                 </Link>
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
-                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-red-900/40 text-red-300 font-medium text-sm hover:bg-red-900/60 transition-colors"
+                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-red-50 text-red-600 font-bold text-sm hover:bg-red-100 transition-colors border border-red-100"
                 >
                   <LogOut className="w-4 h-4" /> Sign Out
                 </button>
@@ -227,13 +227,13 @@ export function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border border-white/20 text-white font-medium text-sm hover:bg-white/5 transition-colors"
+                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border border-slate-200 text-slate-900 font-bold text-sm hover:bg-slate-50 transition-colors"
                 >
-                  <LogIn className="w-4 h-4" /> Sign In
+                  <LogIn className="w-4 h-4 text-[#006AFF]" /> Sign In
                 </Link>
                 <Link
                   href="/apply"
-                  className="flex items-center justify-center w-full py-3.5 rounded-xl bg-[#C9A84C] text-white font-semibold text-sm hover:bg-[#b8942f] transition-colors shadow-lg"
+                  className="flex items-center justify-center w-full py-3.5 rounded-xl bg-[#006AFF] text-white font-semibold text-sm hover:bg-[#0050CC] transition-colors shadow-md"
                 >
                   Get Started →
                 </Link>

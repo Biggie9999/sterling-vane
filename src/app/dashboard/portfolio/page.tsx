@@ -64,7 +64,7 @@ export default function PortfolioPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-[#C9A84C] mb-2">Active Positions</p>
+        <p className="font-mono text-[10px] uppercase tracking-widest text-[#006AFF] mb-2">Active Positions</p>
         <h1 className="font-serif text-3xl text-white mb-1">Your Portfolio</h1>
         <p className="text-warmGrey text-sm">3 units across the Sovereign Collection — Phase 1</p>
       </div>
@@ -87,7 +87,7 @@ export default function PortfolioPage() {
       {/* Unit Cards */}
       <div className="space-y-6">
         {UNITS.map((unit) => (
-          <div key={unit.name} className="bg-[#111] border border-[#222] rounded-2xl overflow-hidden hover:border-[#C9A84C]/20 transition-colors">
+          <div key={unit.name} className="bg-[#111] border border-[#222] rounded-2xl overflow-hidden hover:border-[#006AFF]/20 transition-colors">
             <div className="flex flex-col md:flex-row">
               {/* Image */}
               <div className="md:w-72 lg:w-80 h-48 md:h-auto relative overflow-hidden shrink-0">
@@ -104,7 +104,7 @@ export default function PortfolioPage() {
               <div className="flex-1 p-6">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-[#C9A84C] mb-1">{unit.theme} · {unit.market}</p>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-[#006AFF] mb-1">{unit.theme} · {unit.market}</p>
                     <h3 className="font-serif text-xl text-white">{unit.name}</h3>
                     <p className="text-warmGrey text-xs flex items-center gap-1 mt-1">
                       <MapPin className="w-3 h-3" /> {unit.location}
@@ -137,12 +137,12 @@ export default function PortfolioPage() {
                 {/* Yield Bar */}
                 <div>
                   <div className="flex justify-between text-[10px] font-mono text-warmGrey mb-1.5">
-                    <span>Current Yield: <span className="text-[#C9A84C]">{unit.currentYield}%</span></span>
+                    <span>Current Yield: <span className="text-[#006AFF]">{unit.currentYield}%</span></span>
                     <span>Target: {unit.targetYield}%</span>
                   </div>
                   <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] rounded-full"
+                      className="h-full bg-gradient-to-r from-[#006AFF] to-[#E8C96A] rounded-full"
                       style={{ width: `${(unit.currentYield / unit.targetYield) * 100}%` }}
                     />
                   </div>

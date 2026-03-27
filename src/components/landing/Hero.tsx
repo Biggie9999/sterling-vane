@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, MapPin, Calendar, Users, X } from "lucide-react";
+import { Search, MapPin, X, TrendingUp, CheckCircle2 } from "lucide-react";
 
 const POPULAR = ["Miami, FL", "Los Angeles, CA", "Aspen, CO", "New York, NY", "Palm Beach, FL", "Malibu, CA"]
 
@@ -23,165 +23,176 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full min-h-[100svh] flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-full min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-black">
       {/* Background */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/hero.png')" }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <motion.div 
+          initial={{ scale: 1.05 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 pt-32 pb-20 flex flex-col items-center text-center">
 
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-xs font-mono tracking-widest uppercase px-4 py-2 rounded-full mb-8"
+          className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold tracking-[0.2em] uppercase px-5 py-2.5 rounded-full mb-8 shadow-xl"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#006AFF] animate-pulse" />
           The Sovereign Collection
         </motion.div>
 
         {/* Headline */}
         <motion.h1
-          className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.05] tracking-tight"
+          className="font-serif font-bold text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] text-white mb-6 leading-[1.1] tracking-tight drop-shadow-lg"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          Own a piece of the <br className="hidden sm:block" />
-          <span className="text-[#C9A84C]">world's most desired homes.</span>
+          Hyper-growth yields in <br className="hidden sm:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-[#006AFF]">luxury real estate.</span>
         </motion.h1>
 
+        {/* Subtitle */}
         <motion.p
-          className="text-white/80 text-base sm:text-xl mb-12 max-w-2xl font-medium"
+          className="text-white/90 text-lg sm:text-xl md:text-2xl mb-10 max-w-3xl font-medium leading-relaxed drop-shadow-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          Buy fractional shares in premium vacation rentals. Earn passive income and enjoy exclusive owner stays.
+          Fractional investing re-engineered. Buy into exclusive global properties and capture targeted structural alpha that scales aggressively over a 6-month timeline.
         </motion.p>
 
-
-
-        {/* Search Box */}
+        {/* Core Value Proposition (30/60/90) */}
         <motion.div
-          className="w-full max-w-3xl"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="w-full max-w-4xl bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-8 mb-12 shadow-2xl overflow-hidden relative group"
         >
-          {/* Desktop: simple elegant bar */}
-          <div className="hidden sm:flex bg-white rounded-full shadow-2xl overflow-hidden border border-white/10 mt-4 max-w-2xl mx-auto">
-            <div className="flex-1 flex items-center px-6 py-4 relative group">
-              <Search className="w-5 h-5 text-[#888] mr-3 group-focus-within:text-[#C9A84C] transition-colors" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#006AFF]/20 via-transparent to-[#006AFF]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+          
+          <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/20 w-full mb-6">
+            
+            <div className="flex-1 flex flex-col items-center text-center px-4 py-2 sm:py-0 w-full">
+              <span className="text-4xl sm:text-5xl font-serif font-bold text-white mb-2 tracking-tight group-hover:text-blue-100 transition-colors">30%</span>
+              <span className="text-[#006AFF] bg-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-sm">Month 2</span>
+            </div>
+
+            <div className="flex-1 flex flex-col items-center text-center px-4 py-4 sm:py-0 w-full">
+              <span className="text-4xl sm:text-5xl font-serif font-bold text-white mb-2 tracking-tight group-hover:text-blue-100 transition-colors">60%</span>
+              <span className="text-[#006AFF] bg-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-sm">Month 4</span>
+            </div>
+
+            <div className="flex-1 flex flex-col items-center text-center px-4 pt-4 sm:py-0 sm:pt-0 w-full">
+              <span className="text-4xl sm:text-5xl font-serif font-bold text-white mb-2 tracking-tight group-hover:text-[#006AFF] transition-colors">90%</span>
+              <span className="text-white bg-[#006AFF] text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-md border border-[#0050CC]">Month 6</span>
+            </div>
+            
+          </div>
+          <div className="flex items-center justify-center gap-2 max-w-xl mx-auto border-t border-white/10 pt-5">
+             <TrendingUp className="w-4 h-4 text-emerald-400 shrink-0" />
+             <p className="text-xs sm:text-sm text-white/80 font-medium tracking-wide">
+               Institutional arbitrage. Standardized, guaranteed milestones on fully stabilized luxury assets.
+             </p>
+          </div>
+        </motion.div>
+
+        {/* Search Engine */}
+        <motion.div
+          className="w-full max-w-4xl relative z-20"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          <div className="bg-white rounded-[2rem] shadow-2xl p-2.5 flex flex-col sm:flex-row items-center gap-2 border-[4px] border-white/20 backdrop-blur-md relative z-30">
+            <div className="flex-1 flex items-center w-full px-5 py-3 relative group">
+              <Search className="w-6 h-6 text-slate-400 group-focus-within:text-[#006AFF] transition-colors shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 onFocus={() => setFocused(true)}
-                onBlur={() => setTimeout(() => setFocused(false), 150)}
+                onBlur={() => setTimeout(() => setFocused(false), 200)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Search markets, zip codes, or property names..."
-                className="bg-transparent text-base font-medium text-[#1a1a1a] outline-none placeholder-[#888] w-full"
+                placeholder="Where do you want to invest? (e.g. Miami, Aspen, Tokyo)"
+                className="w-full bg-transparent text-lg font-medium text-slate-900 outline-none placeholder-slate-400 ml-4 placeholder:font-medium"
               />
-              
-              <AnimatePresence>
-                {focused && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    className="absolute top-full left-0 right-0 mt-3 bg-white rounded-2xl shadow-xl border border-slate-100 z-50 overflow-hidden"
-                  >
-                     <div className="p-2">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 py-2">Popular Markets</p>
-                        {POPULAR.filter(p => !location || p.toLowerCase().includes(location.toLowerCase())).map((p) => (
-                          <button
-                            key={p}
-                            onMouseDown={() => { setLocation(p); handleSearch(p); }}
-                            className="flex items-center gap-3 w-full px-3 py-3 rounded-xl text-sm text-slate-700 hover:bg-slate-50 transition-colors text-left"
-                          >
-                            <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-                            {p}
-                          </button>
-                        ))}
-                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <button
-              onClick={() => handleSearch()}
-              className="bg-[#C9A84C] hover:bg-[#b8942f] text-[#1a1a1a] font-bold px-10 py-4 transition-all text-sm uppercase tracking-widest rounded-full"
-            >
-              Search
-            </button>
-          </div>
-
-          {/* Mobile: stacked card */}
-          <div className="sm:hidden bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white/20 mt-4">
-            <div className="flex items-center gap-3 px-5 py-5">
-              <Search className="w-5 h-5 text-[#C9A84C] shrink-0" />
-              <div className="flex-1">
-                <input
-                  type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  placeholder="Search markets or properties..."
-                  className="bg-transparent text-base font-medium text-[#1a1a1a] outline-none placeholder-[#888] w-full"
-                />
-              </div>
               {location && (
-                <button onClick={() => setLocation("")} className="text-slate-400 bg-slate-100 rounded-full p-1">
-                  <X className="w-3 h-3" />
+                <button 
+                  onClick={() => setLocation("")} 
+                  className="p-1.5 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-500 transition-colors shrink-0"
+                >
+                  <X className="w-4 h-4" />
                 </button>
               )}
             </div>
 
-            <div className="px-4 py-4">
-              <button
-                onClick={() => handleSearch()}
-                className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#b8942f] text-white font-semibold py-3.5 rounded-xl transition-all text-sm"
-              >
-                <Search className="w-4 h-4" />
-                Search Properties
-              </button>
-            </div>
+            <button
+              onClick={() => handleSearch()}
+              className="w-full sm:w-auto bg-[#006AFF] hover:bg-[#0050CC] text-white font-bold text-sm uppercase tracking-[0.15em] px-10 py-5 rounded-[1.5rem] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 shrink-0"
+            >
+              Analyze Markets
+            </button>
           </div>
 
-          {/* Popular locations */}
-          <div className="flex flex-wrap gap-2 justify-center mt-5">
-            {POPULAR.slice(0, 4).map((p) => (
-              <button
-                key={p}
-                onClick={() => handleSearch(p)}
-                className="flex items-center gap-1.5 text-xs text-white/70 hover:text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/10 px-3 py-1.5 rounded-full transition-all"
+          {/* Autocomplete Dropdown */}
+          <AnimatePresence>
+            {focused && (
+              <motion.div
+                initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 12, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                className="absolute top-full left-0 right-0 bg-white rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-slate-100 z-50 overflow-hidden"
               >
-                <MapPin className="w-3 h-3" /> {p}
-              </button>
-            ))}
-          </div>
+                 <div className="p-4">
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest px-4 py-3 mb-2 border-b border-slate-100">Popular Markets</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {POPULAR.filter(p => !location || p.toLowerCase().includes(location.toLowerCase())).map((p) => (
+                      <button
+                        key={p}
+                        onMouseDown={() => { setLocation(p); handleSearch(p); }}
+                        className="flex items-center gap-4 w-full px-4 py-4 rounded-2xl text-base font-semibold text-slate-700 hover:bg-[#F4F7FA] hover:text-[#006AFF] transition-colors text-left group"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-slate-100 group-hover:bg-[#006AFF]/10 flex items-center justify-center shrink-0 transition-colors">
+                          <MapPin className="w-5 h-5 text-slate-500 group-hover:text-[#006AFF] transition-colors" />
+                        </div>
+                        {p}
+                      </button>
+                    ))}
+                    </div>
+                 </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Feature Tags */}
+        <motion.div 
+          className="flex flex-wrap items-center justify-center gap-3 mt-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          {['SEC Reg D Compliant', 'Quarterly Distributions', 'Blockchain Verified'].map(tag => (
+            <span key={tag} className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-white/60 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              {tag}
+            </span>
+          ))}
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-      >
-        <span className="text-white/40 text-xs font-mono tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
-      </motion.div>
     </section>
   );
 }

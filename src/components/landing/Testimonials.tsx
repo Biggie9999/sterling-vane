@@ -35,35 +35,36 @@ export function Testimonials() {
   ]
 
   return (
-    <section className="bg-white py-24 border-t border-slate-100 overflow-hidden">
-      <div className="container mx-auto px-6 max-w-7xl">
+    <section className="bg-slate-50 py-24 border-t border-slate-100 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <p className="text-[#C9A84C] text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Investor Relations</p>
-          <h2 className="text-4xl md:text-5xl font-serif text-[#1a1a1a] mb-6">Proven Execution</h2>
-          <p className="text-lg text-[#666] leading-relaxed">
-            The Sovereign Collection attracts institutional and accredited capital globally, drawn by disciplined underwriting and consistent yield.
+          <p className="text-[#006AFF] font-bold text-xs uppercase tracking-widest mb-4">Investor Relations</p>
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">Proven Execution</h2>
+          <p className="text-lg text-slate-600 font-medium leading-relaxed">
+            The Sovereign Collection attracts institutional and accredited capital globally, drawn by disciplined underwriting and systematic yield generation.
           </p>
         </div>
 
         {/* Mobile Swipe / Desktop Grid */}
-        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto snap-x snap-mandatory pb-10 scrollbar-hide -mx-6 px-6 sm:mx-0 sm:px-0">
+        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 overflow-x-auto snap-x snap-mandatory pb-10 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
           {testimonials.map((t) => (
-            <div key={t.id} className="min-w-[85vw] sm:min-w-0 shrink-0 snap-center relative group rounded-2xl overflow-hidden shadow-md border border-[#E5E5E5] bg-white flex flex-col">
-              <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#FAF9F6]">
-                <img src={t.imageFile} alt="Investor Testimonial" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div key={t.id} className="min-w-[85vw] sm:min-w-0 shrink-0 snap-center relative group rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-200 bg-white flex flex-col">
+              <div className="relative w-full h-64 sm:h-72 lg:h-64 overflow-hidden bg-slate-100">
+                <img src={t.imageFile} alt="Investor Testimonial" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
-              <div className="p-6 flex-1 flex flex-col justify-between">
+              <div className="p-8 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="flex text-[#C9A84C] mb-4">
+                  <div className="flex text-[#006AFF] mb-5">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-current mr-0.5" />
+                      <Star key={i} className="w-4 h-4 fill-[#006AFF] mr-1" />
                     ))}
                   </div>
-                  <p className="text-[#333] font-serif leading-relaxed text-sm mb-6">&quot;{t.quote}&quot;</p>
+                  <p className="text-slate-700 font-medium leading-relaxed text-sm lg:text-base mb-8 italic">"{t.quote}"</p>
                 </div>
-                <div>
-                  <p className="font-bold text-[#1a1a1a] text-xs uppercase tracking-wider">{t.author}</p>
-                  <p className="text-[#888] text-[10px] uppercase tracking-[0.2em] mt-1">{t.role}</p>
+                <div className="pt-6 border-t border-slate-100">
+                  <p className="font-bold text-slate-900 text-sm">{t.author}</p>
+                  <p className="text-[#006AFF] text-[10px] font-bold uppercase tracking-widest mt-1.5">{t.role}</p>
                 </div>
               </div>
             </div>

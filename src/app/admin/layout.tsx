@@ -34,7 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link 
                 key={link.name} 
                 href={link.href}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors text-sm font-sans ${isActive ? 'bg-[#111] text-gold border border-border-dark shadow-[inset_2px_0_0_#C9A84C]' : 'text-warmGrey hover:bg-white/5 hover:text-white'}`}
+                className={`flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors text-sm font-sans ${isActive ? 'bg-[#111] text-gold border border-border-dark shadow-[inset_2px_0_0_#006AFF]' : 'text-warmGrey hover:bg-white/5 hover:text-white'}`}
               >
                 {link.icon}
                 <span>{link.name}</span>

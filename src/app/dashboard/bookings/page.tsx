@@ -58,7 +58,7 @@ export default function BookingsPage() {
           <p className="text-warmGrey text-sm leading-relaxed mb-4">
             Your priority booking request for <strong className="text-white">{prop.name}</strong> ({selectedDate}) has been submitted. Our concierge team will confirm within 24 hours.
           </p>
-          <p className="text-[#C9A84C] text-xs font-mono uppercase tracking-widest">As an investor, you receive 30% off published nightly rates.</p>
+          <p className="text-[#006AFF] text-xs font-mono uppercase tracking-widest">As an investor, you receive 30% off published nightly rates.</p>
           <button onClick={() => setSubmitted(false)} className="mt-8 px-6 py-3 border border-[#333] text-warmGrey text-sm rounded-lg hover:text-white transition-colors">
             Book Another Stay
           </button>
@@ -70,7 +70,7 @@ export default function BookingsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-[#C9A84C] mb-2">Investor Privilege</p>
+        <p className="font-mono text-[10px] uppercase tracking-widest text-[#006AFF] mb-2">Investor Privilege</p>
         <h1 className="font-serif text-3xl text-white mb-1">Book a Priority Stay</h1>
         <p className="text-warmGrey text-sm">As a Sovereign Collection investor, you receive priority booking access and 30% off published rates.</p>
       </div>
@@ -79,13 +79,13 @@ export default function BookingsPage() {
         {PROPERTIES.map((p) => (
           <div
             key={p.id}
-            className={`bg-[#111] border rounded-2xl overflow-hidden transition-all ${selected === p.id ? "border-[#C9A84C]/50" : "border-[#222] hover:border-[#333]"}`}
+            className={`bg-[#111] border rounded-2xl overflow-hidden transition-all ${selected === p.id ? "border-[#006AFF]/50" : "border-[#222] hover:border-[#333]"}`}
           >
             <div className="flex flex-col md:flex-row">
               {/* Image */}
               <div className="md:w-64 h-48 md:h-auto relative overflow-hidden shrink-0">
                 <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-[#C9A84C] text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full">
+                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-[#006AFF] text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full">
                   Investor Access
                 </div>
               </div>
@@ -99,7 +99,7 @@ export default function BookingsPage() {
                       <MapPin className="w-3 h-3" /> {p.location}
                     </p>
                   </div>
-                  <div className="flex items-center gap-1 text-[#C9A84C]">
+                  <div className="flex items-center gap-1 text-[#006AFF]">
                     <Star className="w-4 h-4 fill-current" />
                     <span className="text-white font-semibold text-sm">{p.rating}</span>
                   </div>
@@ -110,11 +110,11 @@ export default function BookingsPage() {
                 <div className="flex items-center gap-4 text-xs text-warmGrey mb-4">
                   <span className="flex items-center gap-1"><Bed className="w-4 h-4" /> {p.beds} bed</span>
                   <span className="flex items-center gap-1"><Bath className="w-4 h-4" /> {p.baths} bath</span>
-                  <span className="text-[#C9A84C] font-bold">${(p.nightly * 0.7).toLocaleString()}<span className="text-warmGrey font-normal">/night (investor rate)</span></span>
+                  <span className="text-[#006AFF] font-bold">${(p.nightly * 0.7).toLocaleString()}<span className="text-warmGrey font-normal">/night (investor rate)</span></span>
                 </div>
 
                 <div className="bg-[#1a1a1a] rounded-xl p-3 text-xs text-warmGrey mb-4">
-                  <Calendar className="w-3.5 h-3.5 inline mr-1.5 text-[#C9A84C]" />
+                  <Calendar className="w-3.5 h-3.5 inline mr-1.5 text-[#006AFF]" />
                   <strong className="text-white">Available windows:</strong> {p.available.join(" · ")}
                 </div>
 
@@ -123,7 +123,7 @@ export default function BookingsPage() {
                     <button
                       key={date}
                       onClick={() => { setSelected(p.id); handleSubmit(p.id, date) }}
-                      className="text-xs border border-[#C9A84C]/30 text-[#C9A84C] px-4 py-2 rounded-lg hover:bg-[#C9A84C]/10 transition-colors font-mono"
+                      className="text-xs border border-[#006AFF]/30 text-[#006AFF] px-4 py-2 rounded-lg hover:bg-[#006AFF]/10 transition-colors font-mono"
                     >
                       {date}
                     </button>
