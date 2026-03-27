@@ -1,66 +1,141 @@
-import { GhostButton } from "@/components/shared/GhostButton"
-import { GoldButton } from "@/components/shared/GoldButton"
+"use client"
 
-const bookings = [
-  { id: "SVR-9482A", property: "The Pacific Glass House", dates: "Dec 15 - Dec 22, 2024", guests: 4, status: "Confirmed", amount: "$14,280" }
+import { useState } from "react"
+import { MapPin, Bed, Bath, Star, Calendar, CheckCircle2 } from "lucide-react"
+
+const PROPERTIES = [
+  {
+    id: 1,
+    name: "The Pacific Glass House",
+    location: "Santa Monica, CA",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80",
+    nightly: 1200, beds: 4, baths: 4, rating: 4.97,
+    description: "Contemporary coastal elegance. Private pool, ocean views, smart home system.",
+    available: ["Apr 10–15", "Apr 22–28", "May 5–12"],
+    note: "Investor priority — 30% discount on published rate",
+  },
+  {
+    id: 2,
+    name: "The Palm Royale Retreat",
+    location: "Miami Beach, FL",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80",
+    nightly: 950, beds: 5, baths: 5, rating: 4.99,
+    description: "Resort-style tropical sanctuary. Private cabana, waterfront terrace, concierge access.",
+    available: ["Apr 8–14", "Apr 25–May 2", "May 15–20"],
+    note: "Highest rated unit — book 7+ days for premium discount",
+  },
+  {
+    id: 3,
+    name: "The Manhattan Velvet Suite",
+    location: "Midtown, New York",
+    image: "https://images.unsplash.com/photo-1496664444929-8c75efb9546f?w=600&q=80",
+    nightly: 1500, beds: 3, baths: 3, rating: 4.95,
+    description: "Penthouse-level urban retreat. Floor-to-ceiling views, premium finishes, valet parking.",
+    available: ["Apr 12–18", "Apr 29–May 5", "May 20–26"],
+    note: "Executive stays. Business-class amenities included.",
+  },
 ]
 
-export default function DashboardBookingsPage() {
+export default function BookingsPage() {
+  const [selected, setSelected] = useState<number | null>(null)
+  const [submitted, setSubmitted] = useState(false)
+  const [selectedProp, setSelectedProp] = useState<number | null>(null)
+  const [selectedDate, setSelectedDate] = useState("")
+
+  const handleSubmit = (propId: number, date: string) => {
+    setSelectedProp(propId)
+    setSelectedDate(date)
+    setSubmitted(true)
+  }
+
+  if (submitted) {
+    const prop = PROPERTIES.find(p => p.id === selectedProp)!
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="bg-[#111] border border-[#222] rounded-2xl p-10 text-center max-w-md">
+          <CheckCircle2 className="w-14 h-14 text-emerald-400 mx-auto mb-6" />
+          <h2 className="font-serif text-2xl text-white mb-2">Stay Requested</h2>
+          <p className="text-warmGrey text-sm leading-relaxed mb-4">
+            Your priority booking request for <strong className="text-white">{prop.name}</strong> ({selectedDate}) has been submitted. Our concierge team will confirm within 24 hours.
+          </p>
+          <p className="text-[#C9A84C] text-xs font-mono uppercase tracking-widest">As an investor, you receive 30% off published nightly rates.</p>
+          <button onClick={() => setSubmitted(false)} className="mt-8 px-6 py-3 border border-[#333] text-warmGrey text-sm rounded-lg hover:text-white transition-colors">
+            Book Another Stay
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="font-serif text-3xl text-white">Owner Bookings</h1>
-        <GoldButton href="/marketplace?tab=shortlet" className="py-2 px-4 shadow-[0_0_15px_rgba(201,168,76,0.15)] text-[10px]">
-          New Reservation
-        </GoldButton>
+    <div className="space-y-8">
+      <div>
+        <p className="font-mono text-[10px] uppercase tracking-widest text-[#C9A84C] mb-2">Investor Privilege</p>
+        <h1 className="font-serif text-3xl text-white mb-1">Book a Priority Stay</h1>
+        <p className="text-warmGrey text-sm">As a Sovereign Collection investor, you receive priority booking access and 30% off published rates.</p>
       </div>
 
-      <div className="bg-[#111] border border-border-dark overflow-x-auto">
-        <table className="w-full text-left font-sans text-sm">
-          <thead className="bg-[#0a0a0a] border-b border-border-dark font-mono text-[10px] uppercase tracking-widest text-warmGrey">
-            <tr>
-              <th className="px-6 py-4 font-normal text-gold">Ref ID</th>
-              <th className="px-6 py-4 font-normal">Property</th>
-              <th className="px-6 py-4 font-normal">Dates</th>
-              <th className="px-6 py-4 font-normal text-center">Guests</th>
-              <th className="px-6 py-4 font-normal">Amount</th>
-              <th className="px-6 py-4 font-normal">Status</th>
-              <th className="px-6 py-4 font-normal text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border-dark/50">
-            {bookings.length > 0 ? bookings.map((b, i) => (
-              <tr key={i} className="hover:bg-white/5 transition-colors">
-                <td className="px-6 py-4 font-mono text-xs text-white uppercase">{b.id}</td>
-                <td className="px-6 py-4 text-white font-serif">{b.property}</td>
-                <td className="px-6 py-4 text-warmGrey whitespace-nowrap">{b.dates}</td>
-                <td className="px-6 py-4 text-warmGrey text-center">{b.guests}</td>
-                <td className="px-6 py-4 font-mono text-white">{b.amount}</td>
-                <td className="px-6 py-4">
-                  <span className="px-2 py-1 bg-success/10 border border-success/20 text-success text-[10px] font-mono tracking-widest uppercase rounded-sm">
-                    {b.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-right">
-                  <GhostButton className="py-1 px-3 text-[10px] border-border-dark">Modify</GhostButton>
-                </td>
-              </tr>
-            )) : (
-              <tr>
-                <td colSpan={7} className="px-6 py-12 text-center text-warmGrey">
-                  No upcoming reservations.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-      
-      <div className="mt-6 flex items-start space-x-3 text-xs text-warmGrey/60 font-sans max-w-2xl">
-        <span className="font-serif text-lg text-gold leading-none">*</span>
-        <p>As an active investor, your 15% partner rate is automatically applied to all bookings. Priority holds can be placed up to 9 months in advance.</p>
-      </div>
+      <div className="grid gap-6">
+        {PROPERTIES.map((p) => (
+          <div
+            key={p.id}
+            className={`bg-[#111] border rounded-2xl overflow-hidden transition-all ${selected === p.id ? "border-[#C9A84C]/50" : "border-[#222] hover:border-[#333]"}`}
+          >
+            <div className="flex flex-col md:flex-row">
+              {/* Image */}
+              <div className="md:w-64 h-48 md:h-auto relative overflow-hidden shrink-0">
+                <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-[#C9A84C] text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full">
+                  Investor Access
+                </div>
+              </div>
 
+              {/* Details */}
+              <div className="flex-1 p-6">
+                <div className="flex items-start justify-between flex-wrap gap-3 mb-3">
+                  <div>
+                    <h3 className="font-serif text-xl text-white">{p.name}</h3>
+                    <p className="text-warmGrey text-xs flex items-center gap-1 mt-0.5">
+                      <MapPin className="w-3 h-3" /> {p.location}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 text-[#C9A84C]">
+                    <Star className="w-4 h-4 fill-current" />
+                    <span className="text-white font-semibold text-sm">{p.rating}</span>
+                  </div>
+                </div>
+
+                <p className="text-warmGrey text-xs leading-relaxed mb-4">{p.description}</p>
+
+                <div className="flex items-center gap-4 text-xs text-warmGrey mb-4">
+                  <span className="flex items-center gap-1"><Bed className="w-4 h-4" /> {p.beds} bed</span>
+                  <span className="flex items-center gap-1"><Bath className="w-4 h-4" /> {p.baths} bath</span>
+                  <span className="text-[#C9A84C] font-bold">${(p.nightly * 0.7).toLocaleString()}<span className="text-warmGrey font-normal">/night (investor rate)</span></span>
+                </div>
+
+                <div className="bg-[#1a1a1a] rounded-xl p-3 text-xs text-warmGrey mb-4">
+                  <Calendar className="w-3.5 h-3.5 inline mr-1.5 text-[#C9A84C]" />
+                  <strong className="text-white">Available windows:</strong> {p.available.join(" · ")}
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {p.available.map((date) => (
+                    <button
+                      key={date}
+                      onClick={() => { setSelected(p.id); handleSubmit(p.id, date) }}
+                      className="text-xs border border-[#C9A84C]/30 text-[#C9A84C] px-4 py-2 rounded-lg hover:bg-[#C9A84C]/10 transition-colors font-mono"
+                    >
+                      {date}
+                    </button>
+                  ))}
+                </div>
+
+                <p className="text-[10px] text-warmGrey/50 mt-3 italic">{p.note}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

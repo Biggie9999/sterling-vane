@@ -1,97 +1,70 @@
 import Image from "next/image"
 import { GhostButton } from "@/components/shared/GhostButton"
 import { ArrowRight } from "lucide-react"
-
-const properties = [
-  {
-    name: "The Pacific Glass House",
-    location: "California, USA",
-    rate: "$2,400",
-    yield: "14.2%",
-    status: "Active",
-    image: "/api/placeholder/800/600", // placeholder image since we don't have assents yet
-    statusColor: "bg-success"
-  },
-  {
-    name: "The Palm Royale Retreat",
-    location: "Florida, USA",
-    rate: "$1,850",
-    yield: "12.8%",
-    status: "Fully Subscribed",
-    image: "/api/placeholder/800/600",
-    statusColor: "bg-warmGrey"
-  },
-  {
-    name: "The Manhattan Velvet Suite",
-    location: "New York, USA",
-    rate: "$3,200",
-    yield: "15.5%",
-    status: "Coming Soon",
-    image: "/api/placeholder/800/600",
-    statusColor: "bg-gold text-black"
-  }
-]
+import { DEMO_PROPERTIES } from "@/data/properties"
 
 export function FeaturedProperties() {
   return (
-    <section className="py-24 bg-gradient-to-b from-offWhite to-black dark:from-[#0f0f0f] dark:to-black">
-      <div className="container mx-auto px-6">
+    <section className="py-24 bg-[#F5F0E8]">
+      <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl text-black dark:text-white max-w-2xl">
+          <h2 className="font-serif text-4xl md:text-5xl text-[#1a1a1a] max-w-2xl">
             The Collection.
           </h2>
-          <GhostButton href="/portfolio" className="hidden md:inline-flex mt-6 md:mt-0 text-white border-border-dark" light={false}>
-            View Full Portfolio <ArrowRight className="w-4 h-4 ml-2" />
+          <GhostButton href="/marketplace" className="hidden md:inline-flex mt-6 md:mt-0 text-[#1a1a1a] border-[#1a1a1a]/20 hover:bg-[#1a1a1a] hover:text-white" light={false}>
+            View Marketplace <ArrowRight className="w-4 h-4 ml-2" />
           </GhostButton>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {properties.map((prop, idx) => (
+          {DEMO_PROPERTIES.map((prop) => (
             <div 
-              key={idx} 
-              className="group relative bg-[#111] border border-border-dark overflow-hidden hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+              key={prop.id} 
+              className="group relative bg-white border border-[#E5E5E5] overflow-hidden hover:-translate-y-2 transition-all duration-500 rounded-2xl shadow-sm"
             >
-              <div className="relative h-64 w-full overflow-hidden bg-black/50">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
-                <div className="absolute top-4 left-4 z-20 font-mono text-xs font-bold uppercase tracking-widest px-3 py-1 flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-sm border border-white/10 text-white">
-                  <span className={`w-2 h-2 rounded-full ${prop.statusColor}`}></span>
+              <div className="relative h-72 w-full overflow-hidden bg-slate-100">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10" />
+                <div className="absolute top-4 left-4 z-20 font-sans text-[10px] font-bold uppercase tracking-widest px-3 py-1 flex items-center gap-2 bg-white/95 backdrop-blur-md rounded-full shadow-md text-[#1a1a1a]">
+                  <span className={`w-1.5 h-1.5 rounded-full ${prop.status === "Funding Stage" ? "bg-emerald-500" : prop.status === "Coming Soon" ? "bg-[#C9A84C]" : "bg-slate-400"}`}></span>
                   {prop.status}
                 </div>
-                {/* Fallback pattern until images exist */}
-                <div className="w-full h-full bg-border-dark group-hover:scale-105 transition-transform duration-700 ease-out flex items-center justify-center text-warmGrey font-mono text-xs">
-                  [Property Image]
-                </div>
+                
+                <Image
+                  src={prop.images[0]}
+                  alt={prop.name}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                />
               </div>
 
-              <div className="p-6 relative z-20">
-                <p className="font-mono text-xs tracking-[0.2em] text-gold uppercase mb-3">
+              <div className="p-8 relative z-20">
+                <p className="font-sans text-[10px] font-bold tracking-[0.2em] text-[#C9A84C] uppercase mb-3">
                   {prop.location}
                 </p>
-                <h3 className="font-serif text-2xl text-white mb-6">
+                <h3 className="font-serif text-2xl text-[#1a1a1a] mb-6 min-h-[64px]">
                   {prop.name}
                 </h3>
                 
-                <div className="flex justify-between items-center border-t border-white/10 pt-6">
+                <div className="flex justify-between items-center border-t border-slate-100 pt-6">
                   <div>
-                    <p className="font-sans text-xs text-warmGrey mb-1">Est. Nightly</p>
-                    <p className="font-mono text-white text-lg">{prop.rate}</p>
+                    <p className="font-sans text-xs text-[#888] font-bold uppercase tracking-widest mb-1.5">Share Price</p>
+                    <p className="font-serif text-[#1a1a1a] text-xl font-medium">${prop.pricePerShare.toLocaleString()}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-sans text-xs text-warmGrey mb-1">Proj. Yield</p>
-                    <p className="font-mono text-gold text-lg">{prop.yield}</p>
+                    <p className="font-sans text-xs text-[#888] font-bold uppercase tracking-widest mb-1.5">Target Yield</p>
+                    <p className="font-sans text-[#C9A84C] text-xl font-semibold">{prop.targetYield}%</p>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute inset-0 border border-transparent group-hover:border-gold/50 pointer-events-none transition-colors duration-500 rounded-sm"></div>
-              <div className="absolute inset-x-0 bottom-0 h-1 bg-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#C9A84C]/20 pointer-events-none transition-colors duration-500 rounded-2xl"></div>
             </div>
           ))}
         </div>
 
         <div className="text-center md:hidden mt-8">
-          <GhostButton href="/portfolio" className="w-full justify-center text-white border-border-dark" light={false}>
-            View Full Portfolio <ArrowRight className="w-4 h-4 ml-2" />
+          <GhostButton href="/marketplace" className="w-full justify-center text-[#1a1a1a] border-[#1a1a1a]/20 hover:bg-[#1a1a1a] hover:text-white" light={false}>
+            View Marketplace <ArrowRight className="w-4 h-4 ml-2" />
           </GhostButton>
         </div>
       </div>

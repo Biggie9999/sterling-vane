@@ -4,41 +4,41 @@
 
 @layer base {
   :root {
-    --black: #0A0A0A;
+    --black: #1A1A1A; /* Softer black */
     --gold: #C9A84C;
     --gold-light: #E8C96A;
-    --off-white: #F5F0E8;
+    --off-white: #FAF9F6;
     --warm-grey: #8A8A8A;
-    --ivory: #FFFFF0;
-    --border-dark: #333333;
-    --border-light: #E2E8F0;
-    --background: 210 40% 98%; /* #f8fafc */
-    --foreground: 222.2 84% 4.9%;
+    --ivory: #FFFFFF;
+    --border-dark: #E5E5E5; /* Swapped to light for default */
+    --border-light: #F0F0F0;
+    --background: 40 20% 98%; /* #faf9f6 */
+    --foreground: 0 0% 10%; /* #1a1a1a */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 10%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 40 20% 96%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 40 20% 96%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 44 55% 54%; /* gold */
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 10%;
 
     --radius: 0.5rem;
   }
@@ -49,17 +49,17 @@
     @apply border-border;
   }
   body {
-    @apply bg-brand-light text-slate-800 font-sans tracking-tight;
+    @apply bg-background text-foreground tracking-tight;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply text-slate-900 font-semibold tracking-tight;
+    @apply font-serif tracking-tight text-[#1A1A1A];
   }
 }
 
 /* Glassmorphism utility */
 .glass-panel {
-  @apply bg-white/80 backdrop-blur-md border border-white/40 shadow-smooth rounded-xl;
+  @apply bg-white/90 backdrop-blur-md border border-black/5 shadow-smooth rounded-xl;
 }
 
 /* Luxury Grain background */

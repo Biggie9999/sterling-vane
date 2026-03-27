@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { LayoutShell } from "@/components/layout/LayoutShell";
+import { Providers } from "@/components/layout/Providers";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: 'swap' });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Sterling Vane | The Sovereign Collection",
@@ -17,13 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth selection:bg-brand-accent selection:text-white">
-      <body className={`${inter.variable} font-sans antialiased text-slate-800 bg-brand-light min-h-screen flex flex-col`}>
-        <Navbar />
-        <main className="flex-1 flex flex-col pt-16">
-          {children}
-        </main>
-        <Footer />
+    <html lang="en" className="scroll-smooth selection:bg-[#C9A84C] selection:text-white">
+      <body className={`${outfit.variable} ${playfair.variable} font-sans antialiased text-[#1a1a1a] bg-[#F5F0E8] min-h-screen flex flex-col`}>
+        <Providers>
+          <LayoutShell>
+            {children}
+          </LayoutShell>
+        </Providers>
       </body>
     </html>
   );

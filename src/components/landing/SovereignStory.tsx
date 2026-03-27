@@ -10,86 +10,84 @@ export function SovereignStory() {
         
         {/* The Introduction */}
         <div className="mb-20">
-          <p className="text-brand-accent font-bold tracking-widest uppercase text-sm mb-4">The Introduction</p>
-          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-8 leading-tight">
-            The next chapter in luxury hospitality
+          <p className="text-[#C9A84C] font-bold tracking-widest uppercase text-xs mb-4 max-w-2xl mx-auto text-center">Executive Summary</p>
+          <h2 className="text-4xl md:text-5xl font-serif text-[#1a1a1a] mb-8 leading-tight text-center max-w-3xl mx-auto">
+            Institutional-grade alternative assets.
           </h2>
-          <div className="prose prose-lg text-slate-600 leading-relaxed">
-            <p className="font-semibold text-slate-800">Sterling Vane here. Harvard-trained, developer by trade, perfectionist by nature.</p>
-            <p>I&apos;m not looking for passive partners. I&apos;m looking for strategic investors to join me in unveiling The Sovereign Collection; a housing project that redefines high-end hospitality. This isn&apos;t just real estate; it&apos;s a private asset fund wrapped in marble and glass.</p>
-            <p>Think you have the appetite for 30% returns in the first quarter? Let&apos;s talk.</p>
+          <div className="prose prose-lg text-[#666] leading-relaxed max-w-3xl mx-auto text-center">
+            <p className="font-semibold text-[#1a1a1a]">Sterling Vane Development Group focuses exclusively on the acquisition, repositioning, and operation of ultra-luxury short-term residential assets.</p>
+            <p>Our mandate is simple: identify structurally sound luxury properties in high-barrier-to-entry markets, execute targeted capital improvements, and transition them into high-yielding hospitality assets. This strategy bridges the gap between traditional real estate appreciation and the cash velocity of luxury hospitality.</p>
           </div>
         </div>
 
         {/* Two Column Layout for Middle Sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-20">
           <div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">Why I built Sovereign Collection</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">
-              Most luxury apartments sit empty 80% of the year. It&apos;s inefficient. The Sovereign Collection solves that. We are acquiring premium assets and running them as boutique Airbnb flagships. We capture the nightly rate of a 5-star hotel without the overhead of a hotel chain. It&apos;s asset appreciation plus operational cash flow.
+            <h3 className="text-2xl font-bold text-[#1a1a1a] mb-4">The Market Inefficiency</h3>
+            <p className="text-[#666] leading-relaxed mb-4">
+              Prime luxury real estate often suffers from significant underutilization. By acquiring these assets and deploying our proprietary hospitality management framework, we convert dormant equity into active, high-yield cash flow. 
             </p>
-            <p className="text-slate-600 leading-relaxed">
-              I&apos;ve designed this for investors who want to own a piece of the skyline while their capital works harder than they do.
+            <p className="text-[#666] leading-relaxed">
+              Our vertically integrated approach ensures quality control at every stage—from underwriting and acquisition to design, guest experience, and asset disposition. We manage the complexity; our partners receive the yield.
             </p>
           </div>
-          <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100">
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">30% in 90 days? Let&apos;s do the math</h3>
-            <p className="text-slate-600 leading-relaxed mb-6">I run the numbers like I run my sites: with precision. For investors entering the Sovereign Collection:</p>
+          <div className="bg-[#FAF9F6] p-8 rounded-2xl border border-[#E5E5E5]">
+            <h3 className="text-2xl font-bold text-[#1a1a1a] mb-4">Target Metrics</h3>
+            <p className="text-[#666] leading-relaxed mb-6">Our Phase 1 portfolio has been underwritten with conservative assumptions targeting the following metrics:</p>
             <ul className="space-y-4 mb-6">
-              <li className="flex items-center text-slate-800 font-medium pb-2 border-b border-slate-200">
-                <Check className="w-5 h-5 text-brand-accent mr-3" /> Minimum Commitment: $10,000
+              <li className="flex items-center text-[#1a1a1a] font-medium pb-2 border-b border-[#E5E5E5]">
+                <Check className="w-5 h-5 text-[#C9A84C] mr-3" /> Minimum Investment: $10,000 / Share
               </li>
-              <li className="flex items-center text-slate-800 font-medium pb-2 border-b border-slate-200">
-                <Check className="w-5 h-5 text-brand-accent mr-3" /> Projected ROI (3 months): 30%
+              <li className="flex items-center text-[#1a1a1a] font-medium pb-2 border-b border-[#E5E5E5]">
+                <Check className="w-5 h-5 text-[#C9A84C] mr-3" /> Target Annual Yield: 14.8%
               </li>
-              <li className="flex items-center text-slate-800 font-medium">
-                <Check className="w-5 h-5 text-brand-accent mr-3" /> Projected ROI (9 months): 50%
+              <li className="flex items-center text-[#1a1a1a] font-medium">
+                <Check className="w-5 h-5 text-[#C9A84C] mr-3" /> Target IRR (3-Year Hold): 18.5%
               </li>
             </ul>
-            <p className="text-sm text-slate-500 italic">We are already pre-selling occupancy. The yield is locked in before the paint dries. This is velocity of money most funds only dream of.</p>
+            <p className="text-sm text-[#888] italic">Distributions are paid quarterly following a 90-day stabilization period post-acquisition.</p>
           </div>
         </div>
 
         {/* Credibility */}
         <div className="mb-20">
-          <h2 className="text-3xl font-serif text-slate-900 mb-6">From Harvard Yard to High-End Real Estate</h2>
-          <div className="prose prose-lg text-slate-600 leading-relaxed">
-            <p>I didn&apos;t spend a decade at Harvard learning theory just to sit in a boardroom.</p>
-            <p>I learned to build structures that withstand market volatility. Sterling Vane Global Holdings isn&apos;t a startup; it&apos;s a legacy in motion. I&apos;ve executed high-end developments across three markets, and The Sovereign Collection is my masterwork.</p>
-            <p className="font-semibold text-slate-800">I only invite capital that appreciates the difference between a spec builder and a legacy architect.</p>
+          <h2 className="text-3xl font-serif text-[#1a1a1a] mb-6">Execution & Track Record</h2>
+          <div className="prose prose-lg text-[#666] leading-relaxed">
+            <p>Our leadership team brings decades of experience spanning institutional private equity, luxury residential development, and global hospitality operations.</p>
+            <p>We do not rely on speculative market appreciation. Our returns are driven by active operational value-add. By treating each asset as a standalone luxury enterprise, we insulate our portfolio from broader macroeconomic housing trends.</p>
+            <p className="font-semibold text-[#1a1a1a]">Partners co-invest directly alongside the Sterling Vane general partnership, ensuring complete alignment of interests.</p>
           </div>
         </div>
 
         {/* 90% Returns Block */}
-        <div className="bg-slate-900 text-white rounded-3xl p-10 md:p-16 mb-20 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-accent/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
+        <div className="bg-[#1a1a1a] text-white rounded-3xl p-10 md:p-16 mb-20 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9A84C]/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-serif mb-6 drop-shadow-sm">The math of 90% returns</h2>
-            <p className="text-slate-300 text-lg mb-8 max-w-2xl leading-relaxed">
-              Let&apos;s skip the fluff. High-end short-term rentals yield 3x what traditional long-term leases do. When you couple that with the tax advantages of real estate ownership in Dubai and Monaco and the current scarcity of luxury inventory, the runway is exponential.
+            <h2 className="text-3xl md:text-4xl font-serif mb-6 drop-shadow-sm">The Premium Rent Arbitrage</h2>
+            <p className="text-white/80 text-lg mb-8 max-w-2xl leading-relaxed">
+              The differential between long-term residential cap rates and stabilized short-term hospitality yields is significant. By applying institutional management standards to residential assets, we consistently generate outsized premiums compared to traditional multi-family portfolios.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-                <p className="text-sm text-slate-400 mb-1">3 Months</p>
-                <p className="text-3xl font-bold text-brand-accent">30% ROI</p>
+              <div className="bg-white/5 p-6 rounded-xl border border-white/10">
+                <p className="text-sm text-white/50 mb-1">Target Annual Cash Yield</p>
+                <p className="text-3xl font-bold text-[#C9A84C]">14.8%</p>
               </div>
-              <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-                <p className="text-sm text-slate-400 mb-1">9 Months</p>
-                <p className="text-3xl font-bold text-white">50% ROI</p>
+              <div className="bg-white/5 p-6 rounded-xl border border-white/10">
+                <p className="text-sm text-white/50 mb-1">Target 3-Year Equity Multiple</p>
+                <p className="text-3xl font-bold text-white">1.6x</p>
               </div>
-              <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-                <p className="text-sm text-slate-400 mb-1">First Year</p>
-                <p className="text-3xl font-bold text-white">&gt; 90%</p>
+              <div className="bg-white/5 p-6 rounded-xl border border-white/10">
+                <p className="text-sm text-white/50 mb-1">Target LTV Ratio</p>
+                <p className="text-3xl font-bold text-white">&lt; 55%</p>
               </div>
             </div>
-            <p className="text-slate-400 mb-6">We are capping this round. The $10,000 minimum ensures exclusivity, not exclusion.</p>
             
-            <div className="inline-flex items-center px-4 py-2 bg-brand-accent/20 text-brand-accent rounded-full border border-brand-accent/30 font-semibold text-sm">
-              <span className="w-2 h-2 rounded-full bg-brand-accent mr-2 animate-pulse"></span>
-              12 units left. Then it&apos;s locked.
+            <div className="inline-flex items-center px-4 py-2 bg-[#C9A84C]/20 text-[#C9A84C] rounded-full border border-[#C9A84C]/30 font-semibold text-sm">
+              <span className="w-2 h-2 rounded-full bg-[#C9A84C] mr-2 animate-pulse"></span>
+              Phase 1 Subscription Closing Soon
             </div>
-            <p className="text-slate-300 mt-6 max-w-2xl leading-relaxed">
-              We are currently closing on Phase 1 of The Sovereign Collection. The architecture is finalized. The marketing stack for Airbnb is ready. The only variable left is the allocation of private capital. I have 12 slots left at the $10,000 entry level. Once these are subscribed, we close the round to maintain the integrity of the investor pool. I don&apos;t oversubscribe. I over-deliver.
+            <p className="text-white/80 mt-6 max-w-2xl leading-relaxed">
+              We operate exclusively under Regulation D, Rule 506(c). Investments are currently limited to verified accredited investors. Offerings are strictly ring-fenced per asset, providing absolute transparency over collateral and performance metrics.
             </p>
           </div>
         </div>
@@ -97,40 +95,36 @@ export function SovereignStory() {
         {/* Final Blocks */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-20">
           <div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">Why this isn&apos;t &quot;just&quot; an Airbnb play</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">I know what you&apos;re thinking: &quot;Isn&apos;t the short-term rental market volatile?&quot;</p>
-            <p className="text-slate-600 leading-relaxed mb-4">
-              Not when you own the asset class at this tier. The Sovereign Collection targets the corporate executive and luxury traveler, the demographic that travels regardless of the economy. We are diversifying risk across multiple high-yield units within a single gated asset.
+            <h3 className="text-2xl font-bold text-[#1a1a1a] mb-4">Risk Mitigation & Hedging</h3>
+            <p className="text-[#666] leading-relaxed mb-4">
+              Real estate investing requires rigorous risk management. We prioritize assets in locations with robust year-round demand—such as tier-1 global cities and irreplaceable resort destinations.
             </p>
-            <p className="font-semibold text-slate-800">Your $10,000 buys you a diversified slice of the entire collection, not just a single unit. We hedge for you.</p>
+            <p className="text-[#666] leading-relaxed mb-4">
+              Furthermore, standardizing operations through tech-enabled property management allows us to maintain incredibly low vacancy rates, effectively hedging against localized seasonal downturns.
+            </p>
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">Where do you want to stay in Q4?</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">
-              One of the privileges of investing in The Sovereign Collection isn&apos;t just the 30–50% ROI; it&apos;s the access. 
+            <h3 className="text-2xl font-bold text-[#1a1a1a] mb-4">Direct Investor Utility</h3>
+            <p className="text-[#666] leading-relaxed mb-4">
+              Unlike traditional private equity REITs, Sterling Vane partners benefit from direct asset utility. Limited Partners are granted priority booking privileges across the entire portfolio at preferred rates.
             </p>
-            <p className="text-slate-600 leading-relaxed mb-4">
-              Partners in this fund receive priority booking privileges. When you&apos;re in the city, your asset is your residence. I build spaces that feel like home for the investor, but rent like a palace for the guest.
+            <p className="text-[#666] leading-relaxed mb-4">
+              It is rare to find an investment vehicle that successfully combines tax-advantaged equity growth, quarterly cash flow, and tangible personal utility.
             </p>
-            <p className="font-semibold text-slate-800">It&apos;s the only investment you can actually use.</p>
           </div>
         </div>
 
         {/* Call to Action Final */}
-        <div className="text-center max-w-2xl mx-auto bg-brand-light p-12 rounded-3xl border border-brand-accent/10">
-          <h2 className="text-3xl font-serif text-slate-900 mb-4">Welcome to the collection</h2>
-          <p className="text-slate-600 mb-8 leading-relaxed">
-            High-end real estate isn&apos;t about the square footage. It&apos;s about the exclusivity of the address. The Sovereign Collection is the address I&apos;m building for my top-tier investors. With a Harvard-trained developer at the helm, projected returns of 30% in 3 months, and a hard cap on the number of investors, this is a rare liquidity event in the private markets.
+        <div className="text-center max-w-2xl mx-auto bg-[#FAF9F6] p-12 rounded-3xl border border-[#E5E5E5]">
+          <h2 className="text-3xl font-serif text-[#1a1a1a] mb-4">Review Current Offerings</h2>
+          <p className="text-[#666] mb-8 leading-relaxed">
+            Phase 1 assets are currently accepting capital commitments. Review the private placement memorandums, detailed financial models, and property appraisals in our secure investor portal.
           </p>
-          <div className="mb-8 p-4 bg-white rounded-lg border border-slate-200 shadow-sm inline-block">
-            <p className="text-red-600 font-bold mb-1">1 Slot Left</p>
-            <p className="text-slate-500 text-sm">at the $10,000 minimum before we raise the entry.</p>
-          </div>
-          <h3 className="text-2xl font-bold text-slate-900 mb-8">Are you ready to build?</h3>
-          <Link href="/apply" className="inline-flex items-center justify-center px-8 py-4 w-full md:w-auto bg-brand-blue text-white rounded-lg font-bold shadow-lg hover:bg-slate-800 transition-colors text-lg">
-            Finalize Your Position <ArrowRight className="ml-2 w-5 h-5" />
+          <h3 className="text-2xl font-bold text-[#1a1a1a] mb-8">Ready to review the data?</h3>
+          <Link href="/marketplace" className="inline-flex items-center justify-center px-8 py-4 w-full md:w-auto bg-[#1a1a1a] text-white rounded-lg font-bold shadow-lg hover:bg-black transition-colors text-lg">
+            View Private Listings <ArrowRight className="ml-2 w-5 h-5" />
           </Link>
-          <p className="mt-6 text-sm text-slate-500 italic">"Returns start accruing at closing. Do you have 10 minutes today?" - Sterling Vane</p>
+          <p className="mt-6 text-sm text-[#888]">By accessing the portal, you acknowledge this is a Rule 506(c) offering.</p>
         </div>
 
       </div>

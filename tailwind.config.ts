@@ -19,8 +19,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        mono: ["var(--font-jet)", "monospace"],
+        sans: ["var(--font-outfit)", "sans-serif"],
+        serif: ["var(--font-playfair)", "serif"],
       },
       colors: {
         border: {
