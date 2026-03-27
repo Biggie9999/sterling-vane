@@ -49,7 +49,7 @@ export function Testimonials() {
         <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto snap-x snap-mandatory pb-10 scrollbar-hide -mx-6 px-6 sm:mx-0 sm:px-0">
           {testimonials.map((t) => (
             <div key={t.id} className="min-w-[85vw] sm:min-w-0 shrink-0 snap-center relative group rounded-2xl overflow-hidden shadow-md border border-[#E5E5E5] bg-white flex flex-col">
-              <div className="relative w-full aspect-square overflow-hidden bg-[#FAF9F6]">
+              <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#FAF9F6]">
                 <img src={t.imageFile} alt="Investor Testimonial" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="p-6 flex-1 flex flex-col justify-between">

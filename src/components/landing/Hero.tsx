@@ -19,7 +19,7 @@ export function Hero() {
       inputRef.current?.focus();
       return;
     }
-    router.push(`/marketplace`);
+    router.push(`/marketplace?location=${encodeURIComponent(query)}`);
   };
 
   return (
@@ -53,17 +53,17 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          Find your next<br className="hidden sm:block" />
-          <span className="text-[#C9A84C]"> luxury escape.</span>
+          Own a piece of the <br className="hidden sm:block" />
+          <span className="text-[#C9A84C]">world's most desired homes.</span>
         </motion.h1>
 
         <motion.p
-          className="text-white/70 text-base sm:text-lg mb-10 max-w-xl"
+          className="text-white/80 text-base sm:text-xl mb-12 max-w-2xl font-medium"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          Exclusive access to high-yield hospitality assets. Curated for accredited investors and institutional capital.
+          Buy fractional shares in premium vacation rentals. Earn passive income and enjoy exclusive owner stays.
         </motion.p>
 
 
@@ -119,9 +119,9 @@ export function Hero() {
 
             <button
               onClick={() => handleSearch()}
-              className="bg-[#C9A84C] hover:bg-[#b8942f] text-white font-semibold px-8 py-4 transition-all"
+              className="bg-[#C9A84C] hover:bg-[#b8942f] text-[#1a1a1a] font-bold px-10 py-4 transition-all text-sm uppercase tracking-widest rounded-full"
             >
-              Explore
+              Search
             </button>
           </div>
 
