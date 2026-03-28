@@ -3,9 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model User {
@@ -17,7 +16,7 @@ model User {
   image           String?
   accounts        Account[]
   sessions        Session[]
-  role            Role             @default(INVESTOR)
+  role            String           @default("INVESTOR")
   onboardingComplete Boolean          @default(false)
   intent             String?          @default("invest")
   accreditation      String?          @default("none")
@@ -35,12 +34,12 @@ model Account {
   type               String
   provider           String
   providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
+  refresh_token      String?
+  access_token       String?
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?  @db.Text
+  id_token           String?
   session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -64,32 +63,14 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-enum Role {
-  GUEST
-  INVESTOR
-  ADMIN
-}
-
 model InvestorProfile {
   id                String       @id @default(cuid())
   userId            String       @unique
   user              User         @relation(fields: [userId], references: [id])
-  tier              InvestorTier
+  tier              String
   totalInvested     Float
-  applicationStatus AppStatus    @default(PENDING)
+  applicationStatus String       @default("PENDING")
   joinedAt          DateTime     @default(now())
-}
-
-enum InvestorTier {
-  ENTRY
-  GROWTH
-  PRIVATE
-}
-
-enum AppStatus {
-  PENDING
-  APPROVED
-  REJECTED
 }
 
 model Property {
@@ -100,7 +81,7 @@ model Property {
   location      String
   city          String
   country       String
-  type          PropertyType
+  type          String         // SQLite handles enums as strings
   askingPrice   Float?
   nightlyRate   Float
   yieldEstimate Float
@@ -109,26 +90,13 @@ model Property {
   bathrooms     Int            @default(1)
   sqft          Int            @default(0)
   pricePerShare Float          @default(0)
-  status        PropertyStatus @default(ACTIVE)
-  images        String[]
-  amenities     String[]
+  status        String         @default("ACTIVE") // SQLite handles enums as strings
+  images        String         // SQLite doesn't support String[], will store as JSON stringified
+  amenities     String         // SQLite doesn't support String[], will store as JSON stringified
   investments   Investment[]
   bookings      Booking[]
   enquiries     Enquiry[]
   createdAt     DateTime       @default(now())
-}
-
-enum PropertyType {
-  APARTMENT
-  VILLA
-  PENTHOUSE
-}
-
-enum PropertyStatus {
-  ACTIVE
-  COMING_SOON
-  FULLY_SUBSCRIBED
-  SOLD
 }
 
 model Investment {
@@ -140,15 +108,8 @@ model Investment {
   amount        Float
   roiPercent    Float
   startDate     DateTime         @default(now())
-  status        InvestmentStatus @default(ACTIVE)
+  status        String           @default("ACTIVE") // SQLite handles enums as strings
   distributions Distribution[]
-}
-
-enum InvestmentStatus {
-  PENDING_WIRE
-  ACTIVE
-  MATURED
-  WITHDRAWN
 }
 
 model Booking {
@@ -162,15 +123,8 @@ model Booking {
   guests          Int
   totalPrice      Float
   stripePaymentId String?
-  status          BookingStatus @default(PENDING)
+  status          String        @default("PENDING") // SQLite handles enums as strings
   createdAt       DateTime      @default(now())
-}
-
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-  COMPLETED
 }
 
 model Distribution {
@@ -179,19 +133,8 @@ model Distribution {
   investment   Investment         @relation(fields: [investmentId], references: [id])
   amount       Float
   date         DateTime
-  type         DistributionType
-  status       DistributionStatus @default(UPCOMING)
-}
-
-enum DistributionType {
-  QUARTERLY
-  SEMI_ANNUAL
-  CUSTOM
-}
-
-enum DistributionStatus {
-  UPCOMING
-  PAID
+  type         String             // SQLite handles enums as strings
+  status       String             @default("UPCOMING") // SQLite handles enums as strings
 }
 
 model Document {
@@ -200,14 +143,8 @@ model Document {
   user       User         @relation(fields: [userId], references: [id])
   title      String
   fileUrl    String
-  type       DocumentType
+  type       String       // SQLite handles enums as strings
   uploadedAt DateTime     @default(now())
-}
-
-enum DocumentType {
-  AGREEMENT
-  REPORT
-  TAX
 }
 
 model Enquiry {

@@ -1,135 +1,107 @@
-import { PrismaClient, PropertyStatus, PropertyType } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const FLAGSHIPS = [
-  {
-    name: "The Pacific Glass House",
-    slug: "pacific-glass-house",
-    description: "A triumph of architectural minimalism hanging over the Malibu coastline. Features 270-degree ocean views, a private saltwater infinity pool, and integrated smart-glass technology that adjusts transparency based on solar intensity. Calibrated for 12.4% annual yield through high-frequency seasonal arbitrage.",
-    location: "Malibu, California",
-    city: "Malibu",
-    country: "USA",
-    type: "VILLA",
-    askingPrice: 15500000,
-    nightlyRate: 4500,
-    yieldEstimate: 12.4,
-    capRate: 8.2,
-    bedrooms: 5,
-    bathrooms: 6,
-    sqft: 6500,
-    pricePerShare: 75000,
-    status: "ACTIVE",
-    images: ["https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1200", "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200"],
-    amenities: ["Private Heliport", "Infinity Pool", "Smart Glass", "Wine Cellar"]
-  },
-  {
-    name: "The Palm Royale Retreat",
-    slug: "palm-royale-retreat",
-    description: "An ultra-modern oasis in the heart of Palm Springs. This 'Mid-Century Modern' evolution features a sunken fire-pit lounge, artisanal concrete finishes, and a 2,000 SQFT master wing. Engineered for consistent 8.8% growth through elite destination bookings.",
-    location: "Palm Springs, California",
-    city: "Palm Springs",
-    country: "USA",
-    type: "VILLA",
-    askingPrice: 8200000,
-    nightlyRate: 2800,
-    yieldEstimate: 8.8,
-    capRate: 7.1,
-    bedrooms: 4,
-    bathrooms: 5,
-    sqft: 4800,
-    pricePerShare: 42000,
-    status: "ACTIVE",
-    images: ["https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1200", "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200"],
-    amenities: ["Sunken Lounge", "Artisanal Concrete", "Desert Garden", "Outdoor Cinema"]
-  },
-  {
-    name: "Manhattan Velvet Suite",
-    slug: "manhattan-velvet-suite",
-    description: "The pinnacle of urban sophisticated living. A double-height penthouse overlooking Central Park, featuring rare Italian marble, a private elevator, and a 360-degree observation deck. Optimized for high-net-worth executive corporate stays.",
-    location: "Upper West Side, NY",
-    city: "New York",
-    country: "USA",
-    type: "PENTHOUSE",
-    askingPrice: 22000000,
-    nightlyRate: 6500,
-    yieldEstimate: 15.2,
-    capRate: 9.4,
-    bedrooms: 3,
-    bathrooms: 4,
-    sqft: 3800,
-    pricePerShare: 110000,
-    status: "FULLY_SUBSCRIBED",
-    images: ["https://images.unsplash.com/photo-1600607687940-4720026955c9?auto=format&fit=crop&q=80&w=1200", "https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=1200"],
-    amenities: ["Central Park Views", "Private Elevator", "Observation Deck", "Italian Marble"]
-  }
+const MARKETS = [
+  { city: "London", country: "UK", yieldBase: 4.5, type: "PENTHOUSE", currency: "GBP" },
+  { city: "Dubai", country: "UAE", yieldBase: 7.2, type: "VILLA", currency: "AED" },
+  { city: "Malibu", country: "USA", yieldBase: 12.4, type: "VILLA", currency: "USD" },
+  { city: "Tokyo", country: "Japan", yieldBase: 3.8, type: "APARTMENT", currency: "JPY" },
+  { city: "Paris", country: "France", yieldBase: 5.1, type: "PENTHOUSE", currency: "EUR" },
+  { city: "Saint-Tropez", country: "France", yieldBase: 9.8, type: "VILLA", currency: "EUR" },
+  { city: "Aspen", country: "USA", yieldBase: 6.5, type: "VILLA", currency: "USD" },
+  { city: "Zurich", country: "Switzerland", yieldBase: 4.2, type: "APARTMENT", currency: "CHF" },
+  { city: "Miami", country: "USA", yieldBase: 8.5, type: "VILLA", currency: "USD" },
+  { city: "Kyoto", country: "Japan", yieldBase: 4.1, type: "VILLA", currency: "JPY" },
+  { city: "Singapore", country: "Singapore", yieldBase: 3.9, type: "PENTHOUSE", currency: "SGD" },
+  { city: "Portofino", country: "Italy", yieldBase: 10.2, type: "VILLA", currency: "EUR" },
 ]
 
-const MARKETS = [
-  { city: "Saint-Tropez", country: "France", yield: 9.0, type: "VILLA" },
-  { city: "Dubai", country: "UAE", yield: 6.0, type: "PENTHOUSE" },
-  { city: "Aspen", country: "USA", yield: 6.0, type: "VILLA" },
-  { city: "Tokyo", country: "Japan", yield: 3.0, type: "APARTMENT" },
-  { city: "London", country: "UK", yield: 3.0, type: "PENTHOUSE" },
-]
+const ADJECTIVES = ["Sovereign", "Institutional", "Elite", "Flagship", "Legacy", "Principal", "Ascendant", "Signature", "Prime", "Luxe"]
+const NOUNS = ["Enclave", "Penthouse", "Estate", "Manor", "Collection", "Terrace", "Suites", "Residence", "Pavilion", "Aerie"]
 
 const IMAGES = [
+  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1200",
+  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200",
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1200",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200",
+  "https://images.unsplash.com/photo-1600607687940-4720026955c9?auto=format&fit=crop&q=80&w=1200",
+  "https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=1200",
   "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1200",
   "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=1200",
   "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=1200",
-  "https://images.unsplash.com/photo-1449156003053-c306a0482905?auto=format&fit=crop&q=80&w=1200"
+  "https://images.unsplash.com/photo-1449156003053-c306a0482905?auto=format&fit=crop&q=80&w=1200",
+  "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&q=80&w=1200",
+  "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&q=80&w=1200",
+  "https://images.unsplash.com/photo-1600585154526-990dcea42e49?auto=format&fit=crop&q=80&w=1200",
 ]
 
 async function main() {
-  console.log('Initiating Sovereign Collection Seeding Protocol...')
+  console.log('Initiating Global Sovereign Collection Seeding Protocol [SQLite Mode]...')
   
+  // Clear existing registry
   await prisma.property.deleteMany()
-  console.log('Cleared existing asset registry.')
+  console.log('Registry purged for fresh deployment.')
 
-  // 1. Create Flagships
-  for (const f of FLAGSHIPS) {
-    await prisma.property.create({
-      data: {
-        ...f,
-        type: f.type as PropertyType,
-        status: f.status as PropertyStatus
-      }
-    })
-  }
-  console.log('Deployed Phase 1 Flagship Assets.')
-
-  // 2. Generate Randomized Registry (27 more)
-  for (let i = 0; i < 27; i++) {
+  const totalAssets = 64
+  
+  for (let i = 0; i < totalAssets; i++) {
     const market = MARKETS[i % MARKETS.length]
-    const name = `${market.city} Institutional ${String.fromCharCode(65 + i)}`
-    const slug = `institutional-${market.city.toLowerCase()}-${i}`
-    const priceBase = 4000000 + Math.random() * 10000000
+    const adj = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)]
+    const noun = NOUNS[Math.floor(Math.random() * NOUNS.length)]
     
+    const name = `${adj} ${market.city} ${noun} ${String.fromCharCode(65 + (i % 26))}`
+    const slug = `${name.toLowerCase().replace(/\s+/g, '-')}-${i}`
+    
+    // Financial modeling (Realistic Luxury Metrics)
+    const priceBase = 4500000 + Math.random() * 25000000
+    const yieldEstimate = market.yieldBase + (Math.random() * 3 - 1.5)
+    const capRate = yieldEstimate * 0.65
+    const nightlyRate = (priceBase * 0.0003) + Math.random() * 1000
+
+    // Asset Status distribution
+    let status = "ACTIVE"
+    if (i % 7 === 0) status = "FULLY_SUBSCRIBED"
+    if (i % 11 === 0) status = "COMING_SOON"
+
     await prisma.property.create({
       data: {
         name,
         slug,
-        description: `Institutional-grade ${market.type.toLowerCase()} asset in ${market.city}. Curated for Sovereign Collection portfolio diversification.`,
+        description: `This ${adj.toLowerCase()} ${market.type.toLowerCase()} asset, situated in the heart of ${market.city}, represents the pinnacle of Sterling Vane's ${market.country} portfolio. Optimized for institutional-grade yields through high-frequency short-term stays and premium corporate retreats. Features custom architectural finishes and a private wellness wing.`,
         location: `${market.city}, ${market.country}`,
         city: market.city,
         country: market.country,
-        type: market.type as PropertyType,
+        type: market.type,
         askingPrice: priceBase,
-        nightlyRate: 1200 + Math.random() * 2000,
-        yieldEstimate: market.yield + (Math.random() * 2),
-        capRate: 5 + Math.random() * 3,
-        bedrooms: 2 + Math.floor(Math.random() * 4),
-        bathrooms: 2 + Math.floor(Math.random() * 3),
-        sqft: 2000 + Math.floor(Math.random() * 3000),
-        pricePerShare: priceBase / (100 + Math.floor(Math.random() * 400)),
-        status: "ACTIVE",
-        images: [IMAGES[i % IMAGES.length]],
-        amenities: ["24/7 Concierge", "Secure Gated", "Smart Climate"]
+        nightlyRate: Math.round(nightlyRate),
+        yieldEstimate: parseFloat(yieldEstimate.toFixed(1)),
+        capRate: parseFloat(capRate.toFixed(1)),
+        bedrooms: 2 + Math.floor(Math.random() * 6),
+        bathrooms: 2 + Math.floor(Math.random() * 5),
+        sqft: 2500 + Math.floor(Math.random() * 8000),
+        pricePerShare: Math.round(priceBase / (200 + Math.floor(Math.random() * 200))),
+        status,
+        images: JSON.stringify([
+          IMAGES[i % IMAGES.length],
+          IMAGES[(i + 1) % IMAGES.length],
+          IMAGES[(i + 2) % IMAGES.length],
+        ]),
+        amenities: JSON.stringify([
+          "24/7 Concierge", 
+          "Private Wellness Wing", 
+          "Secure Biometric Entry", 
+          "Climate-Controlled Wine Room",
+          "Tesla Charging Suite",
+          "Chef's Kitchen"
+        ])
       }
     })
+
+    if ((i + 1) % 10 === 0) console.log(`✓ Synchronized ${i + 1} assets...`)
   }
 
-  console.log('Successfully completed Sovereign Collection asset deployment.')
+  console.log(`Successfully completed deployment of ${totalAssets} Sovereign Collection assets.`)
 }
 
 main()
