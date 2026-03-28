@@ -1,20 +1,49 @@
 "use client"
 
-import { CheckCircle2, Clock, TrendingUp, DollarSign } from "lucide-react"
-
-const DISTRIBUTIONS = [
-  { period: "Q1 2026", date: "Mar 31, 2026", amount: "$4,350", yield: "8.7%", status: "Projected", note: "Subject to operating cash flow" },
-  { period: "Q2 2026", date: "Jun 30, 2026", amount: "$5,800", yield: "11.6%", status: "Projected", note: "Includes Palm Royale full cycle" },
-  { period: "Q3 2026", date: "Sep 30, 2026", amount: "$7,200", yield: "14.4%", status: "Projected", note: "Peak season lift — all 3 markets" },
-  { period: "Q4 2026", date: "Dec 31, 2026", amount: "$9,100", yield: "18.2%", status: "Projected", note: "Holiday premium pricing applied" },
-]
-
-const HISTORY = [
-  { period: "Inception Bonus", date: "Jan 15, 2026", amount: "$500", yield: "1.0%", status: "Paid" },
-]
+import { useState, useEffect } from "react"
+import { CheckCircle2, Clock, TrendingUp, DollarSign, Loader2 } from "lucide-react"
 
 export default function DistributionsPage() {
-  const totalProjected = DISTRIBUTIONS.reduce((s, d) => s + parseFloat(d.amount.replace("$", "").replace(",", "")), 0)
+  const [distributions, setDistributions] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchDistributions() {
+      try {
+        const res = await fetch("/api/user/portfolio")
+        const investments = await res.json()
+        if (Array.isArray(investments)) {
+          // Flatten all distributions from all investments
+          const allDist = investments.flatMap(inv => 
+            inv.distributions?.map((d: any) => ({
+              ...d,
+              propertyName: inv.property.name
+            })) || []
+          )
+          setDistributions(allDist)
+        }
+      } catch (err) {
+        console.error("Failed to fetch distributions:", err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchDistributions()
+  }, [])
+
+  const paidDist = distributions.filter(d => d.status === "PAID")
+  const upcomingDist = distributions.filter(d => d.status === "UPCOMING" || d.status === "PENDING")
+  const totalPaid = paidDist.reduce((s, d) => s + d.amount, 0)
+  const totalUpcoming = upcomingDist.reduce((s, d) => s + d.amount, 0)
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <Loader2 className="w-10 h-10 text-[#006AFF] animate-spin mb-4" />
+        <p className="text-warmGrey font-medium">Aggregating payout data...</p>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-8">
@@ -27,10 +56,10 @@ export default function DistributionsPage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "Total Projected (2026)", value: `$${totalProjected.toLocaleString()}`, icon: DollarSign },
-          { label: "Projected Annual Yield", value: "52.9%", icon: TrendingUp },
+          { label: "Total Projected", value: `$${totalUpcoming.toLocaleString()}`, icon: DollarSign },
+          { label: "Total Paid", value: `$${totalPaid.toLocaleString()}`, icon: TrendingUp },
           { label: "Distribution Frequency", value: "Quarterly", icon: Clock },
-          { label: "Next Payment", value: "Mar 31, 2026", icon: CheckCircle2 },
+          { label: "Next Est. Payout", value: upcomingDist.length > 0 ? new Date(upcomingDist[0].date).toLocaleDateString() : "—", icon: CheckCircle2 },
         ].map(s => (
           <div key={s.label} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
@@ -50,24 +79,29 @@ export default function DistributionsPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-100 bg-slate-50">
-                  {["Period", "Pay Date", "Amount", "Yield", "Status", "Note"].map(h => (
+                  {["Asset", "Date", "Amount", "Type", "Status"].map(h => (
                     <th key={h} className="text-left px-5 py-4 font-bold text-[10px] uppercase tracking-widest text-slate-400">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {DISTRIBUTIONS.map((d, i) => (
-                  <tr key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
-                    <td className="px-5 py-4 text-slate-900 font-semibold">{d.period}</td>
-                    <td className="px-5 py-4 text-slate-600">{d.date}</td>
-                    <td className="px-5 py-4 text-[#006AFF] font-bold">{d.amount}</td>
-                    <td className="px-5 py-4 text-emerald-600 font-bold">{d.yield}</td>
-                    <td className="px-5 py-4">
-                      <span className="bg-amber-100 text-amber-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">{d.status}</span>
-                    </td>
-                    <td className="px-5 py-4 text-slate-400 text-xs hidden lg:table-cell">{d.note}</td>
+                {upcomingDist.length > 0 ? (
+                  upcomingDist.map((d, i) => (
+                    <tr key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
+                      <td className="px-5 py-4 text-slate-900 font-semibold">{d.propertyName}</td>
+                      <td className="px-5 py-4 text-slate-600">{new Date(d.date).toLocaleDateString()}</td>
+                      <td className="px-5 py-4 text-[#006AFF] font-bold">${d.amount.toLocaleString()}</td>
+                      <td className="px-5 py-4 text-slate-500 text-xs uppercase tracking-tighter">{d.type}</td>
+                      <td className="px-5 py-4">
+                        <span className="bg-amber-100 text-amber-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">{d.status}</span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={5} className="px-5 py-10 text-center text-slate-400 italic">No upcoming distributions scheduled.</td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
@@ -80,18 +114,17 @@ export default function DistributionsPage() {
       </div>
 
       {/* Payment History */}
-      {HISTORY.length > 0 && (
+      {paidDist.length > 0 ? (
         <div>
           <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-4">Payment History</p>
           <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
             <table className="w-full text-sm">
               <tbody>
-                {HISTORY.map((d, i) => (
-                  <tr key={i} className="border-b border-slate-100 last:border-0">
-                    <td className="px-5 py-4 text-slate-900 font-semibold">{d.period}</td>
-                    <td className="px-5 py-4 text-slate-600">{d.date}</td>
-                    <td className="px-5 py-4 text-[#006AFF] font-bold">{d.amount}</td>
-                    <td className="px-5 py-4 text-emerald-600 font-bold">{d.yield}</td>
+                {paidDist.map((d, i) => (
+                  <tr key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
+                    <td className="px-5 py-4 text-slate-900 font-semibold">{d.propertyName}</td>
+                    <td className="px-5 py-4 text-slate-600">{new Date(d.date).toLocaleDateString()}</td>
+                    <td className="px-5 py-4 text-[#006AFF] font-bold">${d.amount.toLocaleString()}</td>
                     <td className="px-5 py-4">
                       <span className="bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">{d.status}</span>
                     </td>
@@ -100,6 +133,10 @@ export default function DistributionsPage() {
               </tbody>
             </table>
           </div>
+        </div>
+      ) : (
+        <div className="text-center py-12 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+          <p className="text-slate-400 text-sm">No payment history available yet.</p>
         </div>
       )}
     </div>

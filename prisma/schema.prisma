@@ -142,6 +142,7 @@ model Investment {
 }
 
 enum InvestmentStatus {
+  PENDING_WIRE
   ACTIVE
   MATURED
   WITHDRAWN

@@ -59,7 +59,27 @@ function ApplyForm() {
     )
   }
 
-  const selectedProperty = DEMO_PROPERTIES.find(p => p.id === selectedPropertyId) || DEMO_PROPERTIES[0]
+  const [dbProperties, setDbProperties] = useState<any[]>([])
+
+  useEffect(() => {
+    async function fetchProperties() {
+      try {
+        const res = await fetch("/api/properties")
+        const data = await res.json()
+        if (Array.isArray(data)) {
+          setDbProperties(data)
+          if (!prefillId && data.length > 0) {
+            setSelectedPropertyId(data[0].id)
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch properties:", err)
+      }
+    }
+    fetchProperties()
+  }, [])
+
+  const selectedProperty = dbProperties.find(p => p.id === selectedPropertyId) || dbProperties[0] || DEMO_PROPERTIES[0]
   const update = (field: string, value: string | boolean) => setForm(f => ({ ...f, [field]: value }))
   const handleCopy = (text: string, field: string) => { 
     navigator.clipboard.writeText(text); 
@@ -72,30 +92,34 @@ function ApplyForm() {
   const minShares = Math.ceil(WIRE_DETAILS.minimumAmount / selectedProperty.pricePerShare)
 
   const goNext = async () => {
-    if (step < 3) { setStep(s => (s + 1) as Step) }
-    else if (step === 3) { setStep(4) }
-    else {
+    if (step === 3 && selectedProperty) {
+      // Finalize and persist to DB
       setLoading(true)
       try {
-        const res = await fetch("/api/user/apply", {
-             method: "POST",
-             body: JSON.stringify({ 
-                  propertyId: selectedPropertyId,
-                  amount: totalAmount,
-                  accreditation: form.accreditation
-             })
-        });
-        const data = await res.json();
-        if (data.success) {
-             router.push("/dashboard?status=pending")
+        const res = await fetch("/api/investments/apply", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            propertyId: selectedProperty.id,
+            amount: totalAmount,
+            shares: sharesNum,
+            accreditation: form.accreditation
+          })
+        })
+        const data = await res.json()
+        if (res.ok) {
+          // Success - move to wire step
+          setStep(4)
         } else {
-             alert(data.error || "Submission error")
+          alert(data.error || "Submission error")
         }
       } catch (err) {
         console.error("Submission failed:", err)
       } finally {
         setLoading(false)
       }
+    } else {
+      setStep(s => Math.min(STEPS.length - 1, s + 1) as Step)
     }
   }
 
