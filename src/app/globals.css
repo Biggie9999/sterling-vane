@@ -4,41 +4,29 @@
 
 @layer base {
   :root {
-    /* Sovereign Palette — Anthracite & Gold */
-    --primary: 222 47% 11%;      /* Deep Slate/Anthracite */
-    --primary-foreground: 0 0% 100%;
+    /* Sovereign Palette — Luxury Light */
+    --background: 37 31% 94%;      /* Ivory #FAF9F6 variant */
+    --foreground: 0 0% 4%;        /* Near-black #0A0A0A */
     
-    --secondary: 222 47% 95%;   /* Soft Grey-Blue */
-    --secondary-foreground: 222 47% 11%;
+    --primary: 0 0% 4%;           /* Near-black for main text/CTAs */
+    --primary-foreground: 37 31% 94%;
     
-    --accent: 43 52% 56%;       /* Sophisticated Gold #C5A059 */
-    --accent-foreground: 0 0% 100%;
+    --secondary: 0 0% 54%;        /* Warm Grey #8A8A8A */
+    --secondary-foreground: 37 31% 94%;
+    
+    --accent: 45 54% 54%;         /* Sovereign Gold #C9A84C */
+    --accent-foreground: 0 0% 4%;
 
-    --muted: 215.4 16.3% 46.9%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --muted: 0 0% 54%;
+    --muted-foreground: 0 0% 30%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 37 31% 94%;
+    --card-foreground: 0 0% 4%;
     
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
     
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    
-    --radius: 1rem;
-    
-    /* Dark Mode Defaults */
-    --admin-surface: 222 47% 4%;
-    --admin-border: 222 47% 12%;
-  }
-
-  .dark {
-    --background: 222 47% 4%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 6%;
-    --card-foreground: 210 40% 98%;
-    --border: 222 47% 12%;
+    --radius: 0.5rem;
   }
 
   * {
@@ -51,7 +39,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-accent/30 selection:text-accent;
+    @apply bg-background text-foreground antialiased selection:bg-[#C9A84C]/20 selection:text-[#0A0A0A];
     font-feature-settings: "cv02", "cv05", "cv11";
   }
   
@@ -64,6 +52,10 @@
   /* Premium Utility Classes */
   .glass-light {
     @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)];
+  }
+
+  .glass-ivory {
+    @apply bg-[#FAF9F6]/80 backdrop-blur-2xl border border-[#0A0A0A]/5 shadow-[0_20px_50px_-12px_rgba(201,168,76,0.1)];
   }
   
   .glass-dark {
@@ -78,28 +70,32 @@
     @apply bg-gradient-to-tr from-[#A67C00] via-[#D4AF37] to-[#FFD700];
   }
 
-  .noir-gradient {
-    @apply bg-gradient-to-b from-[#0F172A] to-[#020617];
+  .text-gold {
+     @apply text-[#C9A84C];
+  }
+
+  .bg-ivory {
+     @apply bg-[#FAF9F6];
   }
 }
 
 /* Sophisticated Keyframe Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fadeInSlow {
+  from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
-@keyframes slideInRight {
-  from { transform: translateX(-20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+@keyframes scaleInSlow {
+  from { opacity: 0; transform: scale(1.05); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .animate-sovereign-in {
-  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInSlow 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-links {
-  animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.animate-sovereign-scale {
+  animation: scaleInSlow 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Smooth Sidebar Transitions */

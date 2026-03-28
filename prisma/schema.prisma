@@ -18,7 +18,10 @@ model User {
   accounts        Account[]
   sessions        Session[]
   role            Role             @default(INVESTOR)
-  createdAt       DateTime         @default(now())
+  onboardingComplete Boolean          @default(false)
+  intent             String?          @default("invest")
+  accreditation      String?          @default("none")
+  createdAt          DateTime         @default(now())
   investorProfile InvestorProfile?
   investments     Investment[]
   bookings        Booking[]

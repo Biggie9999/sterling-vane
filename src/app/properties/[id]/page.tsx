@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma"
 import { PropertyStatus } from "@prisma/client"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { MapPin, Bed, Bath, Maximize, ChevronLeft, Calendar, Shield, TrendingUp, Info } from "lucide-react"
+import { MapPin, Bed, Bath, Maximize, ChevronLeft, Calendar, Shield, TrendingUp, Info, Star, Globe, Lock, ArrowUpRight } from "lucide-react"
 
 export default async function PropertyPage({ params }: { params: { id: string } }) {
   const property = await prisma.property.findUnique({
@@ -14,71 +14,69 @@ export default async function PropertyPage({ params }: { params: { id: string } 
 
   if (!property) return notFound()
 
-  // Calculate some derived values for the UI
-  const totalShares = 200 // Default for demo migration
+  // Derived metrics
+  const totalShares = 200
   const availableShares = 200 - property.investments.length
   const percentFunded = ((totalShares - availableShares) / totalShares) * 100
 
   return (
-    <div className="bg-[#FAF9F6] min-h-screen pt-24 pb-24">
-      {/* 1. Header / Breadcrumb */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 pt-4">
-        <Link href="/marketplace" className="inline-flex items-center text-[10px] font-bold uppercase tracking-widest text-[#888] hover:text-[#1a1a1a] transition-colors mb-6">
-          <ChevronLeft className="w-4 h-4 mr-1" /> Back to Offerings
+    <div className="bg-[#F5F0E8] min-h-screen pt-32 pb-40">
+      {/* Header Architecture */}
+      <div className="max-w-7xl mx-auto px-8 mb-16">
+        <Link href="/marketplace" className="inline-flex items-center text-[11px] font-bold uppercase tracking-[0.4em] text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors mb-12 group">
+          <ChevronLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> Back to Collection
         </Link>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3 mb-3">
-              <span className="bg-white border border-[#E5E5E5] text-[#1a1a1a] text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-full shadow-sm">
+        
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="bg-white border border-[#0A0A0A]/5 text-[#C9A84C] text-[10px] uppercase tracking-[0.3em] font-bold px-6 py-2.5 rounded-full shadow-sm">
                 {property.type} Asset
-              </span>
-              <div className="flex items-center gap-1.5 bg-[#1a1a1a] text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-sm">
-                <span className={`w-1.5 h-1.5 rounded-full ${property.status === PropertyStatus.ACTIVE ? "bg-emerald-400" : "bg-[#006AFF]"}`}></span>
-                {property.status}
+              </div>
+              <div className="flex items-center gap-3 bg-[#0A0A0A] text-white text-[10px] font-bold tracking-[0.3em] uppercase px-6 py-2.5 rounded-full shadow-xl">
+                 <div className="w-2 h-2 rounded-full bg-[#C9A84C] animate-pulse" />
+                 {property.status === PropertyStatus.ACTIVE ? "Active Allocation" : "Fully Subscribed"}
               </div>
             </div>
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#1a1a1a] mb-4">
+            <h1 className="font-serif text-6xl sm:text-7xl lg:text-8xl text-[#0A0A0A] mb-8 font-bold tracking-tight leading-[0.95]">
               {property.name}
             </h1>
-            <p className="flex items-center text-[#666] text-lg font-medium">
-              <MapPin className="w-5 h-5 mr-2 text-[#006AFF]" /> {property.location}
+            <p className="flex items-center text-[#8A8A8A] text-xl font-bold uppercase tracking-[0.2em] font-sans">
+              <MapPin className="w-6 h-6 mr-3 text-[#C9A84C]" /> {property.location}
             </p>
           </div>
-          <div className="flex gap-6 pb-2 border-b border-transparent">
-            {/* Quick stats on top right for desktop */}
-            <div className="hidden sm:flex items-center gap-8 bg-white border border-slate-200 px-6 py-4 rounded-2xl shadow-sm">
-              <div className="text-center">
-                <p className="text-[10px] uppercase tracking-widest font-bold text-[#888] mb-1">Target Yield</p>
-                <p className="font-bold text-xl text-[#006AFF]">{property.yieldEstimate}%</p>
-              </div>
-              <div className="w-px h-8 bg-slate-200"></div>
-              <div className="text-center">
-                <p className="text-[10px] uppercase tracking-widest font-bold text-[#888] mb-1">Cap Rate</p>
-                <p className="font-bold text-xl text-[#1a1a1a]">{property.capRate}%</p>
-              </div>
+
+          {/* Core Metrics */}
+          <div className="flex gap-8 pb-4">
+            <div className="bg-white border border-[#0A0A0A]/5 px-10 py-10 rounded-[3rem] shadow-2xl text-center group min-w-[200px]">
+              <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#8A8A8A] mb-4">Target Yield</p>
+              <p className="font-bold text-5xl text-[#C9A84C] tracking-tighter group-hover:scale-110 transition-transform duration-500">{property.yieldEstimate}%</p>
+            </div>
+            <div className="bg-white border border-[#0A0A0A]/5 px-10 py-10 rounded-[3rem] shadow-2xl text-center group min-w-[200px]">
+              <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#8A8A8A] mb-4">Cap Rate</p>
+              <p className="font-bold text-5xl text-[#0A0A0A] tracking-tighter">{property.capRate}%</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 2. Photo Grid Gallery */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-16">
-        <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 h-[400px] sm:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-md bg-white border border-slate-200`}>
-          {/* Main Hero Image */}
-          <div className="relative w-full h-full cursor-pointer group overflow-hidden">
+      {/* Cinematic Asset Gallery */}
+      <div className="max-w-7xl mx-auto px-8 mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[700px]">
+          <div className="lg:col-span-8 relative rounded-[3.5rem] overflow-hidden group shadow-2xl border border-[#0A0A0A]/5">
             <img 
               src={property.images[0]} 
-              className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" 
-              alt={`${property.name} exterior`} 
+              className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" 
+              alt={property.name} 
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/80 via-transparent to-transparent opacity-40" />
           </div>
-          {/* Secondary Images (or just a single large one if only 2 images exist) */}
-          <div className={`hidden md:grid gap-4 ${property.images.length > 2 ? 'grid-rows-2 grid-cols-2' : 'grid-rows-1 grid-cols-1'}`}>
-            {property.images.slice(1).map((img, i) => (
-              <div key={i} className="relative w-full h-full overflow-hidden group cursor-pointer">
+          <div className="lg:col-span-4 grid grid-rows-2 gap-8">
+            {property.images.slice(1, 3).map((img, i) => (
+              <div key={i} className="relative rounded-[3rem] overflow-hidden group shadow-xl border border-[#0A0A0A]/5">
                 <img 
                   src={img} 
-                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" 
+                  className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" 
                   alt={`${property.name} detail ${i+1}`} 
                 />
               </div>
@@ -87,124 +85,123 @@ export default async function PropertyPage({ params }: { params: { id: string } 
         </div>
       </div>
 
-      {/* 3. Content and Sticky Box Split */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row gap-12 lg:gap-16">
+      {/* Data Room Split View */}
+      <div className="max-w-7xl mx-auto px-8 flex flex-col lg:flex-row gap-24">
         
-        {/* Left: Main Details */}
+        {/* Left: Narrative */}
         <div className="flex-1">
-          {/* Key Specs */}
-          <div className="flex flex-wrap items-center gap-8 py-6 border-b border-slate-200 mb-10">
-            <div className="flex items-center text-[#1a1a1a] text-lg font-bold">
-              <Bed className="w-5 h-5 mr-3 text-[#006AFF]" /> {property.bedrooms} Bedrooms
+          {/* Hardware Specs */}
+          <div className="flex flex-wrap items-center gap-14 py-12 border-y border-[#0A0A0A]/5 mb-16">
+            <div className="flex items-center text-[#0A0A0A] text-[12px] font-bold uppercase tracking-[0.3em]">
+              <Bed className="w-6 h-6 mr-3 text-[#C9A84C]" /> {property.bedrooms} Suites
             </div>
-            <div className="flex items-center text-[#1a1a1a] text-lg font-bold">
-              <Bath className="w-5 h-5 mr-3 text-[#006AFF]" /> {property.bathrooms} Bathrooms
+            <div className="flex items-center text-[#0A0A0A] text-[12px] font-bold uppercase tracking-[0.3em]">
+              <Bath className="w-6 h-6 mr-3 text-[#C9A84C]" /> {property.bathrooms} Baths
             </div>
-            <div className="flex items-center text-[#1a1a1a] text-lg font-bold">
-              <Maximize className="w-5 h-5 mr-3 text-[#006AFF]" /> {property.sqft.toLocaleString()} Square Feet
+            <div className="flex items-center text-[#0A0A0A] text-[12px] font-bold uppercase tracking-[0.3em]">
+              <Maximize className="w-6 h-6 mr-3 text-[#C9A84C]" /> {property.sqft.toLocaleString()} SQFT
             </div>
           </div>
 
-          {/* Description */}
-          <div className="mb-14">
-            <h2 className="font-sans text-[10px] font-bold tracking-widest uppercase text-[#888] mb-5">About the Property</h2>
-            <p className="font-serif text-[#1a1a1a] text-xl leading-relaxed whitespace-pre-wrap">
+          {/* Narrative */}
+          <div className="mb-20">
+            <div className="flex items-center gap-4 mb-8">
+               <Star className="w-5 h-5 text-[#C9A84C]" />
+               <h2 className="text-[11px] font-bold tracking-[0.5em] uppercase text-[#8A8A8A]">Asset Narrative</h2>
+            </div>
+            <p className="font-serif text-[#0A0A0A] text-4xl leading-tight tracking-tight mb-12 first-letter:text-8xl first-letter:font-bold first-letter:mr-4 first-letter:float-left first-letter:text-[#C9A84C]">
               {property.description}
             </p>
           </div>
 
-          {/* Data Room Highlights */}
-          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm mb-10">
-            <h2 className="font-sans text-[10px] font-bold tracking-widest uppercase text-[#888] mb-8">Investment Thesis</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#FAF9F6] flex items-center justify-center shrink-0 border border-slate-100">
-                  <TrendingUp className="w-5 h-5 text-[#006AFF]" />
+          {/* The Opportunity */}
+          <div className="bg-white rounded-[4rem] p-12 lg:p-20 border border-[#0A0A0A]/5 shadow-sm mb-16 relative overflow-hidden group">
+             <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A84C]/5 blur-[120px] rounded-full group-hover:bg-[#C9A84C]/10 transition-colors duration-1000" />
+            <h2 className="text-[11px] font-bold tracking-[0.5em] uppercase text-[#8A8A8A] mb-14">The Opportunity</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 relative z-10">
+              {[
+                { icon: TrendingUp, title: "Yield Alpha", desc: "Optimized for elite hospitality rates through our specialized operating model." },
+                { icon: Shield, title: "Verified Ownership", desc: "Institutional legal frameworks ensure secure individual ownership." },
+                { icon: Globe, title: "Global Access", desc: "Secondary trading enabled after initial fulfillment phases." },
+                { icon: Lock, title: "Secured Asset", desc: "Your capital is directly backed by high-value physical collateral." },
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6">
+                  <div className="w-16 h-16 rounded-3xl bg-[#FAF9F6] flex items-center justify-center shrink-0 border border-[#0A0A0A]/5 shadow-sm group-hover:bg-[#C9A84C] group-hover:text-white transition-all duration-500">
+                    <item.icon className="w-6 h-6 text-[#C9A84C] group-hover:text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-[#0A0A0A] text-[11px] uppercase tracking-widest mb-3">{item.title}</h4>
+                    <p className="text-sm text-[#8A8A8A] leading-relaxed font-medium">{item.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-[#1a1a1a] mb-1">Asset Stabilization</h4>
-                  <p className="text-sm text-[#666] leading-relaxed">Property is managed by our institutional in-house operators, maximizing high-season Arbitrage.</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#FAF9F6] flex items-center justify-center shrink-0 border border-slate-100">
-                  <Shield className="w-5 h-5 text-[#006AFF]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#1a1a1a] mb-1">Blockchain Verification</h4>
-                  <p className="text-sm text-[#666] leading-relaxed">Share ownership is digitally secured, enabling frictionless secondary trading post-lockup.</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#FAF9F6] flex items-center justify-center shrink-0 border border-slate-100">
-                  <Calendar className="w-5 h-5 text-[#006AFF]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#1a1a1a] mb-1">Quarterly Distributions</h4>
-                  <p className="text-sm text-[#666] leading-relaxed">Rental yield is calculated and distributed to your dashboard automatically every fiscal quarter.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Right: Sticky Action Card */}
-        <div className="lg:w-[420px] shrink-0">
-          <div className="sticky top-32 bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200">
+        {/* Right: Sticky Terminal */}
+        <div className="lg:w-[480px] shrink-0">
+          <div className="sticky top-32 bg-[#0A0A0A] text-white rounded-[4rem] p-14 shadow-2xl relative overflow-hidden border border-white/5 group">
+            <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#C9A84C]/10 blur-[120px] rounded-full group-hover:bg-[#C9A84C]/20 transition-colors duration-1000" />
             
-            {/* Price section */}
-            <div className="pb-6 border-b border-slate-100 mb-6">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-[#888] mb-2">Cost per share</p>
-              <div className="flex items-baseline gap-2">
-                <span className="font-serif text-4xl sm:text-5xl font-bold text-[#1a1a1a]">
+            {/* Share Price */}
+            <div className="pb-12 border-b border-white/10 mb-12">
+              <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-[#8A8A8A] mb-6">Entry Share Price</p>
+              <div className="flex items-baseline gap-4">
+                <span className="font-serif text-7xl font-bold text-white tracking-tighter">
                   ${property.pricePerShare.toLocaleString()}
                 </span>
-                <span className="text-[#666] font-medium hidden"> / share</span>
+                <span className="text-[#8A8A8A] font-bold uppercase tracking-[0.2em] text-[11px] italic">/ Share</span>
               </div>
             </div>
 
-            {/* Shares Availability */}
-            <div className="mb-8">
-              <div className="flex justify-between items-end mb-3">
-                <span className="text-sm font-bold text-[#1a1a1a]">Funding Progress</span>
-                <span className="text-sm font-bold text-[#006AFF]">{Math.round(percentFunded)}%</span>
+            {/* Funding Progress */}
+            <div className="mb-14">
+              <div className="flex justify-between items-end mb-6 font-bold uppercase tracking-[0.3em] text-[11px]">
+                <span className="text-[#8A8A8A]">Funding Progress</span>
+                <span className="text-[#C9A84C]">{Math.round(percentFunded)}%</span>
               </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-3">
-                <div className="bg-[#006AFF] h-full rounded-full transition-all duration-1000" style={{ width: `${percentFunded}%` }} />
+              <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden mb-8 relative">
+                <div className="bg-[#C9A84C] h-full rounded-full transition-all duration-[2000ms] cubic-bezier(0.16, 1, 0.3, 1)" style={{ width: `${percentFunded}%` }} />
               </div>
-              <p className="text-xs text-[#888] font-medium flex justify-between">
-                <span>{availableShares} Shares Available</span>
-                <span>{totalShares} Total</span>
-              </p>
-            </div>
-
-            {/* Key Metrics */}
-            <div className="space-y-4 mb-8 bg-[#FAF9F6] p-5 rounded-2xl border border-slate-100">
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-[#666] flex items-center gap-1">
-                  Overall Cap Rate <Info className="w-3 h-3 text-[#ccc]" />
-                </span>
-                <span className="text-sm font-bold text-[#1a1a1a]">{property.capRate}%</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-[#666]">Asset Value</span>
-                <span className="text-sm font-bold text-[#1a1a1a]">${((property.askingPrice || 0) / 1000000).toFixed(1)}M</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-[#666]">Lockup Period</span>
-                <span className="text-sm font-bold text-[#1a1a1a]">5 Years</span>
+              <div className="flex justify-between items-center bg-white/5 p-6 rounded-2xl border border-white/5">
+                 <div className="text-center flex-1">
+                    <p className="text-[9px] font-bold text-[#8A8A8A] uppercase tracking-widest mb-1">Available</p>
+                    <p className="text-lg font-bold text-white tracking-tight">{availableShares} Units</p>
+                 </div>
+                 <div className="w-[1px] h-8 bg-white/10" />
+                 <div className="text-center flex-1">
+                    <p className="text-[9px] font-bold text-[#8A8A8A] uppercase tracking-widest mb-1">Hard Cap</p>
+                    <p className="text-lg font-bold text-white tracking-tight">{totalShares} CAP</p>
+                 </div>
               </div>
             </div>
 
-            {/* Action */}
+            {/* Core Stats */}
+            <div className="space-y-6 mb-14">
+              {[
+                { label: "Asset Valuation", value: `$${((property.askingPrice || 0) / 1000000).toFixed(1)}M` },
+                { label: "Lockup Period", value: "6 Months" },
+                { label: "Settlement Cycle", value: "Quarterly" },
+              ].map(stat => (
+                <div key={stat.label} className="flex justify-between items-center group/stat">
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-[#8A8A8A] group-hover/stat:text-white transition-colors">{stat.label}</span>
+                  <span className="text-base font-bold text-white">{stat.value}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA Trigger */}
             <Link
               href={`/apply?propertyId=${property.id}`}
-              className="w-full flex justify-center items-center gap-2 bg-[#1a1a1a] text-white py-5 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-[#006AFF] transition-all shadow-md group"
+              className="w-full flex justify-between items-center bg-[#C9A84C] text-[#0A0A0A] py-7 px-12 rounded-[2rem] font-bold uppercase tracking-[0.3em] text-[12px] hover:bg-white transition-all duration-500 shadow-2xl group/btn"
             >
-              Secure Allocation
+              <span>Invest Now</span>
+              <ArrowUpRight className="w-6 h-6 group-hover/btn:-rotate-45 transition-transform duration-500" />
             </Link>
-            <p className="text-center text-[10px] text-[#888] mt-4 uppercase tracking-widest font-bold">
-              Accredited investors only
+            
+            <p className="text-center text-[10px] text-[#8A8A8A] mt-10 uppercase tracking-[0.4em] font-bold border-t border-white/5 pt-8">
+              Accredited Partners Only
             </p>
           </div>
         </div>

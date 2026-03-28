@@ -9,7 +9,7 @@ interface GoldButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 }
 
 export function GoldButton({ children, href, className, icon, ...props }: GoldButtonProps) {
-  const baseStyles = "inline-flex items-center justify-center px-6 py-3 text-sm font-mono tracking-widest uppercase transition-all duration-300 bg-gold text-black border border-gold hover:bg-gold-light hover:border-gold-light hover:-translate-y-0.5"
+  const baseStyles = "inline-flex items-center justify-center px-8 py-4 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-500 bg-[#0A0A0A] text-white hover:bg-[#C9A84C] hover:text-[#0A0A0A] shadow-2xl"
 
   if (href) {
     return (

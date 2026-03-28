@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useSession } from "next-auth/react"
-import { User, Bell, Shield, CreditCard, CheckCircle2 } from "lucide-react"
+import { User, Bell, Shield, CreditCard, CheckCircle2, ShieldCheck, Mail, Phone, Landmark } from "lucide-react"
 
 export default function SettingsPage() {
   const { data: session } = useSession()
@@ -14,119 +14,149 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="space-y-8 max-w-2xl">
-      <div>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-[#006AFF] mb-2">Account Settings</p>
-        <h1 className="font-serif text-3xl text-white mb-1">Settings</h1>
-        <p className="text-warmGrey text-sm">Manage your investor account and notification preferences.</p>
+    <div className="space-y-12 max-w-4xl animate-sovereign-in">
+      <div className="relative overflow-hidden p-10 bg-white border border-[#0A0A0A]/5 rounded-[2.5rem] shadow-sm">
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+             <ShieldCheck className="w-4 h-4 text-[#C9A84C]" />
+             <p className="text-[#C9A84C] font-bold text-[10px] uppercase tracking-[0.4em]">Sovereign Profile</p>
+          </div>
+          <h1 className="font-serif text-4xl font-bold text-[#0A0A0A] mb-3 tracking-tight">Settings</h1>
+          <p className="text-[#8A8A8A] text-base font-serif italic max-w-xl">"Manage your partner credentials and portfolio notification preferences."</p>
+        </div>
+        <div className="absolute top-0 right-0 w-80 h-full bg-[#C9A84C]/5 blur-[80px] rounded-full translate-x-1/2 pointer-events-none" />
       </div>
 
-      {/* Profile */}
-      <section className="bg-[#111] border border-[#222] rounded-xl p-6 space-y-5">
-        <div className="flex items-center gap-3 mb-2">
-          <User className="w-4 h-4 text-[#006AFF]" />
-          <h2 className="text-white font-semibold">Profile Information</h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            { label: "First Name", placeholder: "James", value: "" },
-            { label: "Last Name", placeholder: "Holden", value: "" },
-          ].map((f) => (
-            <div key={f.label}>
-              <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">{f.label}</label>
-              <input defaultValue={f.value} placeholder={f.placeholder} className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50 transition-colors" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-12">
+        <div className="space-y-8">
+          {/* Profile */}
+          <section className="bg-white border border-[#0A0A0A]/5 rounded-[2rem] p-8 space-y-6 shadow-sm">
+            <div className="flex items-center gap-4 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-[#FAF9F6] border border-[#0A0A0A]/5 flex items-center justify-center">
+                <User className="w-5 h-5 text-[#C9A84C]" />
+              </div>
+              <h2 className="text-[#0A0A0A] font-bold text-lg tracking-tight">Partner Information</h2>
             </div>
-          ))}
-        </div>
-        <div>
-          <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Email</label>
-          <input defaultValue={session?.user?.email || ""} className="w-full bg-[#1a1a1a] border border-[#333] text-warmGrey text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
-        </div>
-        <div>
-          <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Phone Number</label>
-          <input placeholder="+1 (555) 000-0000" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
-        </div>
-      </section>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[
+                { label: "First Name", placeholder: "James" },
+                { label: "Last Name", placeholder: "Holden" },
+              ].map((f) => (
+                <div key={f.label} className="space-y-2">
+                  <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.3em] pl-1">{f.label}</label>
+                  <input placeholder={f.placeholder} className="w-full bg-[#FAF9F6] border border-[#0A0A0A]/5 text-[#0A0A0A] text-sm px-6 py-4 rounded-2xl focus:outline-none focus:border-[#C9A84C]/50 transition-all font-medium" />
+                </div>
+              ))}
+            </div>
+            <div className="space-y-2">
+              <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.3em] pl-1">Email Address</label>
+              <div className="relative">
+                <input defaultValue={session?.user?.email || ""} className="w-full bg-[#FAF9F6] border border-[#0A0A0A]/5 text-[#8A8A8A] text-sm px-6 py-4 rounded-2xl focus:outline-none cursor-not-allowed font-medium" disabled />
+                <Mail className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A8A8A]/30" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.3em] pl-1">Phone Number</label>
+              <div className="relative">
+                <input placeholder="+1 (555) 000-0000" className="w-full bg-[#FAF9F6] border border-[#0A0A0A]/5 text-[#0A0A0A] text-sm px-6 py-4 rounded-2xl focus:outline-none focus:border-[#C9A84C]/50 transition-all font-medium" />
+                <Phone className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A8A8A]/30" />
+              </div>
+            </div>
+          </section>
 
-      {/* Accreditation */}
-      <section className="bg-[#111] border border-[#222] rounded-xl p-6">
-        <div className="flex items-center gap-3 mb-4">
-          <Shield className="w-4 h-4 text-[#006AFF]" />
-          <h2 className="text-white font-semibold">Accreditation Status</h2>
+          {/* Banking */}
+          <section className="bg-white border border-[#0A0A0A]/5 rounded-[2rem] p-8 space-y-6 shadow-sm">
+            <div className="flex items-center gap-4 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-[#FAF9F6] border border-[#0A0A0A]/5 flex items-center justify-center">
+                <Landmark className="w-5 h-5 text-[#C9A84C]" />
+              </div>
+              <h2 className="text-[#0A0A0A] font-bold text-lg tracking-tight">Distribution Banking</h2>
+            </div>
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.3em] pl-1">Bank Name</label>
+                <input placeholder="Chase Bank" className="w-full bg-[#FAF9F6] border border-[#0A0A0A]/5 text-[#0A0A0A] text-sm px-6 py-4 rounded-2xl focus:outline-none focus:border-[#C9A84C]/50 transition-all font-medium" />
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.3em] pl-1">Routing</label>
+                  <input placeholder="•••••••••" type="password" className="w-full bg-[#FAF9F6] border border-[#0A0A0A]/5 text-[#0A0A0A] text-sm px-6 py-4 rounded-2xl focus:outline-none focus:border-[#C9A84C]/50 transition-all font-medium" />
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.3em] pl-1">Account</label>
+                  <input placeholder="•••••••••••" type="password" className="w-full bg-[#FAF9F6] border border-[#0A0A0A]/5 text-[#0A0A0A] text-sm px-6 py-4 rounded-2xl focus:outline-none focus:border-[#C9A84C]/50 transition-all font-medium" />
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-        <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-          <div>
-            <p className="text-emerald-400 font-semibold text-sm">Verified Accredited Investor</p>
-            <p className="text-warmGrey text-xs mt-0.5">Your accreditation was verified on Jan 10, 2026. Valid through Jan 2027.</p>
+
+        <div className="space-y-8">
+          {/* Accreditation */}
+          <section className="bg-white border border-[#0A0A0A]/5 rounded-[2rem] p-8 space-y-6 shadow-sm">
+            <div className="flex items-center gap-4 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-[#FAF9F6] border border-[#0A0A0A]/5 flex items-center justify-center">
+                <Shield className="w-5 h-5 text-[#C9A84C]" />
+              </div>
+              <h2 className="text-[#0A0A0A] font-bold text-lg tracking-tight">Accreditation Manifest</h2>
+            </div>
+            <div className="bg-[#FAF9F6] border border-[#C9A84C]/10 rounded-[1.5rem] p-6 flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-white rounded-full border border-[#C9A84C]/20 flex items-center justify-center mb-4 shadow-sm">
+                <CheckCircle2 className="w-8 h-8 text-[#C9A84C]" />
+              </div>
+              <p className="text-[#0A0A0A] font-bold text-base mb-1">Verified Partner</p>
+              <p className="text-[#8A8A8A] text-[11px] font-bold uppercase tracking-widest leading-relaxed opacity-60">
+                Your accreditation was confirmed through 2027.
+              </p>
+            </div>
+          </section>
+
+          {/* Notifications */}
+          <section className="bg-white border border-[#0A0A0A]/5 rounded-[2rem] p-8 space-y-6 shadow-sm">
+            <div className="flex items-center gap-4 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-[#FAF9F6] border border-[#0A0A0A]/5 flex items-center justify-center">
+                <Bell className="w-5 h-5 text-[#C9A84C]" />
+              </div>
+              <h2 className="text-[#0A0A0A] font-bold text-lg tracking-tight">Communication Preferred</h2>
+            </div>
+            <div className="space-y-6">
+              {[
+                { label: "Distribution Payments", sub: "Status alerts on capital dividends", default: true },
+                { label: "Portfolio Insights", sub: "Monthly performance manifests", default: true },
+                { label: "Private Offerings", sub: "Priority windows for new assets", default: true },
+                { label: "Stay Confirmations", sub: "Concierge booking alerts", default: false },
+              ].map((n) => (
+                <label key={n.label} className="flex items-center justify-between gap-6 cursor-pointer group">
+                  <div>
+                    <p className="text-[#0A0A0A] text-sm font-bold tracking-tight">{n.label}</p>
+                    <p className="text-[#8A8A8A] text-xs font-medium">{n.sub}</p>
+                  </div>
+                  <div className="relative shrink-0">
+                    <input type="checkbox" defaultChecked={n.default} className="sr-only peer" />
+                    <div className="w-12 h-7 bg-[#FAF9F6] border border-[#0A0A0A]/5 rounded-full peer peer-checked:bg-[#0A0A0A] transition-all duration-500" />
+                    <div className="absolute top-1 left-1 w-5 h-5 bg-white border border-[#0A0A0A]/5 rounded-full transition-all duration-500 peer-checked:translate-x-5 shadow-sm peer-checked:bg-[#C9A84C]" />
+                  </div>
+                </label>
+              ))}
+            </div>
+          </section>
+
+          {/* Save Action */}
+          <div className="pt-4 flex items-center justify-between gap-6">
+            <button
+              onClick={handleSave}
+              className="px-12 py-5 bg-[#0A0A0A] text-white font-bold rounded-2xl hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all duration-500 shadow-2xl text-[10px] uppercase tracking-[0.4em] active:scale-95 disabled:opacity-50"
+            >
+              {saved ? "Manifest Updated" : "Save Changes"}
+            </button>
+            {saved && (
+              <div className="flex items-center gap-3 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest animate-pulse">
+                <CheckCircle2 className="w-4 h-4" />
+                Updated
+              </div>
+            )}
           </div>
         </div>
-      </section>
-
-      {/* Notifications */}
-      <section className="bg-[#111] border border-[#222] rounded-xl p-6 space-y-4">
-        <div className="flex items-center gap-3 mb-2">
-          <Bell className="w-4 h-4 text-[#006AFF]" />
-          <h2 className="text-white font-semibold">Notification Preferences</h2>
-        </div>
-        {[
-          { label: "Distribution Payments", sub: "Receive email when distributions are processed", default: true },
-          { label: "Portfolio Updates", sub: "Monthly portfolio performance reports", default: true },
-          { label: "New Offerings", sub: "Priority access to new investment opportunities", default: true },
-          { label: "Stay Confirmations", sub: "Booking confirmations for priority stays", default: false },
-        ].map((n) => (
-          <label key={n.label} className="flex items-center justify-between gap-4 cursor-pointer group">
-            <div>
-              <p className="text-white text-sm">{n.label}</p>
-              <p className="text-warmGrey text-xs">{n.sub}</p>
-            </div>
-            <div className="relative shrink-0">
-              <input type="checkbox" defaultChecked={n.default} className="sr-only peer" />
-              <div className="w-10 h-6 bg-[#333] rounded-full peer peer-checked:bg-[#006AFF] transition-colors" />
-              <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4" />
-            </div>
-          </label>
-        ))}
-      </section>
-
-      {/* Banking */}
-      <section className="bg-[#111] border border-[#222] rounded-xl p-6">
-        <div className="flex items-center gap-3 mb-4">
-          <CreditCard className="w-4 h-4 text-[#006AFF]" />
-          <h2 className="text-white font-semibold">Distribution Banking</h2>
-        </div>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Bank Name</label>
-            <input placeholder="Chase Bank" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Routing Number</label>
-              <input placeholder="•••••••••" type="password" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
-            </div>
-            <div>
-              <label className="block text-xs font-mono uppercase tracking-widest text-warmGrey mb-2">Account Number</label>
-              <input placeholder="•••••••••••" type="password" className="w-full bg-[#1a1a1a] border border-[#333] text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-[#006AFF]/50" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Save */}
-      <div className="flex items-center gap-4">
-        <button
-          onClick={handleSave}
-          className="px-8 py-3.5 bg-[#006AFF] text-black font-bold rounded-xl hover:bg-[#E8C96A] transition-colors"
-        >
-          Save Changes
-        </button>
-        {saved && (
-          <div className="flex items-center gap-2 text-emerald-400 text-sm">
-            <CheckCircle2 className="w-4 h-4" />
-            Changes saved
-          </div>
-        )}
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
-# Sterling Vane - Private Wealth Property Platform
+# The Sovereign Collection — Sterling Vane
 
-A luxury property investment platform designed for high-net-worth individuals, featuring a global property marketplace, real-time portfolio tracking, and institutional-grade management.
+A premier luxury real estate investment platform. We combine private equity hospitality, an elite property marketplace, and a boutique rental engine into a single, unified digital experience.
 
 ## 🚀 Getting Started (New PC Setup)
 

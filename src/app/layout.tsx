@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { DM_Sans, Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import { LayoutShell } from "@/components/layout/LayoutShell";
 import { Providers } from "@/components/layout/Providers";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-serif", display: "swap" });
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm", display: "swap" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
+const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Sterling Vane | Fractional Real Estate Investing",
-  description: "A premium real estate fintech platform.",
+  title: "Sterling Vane | The Sovereign Collection",
+  description: "Luxury Real Estate Investment Platform. Precision. Legacy. Exclusivity.",
 };
 
 export default function RootLayout({
@@ -18,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth selection:bg-[#006AFF] selection:text-white">
-      <body className={`${inter.variable} ${space.variable} font-sans antialiased text-[#1a1a1a] bg-white min-h-screen flex flex-col`}>
+    <html lang="en" className="scroll-smooth selection:bg-[#C9A84C]/30 selection:text-[#0A0A0A]">
+      <body className={`${dmSans.variable} ${playfair.variable} ${montserrat.variable} font-sans antialiased text-[#0A0A0A] bg-[#F5F0E8] min-h-screen flex flex-col`}>
         <Providers>
           <LayoutShell>
             {children}

@@ -19,8 +19,9 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", "sans-serif"],
-        serif: ["var(--font-serif)", "sans-serif"],
+        sans: ["var(--font-dm)", "sans-serif"],
+        serif: ["var(--font-playfair)", "serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
       },
       colors: {
         border: {

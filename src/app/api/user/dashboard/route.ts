@@ -76,7 +76,8 @@ export async function GET() {
         share: `${((inv.amount / (inv.property.askingPrice || 1000000)) * 100).toFixed(1)}%`
       })),
       hasInvestments: user.investments.length > 0,
-      status: profile.applicationStatus
+      status: profile.applicationStatus,
+      intent: user.intent
     }
 
     return NextResponse.json(dashboardData)

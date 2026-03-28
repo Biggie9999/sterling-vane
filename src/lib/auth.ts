@@ -81,6 +81,10 @@ export const authOptions: NextAuthOptions = {
         
         if (dbUser) {
              session.user.name = dbUser.name
+             // @ts-ignore
+             session.user.onboardingComplete = dbUser.onboardingComplete
+             // @ts-ignore
+             session.user.intent = dbUser.intent
              
              // Robustness: create profile if missing for any reason
              if (!dbUser.investorProfile) {

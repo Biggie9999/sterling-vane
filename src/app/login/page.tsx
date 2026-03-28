@@ -5,12 +5,11 @@ import { signIn, useSession } from "next-auth/react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Suspense } from "react"
-import { Eye, EyeOff, ArrowRight, Shield, Lock, Mail, CheckCircle2, RefreshCw, Loader2, Star } from "lucide-react"
+import { Eye, EyeOff, ArrowRight, Shield, Lock, Mail, CheckCircle2, RefreshCw, Loader2, Star, Globe, ShieldCheck } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 type AuthMode = "signin" | "signup"
-type SignupStage = "details" | "verify"
 
 const GoogleIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -25,21 +24,12 @@ function AuthInner() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [mode, setMode] = useState<AuthMode>(searchParams.get("mode") === "signup" ? "signup" : "signin")
-  const [stage, setStage] = useState<SignupStage>("details")
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPwd, setShowPwd] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
-  const [resendTimer, setResendTimer] = useState(0)
-
-  useEffect(() => {
-    if (resendTimer > 0) {
-      const t = setTimeout(() => setResendTimer(r => r - 1), 1000)
-      return () => clearTimeout(t)
-    }
-  }, [resendTimer])
 
   const handleGoogleAuth = async () => {
     setLoading(true)
@@ -53,7 +43,7 @@ function AuthInner() {
     setError("")
     const res = await signIn("credentials", { email, password, redirect: false })
     if (res?.error) {
-      setError("Security verification failed. Please check your credentials.")
+      setError("Log in failed. Please check your credentials.")
       setLoading(false)
     } else {
       router.push("/dashboard")
@@ -63,7 +53,7 @@ function AuthInner() {
 
   const handleSignUpSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name.trim()) { setError("Complete identification required."); return }
+    if (!name.trim()) { setError("Please enter your full name."); return }
     setLoading(true)
     setError("")
 
@@ -75,21 +65,21 @@ function AuthInner() {
       })
       const data = await res.json()
       if (!res.ok) {
-        setError(data.error || "Onboarding protocol failed")
+        setError(data.error || "Account creation failed.")
         setLoading(false)
         return
       }
       
       const signInRes = await signIn("credentials", { email, password, redirect: false })
       if (signInRes?.error) {
-        setError("Account authorized, but failed to initialize session.")
+        setError("Account created, but failed to log in automatically.")
         setLoading(false)
       } else {
-        router.push("/dashboard")
+        router.push("/onboarding")
         router.refresh()
       }
     } catch (err) {
-      setError("A protocol error occurred during initialization.")
+      setError("An unexpected error occurred.")
       setLoading(false)
     }
   }
@@ -98,134 +88,140 @@ function AuthInner() {
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.push("/dashboard")
+      // @ts-ignore
+      if (session?.user?.onboardingComplete === false) {
+        router.push("/onboarding")
+      } else {
+        router.push("/dashboard")
+      }
     }
-  }, [status, router])
+  }, [status, session, router])
 
   const switchMode = (m: AuthMode) => {
-    setMode(m); setError(""); setStage("details"); setEmail(""); setPassword(""); setName("")
+    setMode(m); setError(""); setEmail(""); setPassword(""); setName("")
   }
 
   return (
-    <div className="min-h-screen flex bg-white antialiased">
-      {/* Cinematic Brand Panel */}
-      <div className="hidden lg:flex lg:w-[48%] bg-slate-950 flex-col justify-between p-16 relative overflow-hidden shrink-0">
-        <div className="absolute inset-0 opacity-20 luxury-grain pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-blue-500/5 blur-[120px]" />
+    <div className="min-h-screen flex bg-[#FAF9F6] antialiased">
+      {/* Editorial Identity Panel */}
+      <div className="hidden lg:flex lg:w-[45%] bg-white flex-col justify-between p-20 relative overflow-hidden shrink-0 border-r border-[#0A0A0A]/5">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#C9A84C]/5 blur-[120px] rounded-full" />
         
-        <div className="relative z-10 transition-all duration-700 animate-sovereign-in">
-          <Link href="/" className="inline-block group">
-            <h1 className="font-serif text-3xl font-bold text-white tracking-tighter">Sterling Vane</h1>
-            <p className="font-mono text-[9px] uppercase tracking-[0.5em] text-accent font-bold mt-2">The Sovereign Collection</p>
+        <div className="relative z-10">
+          <Link href="/" className="inline-block flex flex-col items-start gap-2">
+            <h1 className="font-serif text-3xl font-bold text-[#0A0A0A] tracking-tight">Sterling Vane</h1>
+            <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.4em] text-[#C9A84C]">The Sovereign Collection</p>
           </Link>
         </div>
 
-        <div className="relative z-10 space-y-12 animate-sovereign-in [animation-delay:0.2s]">
-          <div className="space-y-6">
-             <div className="w-12 h-12 rounded-2xl bg-accent/20 border border-accent/30 flex items-center justify-center">
-                <Star className="w-6 h-6 text-accent fill-current" />
+        <div className="relative z-10 space-y-12">
+          <div className="space-y-8">
+             <div className="w-14 h-14 rounded-3xl bg-[#F5F0E8] border border-[#0A0A0A]/5 flex items-center justify-center">
+                <Star className="w-6 h-6 text-[#C9A84C] fill-current" />
              </div>
-             <blockquote className="text-white text-4xl font-serif font-bold leading-[1.1] tracking-tighter max-w-sm">
-               Institutional access to the world's most <span className="text-accent underline decoration-accent/30 underline-offset-8">coveted assets</span>.
+             <blockquote className="text-[#0A0A0A] text-5xl sm:text-6xl font-serif font-bold leading-[1.05] tracking-tighter max-w-sm">
+               Real estate <br /><span className="text-[#C9A84C] italic">reimagined.</span>
              </blockquote>
+             <p className="text-[#8A8A8A] text-xl font-serif italic font-medium opacity-60">"The next chapter in luxury hospitality."</p>
           </div>
           
-          <div className="grid grid-cols-2 gap-8 pt-10 border-t border-white/5">
+          <div className="grid grid-cols-2 gap-12 pt-12 border-t border-[#0A0A0A]/5">
             {[
-              { label: "Asset Liquidity", value: "Verified" },
-              { label: "Global Collection", value: "Phase 1" },
+              { label: "Market Status", value: "Verified" },
+              { label: "Global Presence", value: "Flagship" },
             ].map(s => (
               <div key={s.label}>
-                <p className="text-accent font-bold text-lg font-serif tracking-tight">{s.value}</p>
-                <p className="text-white/30 text-[9px] font-mono font-bold uppercase tracking-[0.2em] mt-1">{s.label}</p>
+                <p className="text-[#0A0A0A] font-bold text-xl font-serif tracking-tight">{s.value}</p>
+                <p className="text-[#C9A84C] text-[9px] font-bold uppercase tracking-[0.3em] mt-2 leading-none pt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="relative z-10 flex items-center justify-between text-white/20 text-[9px] font-mono font-bold uppercase tracking-[0.2em]">
-           <span>© 2026 Sovereign Assets</span>
-           <span className="flex items-center gap-2">
-             <Shield className="w-3 h-3" /> Encrypted Session
+        <div className="relative z-10 flex items-center justify-between text-[#8A8A8A]/40 text-[9px] font-bold uppercase tracking-[0.4em]">
+           <span>Partner Access Portal</span>
+           <span className="flex items-center gap-3">
+             <ShieldCheck className="w-4 h-4 text-[#C9A84C]" /> Secure
            </span>
         </div>
       </div>
 
-      {/* Elegant Form Panel */}
-      <div className="flex-1 flex items-center justify-center p-8 sm:p-12 lg:p-20 bg-white overflow-y-auto selection:bg-accent/10 selection:text-accent">
-        <div className="w-full max-w-md animate-sovereign-in">
-          {/* Mobile Identifier */}
-          <div className="lg:hidden mb-12">
-            <Link href="/" className="inline-block">
-               <h2 className="font-serif text-2xl font-bold text-slate-900 tracking-tighter">Sterling Vane</h2>
-               <p className="font-mono text-[8px] uppercase tracking-widest text-accent font-bold">Investor Access</p>
+      {/* Main Entrance Panel */}
+      <div className="flex-1 flex items-center justify-center p-8 sm:p-12 lg:p-24 overflow-y-auto selection:bg-[#C9A84C]/20 bg-[#FAF9F6] lg:bg-transparent">
+        <div className="w-full max-w-md">
+          {/* Mobile Identity */}
+          <div className="lg:hidden mb-16">
+            <Link href="/" className="inline-block w-full text-center">
+               <h2 className="font-serif text-3xl font-bold text-[#0A0A0A] tracking-tighter">Sterling Vane</h2>
+               <p className="font-montserrat text-[9px] uppercase tracking-[0.5em] text-[#C9A84C] font-bold mt-2">Sovereign Collection</p>
             </Link>
           </div>
 
-          {/* Form Header */}
-          <div className="mb-10 text-center lg:text-left">
-            <h1 className="text-4xl font-serif font-bold text-slate-900 mb-4 tracking-tighter">
-              {mode === "signin" ? "Investor Entrance" : "Begin Onboarding"}
+          <div className="mb-14 text-center">
+            <h1 className="text-5xl font-serif font-bold text-[#0A0A0A] mb-4 tracking-tighter">
+              {mode === "signin" ? "Partner Access." : "Join Us."}
             </h1>
-            <p className="text-slate-500 font-medium text-sm leading-relaxed">
-              {mode === "signin" ? "Authorized access to your global real estate holdings." : "Step into the sovereign layer of property ownership."}
+            <p className="text-[#8A8A8A] font-bold text-[10px] uppercase tracking-[0.3em] opacity-60">
+              {mode === "signin" ? "Log in to your private dashboard" : "Start your journey with The Sovereign Collection"}
             </p>
           </div>
 
-          {/* Core Auth Flow */}
-          <div className="space-y-8">
-            {error && (
-              <div className="p-4 bg-rose-50 border border-rose-100 text-rose-600 text-[13px] rounded-2xl flex items-center gap-3 font-medium animate-pulse">
-                <div className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
-                {error}
-              </div>
-            )}
-
+          <div className="space-y-10">
             <button 
               onClick={handleGoogleAuth} 
               disabled={loading}
-              className="w-full flex items-center justify-center gap-4 bg-white hover:bg-slate-50 border border-slate-100 text-slate-900 py-4.5 rounded-2xl font-bold text-[14px] transition-all shadow-sm disabled:opacity-50 group active:scale-95"
+              className="w-full flex items-center justify-center gap-4 bg-white hover:bg-[#FAF9F6] border border-[#0A0A0A]/5 text-[#0A0A0A] py-5 rounded-2xl font-bold text-[11px] uppercase tracking-[0.2em] transition-all duration-500 shadow-sm disabled:opacity-50 group active:scale-95"
             >
-              <GoogleIcon /> Continue via Secure Identification
+              <GoogleIcon /> Continue with Google
             </button>
 
-            <div className="relative py-4 flex items-center gap-4">
-              <div className="flex-1 h-px bg-slate-100" />
-              <span className="text-[10px] text-slate-300 font-mono font-bold uppercase tracking-widest">Protocol Sync</span>
-              <div className="flex-1 h-px bg-slate-100" />
+            <div className="relative py-4 flex items-center gap-6">
+              <div className="flex-1 h-px bg-[#0A0A0A]/5" />
+              <span className="text-[9px] text-[#8A8A8A] font-bold uppercase tracking-[0.4em] opacity-40">Or</span>
+              <div className="flex-1 h-px bg-[#0A0A0A]/5" />
             </div>
+
+            {error && (
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-5 bg-white border border-red-100 text-red-600 text-[10px] font-bold uppercase tracking-widest rounded-2xl flex items-center gap-4 shadow-xl"
+              >
+                <div className="w-2 h-2 rounded-full bg-red-500" />
+                {error}
+              </motion.div>
+            )}
 
             <form onSubmit={mode === "signin" ? handleSignIn : handleSignUpSubmit} className="space-y-6">
               {mode === "signup" && (
-                <div className="animate-sovereign-in">
-                  <label className="block text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2.5">Full Identification</label>
+                <div className="space-y-3">
+                  <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.4em] pl-1">Full Name</label>
                   <input 
                     type="text" 
                     required 
                     value={name} 
                     onChange={e => setName(e.target.value)}
-                    className="w-full px-5 py-4.5 rounded-2xl border border-slate-100 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-accent/5 focus:border-accent transition-all text-sm font-medium"
-                    placeholder="E.g. James Alexander Holden" 
+                    className="w-full px-6 py-5 rounded-2xl bg-white border border-[#0A0A0A]/5 focus:border-[#C9A84C] focus:outline-none focus:ring-4 focus:ring-[#C9A84C]/5 transition-all text-sm font-medium text-[#0A0A0A] placeholder-[#8A8A8A]/30"
+                    placeholder="Enter your name" 
                   />
                 </div>
               )}
               
-              <div className="animate-sovereign-in [animation-delay:0.1s]">
-                <label className="block text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2.5">Verified Email</label>
+              <div className="space-y-3">
+                <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.4em] pl-1">Email Address</label>
                 <input 
                   type="email" 
                   required 
                   value={email} 
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full px-5 py-4.5 rounded-2xl border border-slate-100 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-accent/5 focus:border-accent transition-all text-sm font-medium"
-                  placeholder="investor@sovereign.io" 
+                  className="w-full px-6 py-5 rounded-2xl bg-white border border-[#0A0A0A]/5 focus:border-[#C9A84C] focus:outline-none focus:ring-4 focus:ring-[#C9A84C]/5 transition-all text-sm font-medium text-[#0A0A0A] placeholder-[#8A8A8A]/30"
+                  placeholder="name@example.com" 
                 />
               </div>
 
-              <div className="animate-sovereign-in [animation-delay:0.2s]">
-                <div className="flex justify-between items-center mb-2.5">
-                  <label className="block text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">Security Key</label>
-                  {mode === "signin" && <button type="button" className="text-[10px] text-accent font-bold uppercase tracking-widest hover:underline">Forgot Key?</button>}
+              <div className="space-y-3">
+                <div className="flex justify-between items-center px-1">
+                  <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.4em]">Password</label>
                 </div>
                 <div className="relative">
                   <input 
@@ -233,11 +229,11 @@ function AuthInner() {
                     required 
                     value={password} 
                     onChange={e => setPassword(e.target.value)}
-                    className="w-full px-5 py-4.5 pr-12 rounded-2xl border border-slate-100 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-accent/5 focus:border-accent transition-all text-sm font-medium"
+                    className="w-full px-6 py-5 pr-14 rounded-2xl bg-white border border-[#0A0A0A]/5 focus:border-[#C9A84C] focus:outline-none focus:ring-4 focus:ring-[#C9A84C]/5 transition-all text-sm font-medium text-[#0A0A0A] placeholder-[#8A8A8A]/30"
                     placeholder="••••••••" 
                   />
-                  <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-600 transition-colors">
-                    {showPwd ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-6 top-1/2 -translate-y-1/2 text-[#8A8A8A] hover:text-[#C9A84C] transition-colors">
+                    {showPwd ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
@@ -245,34 +241,33 @@ function AuthInner() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-3 bg-slate-950 hover:bg-black text-white py-5 rounded-2xl font-bold transition-all disabled:opacity-50 shadow-2xl active:scale-95 text-[14px] uppercase tracking-widest"
+                className="w-full flex items-center justify-center gap-4 bg-[#0A0A0A] hover:bg-[#C9A84C] hover:text-[#0A0A0A] text-white py-6 rounded-2xl font-bold transition-all duration-700 disabled:opacity-20 shadow-2xl active:scale-95 text-[10px] uppercase tracking-[0.4em] group"
               >
-                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
                   <>
-                    {mode === "signin" ? "Unseal Dashboard" : "Authorize Account"}
-                    <ArrowRight className="w-5 h-5" />
+                    {mode === "signin" ? "Log In" : "Get Started"}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
               </button>
             </form>
 
-            <div className="pt-8 text-center animate-sovereign-in [animation-delay:0.3s]">
-               <p className="text-sm font-medium text-slate-400 mb-6">
-                 {mode === "signin" ? "New to the Sovereign Collection?" : "Already an authorized investor?"}
+            <div className="pt-10 text-center">
+               <p className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-[0.3em] mb-6 opacity-60">
+                 {mode === "signin" ? "New to Sterling Vane?" : "Already have an account?"}
                </p>
                <button 
                 onClick={() => switchMode(mode === "signin" ? "signup" : "signin")}
-                className="text-xs font-bold text-slate-900 border-2 border-slate-100 px-8 py-3 rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest"
+                className="text-[9px] font-bold text-[#0A0A0A] border-b-2 border-[#C9A84C] pb-1 hover:text-[#C9A84C] transition-all uppercase tracking-[0.2em]"
                >
-                 {mode === "signin" ? "Request Onboarding" : "Sign In to Access"}
+                 {mode === "signin" ? "Create Account" : "Sign In"}
                </button>
             </div>
           </div>
 
-          {/* Compliance Footer */}
-          <div className="mt-16 pt-8 border-t border-slate-100 text-[10px] text-slate-300 font-medium leading-relaxed uppercase tracking-widest flex items-start gap-4">
-             <Lock className="w-4 h-4 shrink-0 mt-0.5 opacity-40 text-accent" />
-             <p>All sessions are encrypted with TLS 1.3 protocol. Access is restricted to authorized financial representatives and invited investors.</p>
+          <div className="mt-24 pt-10 border-t border-[#0A0A0A]/5 text-[9px] text-[#8A8A8A] font-bold leading-relaxed uppercase tracking-[0.3em] flex items-start gap-4 opacity-40">
+             <Globe className="w-4 h-4 shrink-0 mt-0.5 text-[#C9A84C]" />
+             <p>All access is monitored for security. Verified under SEC protocol. Sterling Vane Global Asset Management.</p>
           </div>
         </div>
       </div>
@@ -283,8 +278,8 @@ function AuthInner() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <Loader2 className="w-10 h-10 text-accent animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#FAF9F6]">
+        <div className="w-12 h-12 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <AuthInner />

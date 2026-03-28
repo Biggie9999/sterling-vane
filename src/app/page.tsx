@@ -1,26 +1,40 @@
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/lib/auth"
-import { redirect } from "next/navigation"
-
-import { Hero } from "@/components/landing/Hero"
-import { ThePivot } from "@/components/landing/ThePivot"
-import { AlphaMath } from "@/components/landing/AlphaMath"
-import { FeaturedCollection } from "@/components/landing/FeaturedCollection"
+import { Navbar } from "@/components/layout/Navbar"
+import { HomeHero } from "@/components/home/HomeHero"
+import { PartnerOnboarding } from "@/components/home/PartnerOnboarding"
+import { NarrativeSections } from "@/components/home/NarrativeSections"
+import { FeaturedPortfolio } from "@/components/home/FeaturedPortfolio"
+import { ROICalculator } from "@/components/home/ROICalculator"
+import { AboutSterlingVane } from "@/components/home/AboutSterlingVane"
 import { FinalCTA } from "@/components/landing/FinalCTA"
+import { Footer } from "@/components/layout/Footer"
 
-export default async function LandingPage() {
-  const session = await getServerSession(authOptions)
-  if (session) {
-    redirect("/dashboard")
-  }
-
+export default function LandingPage() {
   return (
-    <main className="bg-black min-h-screen w-full selection:bg-accent selection:text-black">
-      <Hero />
-      <ThePivot />
-      <AlphaMath />
-      <FeaturedCollection />
+    <main className="min-h-screen w-full bg-[#FAF9F6]">
+      <Navbar />
+      <HomeHero />
+      
+      {/* Starting the Presentation: Discovery Layer */}
+      <PartnerOnboarding />
+
+      {/* Narrative: The Thesis */}
+      <NarrativeSections />
+      
+      {/* Performance Manifest: ROI Projections */}
+      <div className="max-w-7xl mx-auto px-6 py-24 lg:py-48">
+        <ROICalculator />
+      </div>
+      
+      {/* The Actual Assets: Live Collection */}
+      <FeaturedPortfolio />
+      
+      {/* Background/Ethos */}
+      <AboutSterlingVane />
+      
+      {/* Final Inquiry */}
       <FinalCTA />
+
+      <Footer />
     </main>
   )
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { 
   Users, DollarSign, Home, CheckCircle2, 
   Activity, Download, X, Banknote, Loader2, 
-  ShieldCheck, AlertTriangle, TrendingUp, ArrowUpRight
+  ShieldCheck, AlertTriangle, TrendingUp, ArrowUpRight, Landmark, Layers
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -46,9 +46,9 @@ export default function AdminPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center">
-        <Loader2 className="w-12 h-12 text-accent animate-spin mb-6" />
-        <p className="text-white/40 font-mono text-[10px] uppercase tracking-[0.4em] font-bold">Initializing Secure Environment...</p>
+      <div className="min-h-screen bg-[#FAF9F6] flex flex-col items-center justify-center">
+        <div className="w-16 h-16 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin mb-10" />
+        <p className="text-[#0A0A0A] font-serif text-3xl font-bold italic opacity-40 animate-pulse">Synchronizing Ledger...</p>
       </div>
     )
   }
@@ -57,162 +57,171 @@ export default function AdminPage() {
   const totalRaised = stats?.totalAUM || 0
 
   return (
-    <div className="space-y-12 animate-sovereign-in">
+    <div className="space-y-16 animate-sovereign-in max-w-7xl mx-auto py-12">
       
       {/* Admin Operations Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/5">
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-             <div className="w-8 h-8 rounded-lg bg-accent/20 border border-accent/40 flex items-center justify-center">
-                <ShieldCheck className="w-4 h-4 text-accent" />
-             </div>
-             <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent font-bold">Authorized Operations</p>
+      <div className="relative overflow-hidden p-12 bg-white border border-[#0A0A0A]/5 rounded-[3rem] shadow-sm group">
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+               <ShieldCheck className="w-4 h-4 text-[#C9A84C]" />
+               <p className="text-[#C9A84C] font-bold text-[10px] uppercase tracking-[0.4em]">The Sovereign Ledger</p>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-serif font-bold text-[#0A0A0A] tracking-tighter leading-tight">Administrator <br /><span className="italic text-[#C9A84C]">Command.</span></h1>
+            <p className="text-[#8A8A8A] text-base font-serif italic max-w-xl mt-6 leading-relaxed">
+              "Manage liquidity cycles, partner onboarding, and global fund distributions with institutional precision."
+            </p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white tracking-tighter">Command Center</h1>
-          <p className="text-white/40 text-sm mt-4 font-medium max-w-xl leading-relaxed">
-            Real estate liquidity management, investor onboarding, and global fund distributions. Managed ledger status: <span className="text-emerald-400 font-bold">Synchronized</span>.
-          </p>
+          <div className="flex gap-4">
+            <button className="px-8 py-4.5 bg-[#FAF9F6] border border-[#0A0A0A]/5 text-[#0A0A0A] font-bold rounded-2xl transition-all text-[10px] uppercase tracking-[0.2em] shadow-sm hover:bg-[#FAF9F6]">
+               Live Audit Log
+            </button>
+            <button className="px-10 py-5 bg-[#0A0A0A] text-white font-bold rounded-2xl transition-all text-[10px] uppercase tracking-[0.3em] shadow-2xl hover:bg-[#C9A84C] hover:text-[#0A0A0A] flex items-center gap-3">
+              Deploy Asset <ArrowUpRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-        <div className="flex gap-3">
-          <button className="px-6 py-4 bg-white/5 hover:bg-white/10 text-white font-bold border border-white/10 rounded-2xl transition-all text-xs uppercase tracking-widest flex items-center gap-3 glass-dark">
-            <Download className="w-4 h-4" /> Global Audit Log
-          </button>
-          <button className="px-6 py-4 bg-accent hover:bg-accent/90 text-white font-bold rounded-2xl transition-all text-xs uppercase tracking-widest luxury-shadow">
-            New Asset Allocation
-          </button>
-        </div>
+        <div className="absolute top-0 right-0 w-[500px] h-full bg-[#C9A84C]/5 blur-[120px] rounded-full translate-x-1/2 pointer-events-none" />
       </div>
 
       {/* Tabs Navigation (Internal to Admin) */}
-      <div className="flex gap-1.5 bg-white/5 p-1.5 rounded-2xl border border-white/5 w-fit overflow-x-auto no-scrollbar glass-dark">
+      <div className="flex gap-6 border-b border-[#0A0A0A]/5 px-2">
         {[
           { id: "overview", label: "Overview", icon: Activity },
-          { id: "wires", label: `Pending Wires (${pendingWires.filter(w => wireStatuses[w.id] === "pending").length})`, icon: Banknote },
-          { id: "investors", label: `Investor List`, icon: Users },
+          { id: "wires", label: `Capital Queue (${pendingWires.filter(w => wireStatuses[w.id] === "pending").length})`, icon: Landmark },
+          { id: "investors", label: `Partner Manifest`, icon: Users },
         ].map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id as any)}
             className={cn(
-              "flex items-center gap-2.5 px-6 py-3 rounded-xl text-xs font-bold transition-all shrink-0 uppercase tracking-widest",
-              tab === t.id ? "bg-accent text-white shadow-xl" : "text-white/40 hover:text-white hover:bg-white/5"
+              "flex items-center gap-3 pb-6 relative text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-500",
+              tab === t.id ? "text-[#0A0A0A]" : "text-[#8A8A8A] hover:text-[#0A0A0A] opacity-60 hover:opacity-100"
             )}
           >
-            <t.icon className="w-3.5 h-3.5" />
+            <t.icon className={cn("w-4 h-4", tab === t.id ? "text-[#C9A84C]" : "text-current")} />
             {t.label}
+            {tab === t.id && <div className="absolute bottom-0 left-0 w-full h-1 bg-[#C9A84C] rounded-full animate-sovereign-in" />}
           </button>
         ))}
       </div>
 
       {/* OVERVIEW CONTENT */}
       {tab === "overview" && (
-        <div className="space-y-12">
+        <div className="space-y-16">
           {/* KPI Dashboard Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { label: "Assets Under Management", value: `$${(totalRaised/1000000).toFixed(2)}M`, sub: `Global Valuation`, icon: DollarSign, trend: "+8.2%" },
-              { label: "Onboarded Investors", value: stats?.totalInvestors || 0, sub: `Active LPs`, icon: Users, trend: "+12.4%" },
-              { label: "Live Portfolio", value: stats?.activeProperties || 0, sub: `Yield-Generating Assets`, icon: Home, trend: "Stable" },
-              { label: "Average ROI", value: "11.4%", sub: "Audited Distributions", icon: TrendingUp, trend: "+0.6%" },
+              { label: "Equity Under Control", value: `$${(totalRaised/1000000).toFixed(2)}M`, sub: `Portfolio Valuation`, icon: DollarSign, trend: "+8.2%" },
+              { label: "Verified Partners", value: stats?.totalInvestors || 0, sub: `Active Allocators`, icon: Users, trend: "+12.4%" },
+              { label: "Active Collection", value: stats?.activeProperties || 0, sub: `Stabilized Assets`, icon: Home, trend: "Stable" },
+              { label: "Sovereign Yield", value: "32.4%", sub: "Net Monthly Target", icon: TrendingUp, trend: "+0.6%" },
             ].map((k) => (
-              <div key={k.label} className="bg-white/5 border border-white/10 rounded-[2rem] p-8 glass-dark group transition-all duration-500 hover:border-accent/40 hover:-translate-y-1">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="w-12 h-12 rounded-2xl bg-accent/20 border border-accent/30 flex items-center justify-center">
-                    <k.icon className="w-6 h-6 text-accent" />
+              <div key={k.label} className="bg-white border border-[#0A0A0A]/5 rounded-[2.5rem] p-10 hover:shadow-xl transition-all duration-500 group relative overflow-hidden">
+                <div className="flex items-center justify-between mb-10">
+                  <div className="w-14 h-14 rounded-2xl bg-[#FAF9F6] border border-[#0A0A0A]/5 flex items-center justify-center group-hover:bg-[#0A0A0A] group-hover:text-white transition-all duration-500">
+                    <k.icon className="w-6 h-6 text-[#C9A84C]" />
                   </div>
-                  <span className="text-[10px] font-bold text-accent font-mono uppercase tracking-widest bg-accent/10 py-1 px-3 rounded-full border border-accent/20">{k.trend}</span>
+                  <span className="text-[9px] font-bold text-[#C9A84C] uppercase tracking-widest bg-[#FAF9F6] py-2 px-4 rounded-full border border-[#0A0A0A]/5">{k.trend}</span>
                 </div>
-                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40 font-bold mb-3">{k.label}</p>
-                <p className="font-serif text-3xl text-white font-bold tracking-tighter mb-2">{k.value}</p>
-                <p className="text-white/40 text-[10px] font-medium">{k.sub}</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#8A8A8A] mb-3">{k.label}</p>
+                <p className="font-serif text-4xl text-[#0A0A0A] font-bold tracking-tighter mb-2">{k.value}</p>
+                <p className="text-[#8A8A8A] text-xs font-serif italic">{k.sub}</p>
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-[#FAF9F6] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none" />
               </div>
             ))}
           </div>
 
           {/* Fund Allocation Progress */}
-          <div className="bg-white/5 border border-white/10 rounded-[2.5rem] p-10 glass-dark">
-             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10">
+          <div className="bg-white border border-[#0A0A0A]/5 rounded-[3.5rem] p-12 shadow-sm relative overflow-hidden">
+             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-12 mb-12">
                 <div>
-                   <h2 className="text-2xl font-serif font-bold text-white tracking-tighter mb-2">Portfolio Capitalization</h2>
-                   <p className="text-white/40 text-sm font-medium">Phase 1 Target Allocation Track</p>
+                   <div className="flex items-center gap-3 mb-4">
+                      <Layers className="w-4 h-4 text-[#C9A84C]" />
+                      <h2 className="text-[11px] font-bold text-[#0A0A0A] uppercase tracking-[0.3em] opacity-40">Portfolio Capitalization</h2>
+                   </div>
+                   <h2 className="text-3xl font-serif font-bold text-[#0A0A0A] tracking-tighter">Phase 1 Target Allocation</h2>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-10">
                    <div className="text-right">
-                      <p className="text-[10px] font-mono font-bold text-white/40 uppercase tracking-widest mb-1">Cap Allocation</p>
-                      <p className="text-xl font-bold text-accent">34.2%</p>
+                      <p className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-widest mb-1 opacity-40">Cap Progress</p>
+                      <p className="text-3xl font-serif font-bold text-[#C9A84C]">34.2%</p>
                    </div>
-                   <div className="text-right pl-4 border-l border-white/10">
-                      <p className="text-[10px] font-mono font-bold text-white/40 uppercase tracking-widest mb-1">Status</p>
-                      <p className="text-xl font-bold text-emerald-400">Scaling</p>
+                   <div className="text-right pl-10 border-l border-[#0A0A0A]/10">
+                      <p className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-widest mb-1 opacity-40">Operational Status</p>
+                      <p className="text-3xl font-serif font-bold text-[#0A0A0A] italic">Scaling</p>
                    </div>
                 </div>
              </div>
-             <div className="h-4 w-full bg-white/5 rounded-full overflow-hidden mb-6 luxury-shadow">
-                <div className="h-full bg-accent rounded-full luxury-shadow transition-all duration-1000" style={{ width: `34.2%` }} />
+             <div className="h-4 w-full bg-[#FAF9F6] border border-[#0A0A0A]/5 rounded-full overflow-hidden mb-8 relative">
+                <div className="h-full bg-[#C9A84C] rounded-full transition-all duration-[2000ms] cubic-bezier(0.16, 1, 0.3, 1)" style={{ width: `34.2%` }} />
              </div>
-             <div className="flex justify-between text-[11px] font-mono font-bold text-white/20 uppercase tracking-[0.3em]">
-                <span>$0 Seed Stage</span>
-                <span>$2,000,000 Phase 1 Goal</span>
+             <div className="flex justify-between text-[10px] font-bold text-[#8A8A8A] uppercase tracking-[0.4em] opacity-40">
+                <span>$0 Initiation</span>
+                <span>$2,000,000 Phase 1 Manifest</span>
              </div>
+             <div className="absolute top-0 right-0 w-80 h-full bg-[#C9A84C]/5 blur-[100px] rounded-full translate-x-1/2 pointer-events-none opacity-40" />
           </div>
         </div>
       )}
 
       {/* PENDING WIRES CONTENT */}
       {tab === "wires" && (
-        <div className="space-y-8 max-w-4xl">
-          <div className="flex items-center gap-4 p-6 bg-info/10 border border-info/20 rounded-3xl mb-8">
-             <AlertTriangle className="w-5 h-5 text-accent" />
-             <p className="text-xs text-white/60 leading-relaxed font-medium">
-                Incoming distributions for wire settlement must be verified manually against banking records before authorizing asset allocation on-chain.
+        <div className="space-y-10 max-w-5xl">
+          <div className="flex items-center gap-5 p-8 bg-[#FAF9F6] border border-[#C9A84C]/10 rounded-[2rem] shadow-sm">
+             <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-[#0A0A0A]/5 shrink-0">
+               <AlertTriangle className="w-5 h-5 text-[#C9A84C]" />
+             </div>
+             <p className="text-xs text-[#0A0A0A] leading-relaxed font-bold uppercase tracking-widest">
+                Manifest Note: Capital settlements must be verified manually against banking records before authorizing asset allocation in the Partner Portal.
              </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-8">
             {pendingWires.length > 0 ? (
               pendingWires.map((wire) => {
                 const status = wireStatuses[wire.id]
                 return (
                   <div key={wire.id} className={cn(
-                    "bg-white/5 border rounded-[2rem] p-8 glass-dark transition-all duration-500",
-                    status === "confirmed" ? "border-emerald-500/30 opacity-60 scale-[0.98]" :
-                    status === "rejected" ? "border-rose-500/20 opacity-40 grayscale" :
-                    "border-white/10 hover:border-white/20"
+                    "bg-white border rounded-[3rem] p-10 shadow-sm transition-all duration-700 group",
+                    status === "confirmed" ? "border-emerald-500/20 bg-emerald-50/10 opacity-60 scale-[0.98]" :
+                    status === "rejected" ? "border-rose-500/10 opacity-40" :
+                    "border-[#0A0A0A]/5 hover:border-[#C9A84C]/20 hover:shadow-2xl"
                   )}>
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-8">
-                      <div className="flex items-center gap-5">
-                         <div className="w-14 h-14 rounded-2xl bg-accent flex items-center justify-center font-serif text-2xl font-bold shadow-xl border border-white/10">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-10">
+                      <div className="flex items-center gap-8">
+                         <div className="w-20 h-20 rounded-[1.5rem] bg-[#FAF9F6] flex items-center justify-center font-serif text-3xl font-bold text-[#0A0A0A] border border-[#0A0A0A]/5 group-hover:bg-[#0A0A0A] group-hover:text-white transition-colors duration-500">
                             {(wire.user.name || "U")[0]}
                          </div>
                          <div>
-                            <div className="flex items-center gap-3 mb-2 font-serif">
-                              <p className="text-white text-xl font-bold tracking-tighter">{wire.user.name || wire.user.email}</p>
-                              {status === "confirmed" && <span className="bg-emerald-500/20 text-emerald-400 text-[9px] font-mono px-3 py-1 rounded-full border border-emerald-500/30 font-bold uppercase tracking-widest">Authorized</span>}
-                              {status === "rejected" && <span className="bg-rose-500/20 text-rose-400 text-[9px] font-mono px-3 py-1 rounded-full border border-rose-500/30 font-bold uppercase tracking-widest">Revoked</span>}
-                              {status === "pending" && <span className="bg-accent/20 text-accent text-[9px] font-mono px-3 py-1 rounded-full border border-accent/30 font-bold uppercase tracking-widest animate-pulse">Verification Required</span>}
+                            <div className="flex items-center gap-4 mb-2 font-serif">
+                              <p className="text-[#0A0A0A] text-2xl font-bold tracking-tight">{wire.user.name || wire.user.email}</p>
+                              {status === "confirmed" && <span className="bg-emerald-500/10 text-emerald-500 text-[10px] font-bold px-4 py-1.5 rounded-full border border-emerald-500/20 uppercase tracking-widest">Settled</span>}
+                              {status === "rejected" && <span className="bg-rose-500/10 text-rose-500 text-[10px] font-bold px-4 py-1.5 rounded-full border border-rose-500/20 uppercase tracking-widest">Revoked</span>}
+                              {status === "pending" && <span className="text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest animate-pulse">Verification Required</span>}
                             </div>
-                            <p className="text-white/40 text-xs font-bold font-mono tracking-widest uppercase">{wire.user.email}</p>
+                            <p className="text-[#8A8A8A] text-[11px] font-bold uppercase tracking-[0.3em] opacity-40">{wire.user.email}</p>
                          </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-accent font-bold text-4xl tracking-tighter mb-1">${wire.amount.toLocaleString()}</p>
-                        <p className="text-white/20 text-[10px] font-mono uppercase tracking-widest font-bold">Allocation: {wire.property.name}</p>
+                      <div className="md:text-right border-t md:border-t-0 md:border-l border-[#0A0A0A]/5 pt-8 md:pt-0 md:pl-10">
+                        <p className="text-[#0A0A0A] font-bold text-5xl tracking-tighter mb-2">${wire.amount.toLocaleString()}</p>
+                        <p className="text-[#C9A84C] text-[11px] font-bold uppercase tracking-[0.3em]">Allocation: {wire.property.name}</p>
                       </div>
                     </div>
 
                     {status === "pending" && (
-                      <div className="flex gap-4 pt-8 border-t border-white/5">
+                      <div className="flex flex-col sm:flex-row gap-4 pt-10 mt-10 border-t border-[#0A0A0A]/5">
                         <button
                           onClick={() => confirmWire(wire.id)}
-                          className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-accent/20 text-accent border border-accent/40 rounded-2xl text-xs font-bold uppercase tracking-widest hover:bg-accent/30 transition-all shadow-xl"
+                          className="flex-1 flex items-center justify-center gap-4 px-10 py-6 bg-[#0A0A0A] text-white rounded-2xl text-[11px] font-bold uppercase tracking-[0.3em] hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all duration-500 shadow-xl"
                         >
-                          <CheckCircle2 className="w-4 h-4" /> Authorize & Settle Position
+                          <CheckCircle2 className="w-5 h-5" /> Confirm Settlement
                         </button>
                         <button
                           onClick={() => rejectWire(wire.id)}
-                          className="px-8 py-5 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded-2xl text-xs font-bold uppercase tracking-widest hover:bg-rose-500/20 transition-all"
+                          className="px-10 py-6 bg-white border border-[#0A0A0A]/10 text-rose-500 rounded-2xl text-[11px] font-bold uppercase tracking-[0.3em] hover:bg-rose-500 hover:text-white transition-all duration-500 shadow-sm"
                         >
-                          <X className="w-4 h-4" />
+                          <X className="w-5 h-5" /> Reject
                         </button>
                       </div>
                     )}
@@ -220,9 +229,12 @@ export default function AdminPage() {
                 )
               })
             ) : (
-              <div className="text-center py-24 bg-white/2 shadow-inner rounded-[3rem] border border-white/5 border-dashed">
-                <Activity className="w-16 h-16 text-white/5 mx-auto mb-6" />
-                <p className="text-white/40 font-serif text-lg italic tracking-tight">Financial verification queue is currently empty.</p>
+              <div className="text-center py-40 bg-white shadow-sm rounded-[4rem] border border-[#0A0A0A]/5">
+                <div className="w-20 h-20 bg-[#FAF9F6] rounded-full flex items-center justify-center mx-auto mb-8 border border-[#0A0A0A]/5">
+                   <Activity className="w-8 h-8 text-[#C9A84C] opacity-40" />
+                </div>
+                <p className="text-[#0A0A0A] font-serif text-3xl font-bold tracking-tighter mb-4 italic opacity-40">Financial queue is clear.</p>
+                <p className="text-[#8A8A8A] text-[11px] font-bold uppercase tracking-widest opacity-60">All positions have been successfully settled.</p>
               </div>
             )}
           </div>
@@ -231,33 +243,36 @@ export default function AdminPage() {
 
       {/* INVESTORS TABLE CONTENT */}
       {tab === "investors" && (
-        <div className="bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden glass-dark">
+        <div className="bg-white border border-[#0A0A0A]/5 rounded-[3.5rem] overflow-hidden shadow-xl animate-sovereign-in">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/10">
-                  {["Investor Identification", "Account Tier", "Onboarding Date", "Status"].map(h => (
-                    <th key={h} className="text-left px-8 py-6 font-mono text-[10px] uppercase tracking-widest text-white/30 font-bold">{h}</th>
+                <tr className="bg-[#FAF9F6] border-b border-[#0A0A0A]/5">
+                  {["Partner Identification", "Portfolio Tier", "Onboarding", "Access Status"].map(h => (
+                    <th key={h} className="text-left px-10 py-8 text-[11px] font-bold uppercase tracking-[0.4em] text-[#0A0A0A] opacity-40 leading-none">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-[#0A0A0A]/5">
                 {recentUsers.map((u, i) => (
-                  <tr key={i} className="border-b border-white/5 hover:bg-white/[0.03] transition-all">
-                    <td className="px-8 py-6">
-                      <p className="text-white font-bold text-base tracking-tighter">{u.name || "Anonymous User"}</p>
-                      <p className="text-white/40 text-xs font-mono tracking-widest uppercase">{u.email}</p>
+                  <tr key={i} className="group hover:bg-[#FAF9F6]/30 transition-all duration-300">
+                    <td className="px-10 py-10">
+                      <p className="text-[#0A0A0A] font-bold text-xl tracking-tighter mb-1 group-hover:text-[#C9A84C] transition-colors">{u.name || "Sovereign Partner"}</p>
+                      <p className="text-[#8A8A8A] text-[11px] font-bold uppercase tracking-[0.2em]">{u.email}</p>
                     </td>
-                    <td className="px-8 py-6">
-                      <span className="text-accent text-[11px] font-mono uppercase font-bold tracking-[0.2em]">{u.investorProfile?.tier || "Seed"}</span>
+                    <td className="px-10 py-10">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#C9A84C]" />
+                        <span className="text-[#0A0A0A] text-[12px] font-bold uppercase tracking-[0.2em]">{u.investorProfile?.tier || "Seed"}</span>
+                      </div>
                     </td>
-                    <td className="px-8 py-6 text-white/40 text-sm font-medium">{new Date(u.createdAt).toLocaleDateString()}</td>
-                    <td className="px-8 py-6 text-right lg:text-left">
+                    <td className="px-10 py-10 text-[#8A8A8A] text-[11px] font-bold uppercase tracking-widest leading-none">{new Date(u.createdAt).toLocaleDateString()}</td>
+                    <td className="px-10 py-10">
                       <span className={cn(
-                        "text-[9px] font-mono px-3 py-1.5 rounded-full border font-bold uppercase tracking-widest",
+                        "text-[10px] font-bold px-5 py-2.5 rounded-full border uppercase tracking-widest transition-all duration-500",
                         u.investorProfile 
-                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" 
-                          : "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                          ? "bg-white text-[#0A0A0A] border-[#0A0A0A]/10 group-hover:bg-[#0A0A0A] group-hover:text-white" 
+                          : "bg-[#FAF9F6] text-[#8A8A8A] border-transparent"
                       )}>
                         {u.investorProfile ? "Active LP" : "Candidate"}
                       </span>

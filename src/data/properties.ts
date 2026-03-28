@@ -20,10 +20,10 @@ export interface PropertyAsset {
 
 export const DEMO_PROPERTIES: PropertyAsset[] = [
   {
-    id: "prop_miami_01",
-    name: "The Biscayne Vista",
-    location: "Miami, FL",
-    market: "Miami, FL",
+    id: "prop_pacific_01",
+    name: "The Pacific Glass House",
+    location: "Malibu, California",
+    market: "California",
     type: "Growth",
     pricePerShare: 50000,
     totalShares: 200,
@@ -36,20 +36,16 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
     sqft: 8500,
     images: [
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600607687931-570d510fffc4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600607687644-aac4c1566903?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1613490908592-fd5e16283b0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
+      "https://images.unsplash.com/photo-1600607687931-570d510fffc4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
     ],
-    description: "An architectural masterpiece set against the stunning Miami skyline. Features sweeping infinity pools, floor-to-ceiling glass, and a private dock. Built to out-perform the market — this asset follows our accelerated return structure targeting 30% by month 2, 60% by month 4, and 90% by month 6 through aggressive high-end short-term rentals to UHNW travelers.",
+    description: "Contemporary coastal elegance. Expansive light-filled interiors. Targets the design-forward luxury traveller. Part of the Sovereign Collection fund, this asset follows our signature return structure: 30% projected ROI by month 3, 90%+ by month 12.",
     status: "Funding Stage"
   },
   {
-    id: "prop_la_02",
-    name: "The Montecito Modern",
-    location: "Montecito, CA",
-    market: "Los Angeles, CA",
+    id: "prop_palm_02",
+    name: "The Palm Royale Retreat",
+    location: "Palm Beach, Florida",
+    market: "Florida",
     type: "Principal",
     pricePerShare: 75000,
     totalShares: 150,
@@ -62,19 +58,16 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
     sqft: 12000,
     images: [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600607688126-af44163ad6dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
     ],
-    description: "An ultra-luxury compound nestled in the hills of Montecito. Fully stabilized, delivering exceptional short-term rent premiums from A-list clientele. Capital appreciation locked in via exclusive zoning rights. We strictly manage this asset to deliver our flagship return schedule: 30% at month 2, 60% at month 4, and 90% at month 6.",
+    description: "Resort-inspired design blending comfort with tropical sophistication. High-occupancy leisure destination. This asset is a cornerstone of the Sovereign fund, delivering consistent operational cash flow and high nightly yields.",
     status: "Funding Stage"
   },
   {
-    id: "prop_nyc_03",
-    name: "The Velvet Suite Penthouse",
+    id: "prop_manhattan_03",
+    name: "The Manhattan Velvet Suite",
     location: "New York, NY",
-    market: "New York, NY",
+    market: "New York",
     type: "Seed",
     pricePerShare: 50000,
     totalShares: 400,
@@ -87,63 +80,9 @@ export const DEMO_PROPERTIES: PropertyAsset[] = [
     sqft: 4500,
     images: [
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600607687644-aac4c1566903?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
+      "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
     ],
-    description: "Sitting high above the Manhattan skyline, this penthouse was acquired off-market and is undergoing bespoke repositioning for exclusive corporate and diplomatic short-term leases. Investors are primed to capture 30% yield in 60 days, 60% in 120 days, and 90% return profile by 180 days.",
+    description: "Refined urban living with premium finishes and curated textures. Targets executive and international travellers. A Phase 1 flagship unit designed for maximum occupancy in the heart of the world's financial capital.",
     status: "Coming Soon"
-  },
-  {
-    id: "prop_tokyo_04",
-    name: "Aman Residences Skytower",
-    location: "Tokyo, Japan",
-    market: "Tokyo, Japan",
-    type: "Principal",
-    pricePerShare: 100000,
-    totalShares: 300,
-    availableShares: 85,
-    propertyValue: 31000000,
-    capRate: 9.1,
-    targetYield: 18.0,
-    bedrooms: 4,
-    bathrooms: 4,
-    sqft: 6100,
-    images: [
-      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
-    ],
-    description: "Our flagship international expansion asset. The Aman Residences Skytower combines Japanese minimalist zen aesthetics with world-class smart home technology, located in the heart of Minato City. Aggressively underwritten to match our signature performance benchmark: 30% by month 2, 60% by month 4, 90% by month 6.",
-    status: "Fully Funded"
-  },
-  {
-    id: "prop_tulum_05",
-    name: "Casa de Piedra",
-    location: "Tulum, Mexico",
-    market: "Tulum, Mexico",
-    type: "Growth",
-    pricePerShare: 50000,
-    totalShares: 1000,
-    availableShares: 450,
-    propertyValue: 6500000,
-    capRate: 11.2,
-    targetYield: 16.5,
-    bedrooms: 7,
-    bathrooms: 8,
-    sqft: 9800,
-    images: [
-      "https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1531835551805-16d8e09e0a29?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb65?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80",
-      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80"
-    ],
-    description: "An unbelievable eco-resort compound in the Tulum jungle — with cenotes, open-air living spaces, and a private chef's kitchen. One of our highest-yield producing assets in the hemisphere. Investors jump onto our institutional track: 30% yield in 2 months, 60% at month 4, and 90% ROI by month 6.",
-    status: "Funding Stage"
   }
 ];

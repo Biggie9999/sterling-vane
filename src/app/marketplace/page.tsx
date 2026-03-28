@@ -1,16 +1,18 @@
 "use client"
 
 import { useState, useMemo, useEffect } from "react"
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useSession } from "next-auth/react"
 import { Suspense } from "react"
 import Link from "next/link"
-import { Search, MapPin, ChevronRight, Bed, Bath, SlidersHorizontal, TrendingUp, Home, Loader2, Star, ArrowUpRight } from "lucide-react"
+import { Search, MapPin, ChevronRight, TrendingUp, Home, Loader2, Star, ArrowUpRight, Globe } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const TYPE_OPTIONS = [
   { label: "All Assets", value: "" },
-  { label: "Principal", value: "Principal" },
+  { label: "Elite", value: "Principal" },
   { label: "Growth", value: "Growth" },
-  { label: "Seed", value: "Seed" },
+  { label: "Venture", value: "Seed" },
 ]
 
 function ListingCard({ item }: { item: any }) {
@@ -19,94 +21,81 @@ function ListingCard({ item }: { item: any }) {
   return (
     <Link 
       href={`/properties/${item.id}`} 
-      className="group relative bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] transition-all duration-700 block"
+      className="group relative bg-white rounded-[2.5rem] overflow-hidden border border-[#0A0A0A]/5 hover:shadow-[0_80px_120px_-40px_rgba(201,168,76,0.1)] transition-all duration-700 block"
     >
       {/* Cinematic Image Frame */}
-      <div className="relative h-72 w-full overflow-hidden">
-        <div className="absolute top-6 left-6 z-20 flex gap-2">
-           <div className="glass-dark px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-accent rounded-xl border border-white/10 shadow-xl">
-             {item.type} Tier
+      <div className="relative h-80 w-full overflow-hidden">
+        <div className="absolute top-8 left-8 z-20 flex gap-2">
+           <div className="bg-[#0A0A0A]/80 backdrop-blur-md px-5 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C] rounded-full border border-white/10 shadow-xl">
+             {item.type}
            </div>
         </div>
-        <div className="absolute top-6 right-6 z-20 glass-dark px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-white rounded-xl border border-white/10 shadow-xl flex items-center gap-2">
-           <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", item.status === "Funding Stage" ? "bg-emerald-400" : "bg-accent")} />
+        <div className="absolute top-8 right-8 z-20 bg-white/10 backdrop-blur-md px-5 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white rounded-full border border-white/10 shadow-xl flex items-center gap-2">
+           <div className={cn("w-2 h-2 rounded-full", item.status === "Funding Stage" ? "bg-[#C9A84C] animate-pulse" : "bg-white/40")} />
            {item.status}
         </div>
         <img 
           src={item.images[0]} 
           alt={item.name} 
-          className="w-full h-full object-cover transition-transform duration-[1500ms] cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110" 
+          className="w-full h-full object-cover transition-transform duration-[2000ms] cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110" 
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/80 via-transparent to-transparent opacity-40" />
       </div>
 
-      {/* Sophisticated Info Section */}
-      <div className="p-8 flex flex-col">
-        <div className="flex justify-between items-start mb-6">
+      {/* Editorial Info Section */}
+      <div className="p-12 flex flex-col">
+        <div className="flex justify-between items-start mb-8">
           <div className="flex-1 min-w-0 pr-4">
-            <div className="flex items-center gap-2 mb-2">
-               <Star className="w-3.5 h-3.5 text-accent fill-current" />
-               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Global Collection</span>
-            </div>
-            <h3 className="text-2xl font-serif font-bold text-slate-900 mb-1 tracking-tighter truncate group-hover:text-accent transition-colors duration-500">{item.name}</h3>
-            <p className="text-sm text-slate-500 font-medium flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-accent/60" />
-              <span className="truncate">{item.location}</span>
+            <h3 className="text-3xl font-serif font-bold text-[#0A0A0A] mb-2 tracking-tight truncate group-hover:text-[#C9A84C] transition-colors duration-500">{item.name}</h3>
+            <p className="text-sm text-[#8A8A8A] font-medium flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#C9A84C]" />
+              <span className="truncate uppercase tracking-widest text-[11px]">{item.location}</span>
             </p>
           </div>
-          <div className="text-right shrink-0 bg-slate-50 px-4 py-2.5 rounded-2xl border border-slate-100">
-            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Entry Share</p>
-            <p className="text-xl font-bold text-slate-900 tracking-tighter">${item.pricePerShare.toLocaleString()}</p>
+        </div>
+
+        {/* Institutional Metrics */}
+        <div className="grid grid-cols-3 gap-1 py-10 border-y border-[#0A0A0A]/5 mb-10">
+          <div className="text-center">
+            <p className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-[0.2em] mb-2">Yield</p>
+            <p className="text-xl font-bold text-[#C9A84C] tracking-tight">{item.targetYield}%</p>
+          </div>
+          <div className="text-center border-x border-[#0A0A0A]/5">
+            <p className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-[0.2em] mb-2">Cap Rate</p>
+            <p className="text-xl font-bold text-[#0A0A0A] tracking-tight">{item.capRate}%</p>
+          </div>
+          <div className="text-center">
+            <p className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-[0.2em] mb-2">Value</p>
+            <p className="text-xl font-bold text-[#0A0A0A] tracking-tight">${(item.propertyValue / 1e6).toFixed(1)}M</p>
           </div>
         </div>
 
-        {/* Dynamic Key Metrics */}
-        <div className="grid grid-cols-3 gap-2 py-6 border-y border-slate-50 mb-6">
-          <div className="text-center">
-            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Est. Yield</p>
-            <p className="text-base font-bold text-[#006AFF] tracking-tighter">{item.targetYield}%</p>
+        {/* Allocation Progress */}
+        <div className="mb-12">
+          <div className="flex justify-between text-[11px] font-bold uppercase tracking-[0.2em] mb-4">
+            <span className="text-[#8A8A8A]">Funding Progress</span>
+            <span className="text-[#C9A84C]">{fundedPct}%</span>
           </div>
-          <div className="text-center border-x border-slate-50">
-            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Cap Rate</p>
-            <p className="text-base font-bold text-slate-900 tracking-tighter">{item.capRate}%</p>
-          </div>
-          <div className="text-center">
-            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Asset Value</p>
-            <p className="text-base font-bold text-slate-900 tracking-tighter">${(item.propertyValue / 1e6).toFixed(1)}M</p>
-          </div>
-        </div>
-
-        {/* Precise Funding Progress */}
-        <div className="mb-8">
-          <div className="flex justify-between text-[10px] font-bold uppercase tracking-[0.3em] mb-3">
-            <span className="text-slate-400">Subscription Progress</span>
-            <span className="text-accent">{fundedPct}%</span>
-          </div>
-          <div className="w-full h-1.5 bg-slate-50 rounded-full overflow-hidden luxury-shadow">
+          <div className="w-full h-2 bg-[#F5F0E8] rounded-full overflow-hidden relative">
             <div 
-              className="bg-accent h-full rounded-full transition-all duration-[1500ms] cubic-bezier(0.16, 1, 0.3, 1)" 
+              className="bg-[#C9A84C] h-full rounded-full transition-all duration-[2500ms] cubic-bezier(0.16, 1, 0.3, 1)" 
               style={{ width: `${fundedPct}%` }} 
             />
           </div>
         </div>
 
-        <div className="w-full flex justify-between items-center py-4 px-6 bg-slate-950 text-white font-bold uppercase tracking-[0.2em] rounded-2xl transition-all duration-500 text-[10px] luxury-shadow group-hover:bg-accent group-hover:scale-[1.02]">
-          <span className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-accent group-hover:text-white" /> 
-            Explore Allocation
-          </span>
-          <ArrowUpRight className="w-4 h-4 opacity-40 group-hover:opacity-100 transition-opacity" />
+        <div className="w-full flex justify-between items-center py-6 px-10 bg-[#0A0A0A] text-white font-bold uppercase tracking-[0.2em] rounded-2xl transition-all duration-700 text-[11px] group-hover:bg-[#C9A84C] group-hover:text-[#0A0A0A] group-hover:scale-[1.02] shadow-xl">
+          <span>View Details</span>
+          <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
         </div>
       </div>
     </Link>
   )
 }
 
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(' ');
-}
-
 function MarketplaceInner() {
+  const router = useRouter()
+  const { data: session, status } = useSession()
   const searchParams = useSearchParams()
   const [properties, setProperties] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -114,6 +103,15 @@ function MarketplaceInner() {
   const [inputVal, setInputVal] = useState(searchParams.get("location") || "")
   const [activeType, setActiveType] = useState(searchParams.get("type") || "")
   const [sort, setSort] = useState("default")
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      // @ts-ignore
+      if (session?.user?.onboardingComplete === false) {
+        router.push("/onboarding")
+      }
+    }
+  }, [status, session, router])
 
   useEffect(() => {
     async function fetchProperties() {
@@ -126,7 +124,7 @@ function MarketplaceInner() {
             name: p.name,
             location: p.location,
             market: p.city,
-            type: p.type === "APARTMENT" ? "Growth" : p.type === "VILLA" ? "Principal" : "Seed",
+            type: p.type === "APARTMENT" ? "Growth" : p.type === "VILLA" ? "Elite" : "Venture",
             pricePerShare: Math.round(p.askingPrice / 200), 
             totalShares: 200,
             availableShares: 200 - p.investments.length,
@@ -154,7 +152,10 @@ function MarketplaceInner() {
       const q = query.toLowerCase()
       list = list.filter(p => p.location.toLowerCase().includes(q) || p.name.toLowerCase().includes(q) || p.market.toLowerCase().includes(q))
     }
-    if (activeType) list = list.filter(p => p.type === activeType)
+    if (activeType) {
+      const typeMap: Record<string, string> = { "Principal": "Elite", "Growth": "Growth", "Seed": "Venture" };
+      list = list.filter(p => p.type === (typeMap[activeType] || activeType))
+    }
     if (sort === "yield") list = list.sort((a, b) => b.targetYield - a.targetYield)
     if (sort === "price_asc") list = list.sort((a, b) => a.pricePerShare - b.pricePerShare)
     if (sort === "price_desc") list = list.sort((a, b) => b.pricePerShare - a.pricePerShare)
@@ -162,47 +163,48 @@ function MarketplaceInner() {
   }, [query, activeType, sort, properties])
 
   return (
-    <div className="bg-white min-h-screen pb-32 animate-sovereign-in">
-      {/* Immersive Marketplace Header */}
-      <div className="relative pt-32 pb-24 overflow-hidden border-b border-slate-50">
+    <div className="bg-[#FAF9F6] min-h-screen pb-40">
+      {/* Editorial Marketplace Header */}
+      <div className="relative pt-44 pb-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-8 relative z-10 text-center">
-           <div className="inline-flex items-center gap-3 px-4 py-2 bg-slate-50 border border-slate-100 rounded-full mb-8 luxury-shadow animate-pulse">
-              <span className="w-2 h-2 rounded-full bg-accent" />
-              <p className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-slate-900">Phase 1 Offerings Live</p>
+           <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-white border border-[#0A0A0A]/5 rounded-full mb-10 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] animate-pulse" />
+              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#0A0A0A]">Active Collection</p>
            </div>
-           <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-slate-900 mb-8 tracking-tighter leading-none">
-             The Sovereign <span className="text-accent">Collection</span>
+           <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-[#0A0A0A] mb-10 tracking-tighter leading-[0.9]">
+             The <br /> <span className="text-[#C9A84C]">Collection.</span>
            </h1>
-           <p className="text-xl md:text-2xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
-             Institutional-grade real estate yields, accessible via the world's most sophisticated on-chain liquidity layer.
+           <p className="text-xl md:text-2xl text-[#8A8A8A] font-medium max-w-2xl mx-auto leading-relaxed italic font-serif">
+             "Curated hospitality assets. Driven by performance."
            </p>
         </div>
+        
         {/* Abstract Background Accents */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-accent/5 blur-[140px] rounded-full -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[700px] bg-[#C9A84C]/5 blur-[160px] rounded-full -z-10" />
       </div>
 
-      {/* Luxury Filter Bar */}
-      <div className="max-w-7xl mx-auto px-8 -translate-y-12">
-        <div className="bg-white/80 backdrop-blur-2xl border border-slate-100 p-4 rounded-[2.5rem] luxury-shadow flex flex-col lg:flex-row gap-4 items-center">
+      {/* Filter Architecture */}
+      <div className="max-w-7xl mx-auto px-8 -translate-y-16">
+        <div className="bg-white/60 backdrop-blur-3xl border border-[#0A0A0A]/5 p-3 rounded-[3.5rem] shadow-2xl flex flex-col lg:flex-row gap-8 items-center">
           <div className="flex-1 relative w-full lg:w-auto">
-             <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300" />
+             <Search className="absolute left-10 top-1/2 -translate-y-1/2 w-5 h-5 text-[#C9A84C]" />
              <input 
                type="text"
                value={inputVal}
                onChange={(e) => setInputVal(e.target.value)}
                onKeyDown={(e) => e.key === "Enter" && setQuery(inputVal)}
-               placeholder="Filter by Market (e.g. London, Miami, Tokyo...)"
-               className="w-full bg-transparent pl-16 pr-8 py-5 text-lg font-medium text-slate-900 placeholder:text-slate-300 focus:outline-none"
+               placeholder="Search by Location (e.g. London, Miami, Tokyo...)"
+               className="w-full bg-white rounded-[2.5rem] pl-20 pr-10 py-7 text-base font-bold text-[#0A0A0A] placeholder:text-[#8A8A8A]/40 focus:outline-none tracking-widest text-[12px] uppercase shadow-sm"
              />
           </div>
-          <div className="flex gap-2 w-full lg:w-auto shrink-0 border-t lg:border-t-0 lg:border-l border-slate-100 pt-4 lg:pt-0 lg:pl-4 overflow-x-auto no-scrollbar">
+          <div className="flex gap-4 w-full lg:w-auto overflow-x-auto no-scrollbar pb-2 lg:pb-0 px-4 lg:px-0">
              {TYPE_OPTIONS.map(t => (
                <button 
                 key={t.value}
                 onClick={() => setActiveType(t.value)}
                 className={cn(
-                  "px-6 py-4 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all",
-                  activeType === t.value ? "bg-accent text-white shadow-xl" : "text-slate-400 hover:text-slate-900 hover:bg-slate-50"
+                  "px-10 py-6 rounded-3xl text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap",
+                  activeType === t.value ? "bg-[#0A0A0A] text-white shadow-2xl" : "text-[#8A8A8A] hover:text-[#0A0A0A] hover:bg-white"
                 )}
                >
                  {t.label}
@@ -210,46 +212,65 @@ function MarketplaceInner() {
              ))}
           </div>
         </div>
+
+        {/* Dynamic Market Chips */}
+        <div className="mt-8 flex items-center gap-6 px-10 overflow-x-auto no-scrollbar">
+           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#8A8A8A] opacity-40 shrink-0">Trending Markets:</span>
+           <div className="flex gap-4">
+              {["London", "Miami", "Tokyo", "Dubai", "New York"].map(loc => (
+                <button 
+                  key={loc}
+                  onClick={() => {setQuery(loc); setInputVal(loc);}}
+                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0A0A0A] hover:text-[#C9A84C] transition-colors border-b border-transparent hover:border-[#C9A84C]/40 pb-0.5 whitespace-nowrap"
+                >
+                  {loc}
+                </button>
+              ))}
+           </div>
+        </div>
       </div>
 
-      {/* Listings Grid */}
-      <div className="max-w-7xl mx-auto px-8 mt-12">
-        <div className="flex items-center justify-between mb-12 px-2">
-           <p className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-[0.4em]">{filtered.length} Curated Assets Found</p>
-           <div className="flex items-center gap-3">
-              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest pt-0.5">Sort by</span>
+      {/* Asset Grid Grid */}
+      <div className="max-w-7xl mx-auto px-8 mt-16">
+        <div className="flex items-center justify-between mb-20 px-6">
+           <div className="flex items-center gap-4">
+              <Globe className="w-5 h-5 text-[#C9A84C]" />
+              <p className="text-[11px] font-bold text-[#8A8A8A] uppercase tracking-[0.4em]">{filtered.length} Flagships</p>
+           </div>
+           <div className="flex items-center gap-6">
+              <span className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-[0.3em] opacity-40">Sort By</span>
               <select 
                 value={sort} 
                 onChange={e => setSort(e.target.value)}
-                className="bg-transparent text-[11px] font-bold uppercase tracking-widest text-slate-900 focus:outline-none cursor-pointer border-b border-slate-200 pb-1"
+                className="bg-transparent text-[11px] font-bold uppercase tracking-[0.3em] text-[#0A0A0A] focus:outline-none cursor-pointer border-b border-[#C9A84C]/60 pb-1"
               >
                 <option value="default">Relevance</option>
-                <option value="yield">Yield (High to Low)</option>
-                <option value="price_asc">Price (Low to High)</option>
-                <option value="price_desc">Price (High to Low)</option>
+                <option value="yield">Target Yield</option>
+                <option value="price_asc">Investment Low</option>
+                <option value="price_desc">Investment High</option>
               </select>
            </div>
         </div>
 
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-40">
-             <Loader2 className="w-16 h-16 text-accent animate-spin mb-8" />
-             <p className="font-serif text-2xl text-slate-400 italic">Curating your collection...</p>
+          <div className="flex flex-col items-center justify-center py-60">
+             <div className="w-14 h-14 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin mb-10" />
+             <p className="font-serif text-3xl font-bold text-[#0A0A0A] italic tracking-tight opacity-40">Curating the Data Room...</p>
           </div>
         ) : filtered.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
             {filtered.map((item) => <ListingCard key={item.id} item={item} />)}
           </div>
         ) : (
-          <div className="text-center py-40 bg-slate-50/50 rounded-[3rem] border border-dashed border-slate-200">
-             <Home className="w-16 h-16 text-slate-200 mx-auto mb-8" />
-             <p className="font-serif text-3xl font-bold text-slate-900 mb-4 tracking-tighter">No assets matching criteria</p>
-             <p className="text-slate-400 max-w-sm mx-auto mb-10 font-medium leading-relaxed">Try adjusting your filters or search term to discover the Sovereign Collection.</p>
+          <div className="text-center py-40 bg-white border border-[#0A0A0A]/5 rounded-[4rem] shadow-xl">
+             <Home className="w-20 h-20 text-[#FAF9F6] mx-auto mb-10" />
+             <p className="font-serif text-4xl font-bold text-[#0A0A0A] mb-4 tracking-tighter">No assets matching criteria.</p>
+             <p className="text-[#8A8A8A] max-w-sm mx-auto mb-12 font-bold uppercase tracking-widest text-[11px] leading-relaxed">Adjust your profiling parameters to view secondary allocations.</p>
              <button 
               onClick={() => {setQuery(""); setInputVal(""); setActiveType("");}}
-              className="px-10 py-5 bg-slate-900 text-white rounded-2xl font-bold uppercase tracking-widest text-[11px] hover:bg-black transition-all luxury-shadow"
+              className="px-12 py-6 bg-[#0A0A0A] text-white rounded-2xl font-bold uppercase tracking-[0.3em] text-[11px] hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all duration-700 shadow-xl"
              >
-               Refresh View
+               Reset Filters
              </button>
           </div>
         )}
@@ -261,8 +282,8 @@ function MarketplaceInner() {
 export default function MarketplacePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <Loader2 className="w-12 h-12 text-accent animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#F5F0E8]">
+        <div className="w-10 h-10 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <MarketplaceInner />

@@ -1,76 +1,88 @@
 import Link from "next/link"
+import { ShieldCheck, Globe, TrendingUp } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-white border-t border-slate-100 pt-16 pb-8 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 lg:gap-8 mb-12">
+    <footer className="bg-[#FAF9F6] border-t border-[#0A0A0A]/5 pt-24 pb-12 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-16 lg:gap-12 mb-20">
           
           {/* Logo Column */}
           <div className="col-span-2 lg:col-span-2">
-             <Link href="/" className="flex flex-col items-start mb-6">
-              <span className="font-serif text-2xl sm:text-3xl tracking-wide text-[#1a1a1a]">
+             <Link href="/" className="flex flex-col items-start mb-10">
+              <span className="font-serif text-3xl tracking-tight text-[#0A0A0A] font-bold">
                 Sterling Vane
               </span>
-              <span className="font-sans font-bold text-[10px] tracking-[0.2em] text-[#006AFF] uppercase mt-1">
-                Sovereign Collection
+              <span className="font-montserrat font-bold text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase mt-1">
+                The Sovereign Collection
               </span>
             </Link>
-            <p className="font-serif text-[#666] text-lg max-w-sm italic mb-8">
-               "Institutional-grade alternative assets."
+            <p className="font-serif text-[#8A8A8A] text-xl max-w-sm italic mb-10 leading-relaxed">
+               "The new standard in private equity hospitality. Curated through precision and exclusive by design."
             </p>
+            <div className="flex items-center gap-6">
+               <ShieldCheck className="w-5 h-5 text-[#C9A84C] opacity-40" />
+               <Globe className="w-5 h-5 text-[#C9A84C] opacity-40" />
+               <TrendingUp className="w-5 h-5 text-[#C9A84C] opacity-40" />
+            </div>
           </div>
 
           {/* Nav Columns */}
           <div className="col-span-1">
-            <h4 className="font-sans font-bold text-[10px] tracking-widest uppercase text-[#1a1a1a] mb-5">Invest</h4>
-            <ul className="space-y-3">
-              <li><Link href="/marketplace" className="text-[#666] hover:text-[#006AFF] transition-colors text-sm">Active Funds</Link></li>
-              <li><Link href="/apply" className="text-[#666] hover:text-[#006AFF] transition-colors text-sm">Apply for Allocation</Link></li>
-              <li><Link href="/login" className="text-[#666] hover:text-[#006AFF] transition-colors text-sm">Investor Portal</Link></li>
+            <h4 className="font-montserrat font-bold text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A] mb-8">Capital</h4>
+            <ul className="space-y-4">
+              <li><Link href="/apply" className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold">The Collection</Link></li>
+              <li><Link href="/apply" className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold">Priority Waitlist</Link></li>
+              <li><Link href="/login" className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold">Log In</Link></li>
             </ul>
           </div>
 
           <div className="col-span-1">
-            <h4 className="font-sans font-bold text-[10px] tracking-widest uppercase text-[#1a1a1a] mb-5">Properties</h4>
-            <ul className="space-y-3">
-              <li><Link href="/marketplace" className="text-[#666] hover:text-[#006AFF] transition-colors text-sm">Acquire Asset Shares</Link></li>
-              <li><Link href="/marketplace?tab=book" className="text-[#666] hover:text-[#006AFF] transition-colors text-sm">Owner Reservations</Link></li>
-              <li><Link href="/marketplace?location=Miami" className="text-[#666] hover:text-[#006AFF] transition-colors text-sm">Miami Portfolio</Link></li>
-              <li><Link href="/marketplace?location=Aspen" className="text-[#666] hover:text-[#006AFF] transition-colors text-sm">Aspen Portfolio</Link></li>
+            <h4 className="font-montserrat font-bold text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A] mb-8">Portfolio</h4>
+            <ul className="space-y-4">
+              <li><Link href="/marketplace" className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold">US Flagships</Link></li>
+              <li><Link href="/marketplace" className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold">Global Units</Link></li>
+              <li><Link href="/marketplace" className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold">Data Rooms</Link></li>
             </ul>
           </div>
 
-          <div className="col-span-2 md:col-span-1 border-t border-slate-200 md:border-0 pt-6 md:pt-0">
-            <h4 className="font-sans font-bold text-[10px] tracking-widest uppercase text-[#1a1a1a] mb-5">Company</h4>
-            <ul className="flex flex-wrap md:block gap-x-6 gap-y-3 md:space-y-3">
-              <li><div className="text-[#666] hover:text-[#006AFF] transition-colors text-sm cursor-pointer">Our Strategy</div></li>
-              <li><div className="text-[#666] hover:text-[#006AFF] transition-colors text-sm cursor-pointer">Leadership</div></li>
-              <li><div className="text-[#666] hover:text-[#006AFF] transition-colors text-sm cursor-pointer">Investor Relations</div></li>
-            </ul>
+          <div className="col-span-1">
+             <h4 className="font-montserrat font-bold text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A] mb-8">Suites</h4>
+             <ul className="space-y-4">
+               <li><Link href="/marketplace?tab=book" className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold">Reservations</Link></li>
+               <li><Link href="/marketplace?tab=book" className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold">Priority Access</Link></li>
+               <li><Link href="/marketplace?tab=book" className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold">Concierge</Link></li>
+             </ul>
           </div>
 
+          <div className="col-span-1">
+            <h4 className="font-montserrat font-bold text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A] mb-8">Corporate</h4>
+            <ul className="space-y-4">
+              <li><div className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold cursor-pointer">Manifesto</div></li>
+              <li><div className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold cursor-pointer">Leadership</div></li>
+              <li><div className="text-[#8A8A8A] hover:text-[#C9A84C] transition-colors text-[10px] uppercase tracking-widest font-bold cursor-pointer">Enquiry</div></li>
+            </ul>
+          </div>
         </div>
 
-        {/* Legal Disclaimer */}
-        <div className="border-t border-slate-200 pt-8 mb-8">
-          <p className="text-[10px] text-[#888] leading-relaxed font-sans max-w-5xl">
-            Disclaimer: The Sovereign Collection is a private real estate investment fund. Investments in real estate are speculative and involve substantial risk, including the possible loss of principal. Projections and targeted returns are based on internal assumptions and comparable historical performance; they do not guarantee future results. This platform is intended solely for accredited investors who are thoroughly familiar with and capable of evaluating the risks of such investments. Past performance is not indicative of future performance.
+        {/* Institutional Disclosure */}
+        <div className="border-t border-[#0A0A0A]/5 pt-12 mb-12">
+          <p className="text-[9px] text-[#8A8A8A] leading-relaxed font-sans max-w-5xl uppercase tracking-widest opacity-60">
+            Institutional Disclosure: The Sovereign Collection is a restricted private real estate investment fund. All allocations are subject to SEC Regulation D protocol. Investments in alternative assets are illiquid and carry significant risk. Projections, including the 30/60/90 return milestones, are performance targets based on algorithmic modelling and historical arbitrage data; they are not guarantees of future yield. Past execution is not a guarantee of future outcomes. Access is restricted to qualified capital partners.
           </p>
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between border-t border-slate-100 pt-8">
-          <p className="text-xs text-[#888] font-sans font-medium mb-4 md:mb-0 uppercase tracking-wider">
+        <div className="flex flex-col md:flex-row items-center justify-between border-t border-[#0A0A0A]/5 pt-10">
+          <p className="text-[9px] text-[#8A8A8A] font-sans font-bold mb-6 md:mb-0 uppercase tracking-[0.3em]">
             &copy; {new Date().getFullYear()} STERLING VANE DEVELOPMENT GROUP. ALL RIGHTS RESERVED.
           </p>
-          <div className="flex justify-center flex-wrap gap-4 md:gap-6">
-            <Link href="#" className="font-sans font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a] hover:text-[#006AFF] transition-colors">LinkedIn</Link>
-            <Link href="#" className="font-sans font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a] hover:text-[#006AFF] transition-colors">Instagram</Link>
-            <Link href="#" className="font-sans font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a] hover:text-[#006AFF] transition-colors">Twitter</Link>
+          <div className="flex justify-center flex-wrap gap-8 md:gap-12">
+            <Link href="#" className="font-montserrat font-bold text-[9px] uppercase tracking-[0.4em] text-[#0A0A0A] hover:text-[#C9A84C] transition-colors">Bloomberg</Link>
+            <Link href="#" className="font-montserrat font-bold text-[9px] uppercase tracking-[0.4em] text-[#0A0A0A] hover:text-[#C9A84C] transition-colors">LinkedIn</Link>
+            <Link href="#" className="font-montserrat font-bold text-[9px] uppercase tracking-[0.4em] text-[#0A0A0A] hover:text-[#C9A84C] transition-colors">Instagram</Link>
           </div>
         </div>
-
       </div>
     </footer>
   )

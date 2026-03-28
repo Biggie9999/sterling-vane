@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState, useRef, useEffect } from "react"
-import { ArrowRight, Download, Calendar, TrendingUp, DollarSign, BarChart3, Clock, AlertCircle, Loader2 } from "lucide-react"
+import { ArrowRight, Download, Calendar, TrendingUp, DollarSign, BarChart3, Clock, AlertCircle, Loader2, Globe, ShieldCheck, ChevronRight } from "lucide-react"
 
 // Monthly portfolio data reflecting 30/60/90 milestone trajectory
 const CHART_DATA = [
@@ -20,12 +20,12 @@ const MILESTONE_IDX = [1, 3, 5]
 function ROIBar({ value, label }: { value: number; label: string }) {
   return (
     <div>
-      <div className="flex justify-between text-xs text-slate-500 mb-1.5 font-bold uppercase tracking-widest">
+      <div className="flex justify-between text-[10px] text-[#8A8A8A] mb-2 font-bold uppercase tracking-[0.2em]">
         <span>{label}</span>
-        <span className="text-slate-900">{value}%</span>
+        <span className="text-[#0A0A0A]">{value}% Target Yield</span>
       </div>
-      <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-        <div className="h-full bg-[#006AFF] rounded-full transition-all duration-1000" style={{ width: `${value}%` }} />
+      <div className="h-1 bg-white/50 rounded-full overflow-hidden border border-[#0A0A0A]/5">
+        <div className="h-full bg-[#C9A84C] rounded-full transition-all duration-[1500ms]" style={{ width: `${value}%` }} />
       </div>
     </div>
   )
@@ -64,8 +64,8 @@ function PortfolioChart({ data = CHART_DATA }) {
     >
       <defs>
         <linearGradient id="aGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#006AFF" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#006AFF" stopOpacity="0" />
+          <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#C9A84C" stopOpacity="0" />
         </linearGradient>
         <clipPath id="cClip">
           <rect x={PAD.left} y={PAD.top} width={cW} height={cH} />
@@ -78,49 +78,50 @@ function PortfolioChart({ data = CHART_DATA }) {
         const v = maxV - t * (maxV - minV)
         return (
           <g key={i}>
-            <line x1={PAD.left} y1={y} x2={W - PAD.right} y2={y} stroke="#e2e8f0" strokeWidth="1" />
-            <text x={PAD.left - 6} y={y + 4} textAnchor="end" fontSize="10" fill="#94a3b8" fontFamily="monospace">{fmt(v)}</text>
+            <line x1={PAD.left} y1={y} x2={W - PAD.right} y2={y} stroke="#0A0A0A" strokeOpacity="0.05" strokeWidth="1" />
+            <text x={PAD.left - 8} y={y + 3} textAnchor="end" fontSize="8" fill="#8A8A8A]" fontFamily="montserrat" fontWeight="bold">{fmt(v)}</text>
           </g>
         )
       })}
 
       {/* Area */}
       <path d={areaPath} fill="url(#aGrad)" clipPath="url(#cClip)"
-        style={{ opacity: animated ? 1 : 0, transition: "opacity 0.8s ease" }} />
+        style={{ opacity: animated ? 1 : 0, transition: "opacity 1.2s ease" }} />
 
       {/* Line */}
-      <path d={linePath} fill="none" stroke="#006AFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+      <path d={linePath} fill="none" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
         clipPath="url(#cClip)"
         style={{
           strokeDasharray: 800,
           strokeDashoffset: animated ? 0 : 800,
-          transition: "stroke-dashoffset 1.6s ease"
+          transition: "stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1)"
         }} />
 
       {/* Milestone glow rings */}
       {MILESTONE_IDX.map(i => (
-        <circle key={i} cx={xS(i)} cy={yS(data[i].value)} r="8"
-          fill="#006AFF" opacity={animated ? 0.15 : 0}
+        <circle key={i} cx={xS(i)} cy={yS(data[i].value)} r="6"
+          fill="#C9A84C" opacity={animated ? 0.2 : 0}
           style={{ transition: "opacity 1.4s ease" }} />
       ))}
 
-      {/* Points + hit areas */}
+      {/* Points */}
       {data.map((d, i) => (
         <g key={i}>
-          <rect x={xS(i) - 22} y={PAD.top} width={44} height={cH} fill="transparent"
+          <rect x={xS(i) - 20} y={PAD.top} width={40} height={cH} fill="transparent"
             onMouseEnter={() => setHovered(i)} style={{ cursor: "crosshair" }} />
           <circle cx={xS(i)} cy={yS(d.value)}
-            r={hovered === i ? 6 : MILESTONE_IDX.includes(i) ? 5 : 3.5}
-            fill={MILESTONE_IDX.includes(i) ? "#006AFF" : "#fff"}
-            stroke={MILESTONE_IDX.includes(i) ? "#006AFF" : "#cbd5e1"}
-            strokeWidth="2"
-            style={{ opacity: animated ? 1 : 0, transition: "opacity 0.8s ease, r 0.1s" }} />
+            r={hovered === i ? 5 : MILESTONE_IDX.includes(i) ? 4 : 2}
+            fill={MILESTONE_IDX.includes(i) ? "#C9A84C" : "#fff"}
+            stroke={MILESTONE_IDX.includes(i) ? "#C9A84C" : "#0A0A0A"}
+            strokeOpacity={MILESTONE_IDX.includes(i) ? 1 : 0.1}
+            strokeWidth="1.5"
+            style={{ opacity: animated ? 1 : 0, transition: "opacity 1s ease, r 0.2s" }} />
           {d.milestone && (
-            <text x={xS(i)} y={yS(d.value) - 13} textAnchor="middle" fontSize="9" fill="#006AFF" fontWeight="bold" fontFamily="monospace">
+            <text x={xS(i)} y={yS(d.value) - 12} textAnchor="middle" fontSize="8" fill="#C9A84C" fontWeight="bold" fontFamily="montserrat">
               {d.milestone}
             </text>
           )}
-          <text x={xS(i)} y={H - 6} textAnchor="middle" fontSize="10" fill="#94a3b8" fontFamily="monospace">{d.month}</text>
+          <text x={xS(i)} y={H - 6} textAnchor="middle" fontSize="8" fill="#8A8A8A" fontWeight="bold" fontFamily="montserrat">{d.month.toUpperCase()}</text>
         </g>
       ))}
 
@@ -129,13 +130,13 @@ function PortfolioChart({ data = CHART_DATA }) {
         const d = data[hovered]
         const tx = xS(hovered)
         const ty = yS(d.value)
-        const bx = Math.min(Math.max(tx - 40, PAD.left), W - PAD.right - 82)
+        const bx = Math.min(Math.max(tx - 41, PAD.left), W - PAD.right - 82)
         return (
           <g>
-            <line x1={tx} y1={PAD.top} x2={tx} y2={PAD.top + cH} stroke="#006AFF" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
-            <rect x={bx} y={ty - 40} width={82} height={30} rx="7" fill="#0A2540" />
-            <text x={bx + 41} y={ty - 26} textAnchor="middle" fontSize="10" fill="#60a5fa" fontWeight="bold" fontFamily="monospace">{d.month} 2026</text>
-            <text x={bx + 41} y={ty - 13} textAnchor="middle" fontSize="13" fill="white" fontWeight="bold" fontFamily="monospace">{fmt(d.value)}</text>
+            <line x1={tx} y1={PAD.top} x2={tx} y2={PAD.top + cH} stroke="#C9A84C" strokeWidth="1" strokeDasharray="2 2" opacity="0.4" />
+            <rect x={bx} y={ty - 45} width={82} height={35} rx="8" fill="#0A0A0A" />
+            <text x={bx + 41} y={ty - 32} textAnchor="middle" fontSize="8" fill="#8A8A8A" fontWeight="bold" fontFamily="montserrat">{d.month} • 2026</text>
+            <text x={bx + 41} y={ty - 18} textAnchor="middle" fontSize="11" fill="white" fontWeight="bold" fontFamily="montserrat">{fmt(d.value)}</text>
           </g>
         )
       })()}
@@ -152,8 +153,13 @@ export default function DashboardOverviewPage() {
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login")
+    } else if (status === "authenticated") {
+      // @ts-ignore
+      if (session?.user?.onboardingComplete === false) {
+        router.push("/onboarding")
+      }
     }
-  }, [status, router])
+  }, [status, session, router])
 
   useEffect(() => {
     async function fetchDashboard() {
@@ -179,8 +185,8 @@ export default function DashboardOverviewPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-10 h-10 text-[#006AFF] animate-spin" />
+      <div className="min-h-screen bg-[#F5F0E8] flex items-center justify-center">
+        <div className="w-10 h-10 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -192,139 +198,143 @@ export default function DashboardOverviewPage() {
     totalInvested: "$0",
     currentValue: "$0",
     returnsToDate: "$0",
-    nextDistribution: "None scheduled",
+    nextDistribution: "Pending",
     growthPercent: "0%"
   }
 
   const kpis = [
-    { label: "Total Invested", value: stats.totalInvested, change: "Accredited Position", icon: DollarSign, up: true },
-    { label: "Current Value", value: stats.currentValue, change: `${stats.growthPercent} since entry`, icon: TrendingUp, up: true },
-    { label: "Returns to Date", value: stats.returnsToDate, change: "Realised + accrued", icon: BarChart3, up: true },
-    { label: "Next Distribution", value: stats.nextDistribution, change: "Estimate", icon: Clock, up: null },
+    { label: "Total Portfolio", value: stats.totalInvested, change: "Phase 1 Verified", icon: DollarSign, up: true },
+    { label: "Market Growth", value: stats.currentValue, change: `${stats.growthPercent} Increase`, icon: TrendingUp, up: true },
+    { label: "Sovereign Yield", value: stats.returnsToDate, change: "Accrued Returns", icon: BarChart3, up: true },
+    { label: "Next Distribution", value: stats.nextDistribution, change: "Review Target", icon: Clock, up: null },
   ]
 
   const portfolio = dashboardData?.investments || []
 
   return (
-    <div className="space-y-8 sm:space-y-10">
-      {/* Welcome */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <div className="space-y-12">
+      {/* Header Narrative */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-[#0A0A0A]/5">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[#006AFF] mb-2">Investor Portal</p>
-          <h1 className="font-serif text-3xl md:text-4xl text-slate-900 mb-2 font-bold">Welcome back, {firstName}.</h1>
-          <p className="text-slate-500 text-sm font-medium">Your portfolio is tracking target yields: 30% at Month 2 · 60% at Month 4 · 90% at Month 6.</p>
+          <div className="flex items-center gap-3 mb-4">
+            <ShieldCheck className="w-4 h-4 text-[#C9A84C]" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#8A8A8A]">Private Management Layer</p>
+          </div>
+          <h1 className="font-serif text-5xl md:text-6xl text-[#0A0A0A] mb-4 font-bold tracking-tight">Welcome, {firstName}.</h1>
+          <p className="text-[#8A8A8A] text-lg font-medium italic font-serif leading-relaxed max-w-2xl">
+            "Your portfolio is positioned for consistent performance across high-frequency hospitality assets."
+          </p>
         </div>
-        <Link href="/marketplace" className="inline-flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-white bg-[#006AFF] hover:bg-[#0050CC] transition-colors py-3 px-6 rounded-xl shrink-0">
-          Browse Assets <ArrowRight className="w-3 h-3" />
+        <Link href="/marketplace" className="inline-flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white bg-[#0A0A0A] hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all duration-500 py-4 px-10 rounded-2xl shrink-0 shadow-2xl group">
+          Invest Now <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
 
-      {/* Alert */}
-      <div className="bg-[#006AFF]/5 border border-[#006AFF]/20 rounded-2xl p-5 flex items-start gap-4">
-        <AlertCircle className="w-5 h-5 text-[#006AFF] shrink-0 mt-0.5" />
-        <div className="flex-1">
-          <p className="font-bold text-[#006AFF] text-sm mb-1">Phase 1 — 12 Allocation Slots Remaining</p>
-          <p className="text-slate-600 text-sm leading-relaxed">Phase 1 is 88% subscribed. Minimum investment $10,000. Once closed, Phase 2 pricing increases. Priority extended to existing investors for 48 hours.</p>
-        </div>
-        <Link href="/apply" className="shrink-0 text-xs bg-white text-[#006AFF] border border-[#006AFF]/20 font-bold px-4 py-2 rounded-lg hover:bg-[#006AFF]/10 transition-colors uppercase tracking-widest hidden sm:block">
-          Invest More
-        </Link>
-      </div>
-
-      {/* KPI Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* KPI Architecture */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {kpis.map((kpi) => (
-          <div key={kpi.label} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{kpi.label}</p>
-              <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
-                <kpi.icon className="w-4 h-4 text-[#006AFF]" />
+          <div key={kpi.label} className="bg-white border border-[#0A0A0A]/5 rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all duration-500 group">
+            <div className="flex items-center justify-between mb-8">
+              <p className="text-[9px] uppercase font-bold tracking-[0.3em] text-[#8A8A8A]">{kpi.label}</p>
+              <div className="w-10 h-10 rounded-xl bg-[#F5F0E8] flex items-center justify-center border border-[#0A0A0A]/5 group-hover:bg-[#C9A84C] transition-colors duration-500">
+                <kpi.icon className="w-4 h-4 text-[#0A0A0A]" />
               </div>
             </div>
-            <p className="font-serif text-2xl md:text-3xl font-bold text-slate-900 mb-2">{kpi.value}</p>
-            <p className={`text-xs font-bold ${kpi.up === true ? "text-emerald-500" : kpi.up === false ? "text-red-500" : "text-slate-400"}`}>
+            <p className="font-serif text-3xl font-bold text-[#0A0A0A] mb-3 tracking-tighter">{kpi.value}</p>
+            <p className={`text-[10px] font-bold uppercase tracking-widest ${kpi.up === true ? "text-emerald-500" : "text-[#8A8A8A]"}`}>
               {kpi.change}
             </p>
           </div>
         ))}
       </div>
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Interactive Chart */}
-        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-          <div className="flex justify-between items-center mb-6">
+      {/* Analytics & Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Performance Visualization */}
+        <div className="lg:col-span-2 bg-white border border-[#0A0A0A]/5 rounded-[3rem] p-10 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-60 h-60 bg-[#C9A84C]/5 blur-[80px] rounded-full -z-10" />
+          
+          <div className="flex justify-between items-center mb-10">
             <div>
-              <h3 className="font-serif text-xl font-bold text-slate-900">Portfolio Growth</h3>
-              <p className="text-slate-400 text-xs font-medium mt-0.5">Hover over data points to see values</p>
+              <h3 className="font-serif text-2xl font-bold text-[#0A0A0A] tracking-tight">Portfolio Performance</h3>
+              <p className="text-[#8A8A8A] text-[10px] font-bold uppercase tracking-widest mt-1 opacity-60">Projected trajectory based on active collection yields</p>
             </div>
-            <div className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#006AFF]" /> 2026 Trajectory
+            <div className="hidden sm:flex items-center gap-3 text-[10px] font-bold text-[#0A0A0A] uppercase tracking-[0.2em]">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#C9A84C]" /> Real Performance
             </div>
           </div>
-          {hasInvestments ? (
-             <PortfolioChart />
-          ) : (
-            <div className="h-[200px] flex flex-col items-center justify-center border-2 border-dashed border-slate-100 rounded-2xl">
-              <TrendingUp className="w-8 h-8 text-slate-200 mb-2" />
-              <p className="text-slate-400 text-sm font-medium">Growth data will appear after first investment</p>
-            </div>
-          )}
+          
+          <div className="pr-4">
+            {hasInvestments ? (
+               <PortfolioChart />
+            ) : (
+              <div className="h-[250px] flex flex-col items-center justify-center border-2 border-dashed border-[#F5F0E8] rounded-[2rem] bg-[#F5F0E8]/30">
+                <TrendingUp className="w-12 h-12 text-[#C9A84C]/30 mb-6" />
+                <p className="text-[#8A8A8A] text-[10px] font-bold uppercase tracking-widest max-w-[200px] text-center opacity-60">Growth telemetry will initiate post-allocation.</p>
+              </div>
+            )}
+          </div>
 
-          {/* ROI Progress Bars */}
-          <div className="mt-8 pt-6 border-t border-slate-100 space-y-4">
-            <ROIBar label="Month 2 Target" value={30} />
-            <ROIBar label="Month 4 Target" value={60} />
-            <ROIBar label="Month 6 Target" value={90} />
+          {/* Performance Targets */}
+          <div className="mt-12 pt-10 border-t border-[#0A0A0A]/5 space-y-8">
+            <ROIBar label="Allocation Milestone 1" value={30} />
+            <ROIBar label="Allocation Milestone 2" value={60} />
+            <ROIBar label="Allocation Milestone 3" value={90} />
           </div>
         </div>
 
-        {/* Sidebar */}
-        <div className="space-y-5">
-          {/* Quick Actions */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-5">Quick Actions</p>
-            <div className="space-y-2">
+        {/* Sidebar Intelligence */}
+        <div className="space-y-8">
+          {/* Direct Access */}
+          <div className="bg-[#FAF9F6] border border-[#0A0A0A]/5 rounded-[3rem] p-10 shadow-sm">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#8A8A8A] mb-10">Quick Actions</p>
+            <div className="space-y-4">
               {[
-                { href: "/marketplace", icon: TrendingUp, label: "Browse & Invest in Assets" },
-                { href: "/dashboard/bookings", icon: Calendar, label: "Book Priority Stay" },
-                { href: "/dashboard/documents", icon: Download, label: "Download Documents" },
+                { href: "/marketplace", icon: TrendingUp, label: "Acquire Global Assets" },
+                { href: "/marketplace?tab=book", icon: Calendar, label: "Reserve Boutique Suite" },
+                { href: "/dashboard/documents", icon: Download, label: "Capital Documents" },
               ].map(({ href, icon: Icon, label }) => (
                 <Link key={label} href={href}
-                  className="flex items-center gap-3 px-4 py-3.5 border border-slate-200 bg-slate-50 rounded-xl text-slate-700 font-semibold hover:text-[#006AFF] hover:border-[#006AFF]/30 transition-all text-sm group">
-                  <Icon className="w-4 h-4 group-hover:text-[#006AFF] transition-colors text-slate-400" />
-                  {label}
+                  className="flex items-center justify-between px-8 py-5 border border-[#0A0A0A]/5 bg-white rounded-2xl text-[#0A0A0A] font-bold uppercase tracking-widest text-[10px] hover:border-[#C9A84C]/30 hover:shadow-xl transition-all group">
+                  <div className="flex items-center gap-4">
+                    <Icon className="w-4 h-4 text-[#C9A84C]" />
+                    {label}
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 opacity-20 group-hover:opacity-100 transition-opacity" />
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* Positions */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-5">Your Positions</p>
+          {/* Asset Positions */}
+          <div className="bg-white border border-[#0A0A0A]/5 rounded-[3rem] p-10 shadow-sm relative overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-[#C9A84C]/5 blur-3xl rounded-full -z-10" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#8A8A8A] mb-10">My Assets</p>
+            
             {portfolio.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-8">
                 {portfolio.map((p: any) => (
-                  <div key={p.id} className="flex items-center justify-between gap-3">
+                  <div key={p.id} className="flex items-center justify-between gap-4 group">
                     <div className="flex-1 min-w-0">
-                      <p className="text-slate-900 text-sm font-bold truncate mb-0.5">{p.name}</p>
-                      <p className="text-slate-500 text-xs font-medium">{p.location}</p>
+                      <p className="text-[#0A0A0A] text-sm font-bold truncate mb-1 group-hover:text-[#C9A84C] transition-colors">{p.name}</p>
+                      <p className="text-[#8A8A8A] text-[9px] font-bold uppercase tracking-widest">{p.location}</p>
                     </div>
-                    <div className="text-right shrink-0 border-l border-slate-100 pl-4">
-                      <p className="text-slate-900 text-sm font-bold">{p.yield}</p>
-                      <p className={`text-[10px] font-bold uppercase tracking-widest ${p.status === "Operating" ? "text-emerald-500" : "text-amber-500"}`}>{p.status}</p>
+                    <div className="text-right shrink-0 border-l border-[#0A0A0A]/5 pl-6">
+                      <p className="text-[#0A0A0A] text-sm font-bold">{p.yield}%</p>
+                      <p className={`text-[8px] font-bold uppercase tracking-widest ${p.status === "Operating" ? "text-emerald-500" : "text-[#C9A84C]"}`}>{p.status}</p>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-                <div className="text-center py-6">
-                   <p className="text-slate-400 text-xs">No active positions yet.</p>
-                   <Link href="/marketplace" className="text-[#006AFF] text-xs font-bold mt-2 inline-block">Start Investing →</Link>
+                <div className="text-center py-10">
+                   <p className="text-[#8A8A8A] text-[10px] font-bold uppercase tracking-widest opacity-40">No active positions.</p>
+                   <Link href="/marketplace" className="text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest mt-4 inline-block hover:underline">Browse Marketplace →</Link>
                 </div>
             )}
-            <Link href="/dashboard/portfolio" className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-center text-xs text-slate-500 hover:text-[#006AFF] transition-colors font-bold uppercase tracking-widest">
-              View Full Portfolio <ArrowRight className="w-3 h-3 ml-2" />
+            
+            <Link href="/dashboard/portfolio" className="mt-10 pt-8 border-t border-[#0A0A0A]/5 flex items-center justify-center text-[9px] text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors font-bold uppercase tracking-[0.3em]">
+              Detailed Manifest <Globe className="w-3.5 h-3.5 ml-3" />
             </Link>
           </div>
         </div>

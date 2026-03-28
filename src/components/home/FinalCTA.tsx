@@ -22,7 +22,7 @@ export function FinalCTA() {
             </h2>
             
             <p className="text-[#8A8A8A] font-sans font-medium text-lg sm:text-xl max-w-xl mx-auto leading-relaxed mb-12">
-              Join an exclusive cohort of intentional capital. We are now accepting limited allocations for the current collection.
+              Join an exclusive cohort of intentional capital. We are now accepting allocations for Phase 1. Round closes on slot fill.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
@@ -43,11 +43,11 @@ export function FinalCTA() {
             <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-[#8A8A8A]">
               <div className="flex items-center gap-2">
                 <Globe className="w-4 h-4" />
-                <span className="text-[10px] font-bold uppercase tracking-widest leading-none pt-0.5">Global Reach</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest leading-none pt-0.5">International Reach</span>
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4" />
-                <span className="text-[10px] font-bold uppercase tracking-widest leading-none pt-0.5">Verified Security</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest leading-none pt-0.5">Secure Settlement</span>
               </div>
             </div>
           </div>
