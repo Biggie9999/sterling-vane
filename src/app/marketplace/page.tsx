@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
 import Link from "next/link"
-import { Search, MapPin, ChevronRight, Bed, Bath, Maximize, X, SlidersHorizontal, TrendingUp, Home, Key } from "lucide-react"
-import { DEMO_PROPERTIES } from "@/data/properties"
+import { Search, MapPin, ChevronRight, Bed, Bath, Maximize, X, SlidersHorizontal, TrendingUp, Home, Key, Loader2 } from "lucide-react"
+import type { PropertyAsset } from "@/data/properties"
 
 const TYPE_OPTIONS = [
   { label: "All Listings", value: "" },
@@ -21,7 +21,7 @@ const SORT_OPTIONS = [
   { label: "Highest Price", value: "price_desc" },
 ]
 
-function ListingCard({ item }: { item: typeof DEMO_PROPERTIES[0] }) {
+function ListingCard({ item }: { item: PropertyAsset }) {
   const fundedPct = Math.round(((item.totalShares - item.availableShares) / item.totalShares) * 100)
   return (
     <Link href={`/properties/${item.id}`} className="group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer block">
@@ -93,16 +93,55 @@ function ListingCard({ item }: { item: typeof DEMO_PROPERTIES[0] }) {
 
 function MarketplaceInner() {
   const searchParams = useSearchParams()
+  const [properties, setProperties] = useState<PropertyAsset[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [query, setQuery] = useState(searchParams.get("location") || "")
   const [inputVal, setInputVal] = useState(searchParams.get("location") || "")
   const [activeType, setActiveType] = useState(searchParams.get("type") || "")
   const [sort, setSort] = useState("default")
   const [showFilters, setShowFilters] = useState(false)
 
+  useEffect(() => {
+    async function fetchProperties() {
+      try {
+        const res = await fetch("/api/properties")
+        const data = await res.json()
+        if (Array.isArray(data)) {
+          // Map DB model to PropertyAsset interface if needed
+          const mapped: PropertyAsset[] = data.map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            location: p.location,
+            market: p.city,
+            type: p.type === "APARTMENT" ? "Growth" : p.type === "VILLA" ? "Principal" : "Seed",
+            pricePerShare: p.askingPrice / 100, // Handle scale if needed, for now use as is
+            totalShares: 200, // Default for demo migration
+            availableShares: 200 - p.investments.length,
+            propertyValue: p.askingPrice || 0,
+            capRate: 8.2,
+            targetYield: p.yieldEstimate,
+            bedrooms: 4,
+            bathrooms: 4,
+            sqft: 5000,
+            images: p.images,
+            description: p.description,
+            status: p.status === "ACTIVE" ? "Funding Stage" : p.status === "FULLY_SUBSCRIBED" ? "Fully Funded" : "Coming Soon"
+          }))
+          setProperties(mapped)
+        }
+      } catch (err) {
+        console.error("Failed to fetch properties:", err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchProperties()
+  }, [])
+
   const activeFiltersCount = [query, activeType].filter(Boolean).length
 
   const filtered = useMemo(() => {
-    let list = [...DEMO_PROPERTIES]
+    let list = [...properties]
     if (query) {
       const q = query.toLowerCase()
       list = list.filter(p => p.location.toLowerCase().includes(q) || p.name.toLowerCase().includes(q) || p.market.toLowerCase().includes(q))
@@ -197,7 +236,12 @@ function MarketplaceInner() {
           )}
         </div>
 
-        {filtered.length > 0 ? (
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-24">
+            <Loader2 className="w-10 h-10 text-[#006AFF] animate-spin mb-4" />
+            <p className="text-slate-500 font-medium">Loading Soveign Collection...</p>
+          </div>
+        ) : filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
             {filtered.map((item) => <ListingCard key={item.id} item={item} />)}
           </div>

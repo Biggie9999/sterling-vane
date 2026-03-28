@@ -35,16 +35,25 @@ export async function GET() {
       applicationStatus: "PENDING"
     }
 
-    // Calculate current value based on simple yield estimate for demo
-    // In a real app, this would be more complex
-    const totalInvested = profile.totalInvested
+    // Real calculations from database
+    const totalInvested = user.investments.reduce((acc, inv) => acc + inv.amount, 0)
+    
     const returnsToDate = user.investments.reduce((acc, inv) => {
       const distributionsSum = inv.distributions.reduce((sum, dist) => sum + dist.amount, 0)
       return acc + distributionsSum
     }, 0)
     
-    // For demo: current value is invested + estimated growth
-    const currentValue = totalInvested * 1.24 // Mocking 24% growth
+    // Calculate current value based on time held: principal + estimated 10% annual growth
+    const currentValue = user.investments.reduce((acc, inv) => {
+      const daysHeld = Math.max(0, Math.floor((new Date().getTime() - new Date(inv.startDate).getTime()) / (1000 * 60 * 60 * 24)))
+      const dailyGrowthRate = 0.10 / 365
+      const appreciation = inv.amount * (dailyGrowthRate * daysHeld)
+      return acc + inv.amount + appreciation
+    }, 0)
+
+    const growthPercent = totalInvested > 0 
+      ? `+${(((currentValue / totalInvested) - 1) * 100).toFixed(1)}%` 
+      : "0%"
 
     const fullName = user.name || session.user.name || ""
     const firstName = fullName ? fullName.split(" ")[0] : (session.user.email || "Investor").split("@")[0]
@@ -53,10 +62,10 @@ export async function GET() {
       firstName,
       stats: {
         totalInvested: `$${totalInvested.toLocaleString()}`,
-        currentValue: `$${currentValue.toLocaleString()}`,
+        currentValue: `$${currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
         returnsToDate: `$${returnsToDate.toLocaleString()}`,
         nextDistribution: user.investments.length > 0 ? "Q2 2026" : "None scheduled",
-        growthPercent: totalInvested > 0 ? "+24.8%" : "0%"
+        growthPercent: growthPercent
       },
       investments: user.investments.map(inv => ({
         id: inv.id,

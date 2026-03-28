@@ -73,12 +73,26 @@ export const authOptions: NextAuthOptions = {
         // @ts-ignore
         session.user.id = token.sub
         
-        // Populate session user with more info if needed
+        // Ensure profile exists and populate session user with more info if needed
         const dbUser = await prisma.user.findUnique({
-             where: { id: token.sub as string }
+             where: { id: token.sub as string },
+             include: { investorProfile: true }
         })
+        
         if (dbUser) {
              session.user.name = dbUser.name
+             
+             // Robustness: create profile if missing for any reason
+             if (!dbUser.investorProfile) {
+               await prisma.investorProfile.create({
+                 data: {
+                   userId: dbUser.id,
+                   tier: "ENTRY",
+                   totalInvested: 0,
+                   applicationStatus: "PENDING"
+                 }
+               })
+             }
         }
       }
       return session

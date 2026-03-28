@@ -1,14 +1,23 @@
-import { DEMO_PROPERTIES } from "@/data/properties"
+import { prisma } from "@/lib/prisma"
+import { PropertyStatus } from "@prisma/client"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { MapPin, Bed, Bath, Maximize, ChevronLeft, Calendar, Shield, TrendingUp, Info } from "lucide-react"
 
-export default function PropertyPage({ params }: { params: { id: string } }) {
-  const property = DEMO_PROPERTIES.find(p => p.id === params.id)
+export default async function PropertyPage({ params }: { params: { id: string } }) {
+  const property = await prisma.property.findUnique({
+    where: { id: params.id },
+    include: {
+      investments: true
+    }
+  })
+
   if (!property) return notFound()
 
   // Calculate some derived values for the UI
-  const percentFunded = ((property.totalShares - property.availableShares) / property.totalShares) * 100
+  const totalShares = 200 // Default for demo migration
+  const availableShares = 200 - property.investments.length
+  const percentFunded = ((totalShares - availableShares) / totalShares) * 100
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen pt-24 pb-24">
@@ -24,7 +33,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
                 {property.type} Asset
               </span>
               <div className="flex items-center gap-1.5 bg-[#1a1a1a] text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-sm">
-                <span className={`w-1.5 h-1.5 rounded-full ${property.status === "Funding Stage" ? "bg-emerald-400" : "bg-[#006AFF]"}`}></span>
+                <span className={`w-1.5 h-1.5 rounded-full ${property.status === PropertyStatus.ACTIVE ? "bg-emerald-400" : "bg-[#006AFF]"}`}></span>
                 {property.status}
               </div>
             </div>
@@ -40,7 +49,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
             <div className="hidden sm:flex items-center gap-8 bg-white border border-slate-200 px-6 py-4 rounded-2xl shadow-sm">
               <div className="text-center">
                 <p className="text-[10px] uppercase tracking-widest font-bold text-[#888] mb-1">Target Yield</p>
-                <p className="font-bold text-xl text-[#006AFF]">{property.targetYield}%</p>
+                <p className="font-bold text-xl text-[#006AFF]">{property.yieldEstimate}%</p>
               </div>
               <div className="w-px h-8 bg-slate-200"></div>
               <div className="text-center">
@@ -164,8 +173,8 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
                 <div className="bg-[#006AFF] h-full rounded-full transition-all duration-1000" style={{ width: `${percentFunded}%` }} />
               </div>
               <p className="text-xs text-[#888] font-medium flex justify-between">
-                <span>{property.availableShares} Shares Available</span>
-                <span>{property.totalShares} Total</span>
+                <span>{availableShares} Shares Available</span>
+                <span>{totalShares} Total</span>
               </p>
             </div>
 
@@ -179,7 +188,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm font-medium text-[#666]">Asset Value</span>
-                <span className="text-sm font-bold text-[#1a1a1a]">${(property.propertyValue / 1000000).toFixed(1)}M</span>
+                <span className="text-sm font-bold text-[#1a1a1a]">${((property.askingPrice || 0) / 1000000).toFixed(1)}M</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm font-medium text-[#666]">Lockup Period</span>
