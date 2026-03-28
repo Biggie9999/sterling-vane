@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sterling Vane - Private Wealth Property Platform
 
-## Getting Started
+A luxury property investment platform designed for high-net-worth individuals, featuring a global property marketplace, real-time portfolio tracking, and institutional-grade management.
 
-First, run the development server:
+## 🚀 Getting Started (New PC Setup)
 
+To pick up this project on a new machine, follow these steps:
+
+### 1. Prerequisites
+- **Node.js**: v18 or higher.
+- **Git**: Installed and configured.
+- **Database**: A Supabase project (or any PostgreSQL instance).
+
+### 2. Clone and Install
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Biggie9999/sterling-vane.git
+cd sterling-vane
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Environment Variables
+Copy `.env.example` to `.env` and fill in your credentials:
+```bash
+cp .env.example .env
+```
+Ensure `DATABASE_URL` (pooler) and `DIRECT_URL` (direct) are correctly set for Supabase.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Database Setup
+Sync your local Prisma client with the live database and seed the fallback properties:
+```bash
+npx prisma generate
+npx prisma db push
+npm run seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. Run Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the platform.
 
-## Learn More
+## 🛠 Tech Stack
+- **Framework**: Next.js 14 (App Router)
+- **Database**: PostgreSQL (Supabase)
+- **ORM**: Prisma
+- **Auth**: NextAuth.js (Google OAuth & Credentials)
+- **Styling**: Tailwind CSS / Vanilla CSS
+- **Payments**: Stripe (Integration Ready)
+- **Email**: Resend
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Architecture Overview
+- `/src/app/api`: Serverless functions for properties, dashboard, and auth.
+- `/src/app/marketplace`: Dynamic property listing engine.
+- `/src/app/dashboard`: Real-time investment tracking UI.
+- `/prisma/seed.ts`: Script to populate the 'Sovereign Collection' from demo data.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 License
+Private and Confidential. (c) 2026 Sterling Vane.
