@@ -3,8 +3,35 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  INVESTOR
+  ADMIN
+}
+
+enum PropertyType {
+  APARTMENT
+  VILLA
+  PENTHOUSE
+  TOWNHOUSE
+  CHATEAU
+}
+
+enum PropertyStatus {
+  ACTIVE
+  FULLY_SUBSCRIBED
+  COMING_SOON
+  UNDER_MAINTENANCE
+}
+
+enum AppStatus {
+  PENDING
+  READY
+  VERIFIED
+  SUSPENDED
 }
 
 model User {
@@ -16,7 +43,7 @@ model User {
   image           String?
   accounts        Account[]
   sessions        Session[]
-  role            String           @default("INVESTOR")
+  role            Role             @default(INVESTOR)
   onboardingComplete Boolean          @default(false)
   intent             String?          @default("invest")
   accreditation      String?          @default("none")
@@ -34,12 +61,12 @@ model Account {
   type               String
   provider           String
   providerAccountId  String
-  refresh_token      String?
-  access_token       String?
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?
+  id_token           String? @db.Text
   session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -69,7 +96,7 @@ model InvestorProfile {
   user              User         @relation(fields: [userId], references: [id])
   tier              String
   totalInvested     Float
-  applicationStatus String       @default("PENDING")
+  applicationStatus AppStatus    @default(PENDING)
   joinedAt          DateTime     @default(now())
 }
 
@@ -81,7 +108,7 @@ model Property {
   location      String
   city          String
   country       String
-  type          String         // SQLite handles enums as strings
+  type          PropertyType   
   askingPrice   Float?
   nightlyRate   Float
   yieldEstimate Float
@@ -90,9 +117,9 @@ model Property {
   bathrooms     Int            @default(1)
   sqft          Int            @default(0)
   pricePerShare Float          @default(0)
-  status        String         @default("ACTIVE") // SQLite handles enums as strings
-  images        String         // SQLite doesn't support String[], will store as JSON stringified
-  amenities     String         // SQLite doesn't support String[], will store as JSON stringified
+  status        PropertyStatus @default(ACTIVE) 
+  images        Json           
+  amenities     Json           
   investments   Investment[]
   bookings      Booking[]
   enquiries     Enquiry[]

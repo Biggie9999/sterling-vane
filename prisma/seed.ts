@@ -37,7 +37,7 @@ const IMAGES = [
 ]
 
 async function main() {
-  console.log('Initiating Global Sovereign Collection Seeding Protocol [SQLite Mode]...')
+  console.log('Initiating Global Sovereign Collection Seeding Protocol [PostgreSQL Mode]...')
   
   // Clear existing registry
   await prisma.property.deleteMany()
@@ -72,7 +72,7 @@ async function main() {
         location: `${market.city}, ${market.country}`,
         city: market.city,
         country: market.country,
-        type: market.type,
+        type: market.type as any,
         askingPrice: priceBase,
         nightlyRate: Math.round(nightlyRate),
         yieldEstimate: parseFloat(yieldEstimate.toFixed(1)),
@@ -81,20 +81,20 @@ async function main() {
         bathrooms: 2 + Math.floor(Math.random() * 5),
         sqft: 2500 + Math.floor(Math.random() * 8000),
         pricePerShare: Math.round(priceBase / (200 + Math.floor(Math.random() * 200))),
-        status,
-        images: JSON.stringify([
+        status: status as any,
+        images: [
           IMAGES[i % IMAGES.length],
           IMAGES[(i + 1) % IMAGES.length],
           IMAGES[(i + 2) % IMAGES.length],
-        ]),
-        amenities: JSON.stringify([
+        ],
+        amenities: [
           "24/7 Concierge", 
           "Private Wellness Wing", 
           "Secure Biometric Entry", 
           "Climate-Controlled Wine Room",
           "Tesla Charging Suite",
           "Chef's Kitchen"
-        ])
+        ]
       }
     })
 
