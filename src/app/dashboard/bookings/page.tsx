@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { MapPin, Bed, Bath, Star, Calendar, CheckCircle2, Loader2 } from "lucide-react"
+import { MapPin, Bed, Bath, Star, Calendar, CheckCircle2, Loader2, Info, ArrowRight } from "lucide-react"
 
 export default function BookingsPage() {
   const [properties, setProperties] = useState<any[]>([])
@@ -16,9 +16,7 @@ export default function BookingsPage() {
       try {
         const res = await fetch("/api/properties")
         const data = await res.json()
-        if (Array.isArray(data)) {
-          setProperties(data)
-        }
+        if (Array.isArray(data)) setProperties(data)
       } catch (err) {
         console.error("Failed to fetch properties:", err)
       } finally {
@@ -28,24 +26,23 @@ export default function BookingsPage() {
     fetchProperties()
   }, [])
 
-  const handleSubmit = async (prop: any, dateRange: string) => {
+  const handleSubmit = async (property: any, date: string) => {
     setIsSubmitting(true)
+    setSelectedDate(date)
+    setSelectedProp(property)
+    
     try {
-      // For demo, we'll parse "Apr 10–15" as a simplified date range
-      // In a real app, this would be a proper date picker
-      await fetch("/api/bookings", {
+      const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          propertyId: prop.id,
-          checkIn: new Date(),
-          checkOut: new Date(new Date().getTime() + (7 * 24 * 60 * 60 * 1000)), // 7 days from now
-          amount: prop.nightlyRate * 0.7 * 7 // 7 nights at 30% discount
+          propertyId: property.id,
+          checkIn: date.split("–")[0] + " 2026",
+          checkOut: date.split("–")[1] + " 2026",
+          amount: (property.nightlyRate || 1000) * 0.7 * 3, // demo 3 nights
         })
       })
-      setSelectedProp(prop)
-      setSelectedDate(dateRange)
-      setSubmitted(true)
+      if (res.ok) setSubmitted(true)
     } catch (err) {
       console.error("Booking failed:", err)
     } finally {
@@ -53,104 +50,157 @@ export default function BookingsPage() {
     }
   }
 
-  if (submitted && selectedProp) {
+  if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="bg-[#111] border border-[#222] rounded-2xl p-10 text-center max-w-md">
-          <CheckCircle2 className="w-14 h-14 text-emerald-400 mx-auto mb-6" />
-          <h2 className="font-serif text-2xl text-white mb-2">Stay Requested</h2>
-          <p className="text-warmGrey text-sm leading-relaxed mb-4">
-            Your priority booking request for <strong className="text-white">{selectedProp.name}</strong> ({selectedDate}) has been submitted. Our concierge team will confirm within 24 hours.
-          </p>
-          <p className="text-[#006AFF] text-xs font-mono uppercase tracking-widest">As an investor, you receive 30% off published nightly rates.</p>
-          <button onClick={() => setSubmitted(false)} className="mt-8 px-6 py-3 border border-[#333] text-warmGrey text-sm rounded-lg hover:text-white transition-colors">
-            Book Another Stay
-          </button>
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <Loader2 className="w-12 h-12 text-accent animate-spin mb-6" />
+        <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-slate-400">Loading Sovereign Inventory...</p>
       </div>
     )
   }
 
-  const [selected, setSelected] = useState<string | null>(null)
-
-  if (isLoading) {
+  if (submitted) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-10 h-10 text-[#006AFF] animate-spin mb-4" />
-        <p className="text-warmGrey font-medium">Loading property calendars...</p>
+      <div className="max-w-xl mx-auto py-20 text-center animate-sovereign-in">
+        <div className="w-24 h-24 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-8 luxury-shadow">
+          <CheckCircle2 className="w-10 h-10 text-accent" />
+        </div>
+        <h2 className="text-4xl font-serif font-bold text-slate-900 mb-4 tracking-tighter">Reservation Requested</h2>
+        <p className="text-slate-500 mb-10 leading-relaxed font-medium">
+          Your priority stay at <span className="text-slate-900 font-bold">{selectedProp?.name}</span> for <span className="text-accent font-bold">{selectedDate}</span> has been logged.
+        </p>
+        <div className="bg-slate-50 border border-slate-100 p-8 rounded-3xl mb-10 text-left">
+          <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-slate-400 mb-4 font-bold flex items-center gap-2">
+            <Info className="w-3 h-3" /> Concierge Note
+          </p>
+          <p className="text-xs text-slate-600 leading-relaxed font-medium">
+            As a Sovereign investor, your request has been bumped to the top of the queue. We'll verify availability for these specific dates and confirm by email within 24 hours. No payment is required at this stage.
+          </p>
+        </div>
+        <button 
+          onClick={() => setSubmitted(false)}
+          className="px-10 py-5 bg-slate-900 text-white rounded-2xl font-bold hover:bg-black transition-all luxury-shadow flex items-center gap-3 mx-auto"
+        >
+          View More Properties <ArrowRight className="w-4 h-4" />
+        </button>
       </div>
     )
   }
 
   return (
-    <div className="space-y-8">
-      <div>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-[#006AFF] mb-2">Investor Privilege</p>
-        <h1 className="font-serif text-3xl text-white mb-1">Book a Priority Stay</h1>
-        <p className="text-warmGrey text-sm">As a Sovereign Collection investor, you receive priority booking access and 30% off published rates.</p>
+    <div className="space-y-12 animate-sovereign-in">
+      <div className="relative overflow-hidden p-10 bg-slate-950 text-white rounded-[2.5rem] luxury-shadow">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div className="max-w-2xl">
+            <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent mb-4 font-bold">In-Portfolio Privileges</p>
+            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4 tracking-tighter leading-tight">Priority Sovereign Stays</h1>
+            <p className="text-slate-400 text-lg leading-relaxed font-medium">
+              As an owner in the Sovereign Collection, you receive secondary priority booking access and a <span className="text-accent">30% discount</span> on the published seasonal rate.
+            </p>
+          </div>
+          <div className="shrink-0 flex items-center gap-4 bg-white/5 border border-white/10 p-6 rounded-3xl glass-dark">
+             <div className="text-right">
+                <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest font-bold">Member Tier</p>
+                <p className="text-xl font-serif font-bold text-accent">Principal Holder</p>
+             </div>
+             <div className="w-12 h-12 bg-accent/20 rounded-2xl flex items-center justify-center border border-accent/30 shadow-inner">
+                <Star className="w-6 h-6 text-accent fill-current" />
+             </div>
+          </div>
+        </div>
+        {/* Background Accent */}
+        <div className="absolute top-0 right-0 w-[400px] h-full bg-accent/10 blur-[80px] rounded-full translate-x-1/2 pointer-events-none" />
       </div>
 
-      <div className="grid gap-6">
-        {properties.map((p: any) => {
-          // Fallback availability dates for demo
+      <div className="grid grid-cols-1 gap-10">
+        {properties.map((p: any, idx) => {
           const available = ["Apr 10–15", "Apr 22–28", "May 5–12"]
           return (
             <div
               key={p.id}
-              className={`bg-[#111] border rounded-2xl overflow-hidden transition-all ${selected === p.id ? "border-[#006AFF]/50" : "border-[#222] hover:border-[#333]"}`}
+              className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 flex flex-col lg:flex-row transition-all duration-700 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] hover:-translate-y-1"
+              style={{ animationDelay: `${idx * 0.15}s` }}
             >
-              <div className="flex flex-col md:flex-row">
-                {/* Image */}
-                <div className="md:w-64 h-48 md:h-auto relative overflow-hidden shrink-0">
-                  <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
-                  <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-[#006AFF] text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full">
-                    Investor Access
+              {/* Cinematic Image Frame */}
+              <div className="lg:w-[400px] xl:w-[480px] h-72 lg:h-auto relative overflow-hidden">
+                <img 
+                  src={p.images[0]} 
+                  alt={p.name} 
+                  className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
+                <div className="absolute bottom-6 left-6 flex items-center gap-2">
+                   <div className="px-3 py-1.5 glass-dark text-accent text-[10px] font-mono uppercase tracking-widest font-bold rounded-xl border border-white/10">
+                     Phase {p.phase || 1}
+                   </div>
+                   <div className="px-3 py-1.5 glass-dark text-white text-[10px] font-mono uppercase tracking-widest font-bold rounded-xl border border-white/10">
+                     Active Operations
+                   </div>
+                </div>
+              </div>
+
+              {/* Sophisticated Details Section */}
+              <div className="flex-1 p-8 lg:p-12 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-start justify-between gap-4 mb-6">
+                    <div>
+                      <h3 className="font-serif text-3xl font-bold text-slate-900 tracking-tighter mb-2">{p.name}</h3>
+                      <p className="text-slate-500 font-medium flex items-center gap-2 text-sm">
+                        <MapPin className="w-4 h-4 text-accent" /> {p.location}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-[#F8FAFC] px-4 py-2.5 rounded-2xl border border-slate-100">
+                      <Star className="w-4 h-4 text-accent fill-current" />
+                      <span className="text-slate-900 font-bold text-sm tracking-tighter">4.98</span>
+                    </div>
+                  </div>
+
+                  <p className="text-slate-500 text-sm leading-relaxed mb-8 max-w-xl font-medium line-clamp-2">
+                    {p.description}
+                  </p>
+
+                  <div className="grid grid-cols-3 gap-4 mb-10 pb-8 border-b border-slate-100">
+                    <div className="space-y-1">
+                      <p className="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">Inventory</p>
+                      <p className="text-slate-900 font-bold flex items-center gap-2"><Bed className="w-4 h-4 text-accent/60" /> {p.bedrooms} Beds</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">Sanitation</p>
+                      <p className="text-slate-900 font-bold flex items-center gap-2"><Bath className="w-4 h-4 text-accent/60" /> {p.bathrooms} Baths</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">Investor Nightly</p>
+                      <p className="text-accent font-bold text-lg">${((p.nightlyRate || 1000) * 0.7).toLocaleString()}</p>
+                    </div>
                   </div>
                 </div>
 
-                {/* Details */}
-                <div className="flex-1 p-6">
-                  <div className="flex items-start justify-between flex-wrap gap-3 mb-3">
-                    <div>
-                      <h3 className="font-serif text-xl text-white">{p.name}</h3>
-                      <p className="text-warmGrey text-xs flex items-center gap-1 mt-0.5">
-                        <MapPin className="w-3 h-3" /> {p.location}
-                      </p>
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                       <Calendar className="w-4 h-4 text-accent" />
+                       <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">Priority Windows Available</span>
                     </div>
-                    <div className="flex items-center gap-1 text-[#006AFF]">
-                      <Star className="w-4 h-4 fill-current" />
-                      <span className="text-white font-semibold text-sm">4.97</span>
-                    </div>
+                    <span className="text-[10px] text-slate-400 italic">30% Discount Automatically Applied</span>
                   </div>
 
-                  <p className="text-warmGrey text-xs leading-relaxed mb-4 line-clamp-2">{p.description}</p>
-
-                  <div className="flex items-center gap-4 text-xs text-warmGrey mb-4">
-                    <span className="flex items-center gap-1"><Bed className="w-4 h-4" /> {p.bedrooms} bed</span>
-                    <span className="flex items-center gap-1"><Bath className="w-4 h-4" /> {p.bathrooms} bath</span>
-                    <span className="text-[#006AFF] font-bold">${((p.nightlyRate || 1000) * 0.7).toLocaleString()}<span className="text-warmGrey font-normal">/night (investor rate)</span></span>
-                  </div>
-
-                  <div className="bg-[#1a1a1a] rounded-xl p-3 text-xs text-warmGrey mb-4">
-                    <Calendar className="w-3.5 h-3.5 inline mr-1.5 text-[#006AFF]" />
-                    <strong className="text-white">Available windows:</strong> {available.join(" · ")}
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {available.map((dateRange: string) => (
                       <button
                         key={dateRange}
                         disabled={isSubmitting}
-                        onClick={() => { setSelected(p.id); handleSubmit(p, dateRange) }}
-                        className="text-xs border border-[#006AFF]/30 text-[#006AFF] px-4 py-2 rounded-lg hover:bg-[#006AFF]/10 transition-colors font-mono disabled:opacity-50 flex items-center gap-2"
+                        onClick={() => handleSubmit(p, dateRange)}
+                        className="group relative px-6 py-4 bg-white border-2 border-slate-100 rounded-2xl text-[13px] font-bold text-slate-900 hover:border-accent hover:text-white transition-all overflow-hidden disabled:opacity-50"
                       >
-                        {isSubmitting && selected === p.id && dateRange === selectedDate && <Loader2 className="w-3 h-3 animate-spin" />}
-                        {dateRange}
+                        <div className="relative z-10 flex items-center gap-2">
+                           {isSubmitting && selectedDate === dateRange && selectedProp?.id === p.id 
+                             ? <Loader2 className="w-4 h-4 animate-spin" /> 
+                             : dateRange}
+                        </div>
+                        <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                       </button>
                     ))}
                   </div>
-
-                  <p className="text-[10px] text-warmGrey/50 mt-3 italic">Investor priority — 30% discount on published rate</p>
                 </div>
               </div>
             </div>

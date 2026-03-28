@@ -4,66 +4,110 @@
 
 @layer base {
   :root {
-    --black: #1A1A1A; /* Softer black */
-    --gold: #006AFF;
-    --gold-light: #E8C96A;
-    --off-white: #FAF9F6;
-    --warm-grey: #8A8A8A;
-    --ivory: #FFFFFF;
-    --border-dark: #E5E5E5; /* Swapped to light for default */
-    --border-light: #F0F0F0;
-    --background: 40 20% 98%; /* #faf9f6 */
-    --foreground: 0 0% 10%; /* #1a1a1a */
+    /* Sovereign Palette — Anthracite & Gold */
+    --primary: 222 47% 11%;      /* Deep Slate/Anthracite */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 222 47% 95%;   /* Soft Grey-Blue */
+    --secondary-foreground: 222 47% 11%;
+    
+    --accent: 43 52% 56%;       /* Sophisticated Gold #C5A059 */
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 215.4 16.3% 46.9%;
+    --muted-foreground: 215.4 16.3% 56.9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    --card-foreground: 222 47% 11%;
+    
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    
+    --radius: 1rem;
+    
+    /* Dark Mode Defaults */
+    --admin-surface: 222 47% 4%;
+    --admin-border: 222 47% 12%;
+  }
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+  .dark {
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 6%;
+    --card-foreground: 210 40% 98%;
+    --border: 222 47% 12%;
+  }
 
-    --primary: 0 0% 10%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 40 20% 96%;
-    --secondary-foreground: 0 0% 10%;
-
-    --muted: 40 20% 96%;
-    --muted-foreground: 0 0% 40%;
-
-    --accent: 44 55% 54%; /* gold */
-    --accent-foreground: 0 0% 10%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 10%;
-
-    --radius: 0.5rem;
+  * {
+    @apply border-border;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  html {
+    scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground tracking-tight;
+    @apply bg-background text-foreground antialiased selection:bg-accent/30 selection:text-accent;
+    font-feature-settings: "cv02", "cv05", "cv11";
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif tracking-tight text-[#1A1A1A];
+    @apply font-serif tracking-tight font-semibold leading-tight;
   }
 }
 
-/* Glassmorphism utility */
-.glass-panel {
-  @apply bg-white/90 backdrop-blur-md border border-black/5 shadow-smooth rounded-xl;
+@layer components {
+  /* Premium Utility Classes */
+  .glass-light {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)];
+  }
+  
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
+  }
+
+  .luxury-shadow {
+    @apply shadow-[0px_10px_40px_-10px_rgba(0,0,0,0.1)];
+  }
+
+  .gold-gradient {
+    @apply bg-gradient-to-tr from-[#A67C00] via-[#D4AF37] to-[#FFD700];
+  }
+
+  .noir-gradient {
+    @apply bg-gradient-to-b from-[#0F172A] to-[#020617];
+  }
 }
 
-/* Luxury Grain background */
-.luxury-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacty='0.08'/%3E%3C/svg%3E");
-  background-blend-mode: overlay;
+/* Sophisticated Keyframe Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-sovereign-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-links {
+  animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Smooth Sidebar Transitions */
+.sidebar-link-active {
+  @apply relative translate-x-1;
+}
+
+.sidebar-link-active::before {
+  content: '';
+  @apply absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-6 bg-accent rounded-r-lg;
 }

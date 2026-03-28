@@ -1,81 +1,56 @@
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { LayoutDashboard, Building, Users, Activity, Settings, LogOut } from "lucide-react"
-
-const adminLinks = [
-  { name: "Overview", href: "/admin", icon: <LayoutDashboard className="w-4 h-4" /> },
-  { name: "Properties", href: "/admin/properties", icon: <Building className="w-4 h-4" /> },
-  { name: "Users & Approvals", href: "/admin/users", icon: <Users className="w-4 h-4" /> },
-  { name: "Financials", href: "/admin/financials", icon: <Activity className="w-4 h-4" /> },
-  { name: "Settings", href: "/admin/settings", icon: <Settings className="w-4 h-4" /> },
-]
+import { useSession } from "next-auth/react"
+import { Sidebar } from "@/components/Sidebar"
+import { Loader2, ShieldAlert } from "lucide-react"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
+  const { data: session, status } = useSession()
 
-  return (
-    <div className="min-h-screen bg-black flex flex-col md:flex-row mt-[88px]">
-      
-      {/* Sidebar (Desktop) */}
-      <aside className="w-full md:w-64 bg-[#0a0a0a] border-r border-border-dark flex flex-col shrink-0 hidden md:flex">
-        <div className="p-6 pb-2">
-           <div className="flex items-center space-x-2 mb-8">
-             <div className="w-2 h-2 rounded-full bg-danger animate-pulse"></div>
-             <p className="font-mono text-[10px] uppercase tracking-widest text-warmGrey">Admin Control</p>
-           </div>
-        </div>
-        
-        <nav className="flex-1 px-4 space-y-2">
-          {adminLinks.map((link) => {
-            const isActive = pathname === link.href || (pathname.startsWith(link.href) && link.href !== "/admin")
-            return (
-              <Link 
-                key={link.name} 
-                href={link.href}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors text-sm font-sans ${isActive ? 'bg-[#111] text-gold border border-border-dark shadow-[inset_2px_0_0_#006AFF]' : 'text-warmGrey hover:bg-white/5 hover:text-white'}`}
-              >
-                {link.icon}
-                <span>{link.name}</span>
-              </Link>
-            )
-          })}
-        </nav>
-
-        <div className="p-4 border-t border-border-dark mt-auto">
-           <button className="flex items-center space-x-3 px-4 py-3 w-full text-warmGrey hover:text-danger hover:bg-danger/10 transition-colors rounded-sm text-sm font-sans">
-             <LogOut className="w-4 h-4" />
-             <span>Exit Admin</span>
-           </button>
-        </div>
-      </aside>
-
-      {/* Mobile nav indicator */}
-      <div className="md:hidden bg-[#0a0a0a] p-4 border-b border-border-dark overflow-x-auto whitespace-nowrap scrollbar-hide">
-        <nav className="flex space-x-2">
-          {adminLinks.map((link) => {
-            const isActive = pathname === link.href || (pathname.startsWith(link.href) && link.href !== "/admin")
-            return (
-              <Link 
-                key={link.name} 
-                href={link.href}
-                className={`px-4 py-2 text-xs font-mono tracking-widest uppercase rounded-sm flex items-center ${isActive ? 'bg-gold text-black' : 'bg-[#111] text-warmGrey border border-border-dark'}`}
-              >
-                {link.name}
-              </Link>
-            )
-          })}
-        </nav>
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-accent animate-spin" />
       </div>
+    )
+  }
 
-      {/* Main Content Area */}
-      <main className="flex-1 overflow-x-hidden pt-8 md:pt-12 px-6 pb-24 text-white">
-        <div className="max-w-6xl mx-auto">
-          {children}
+  // Double check admin role here if necessary, but middleware should handle it.
+  
+  return (
+    <div className="min-h-screen bg-slate-950 flex flex-col md:flex-row antialiased transition-all duration-700">
+      
+      {/* Universal sidebar in Admin mode */}
+      <Sidebar 
+        mode="admin" 
+        userName={session?.user?.name || "Operations Officer"} 
+        userEmail={session?.user?.email || "admin@sterlingvane.com"} 
+      />
+
+      {/* Admin Operations Viewport */}
+      <main className="flex-1 flex flex-col min-w-0 bg-[#020617] border-l border-white/5 relative overflow-hidden">
+        
+        {/* Subtle decorative background noise */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none luxury-grain" />
+        
+        {/* Restrictive Access Banner (Premium Style) */}
+        <div className="bg-rose-500/10 border-b border-rose-500/20 px-6 py-2 flex items-center justify-center gap-2">
+          <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
+          <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-rose-400/80 font-bold">
+            Secure Command Center — Authorized Personnel Only
+          </p>
         </div>
-      </main>
 
+        <div className="flex-1 px-6 py-10 md:px-12 md:py-16 overflow-y-auto no-scrollbar animate-sovereign-in">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
+        </div>
+
+        {/* Design Accents */}
+        <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[150px] -z-10 pointer-events-none" />
+        <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[120px] -z-10 pointer-events-none" />
+      </main>
     </div>
   )
 }
