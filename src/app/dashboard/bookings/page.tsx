@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react"
 import { MapPin, Bed, Bath, Star, Calendar, CheckCircle2, Loader2 } from "lucide-react"
 

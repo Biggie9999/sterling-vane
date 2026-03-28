@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react"
 import { MapPin, TrendingUp, Home, Percent, Loader2 } from "lucide-react"
 
