@@ -1,3 +1,5 @@
+"use client"
+
 import { GoldButton } from "@/components/shared/GoldButton"
 import { ArrowRight, ShieldCheck } from "lucide-react"
 import { motion } from "framer-motion"
