@@ -1,4 +1,4 @@
-=-0987o fxedimport { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import bcrypt from "bcryptjs"
 
 const prisma = new PrismaClient()
@@ -25,9 +25,9 @@ async function main() {
       onboardingComplete: true,
       investorProfile: {
         create: {
-          tier: "INSTITUTIONAL",
+          tier: "INSTITUTIONAL" as any,
           totalInvested: 1000000,
-          applicationStatus: "READY"
+          applicationStatus: "READY" as any
         }
       }
     }

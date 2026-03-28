@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
             userId: user.id,
             tier: "ENTRY",
             totalInvested: 0,
-            applicationStatus: "PENDING"
+            applicationStatus: "PENDING" as any
           }
         })
       }
@@ -101,7 +101,7 @@ export const authOptions: NextAuthOptions = {
                      userId: dbUser.id,
                      tier: "ENTRY",
                      totalInvested: 0,
-                     applicationStatus: "PENDING"
+                     applicationStatus: "PENDING" as any
                    }
                  })
                }
