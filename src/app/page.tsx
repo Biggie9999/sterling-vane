@@ -1,13 +1,12 @@
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { redirect } from "next/navigation"
-import { CoreCompetencies } from "@/components/landing/CoreCompetencies"
-import { FeaturedCollection } from "@/components/landing/FeaturedCollection"
-import { StatsStrip } from "@/components/landing/StatsStrip"
+
 import { Hero } from "@/components/landing/Hero"
-import { SovereignStory } from "@/components/landing/SovereignStory"
-import { Testimonials } from "@/components/landing/Testimonials"
-import { HowItWorks } from "@/components/landing/HowItWorks"
+import { ThePivot } from "@/components/landing/ThePivot"
+import { AlphaMath } from "@/components/landing/AlphaMath"
+import { FeaturedCollection } from "@/components/landing/FeaturedCollection"
+import { FinalCTA } from "@/components/landing/FinalCTA"
 
 export default async function LandingPage() {
   const session = await getServerSession(authOptions)
@@ -16,14 +15,12 @@ export default async function LandingPage() {
   }
 
   return (
-    <div className="bg-white min-h-screen font-sans w-full">
+    <main className="bg-black min-h-screen w-full selection:bg-accent selection:text-black">
       <Hero />
-      <CoreCompetencies />
-      <StatsStrip />
+      <ThePivot />
+      <AlphaMath />
       <FeaturedCollection />
-      <HowItWorks />
-      <SovereignStory />
-      <Testimonials />
-    </div>
+      <FinalCTA />
+    </main>
   )
 }

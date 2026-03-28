@@ -2,52 +2,62 @@
 
 import { useRef } from "react"
 import Link from "next/link"
-import { MapPin, ArrowRight, TrendingUp, Star } from "lucide-react"
+import { motion } from "framer-motion"
+import { MapPin, ArrowRight, Zap, Target, ShieldCheck } from "lucide-react"
 
 import { DEMO_PROPERTIES } from "@/data/properties"
 
-function PropertyCard({ p }: { p: typeof DEMO_PROPERTIES[0] }) {
+function SovereignCard({ p }: { p: typeof DEMO_PROPERTIES[0] }) {
   return (
-    <Link href={`/properties/${p.id}`} className="group relative flex-shrink-0 w-[85vw] sm:w-[340px] md:w-auto rounded-3xl overflow-hidden cursor-pointer shadow-sm border border-[#E5E5E5] bg-white block">
-      {/* Image */}
-      <div className="relative h-[480px] md:h-[520px] overflow-hidden">
+    <Link href={`/properties/${p.id}`} className="group relative flex-shrink-0 w-[85vw] sm:w-[400px] rounded-[2.5rem] overflow-hidden cursor-pointer bg-white/[0.03] border border-white/10 hover:border-accent/40 transition-all duration-500 block">
+      {/* Image Wrap */}
+      <div className="relative h-[400px] overflow-hidden">
         <img
           src={p.images[0]}
           alt={p.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-100"
         />
-        <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent`} />
-
-        {/* Top badges */}
-        <div className="absolute top-5 left-5 right-5 flex items-start justify-between">
-          <span className="bg-white/95 backdrop-blur-md text-[#1a1a1a] text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-full shadow-md">
-            {p.type} Asset
-          </span>
-          <div className="flex items-center gap-1.5 bg-black/50 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full border border-white/10">
-            <span className={`w-1.5 h-1.5 rounded-full ${p.status === "Funding Stage" ? "bg-emerald-400" : "bg-[#006AFF]"}`}></span>
-            {p.status}
-          </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+        
+        {/* Market Badge */}
+        <div className="absolute top-6 left-6 flex items-center gap-2 bg-black/60 backdrop-blur-md border border-white/10 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
+          <MapPin className="w-3 h-3 text-accent" /> {p.location}
         </div>
 
-        {/* Content overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-8">
-          <div className="flex items-center gap-2 text-[#006AFF] text-[10px] font-bold uppercase tracking-widest mb-3">
-            <MapPin className="w-3 h-3" />
-            {p.location}
-          </div>
-          <h3 className="text-white font-serif text-3xl mb-2 leading-tight">{p.name}</h3>
-          <p className="text-white/80 text-sm mb-6 leading-relaxed hidden sm:block line-clamp-2">{p.description}</p>
+        {/* Status Badge */}
+        <div className="absolute top-6 right-6 flex items-center gap-1.5 bg-accent text-black text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
+          <Zap className="w-3 h-3 fill-black" /> {p.status}
+        </div>
 
-          <div className="flex items-center justify-between border-t border-white/20 pt-5 mt-2">
+        {/* Content Overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-8">
+          <h3 className="text-white font-serif text-3xl mb-1 leading-tight">{p.name}</h3>
+          <p className="text-accent text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Institutional {p.type} Class</p>
+          
+          <div className="flex items-center gap-6 border-t border-white/10 pt-6">
             <div>
-              <p className="text-white/60 text-[10px] uppercase tracking-widest mb-1.5 font-bold">Share Price</p>
+              <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1.5 font-bold">Share Entry</p>
               <p className="text-white font-serif text-xl">${p.pricePerShare.toLocaleString()}</p>
             </div>
-            <div className="text-right">
-              <p className="text-white/60 text-[10px] uppercase tracking-widest mb-1.5 font-bold">Target Yield</p>
-              <p className="text-[#006AFF] font-semibold text-xl">{p.targetYield}%</p>
+            <div className="h-8 w-px bg-white/10" />
+            <div>
+              <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1.5 font-bold">Target Alpha</p>
+              <p className="text-accent font-serif text-xl">{p.targetYield}%</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Yield Milestone Strip */}
+      <div className="bg-white/[0.02] px-8 py-4 flex items-center justify-between border-t border-white/5">
+        <div className="flex items-center gap-2 group-hover:text-accent transition-colors">
+          <Target className="w-3 h-3 text-white/30 group-hover:text-accent" />
+          <span className="text-[9px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white">Milestone Engine</span>
+        </div>
+        <div className="flex gap-4">
+          <span className="text-[10px] font-bold text-white/20">30%</span>
+          <span className="text-[10px] font-bold text-white/20">60%</span>
+          <span className="text-[10px] font-bold text-accent">90%</span>
         </div>
       </div>
     </Link>
@@ -58,97 +68,78 @@ export function FeaturedCollection() {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   return (
-    <section className="bg-[#FAF9F6] py-24 overflow-hidden border-t border-[#E5E5E5]">
+    <section className="bg-black py-24 sm:py-32 overflow-hidden border-t border-white/5">
       {/* Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-16">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-          <div>
-            <p className="text-[#006AFF] font-sans text-[10px] font-bold tracking-[0.25em] uppercase mb-4">
-              Phase 1 Offerings
-            </p>
-            <h2 className="font-serif text-4xl md:text-5xl text-[#1a1a1a] leading-tight">
-              The Sovereign<br className="hidden sm:block" /> Collection
+      <div className="max-w-7xl mx-auto px-6 mb-20">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
+          <div className="max-w-2xl">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-bold uppercase tracking-widest mb-6"
+            >
+              The Sovereign Collection
+            </motion.div>
+            <h2 className="font-serif text-5xl sm:text-7xl text-white leading-tight">
+              Institutional Grade.<br />
+              <span className="text-white/40">Fractional Access.</span>
             </h2>
           </div>
-          <div className="flex flex-col sm:items-end gap-4">
-            <p className="text-[#666] text-sm max-w-sm sm:text-right leading-relaxed">
-              Our inaugural portfolio features ultra-luxury assets rigorously underwritten to capture outsized short-term rental premiums. Minimum participation starts at $10,000.
+          <div className="lg:text-right">
+            <p className="text-white/50 text-base max-w-sm ml-auto mb-8 leading-relaxed font-medium">
+              A curated ledger of 30 global luxury assets. Every property is selected for its high-velocity rental premium and capital appreciation lock.
             </p>
             <Link
               href="/marketplace"
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#1a1a1a] hover:text-[#006AFF] transition-colors uppercase tracking-widest"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-2xl hover:bg-white/10 transition-all uppercase tracking-widest text-xs"
             >
-              Access Data Room <ArrowRight className="w-4 h-4" />
+              View Full Portfolio <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Mobile: horizontal scroll carousel */}
-      <div className="md:hidden">
+      {/* Scrolling Carousel */}
+      <div className="relative">
         <div
           ref={scrollRef}
-          className="flex gap-4 px-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
+          className="flex gap-8 px-6 sm:px-[calc((100vw-1280px)/2+24px)] overflow-x-auto scrollbar-hide pb-12"
           style={{ scrollbarWidth: "none" }}
         >
-          {DEMO_PROPERTIES.map((p) => (
-            <div key={p.id} className="snap-center flex-shrink-0 w-[85vw]">
-              <PropertyCard p={p} />
-            </div>
+          {DEMO_PROPERTIES.map((p, idx) => (
+            <motion.div 
+              key={p.id} 
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="flex-shrink-0"
+            >
+              <SovereignCard p={p} />
+            </motion.div>
           ))}
         </div>
-        {/* Scroll hint */}
-        <div className="flex justify-center gap-2 mt-4 px-4">
-          {DEMO_PROPERTIES.map((_, i) => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a]/20" />
-          ))}
-        </div>
+        
+        {/* Fade effects on edges */}
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black to-transparent pointer-events-none" />
       </div>
 
-      {/* Desktop: editorial grid */}
-      <div className="hidden md:block max-w-7xl mx-auto px-6">
-        {/* Row 1: 1 large + 2 medium (or adjust based on 3 items) */}
-        <div className="grid grid-cols-12 gap-6 mb-6">
-          <div className="col-span-8">
-            <PropertyCard p={DEMO_PROPERTIES[0]} />
+      {/* Trust & Stats Strip */}
+      <div className="max-w-7xl mx-auto px-6 mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+        {[
+          { icon: Zap, label: "Asset Velocity", value: "30-90%" },
+          { icon: Target, label: "Execution Alpha", value: "Institutional" },
+          { icon: ShieldCheck, label: "Trust Protocol", value: "SEC Reg D" },
+          { icon: MapPin, label: "Global Presence", value: "30 Markets" }
+        ].map((stat, idx) => (
+          <div key={idx} className="bg-white/5 border border-white/10 rounded-3xl p-6 flex flex-col items-center text-center">
+            <stat.icon className="w-5 h-5 text-accent mb-3" />
+            <p className="text-white font-serif text-2xl font-bold mb-1">{stat.value}</p>
+            <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">{stat.label}</p>
           </div>
-          <div className="col-span-4 flex flex-col gap-6">
-            <div className="flex-1 rounded-3xl bg-[#1a1a1a] p-10 flex flex-col justify-between shadow-xl">
-              <div>
-                 <p className="font-sans font-bold text-[10px] tracking-widest uppercase text-[#006AFF] mb-4">Investment Summary</p>
-                 <h3 className="font-serif text-3xl text-white mb-4 leading-snug">Structural Alpha in Residential Real Estate</h3>
-                 <p className="text-white/70 text-sm leading-relaxed max-w-sm">
-                   By circumventing the inefficiencies of traditional long-term leasing, we deliver institutional-grade yield via hospitality management of premium single-family assets.
-                 </p>
-              </div>
-              <div className="grid grid-cols-2 gap-4 mt-8">
-                {[
-                  { label: "Target IRR", value: "18.5%" },
-                  { label: "Target Yield", value: "14.8%" },
-                ].map((s) => (
-                  <div key={s.label} className="bg-white/5 border border-white/10 rounded-2xl p-5">
-                    <p className="text-2xl font-bold text-white mb-2">{s.value}</p>
-                    <p className="text-[10px] font-bold text-white/50 uppercase tracking-widest">{s.label}</p>
-                  </div>
-                ))}
-              </div>
-              <Link
-                href="/marketplace"
-                className="mt-8 inline-flex items-center justify-center gap-2 bg-white text-[#1a1a1a] font-bold py-4 px-8 rounded-xl hover:bg-slate-100 transition-colors shadow-md text-sm"
-              >
-                Explore Offerings <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-6">
-            <PropertyCard p={DEMO_PROPERTIES[1]} />
-          </div>
-          <div className="col-span-6">
-            <PropertyCard p={DEMO_PROPERTIES[2]} />
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   )
