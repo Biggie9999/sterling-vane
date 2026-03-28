@@ -44,12 +44,10 @@ async function main() {
     const name = `${market.city} ${template} ${String.fromCharCode(65 + Math.floor(i / 6))}`
     const slug = name.toLowerCase().replace(/ /g, '-') + '-' + Math.floor(Math.random() * 1000)
     
-    // Scale yield as requested: 30%, 60%, 90% based on market
-    const yieldEstimate = market.yield
-    
     const priceBase = 5000000 + Math.random() * 20000000 // $5M to $25M
-    const totalShares = 5000 + Math.floor(Math.random() * 45000) // Dynamic shares (5k-50k)
+    const totalShares = 5000 + Math.floor(Math.random() * 45000) // 5,000 to 50,000 shares
     
+    // Distribute statuses: 25% are fully subscribed, 15% are coming soon
     const randStatus = Math.random()
     const status: PropertyStatus = randStatus < 0.25 
       ? PropertyStatus.FULLY_SUBSCRIBED 
@@ -60,14 +58,14 @@ async function main() {
     properties.push({
       name,
       slug,
-      description: `A state-of-the-art ${market.type.toLowerCase()} in the heart of ${market.city}. Part of the Sovereign Collection, offering target yields of ${yieldEstimate}% through aggressive short-term lease operations and capital repositioning.`,
+      description: `A state-of-the-art ${market.type.toLowerCase()} in the heart of ${market.city}. Part of the Sovereign Phase 1 Collection, offering unprecedented ${market.yield}% target yields through strategic short-term lease operations and capital appreciation.`,
       location: `${market.city}, ${market.country}`,
       city: market.city,
       country: market.country,
       type: market.type as PropertyType,
       askingPrice: priceBase,
       nightlyRate: 1500 + Math.random() * 5000,
-      yieldEstimate,
+      yieldEstimate: market.yield,
       capRate: 6 + Math.random() * 4,
       bedrooms: 3 + Math.floor(Math.random() * 6),
       bathrooms: 3 + Math.floor(Math.random() * 4),
@@ -79,14 +77,12 @@ async function main() {
     })
   }
 
-  // Create properties
-  for (const property of properties) {
-    await prisma.property.create({
-      data: property
-    })
-  }
+  // Batch insert
+  await prisma.property.createMany({
+    data: properties
+  })
 
-  console.log(`Successfully deployed ${properties.length} luxury assets to your database.`)
+  console.log(`Successfully deployed ${properties.length} luxury assets to the ledger.`)
 }
 
 main()
