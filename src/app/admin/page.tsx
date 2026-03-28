@@ -204,12 +204,6 @@ export default function AdminPage() {
                       <div className="flex gap-4 pt-8 border-t border-white/5">
                         <button
                           onClick={() => confirmWire(wire.id)}
-                          className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-2xl text-xs font-bold uppercase tracking-widest hover:bg-emerald-500/30 transition-all shadow-xl"
-                        ) : (
-                          <div />
-                        )}
-                        <button
-                          onClick={() => confirmWire(wire.id)}
                           className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-accent/20 text-accent border border-accent/40 rounded-2xl text-xs font-bold uppercase tracking-widest hover:bg-accent/30 transition-all shadow-xl"
                         >
                           <CheckCircle2 className="w-4 h-4" /> Authorize & Settle Position
