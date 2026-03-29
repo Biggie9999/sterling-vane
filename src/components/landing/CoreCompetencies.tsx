@@ -139,7 +139,7 @@ export function CoreCompetencies() {
         {/* ── PILLARS: Legacy / Experience / Network / Integrity ── */}
         <div className="mt-16 sm:mt-20 border-t border-slate-100 pt-12">
           <p className="text-center text-[#006AFF] font-bold text-[10px] uppercase tracking-widest mb-10">Our Foundation</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+          <div className="flex sm:grid flex-row flex-nowrap sm:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto sm:overflow-x-visible no-scrollbar pb-4 sm:pb-0 snap-x snap-mandatory sm:snap-none">
             {[
               {
                 icon: Clock,
@@ -164,7 +164,7 @@ export function CoreCompetencies() {
             ].map((pillar, i) => (
               <div
                 key={i}
-                className="group flex flex-col items-start p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-[#006AFF]/30 hover:bg-white hover:shadow-lg transition-all duration-300"
+                className="snap-start shrink-0 w-[80vw] sm:w-auto group flex flex-col items-start p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-[#006AFF]/30 hover:bg-white hover:shadow-lg transition-all duration-300"
               >
                 <div className="w-11 h-11 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center mb-4 group-hover:bg-[#006AFF] group-hover:border-[#006AFF] transition-colors duration-300">
                   <pillar.icon className="w-5 h-5 text-slate-700 group-hover:text-white transition-colors duration-300" />

@@ -61,7 +61,7 @@ export function HowItWorks() {
 
         {/* ── MOBILE: Horizontal scroll row ── */}
         <div
-          className="sm:hidden flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth mb-14"
+          className="sm:hidden flex flex-row flex-nowrap gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth mb-14 no-scrollbar"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {steps.map((step, index) => (

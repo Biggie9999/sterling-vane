@@ -1,8 +1,9 @@
 import { HomeHero } from "@/components/home/HomeHero"
-import { NarrativeSections } from "@/components/home/NarrativeSections"
-import { FeaturedPortfolio } from "@/components/home/FeaturedPortfolio"
-import { ROICalculator } from "@/components/home/ROICalculator"
-import { AboutSterlingVane } from "@/components/home/AboutSterlingVane"
+import { FeaturedProperties } from "@/components/landing/FeaturedProperties"
+import { SovereignStory } from "@/components/landing/SovereignStory"
+import { HowItWorks } from "@/components/landing/HowItWorks"
+import { CoreCompetencies } from "@/components/landing/CoreCompetencies"
+import { Testimonials } from "@/components/landing/Testimonials"
 import { FinalCTA } from "@/components/landing/FinalCTA"
 
 export default function LandingPage() {
@@ -10,19 +11,20 @@ export default function LandingPage() {
     <main className="min-h-screen w-full bg-[#F8FAFC]">
       <HomeHero />
 
-      {/* Narrative: The Thesis */}
-      <NarrativeSections />
+      {/* Narrative & Yield Thesis */}
+      <SovereignStory />
       
-      {/* Performance Manifest: ROI Projections */}
-      <div className="max-w-7xl mx-auto px-6 py-24 lg:py-48">
-        <ROICalculator />
-      </div>
+      {/* Structural Alpha & Comparison */}
+      <HowItWorks />
       
-      {/* The Actual Assets: Live Collection */}
-      <FeaturedPortfolio />
+      {/* The Collection: Swipeable Carousel */}
+      <FeaturedProperties />
       
-      {/* Background/Ethos */}
-      <AboutSterlingVane />
+      {/* Foundation & Pillars */}
+      <CoreCompetencies />
+      
+      {/* Testimonials: Investor Results */}
+      <Testimonials />
       
       {/* Final Inquiry */}
       <FinalCTA />

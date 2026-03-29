@@ -24,7 +24,7 @@ export function FeaturedProperties() {
         {/* MOBILE: Swipeable horizontal carousel */}
         <div
           ref={scrollRef}
-          className="md:hidden flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth"
+          className="md:hidden flex flex-row flex-nowrap gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth no-scrollbar"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {DEMO_PROPERTIES.map((prop) => (

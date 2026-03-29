@@ -103,7 +103,19 @@
   @apply relative translate-x-1;
 }
 
-.sidebar-link-active::before {
+
+  .sidebar-link-active::before {
   content: '';
   @apply absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-6 bg-accent rounded-r-lg;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
