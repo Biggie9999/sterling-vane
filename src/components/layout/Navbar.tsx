@@ -153,7 +153,7 @@ export function Navbar() {
                         : "bg-[#0F172A] text-white hover:bg-[#2563EB]"
                     )}
                   >
-                    Inquire <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    Create Account <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </>
               )}
@@ -313,7 +313,7 @@ export function Navbar() {
                       href="/apply"
                       className="flex items-center justify-center w-full py-5 rounded-2xl bg-[#0F172A] text-white font-bold text-[10px] uppercase tracking-widest shadow-xl"
                     >
-                      Inquire for Access
+                      Create Account
                     </Link>
                   </>
                 )}

@@ -150,7 +150,7 @@ export function PartnerOnboarding() {
                   onClick={() => (window.location.href = '/login?mode=signup')}
                   className="flex-1 py-6 bg-[#0F172A] text-white rounded-2xl font-bold uppercase tracking-[0.3em] text-[10px] shadow-2xl flex items-center justify-center gap-4 hover:bg-[#2563EB] transition-all duration-700"
                 >
-                  Inquire for Access <ArrowRight className="w-4 h-4" />
+                  Create Account <ArrowRight className="w-4 h-4" />
                 </button>
                 <button 
                    onClick={() => setIsFinished(false)}
