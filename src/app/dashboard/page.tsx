@@ -207,36 +207,36 @@ export default function DashboardOverviewPage() {
   return (
     <div className="space-y-12 pb-24 md:pb-12 animate-sovereign-in">
       {/* Header Narrative */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="max-w-3xl">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-[1px] bg-[#2563EB]" />
-            <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-[#2563EB]">Private Management Layer</p>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-[1px] bg-[#2563EB]" />
+            <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#2563EB]">Private Management Layer</p>
           </div>
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl text-[#0F172A] mb-4 font-bold tracking-tighter leading-[0.9]">
+          <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl text-[#0F172A] mb-3 font-bold tracking-tight leading-tight">
             Welcome, {firstName}.
           </h1>
-          <p className="text-slate-500 text-lg sm:text-xl font-medium leading-relaxed max-w-2xl">
-            "Your capital is positioned across primary hospitality hubs for maximum yield velocity."
+          <p className="text-slate-500 text-sm sm:text-base font-medium leading-relaxed max-w-xl">
+            Your capital is positioned across primary hospitality hubs for maximum yield velocity.
           </p>
         </div>
-        <Link href="/marketplace" className="shrink-0 inline-flex items-center justify-center gap-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white bg-[#0F172A] hover:bg-[#2563EB] transition-all duration-500 py-6 px-12 rounded-[2rem] shadow-2xl group">
-          Browse Collection <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        <Link href="/marketplace" className="self-start md:self-auto shrink-0 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white bg-[#0F172A] hover:bg-[#2563EB] transition-all duration-500 py-3.5 px-7 rounded-xl shadow-lg group">
+          Browse Collection <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
 
       {/* KPI Architecture */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
         {kpis.map((kpi) => (
-          <div key={kpi.label} className="bg-white border border-slate-100 rounded-[2.5rem] p-6 sm:p-10 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 group">
-            <div className="flex items-center justify-between mb-8">
-              <p className="text-[9px] uppercase font-bold tracking-[0.4em] text-slate-400">{kpi.label}</p>
-              <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:bg-[#2563EB] transition-colors duration-500">
-                <kpi.icon className="w-4 h-4 text-[#0F172A] group-hover:text-white transition-colors" />
+          <div key={kpi.label} className="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-sm hover:shadow-xl transition-all duration-500 group overflow-hidden">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <p className="text-[8px] sm:text-[9px] uppercase font-bold tracking-widest text-slate-400 leading-tight">{kpi.label}</p>
+              <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:bg-[#2563EB] transition-colors duration-500 shrink-0">
+                <kpi.icon className="w-3.5 h-3.5 text-[#0F172A] group-hover:text-white transition-colors" />
               </div>
             </div>
-            <p className="font-mono text-3xl font-bold text-[#0F172A] mb-3 tabular-nums tracking-tighter">{kpi.value}</p>
-            <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${kpi.up === true ? "text-emerald-500" : "text-slate-400"}`}>
+            <p className="font-mono text-xl sm:text-2xl font-bold text-[#0F172A] mb-2 tabular-nums tracking-tight truncate">{kpi.value}</p>
+            <p className={`text-[8px] font-bold uppercase tracking-wider truncate ${kpi.up === true ? "text-emerald-500" : "text-slate-400"}`}>
               {kpi.change}
             </p>
           </div>

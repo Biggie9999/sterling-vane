@@ -24,9 +24,9 @@ export default function DocumentsPage() {
              <ShieldCheck className="w-4 h-4 text-[#2563EB]" />
              <p className="text-[#2563EB] font-bold text-[10px] uppercase tracking-[0.5em]">The Sovereign Vault</p>
           </div>
-          <h1 className="font-serif text-5xl sm:text-7xl font-bold text-[#0F172A] mb-4 tracking-tighter leading-[0.9]">Documents.</h1>
-          <p className="text-slate-500 text-lg sm:text-xl font-medium leading-relaxed">
-            "Your legal, financial, and operational assets are secured under institutional-grade encryption."
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#0F172A] mb-3 tracking-tight">Documents</h1>
+          <p className="text-slate-500 text-sm font-medium leading-relaxed">
+            Your legal, financial, and operational assets are secured under institutional-grade encryption.
           </p>
         </div>
       </div>
