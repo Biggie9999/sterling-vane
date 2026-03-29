@@ -53,7 +53,7 @@ export default function OnboardingPage() {
   )
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center px-6 py-24 selection:bg-[#2563EB]/30 selection:text-[#0F172A]">
+    <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center px-6 py-16 sm:py-24 selection:bg-[#2563EB]/30 selection:text-[#0F172A]">
       <div className="w-full max-w-2xl relative">
         {/* Editorial Accents */}
         <div className="absolute -top-24 -left-24 w-48 h-48 bg-[#2563EB]/5 blur-[100px] rounded-full" />
@@ -69,7 +69,7 @@ export default function OnboardingPage() {
             >
               <div className="text-center mb-16">
                 <p className="font-montserrat font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Step 01 / 02</p>
-                <h1 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05] tracking-tight">
+                <h1 className="text-4xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05] tracking-tight">
                   What is your <br /><span className="text-[#2563EB]">primary goal?</span>
                 </h1>
                 <p className="text-[#64748B] text-lg font-medium leading-relaxed max-w-md mx-auto">
@@ -81,7 +81,7 @@ export default function OnboardingPage() {
                 {INTENTS.map((i, idx) => (
                   <label 
                     key={i.value}
-                    className={`group flex items-center gap-8 p-10 border transition-all duration-700 cursor-pointer rounded-[3rem] ${intent === i.value ? "border-[#2563EB] bg-white shadow-2xl scale-[1.02]" : "border-[#0F172A]/5 bg-white/50 hover:bg-white"}`}
+                    className={`group flex items-center gap-6 sm:gap-8 p-6 sm:p-10 border transition-all duration-700 cursor-pointer rounded-3xl sm:rounded-[3rem] ${intent === i.value ? "border-[#2563EB] bg-white shadow-2xl scale-[1.02]" : "border-[#0F172A]/5 bg-white/50 hover:bg-white"}`}
                   >
                     <input type="radio" className="sr-only" checked={intent === i.value} onChange={() => setIntent(i.value)} />
                     
@@ -104,7 +104,7 @@ export default function OnboardingPage() {
               <div className="flex justify-center">
                 <button 
                   onClick={() => setStep(2)}
-                  className="w-full sm:w-auto px-20 py-6 bg-[#0F172A] text-white rounded-[2rem] font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-[#2563EB] hover:text-[#0F172A] transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl group"
+                  className="w-full sm:w-auto px-12 py-5 sm:px-20 sm:py-6 bg-[#0F172A] text-white rounded-[2rem] font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-[#2563EB] hover:text-[#0F172A] transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl group"
                 >
                   Continue <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -120,7 +120,7 @@ export default function OnboardingPage() {
             >
               <div className="text-center mb-16">
                 <p className="font-montserrat font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Step 02 / 02</p>
-                <h1 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05] tracking-tight">
+                <h1 className="text-4xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05] tracking-tight">
                   Verify your <br /><span className="text-[#2563EB]">investor status.</span>
                 </h1>
                 <p className="text-[#64748B] text-lg font-medium leading-relaxed max-w-md mx-auto">
@@ -132,7 +132,7 @@ export default function OnboardingPage() {
                 {ELIGIBILITY_OPTIONS.map((opt, idx) => (
                   <label 
                     key={opt.id}
-                    className={`group flex items-center justify-between p-8 rounded-[2.5rem] border transition-all duration-500 cursor-pointer ${accreditation === opt.id ? "border-[#2563EB] bg-white shadow-xl" : "border-[#0F172A]/5 bg-white/50 hover:bg-white"}`}
+                    className={`group flex items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl sm:rounded-[2.5rem] border transition-all duration-500 cursor-pointer ${accreditation === opt.id ? "border-[#2563EB] bg-white shadow-xl" : "border-[#0F172A]/5 bg-white/50 hover:bg-white"}`}
                   >
                     <input type="radio" className="sr-only" checked={accreditation === opt.id} onChange={() => setAccreditation(opt.id)} />
                     <div>
@@ -151,7 +151,7 @@ export default function OnboardingPage() {
                 <button 
                   onClick={handleComplete}
                   disabled={loading || !accreditation}
-                  className="w-full sm:w-auto px-20 py-6 bg-[#0F172A] text-white rounded-[2rem] font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-[#2563EB] hover:text-[#0F172A] transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl disabled:opacity-20 group order-1 sm:order-2"
+                  className="w-full sm:w-auto px-12 py-5 sm:px-20 sm:py-6 bg-[#0F172A] text-white rounded-[2rem] font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-[#2563EB] hover:text-[#0F172A] transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl disabled:opacity-20 group order-1 sm:order-2"
                 >
                   {loading ? <span className="w-4 h-4 border-2 border-[#2563EB] border-t-white rounded-full animate-spin" /> : (
                     <>Complete Setup <CheckCircle2 className="w-4 h-4" /></>

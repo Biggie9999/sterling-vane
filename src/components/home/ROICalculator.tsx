@@ -15,7 +15,7 @@ export function ROICalculator() {
   const total = amount + returns
 
   return (
-    <div className="bg-white border border-[#0F172A]/5 rounded-[3rem] p-8 sm:p-16 shadow-2xl shadow-[#2563EB]/5 relative overflow-hidden group">
+    <div className="bg-white border border-[#0F172A]/5 rounded-3xl sm:rounded-[3rem] p-6 sm:p-16 shadow-2xl shadow-[#2563EB]/5 relative overflow-hidden group">
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#2563EB]/5 blur-[120px] pointer-events-none group-hover:bg-[#2563EB]/10 transition-colors duration-1000" />
       
       <div className="relative z-10 flex flex-col lg:flex-row gap-16 lg:items-center">
@@ -25,7 +25,7 @@ export function ROICalculator() {
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#2563EB]">Performance Projection</span>
           </div>
           
-          <h2 className="text-4xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05]">
+          <h2 className="text-3xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05]">
             Invest in <br />
             <span className="text-[#2563EB]">Excellence.</span>
           </h2>
@@ -70,19 +70,19 @@ export function ROICalculator() {
         </div>
 
         <div className="lg:w-[460px]">
-          <div className="bg-[#0F172A] text-white rounded-[2.5rem] p-12 shadow-2xl relative overflow-hidden group/card transition-transform duration-500 hover:scale-[1.02]">
+          <div className="bg-[#0F172A] text-white rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 shadow-2xl relative overflow-hidden group/card transition-transform duration-500 hover:scale-[1.02]">
             <div className="absolute top-0 right-0 w-48 h-48 bg-[#2563EB]/30 blur-[80px] opacity-20" />
             
             <div className="relative z-10 space-y-10">
               <div>
                 <p className="text-white/40 text-[11px] font-bold uppercase tracking-[0.3em] mb-3">Target Return Profile</p>
                 <div className="flex items-baseline gap-2">
-                   <p className="text-[#2563EB] text-7xl font-serif font-bold tracking-tight">{(projectedROI * 100).toFixed(1)}%</p>
-                   <p className="text-white/20 text-xl font-serif uppercase tracking-widest italic">Est.</p>
+                   <p className="text-[#2563EB] text-5xl sm:text-7xl font-serif font-bold tracking-tight">{(projectedROI * 100).toFixed(1)}%</p>
+                   <p className="text-white/20 text-lg sm:text-xl font-serif uppercase tracking-widest italic">Est.</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-10 pt-10 border-t border-white/10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10 pt-8 border-t border-white/10">
                 <div>
                   <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-2">Projected Gains</p>
                   <p className="text-2xl font-serif font-bold text-white">${returns.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>

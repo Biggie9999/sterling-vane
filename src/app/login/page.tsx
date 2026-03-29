@@ -147,7 +147,7 @@ function AuthInner() {
       </div>
 
       {/* Main Entrance Panel */}
-      <div className="flex-1 flex items-center justify-center p-8 sm:p-12 lg:p-24 overflow-y-auto selection:bg-[#2563EB]/20 bg-[#F8FAFC] lg:bg-transparent">
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-12 lg:p-24 overflow-y-auto selection:bg-[#2563EB]/20 bg-[#F8FAFC] lg:bg-transparent">
         <div className="w-full max-w-md">
           {/* Mobile Identity */}
           <div className="lg:hidden mb-16">
@@ -158,7 +158,7 @@ function AuthInner() {
           </div>
 
           <div className="mb-14 text-center">
-            <h1 className="text-5xl font-serif font-bold text-[#0F172A] mb-4 tracking-tighter">
+            <h1 className="text-4xl sm:text-5xl font-serif font-bold text-[#0F172A] mb-4 tracking-tighter">
               {mode === "signin" ? "Partner Access." : "Join Us."}
             </h1>
             <p className="text-[#64748B] font-bold text-[10px] uppercase tracking-[0.3em] opacity-60">
@@ -170,7 +170,7 @@ function AuthInner() {
             <button 
               onClick={handleGoogleAuth} 
               disabled={loading}
-              className="w-full flex items-center justify-center gap-4 bg-white hover:bg-[#F8FAFC] border border-[#0F172A]/5 text-[#0F172A] py-5 rounded-2xl font-bold text-[11px] uppercase tracking-[0.2em] transition-all duration-500 shadow-sm disabled:opacity-50 group active:scale-95"
+              className="w-full flex items-center justify-center gap-4 bg-white hover:bg-[#F8FAFC] border border-[#0F172A]/5 text-[#0F172A] py-4 sm:py-5 rounded-2xl font-bold text-[11px] uppercase tracking-[0.2em] transition-all duration-500 shadow-sm disabled:opacity-50 group active:scale-95"
             >
               <GoogleIcon /> Continue with Google
             </button>
@@ -241,7 +241,7 @@ function AuthInner() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-4 bg-[#0F172A] hover:bg-[#2563EB] hover:text-[#0F172A] text-white py-6 rounded-2xl font-bold transition-all duration-700 disabled:opacity-20 shadow-2xl active:scale-95 text-[10px] uppercase tracking-[0.4em] group"
+                className="w-full flex items-center justify-center gap-4 bg-[#0F172A] hover:bg-[#2563EB] hover:text-[#0F172A] text-white py-5 sm:py-6 rounded-2xl font-bold transition-all duration-700 disabled:opacity-20 shadow-2xl active:scale-95 text-[10px] uppercase tracking-[0.4em] group"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
                   <>

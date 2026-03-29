@@ -3,9 +3,9 @@ import { ShieldCheck, Globe, TrendingUp } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-[#F8FAFC] border-t border-[#0F172A]/5 pt-24 pb-12 relative overflow-hidden">
+    <footer className="bg-[#F8FAFC] border-t border-[#0F172A]/5 pt-16 sm:pt-24 pb-12 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-16 lg:gap-12 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 sm:gap-16 lg:gap-12 mb-16 sm:mb-20">
           
           {/* Logo Column */}
           <div className="col-span-2 lg:col-span-2">

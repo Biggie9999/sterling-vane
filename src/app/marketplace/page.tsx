@@ -49,7 +49,7 @@ function ListingCard({ item, index }: { item: any, index: number }) {
         </div>
 
         {/* Editorial Info Section */}
-        <div className="p-8 flex flex-col flex-1">
+        <div className="p-6 sm:p-8 flex flex-col flex-1">
           <div className="mb-6">
             <h3 className="text-2xl font-serif font-bold text-[#0F172A] mb-2 tracking-tight truncate group-hover:text-[#2563EB] transition-colors duration-500">{item.name}</h3>
             <p className="text-sm text-[#64748B] font-medium flex items-center gap-1.5">
@@ -155,8 +155,8 @@ function MarketplaceInner() {
       <div className="h-24 lg:h-32" />
 
       {/* Global Filter Architecture (Sticky on Scroll) */}
-      <div className="sticky top-0 z-40 px-6 py-6 lg:py-8 bg-[#F8FAFC]/80 backdrop-blur-2xl border-b border-black/[0.03]">
-        <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-6 items-center">
+      <div className="sticky top-0 z-40 px-4 sm:px-6 py-4 sm:py-6 lg:py-8 bg-[#F8FAFC]/90 backdrop-blur-2xl border-b border-black/[0.03]">
+        <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-4 sm:gap-6 items-center">
           {/* Search Module */}
           <div className="relative w-full lg:w-96 group">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#64748B] group-focus-within:text-[#2563EB] transition-colors" />
@@ -177,7 +177,7 @@ function MarketplaceInner() {
                 key={t.value}
                 onClick={() => setActiveType(t.value)}
                 className={cn(
-                  "px-8 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap border border-black/[0.03]",
+                  "px-6 py-3 sm:px-8 sm:py-4 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap border border-black/[0.03]",
                   activeType === t.value ? "bg-[#0F172A] text-white shadow-xl" : "bg-white text-[#64748B] hover:text-[#0F172A] hover:bg-white"
                 )}
                >
@@ -212,16 +212,16 @@ function MarketplaceInner() {
 
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mt-16 lg:mt-24">
         {/* Market Context Line */}
-        <div className="flex items-center justify-between mb-16 px-4">
-           <div className="flex items-center gap-3">
+        <div className="flex flex-row items-center justify-between mb-10 sm:mb-16 px-2 sm:px-4">
+           <div className="flex items-center gap-2 sm:gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
-              <h2 className="text-[11px] font-bold text-[#0F172A] uppercase tracking-[0.4em]">Live Sovereign Registry</h2>
-              <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-[0.4em] opacity-30">— {filtered.length} AVAILABLE ASSETS</span>
+              <h2 className="text-[9px] sm:text-[11px] font-bold text-[#0F172A] uppercase tracking-[0.2em] sm:tracking-[0.4em]">Live Sovereign Registry</h2>
+              <span className="hidden sm:inline text-[11px] font-bold text-[#64748B] uppercase tracking-[0.4em] opacity-30">— {filtered.length} AVAILABLE ASSETS</span>
            </div>
            
            <div className="flex items-center gap-6 lg:hidden">
-              <button className="w-10 h-10 rounded-full bg-white border border-black/[0.03] flex items-center justify-center text-[#0F172A]">
-                  <Filter className="w-4 h-4" />
+              <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-black/[0.03] flex items-center justify-center text-[#0F172A]">
+                  <Filter className="w-3 h-3 sm:w-4 sm:h-4" />
               </button>
            </div>
         </div>
@@ -233,7 +233,7 @@ function MarketplaceInner() {
              <p className="font-serif text-2xl font-bold text-[#0F172A] italic tracking-tight opacity-40">Synchronizing Ledger Assets...</p>
           </div>
         ) : filtered.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
             {filtered.map((item, index) => <ListingCard key={`${item.id}-${index}`} item={item} index={index} />)}
           </div>
         ) : (

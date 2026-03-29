@@ -9,9 +9,9 @@ export function FeaturedPortfolio() {
   const properties = DEMO_PROPERTIES.slice(0, 3)
 
   return (
-    <section className="py-24 sm:py-32 bg-[#F6F5F0]">
+    <section className="py-16 sm:py-32 bg-[#F6F5F0]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 lg:mb-24 gap-8">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-[1px] w-6 bg-[#2563EB]" />
@@ -56,7 +56,7 @@ export function FeaturedPortfolio() {
                          {prop.type === "Principal" ? "Direct Access" : "Venture Asset"}
                       </div>
                    </div>
-                   <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/90 backdrop-blur-xl rounded-2xl opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 pointer-events-none border border-white/20 shadow-2xl">
+                   <div className="absolute bottom-4 left-4 right-4 p-4 sm:bottom-8 sm:left-8 sm:right-8 sm:p-6 bg-white/90 backdrop-blur-xl rounded-2xl opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 pointer-events-none border border-white/20 shadow-2xl">
                       <div className="flex justify-between items-center text-[#0F172A]">
                          <p className="text-[10px] font-bold uppercase tracking-widest text-[#64748B]">Target Yield</p>
                          <p className="text-2xl font-serif font-bold text-[#2563EB]">{prop.targetYield}%</p>
@@ -64,7 +64,7 @@ export function FeaturedPortfolio() {
                    </div>
                 </div>
 
-                <div className="p-12 flex flex-col items-center text-center">
+                <div className="p-8 sm:p-12 flex flex-col items-center text-center">
                    <h3 className="text-3xl font-serif font-bold text-[#0F172A] mb-3">{prop.name}</h3>
                    <p className="text-[#64748B] text-sm font-medium mb-10 flex items-center justify-center gap-2 tracking-wide"><MapPin className="w-4 h-4 text-[#2563EB]" /> {prop.location}</p>
                    

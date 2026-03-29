@@ -163,11 +163,11 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-[#F8FAFC]/95 backdrop-blur-3xl flex flex-col p-8 pt-32"
+            className="fixed inset-0 z-[60] bg-[#F8FAFC]/95 backdrop-blur-3xl flex flex-col p-4 pt-24 sm:p-8 sm:pt-32"
           >
             <button 
               onClick={() => setIsSearchOpen(false)}
-              className="absolute top-10 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-[#0F172A]/5 shadow-sm"
+              className="absolute top-6 right-6 sm:top-10 sm:right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-[#0F172A]/5 shadow-sm"
             >
               <X className="w-4 h-4" />
             </button>
@@ -182,7 +182,7 @@ export function Navbar() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search by market (e.g. Dubai, London)..."
-                    className="w-full bg-transparent border-b-2 border-[#0F172A]/5 py-8 pl-14 text-3xl font-serif font-bold text-[#0F172A] placeholder:text-[#0F172A]/5 focus:border-[#2563EB] outline-none transition-all"
+                    className="w-full bg-transparent border-b-2 border-[#0F172A]/5 py-6 pl-12 sm:py-8 sm:pl-14 text-xl sm:text-3xl font-serif font-bold text-[#0F172A] placeholder:text-[#0F172A]/5 focus:border-[#2563EB] outline-none transition-all"
                   />
                </form>
                <div className="mt-12 flex flex-wrap gap-4">
@@ -220,9 +220,9 @@ export function Navbar() {
               transition={{ type: "spring", damping: 30, stiffness: 200 }}
               className="absolute top-0 right-0 h-full w-[85vw] max-w-sm bg-[#F8FAFC] shadow-2xl flex flex-col"
             >
-              <div className="flex items-center justify-between px-8 py-10 border-b border-[#0F172A]/5">
+              <div className="flex items-center justify-between px-6 py-6 sm:px-8 sm:py-10 border-b border-[#0F172A]/5">
                 <div>
-                   <p className="font-serif text-2xl font-bold text-[#0F172A]">Sterling Vane</p>
+                   <p className="font-serif text-xl sm:text-2xl font-bold text-[#0F172A]">Sterling Vane</p>
                    <p className="text-[8px] font-bold uppercase tracking-[0.3em] text-[#2563EB] mt-1">Sovereign Collection</p>
                 </div>
                 <button
@@ -233,13 +233,13 @@ export function Navbar() {
                 </button>
               </div>
 
-              <nav className="flex-1 px-8 py-12 flex flex-col gap-2">
+              <nav className="flex-1 px-6 py-6 sm:px-8 sm:py-12 flex flex-col gap-2">
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     href={link.href}
                     className={cn(
-                      "flex items-center justify-between px-6 py-6 rounded-2xl text-[11px] font-bold uppercase tracking-[0.3em] transition-all",
+                      "flex items-center justify-between px-5 py-5 sm:px-6 sm:py-6 rounded-2xl text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] transition-all",
                       pathname === link.href
                         ? "text-[#0F172A] bg-white shadow-xl"
                         : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/50"
@@ -251,7 +251,7 @@ export function Navbar() {
                 ))}
               </nav>
 
-              <div className="px-8 pb-12 pt-6 border-t border-[#0F172A]/5 flex flex-col gap-4">
+              <div className="px-6 pb-8 pt-6 sm:px-8 sm:pb-12 border-t border-[#0F172A]/5 flex flex-col gap-4">
                 {session ? (
                   <>
                     <Link

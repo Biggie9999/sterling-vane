@@ -15,8 +15,8 @@ export function NarrativeSections() {
   return (
     <div className="bg-[#F8FAFC] relative">
       {/* 01 | The Inefficiency Gap */}
-      <section className="py-32 lg:py-48 px-6 sm:px-12 border-b border-[#0F172A]/5">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+      <section className="py-20 sm:py-32 lg:py-48 px-6 sm:px-12 border-b border-[#0F172A]/5">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 sm:gap-20 items-center">
           <motion.div {...FADE_UP}>
             <div className="flex items-center gap-3 mb-8">
               <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB]">The Inefficiency Gap</span>
@@ -41,13 +41,13 @@ export function NarrativeSections() {
             <div className="absolute bottom-12 left-12 right-12">
                <div className="flex items-center gap-6">
                   <div>
-                    <p className="text-4xl font-serif font-bold text-white">80%</p>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">Average Vacancy</p>
+                    <p className="text-2xl sm:text-4xl font-serif font-bold text-white">80%</p>
+                    <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-white/50">Average Vacancy</p>
                   </div>
                   <div className="h-10 w-[1px] bg-white/20" />
                   <div>
-                    <p className="text-4xl font-serif font-bold text-[#2563EB]">24.5%</p>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">Sovereign Yield Alpha</p>
+                    <p className="text-2xl sm:text-4xl font-serif font-bold text-[#2563EB]">24.5%</p>
+                    <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">Sovereign Yield Alpha</p>
                   </div>
                </div>
             </div>
@@ -56,9 +56,9 @@ export function NarrativeSections() {
       </section>
 
       {/* 02 | The Stabilization Cycle */}
-      <section className="py-32 lg:py-48 px-6 sm:px-12 bg-white">
+      <section className="py-20 sm:py-32 lg:py-48 px-6 sm:px-12 bg-white">
         <div className="max-w-7xl mx-auto">
-          <motion.div {...FADE_UP} className="text-center max-w-3xl mx-auto mb-24">
+          <motion.div {...FADE_UP} className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
             <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB] mb-8 block">Operational Alpha</span>
             <h2 className="text-5xl sm:text-7xl font-serif font-bold text-[#0F172A] leading-tight mb-10">
               The 90-Day <span className="italic font-light text-[#0F172A]/30">Velocity Model.</span>
@@ -141,7 +141,7 @@ export function NarrativeSections() {
             </div>
             <Link 
               href="/marketplace" 
-              className="inline-flex items-center gap-4 mt-20 px-12 py-6 bg-white text-[#0F172A] rounded-full font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-[#2563EB] hover:text-white transition-all duration-700 shadow-2xl"
+              className="inline-flex items-center gap-4 mt-16 sm:mt-20 px-8 py-5 sm:px-12 sm:py-6 bg-white text-[#0F172A] rounded-full font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-[#2563EB] hover:text-white transition-all duration-700 shadow-2xl"
             >
               Access the Map <ArrowRight className="w-4 h-4" />
             </Link>
