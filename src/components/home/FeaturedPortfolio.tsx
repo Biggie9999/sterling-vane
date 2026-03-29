@@ -32,7 +32,7 @@ export function FeaturedPortfolio() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
            {properties.map((prop, i) => (
              <motion.div
                key={prop.id}
@@ -40,51 +40,56 @@ export function FeaturedPortfolio() {
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true }}
                transition={{ delay: i * 0.1, duration: 0.8 }}
-               className="group flex flex-col bg-white rounded-[3rem] overflow-hidden border border-[#0F172A]/5 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-700"
+               className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-[#0F172A]/5 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] transition-all duration-700"
              >
-                <div className="aspect-[4/5] relative overflow-hidden">
+                {/* Image */}
+                <div className="aspect-[16/10] relative overflow-hidden">
                    <img 
                      src={prop.images[0]} 
                      alt={prop.name}
-                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
                    />
-                   <div className="absolute top-8 left-8 flex gap-3">
-                      <div className="px-5 py-2 bg-[#0F172A]/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500">
-                         {prop.market}
-                      </div>
-                      <div className="px-5 py-2 bg-white/80 backdrop-blur-md text-[#0F172A] text-[10px] font-bold uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-700">
+                   {/* Always-visible type badge */}
+                   <div className="absolute top-4 left-4">
+                      <div className="px-3 py-1.5 bg-[#0F172A]/70 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-widest rounded-full">
                          {prop.type === "Principal" ? "Direct Access" : "Venture Asset"}
                       </div>
                    </div>
-                   <div className="absolute bottom-4 left-4 right-4 p-4 sm:bottom-8 sm:left-8 sm:right-8 sm:p-6 bg-white/90 backdrop-blur-xl rounded-2xl opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 pointer-events-none border border-white/20 shadow-2xl">
-                      <div className="flex justify-between items-center text-[#0F172A]">
-                         <p className="text-[10px] font-bold uppercase tracking-widest text-[#64748B]">Target Yield</p>
-                         <p className="text-2xl font-serif font-bold text-[#2563EB]">{prop.targetYield}%</p>
+                   {/* Always-visible yield badge */}
+                   <div className="absolute top-4 right-4">
+                      <div className="px-3 py-1.5 bg-[#2563EB] text-white text-[9px] font-bold uppercase tracking-widest rounded-full">
+                         {prop.targetYield}% yield
                       </div>
                    </div>
+                   {/* Gradient overlay */}
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
                 </div>
 
-                <div className="p-8 sm:p-12 flex flex-col items-center text-center">
-                   <h3 className="text-3xl font-serif font-bold text-[#0F172A] mb-3">{prop.name}</h3>
-                   <p className="text-[#64748B] text-sm font-medium mb-10 flex items-center justify-center gap-2 tracking-wide"><MapPin className="w-4 h-4 text-[#2563EB]" /> {prop.location}</p>
-                   
-                   <div className="w-full pt-10 border-t border-[#0F172A]/5 grid grid-cols-2 gap-10 mb-6">
-                      <div className="text-left">
-                         <p className="text-[10px] font-bold text-[#2563EB] uppercase tracking-widest mb-2">Status</p>
-                         <p className="text-sm font-bold text-[#0F172A]">{prop.status}</p>
-                      </div>
-                      <div className="text-right">
-                         <p className="text-[10px] font-bold text-[#2563EB] uppercase tracking-widest mb-2">Min Entry</p>
-                         <p className="text-sm font-bold text-[#0F172A]">$10,000</p>
-                      </div>
+                {/* Card Body */}
+                <div className="p-5 sm:p-6 flex flex-col gap-4">
+                   <div>
+                      <h3 className="text-xl font-serif font-bold text-[#0F172A] leading-tight">{prop.name}</h3>
+                      <p className="text-[#64748B] text-xs font-medium mt-1 flex items-center gap-1.5">
+                         <MapPin className="w-3 h-3 text-[#2563EB] shrink-0" /> {prop.location}
+                      </p>
                    </div>
 
-                   <Link 
-                     href={`/marketplace?id=${prop.id}`}
-                     className="mt-8 text-[11px] font-bold uppercase tracking-widest text-[#0F172A] hover:text-[#2563EB] transition-all flex items-center gap-2 group/link"
-                   >
-                     View Financials <ArrowUpRight className="w-4 h-4 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 transition-transform" />
-                   </Link>
+                   <div className="flex items-center justify-between pt-4 border-t border-[#0F172A]/5">
+                      <div>
+                         <p className="text-[9px] font-bold text-[#2563EB] uppercase tracking-widest mb-1">Status</p>
+                         <p className="text-xs font-bold text-[#0F172A]">{prop.status}</p>
+                      </div>
+                      <div className="text-right">
+                         <p className="text-[9px] font-bold text-[#2563EB] uppercase tracking-widest mb-1">Min Entry</p>
+                         <p className="text-xs font-bold text-[#0F172A]">$10,000</p>
+                      </div>
+                      <Link 
+                        href={`/marketplace?id=${prop.id}`}
+                        className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#0F172A] hover:text-[#2563EB] transition-colors group/link"
+                      >
+                        View <ArrowUpRight className="w-3.5 h-3.5 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 transition-transform" />
+                      </Link>
+                   </div>
                 </div>
              </motion.div>
            ))}

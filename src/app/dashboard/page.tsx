@@ -212,7 +212,7 @@ export default function DashboardOverviewPage() {
   const portfolio = dashboardData?.investments || []
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 lg:space-y-12 pb-24 md:pb-0">
       {/* Header Narrative */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-[#0F172A]/5">
         <div>
@@ -220,8 +220,8 @@ export default function DashboardOverviewPage() {
             <ShieldCheck className="w-4 h-4 text-[#2563EB]" />
             <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#64748B]">Private Management Layer</p>
           </div>
-          <h1 className="font-serif text-5xl md:text-6xl text-[#0F172A] mb-4 font-bold tracking-tight">Welcome, {firstName}.</h1>
-          <p className="text-[#64748B] text-lg font-medium italic font-serif leading-relaxed max-w-2xl">
+          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl text-[#0F172A] mb-3 font-bold tracking-tight">Welcome, {firstName}.</h1>
+          <p className="text-[#64748B] text-sm sm:text-lg font-medium italic font-serif leading-relaxed max-w-2xl">
             "Your portfolio is positioned for consistent performance across high-frequency hospitality assets."
           </p>
         </div>
@@ -231,10 +231,10 @@ export default function DashboardOverviewPage() {
       </div>
 
       {/* KPI Architecture */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {kpis.map((kpi) => (
-          <div key={kpi.label} className="bg-white border border-[#0F172A]/5 rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all duration-500 group">
-            <div className="flex items-center justify-between mb-8">
+          <div key={kpi.label} className="bg-white border border-[#0F172A]/5 rounded-2xl sm:rounded-[2rem] p-4 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-500 group">
+            <div className="flex items-center justify-between mb-4 sm:mb-8">
               <p className="text-[9px] uppercase font-bold tracking-[0.3em] text-[#64748B]">{kpi.label}</p>
               <div className="w-10 h-10 rounded-xl bg-[#F1F5F9] flex items-center justify-center border border-[#0F172A]/5 group-hover:bg-[#2563EB] transition-colors duration-500">
                 <kpi.icon className="w-4 h-4 text-[#0F172A]" />
@@ -249,14 +249,14 @@ export default function DashboardOverviewPage() {
       </div>
 
       {/* Analytics & Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Performance Visualization */}
-        <div className="lg:col-span-2 bg-white border border-[#0F172A]/5 rounded-[3rem] p-10 shadow-sm relative overflow-hidden">
+        <div className="lg:col-span-2 bg-white border border-[#0F172A]/5 rounded-2xl sm:rounded-[3rem] p-5 sm:p-10 shadow-sm relative overflow-hidden">
           <div className="absolute top-0 right-0 w-60 h-60 bg-[#2563EB]/5 blur-[80px] rounded-full -z-10" />
           
-          <div className="flex justify-between items-center mb-10">
+          <div className="flex justify-between items-center mb-5 sm:mb-10">
             <div>
-              <h3 className="font-serif text-2xl font-bold text-[#0F172A] tracking-tight">Portfolio Performance</h3>
+              <h3 className="font-serif text-lg sm:text-2xl font-bold text-[#0F172A] tracking-tight">Portfolio Performance</h3>
               <p className="text-[#64748B] text-[10px] font-bold uppercase tracking-widest mt-1 opacity-60">Projected trajectory based on active collection yields</p>
             </div>
             <div className="hidden sm:flex items-center gap-3 text-[10px] font-bold text-[#0F172A] uppercase tracking-[0.2em]">
@@ -286,8 +286,8 @@ export default function DashboardOverviewPage() {
         {/* Sidebar Intelligence */}
         <div className="space-y-8">
           {/* Direct Access */}
-          <div className="bg-[#F8FAFC] border border-[#0F172A]/5 rounded-[3rem] p-10 shadow-sm">
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#64748B] mb-10">Quick Actions</p>
+          <div className="bg-[#F8FAFC] border border-[#0F172A]/5 rounded-2xl sm:rounded-[3rem] p-5 sm:p-10 shadow-sm">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#64748B] mb-5 sm:mb-10">Quick Actions</p>
             <div className="space-y-4">
               {[
                 { href: "/marketplace", icon: TrendingUp, label: "Acquire Global Assets" },
@@ -295,7 +295,7 @@ export default function DashboardOverviewPage() {
                 { href: "/dashboard/documents", icon: Download, label: "Capital Documents" },
               ].map(({ href, icon: Icon, label }) => (
                 <Link key={label} href={href}
-                  className="flex items-center justify-between px-8 py-5 border border-[#0F172A]/5 bg-white rounded-2xl text-[#0F172A] font-bold uppercase tracking-widest text-[10px] hover:border-[#2563EB]/30 hover:shadow-xl transition-all group">
+                  className="flex items-center justify-between px-4 sm:px-8 py-3 sm:py-5 border border-[#0F172A]/5 bg-white rounded-2xl text-[#0F172A] font-bold uppercase tracking-widest text-[10px] hover:border-[#2563EB]/30 hover:shadow-xl transition-all group">
                   <div className="flex items-center gap-4">
                     <Icon className="w-4 h-4 text-[#2563EB]" />
                     {label}
@@ -307,9 +307,9 @@ export default function DashboardOverviewPage() {
           </div>
 
           {/* Asset Positions */}
-          <div className="bg-white border border-[#0F172A]/5 rounded-[3rem] p-10 shadow-sm relative overflow-hidden">
+          <div className="bg-white border border-[#0F172A]/5 rounded-2xl sm:rounded-[3rem] p-5 sm:p-10 shadow-sm relative overflow-hidden">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-[#2563EB]/5 blur-3xl rounded-full -z-10" />
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#64748B] mb-10">My Assets</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#64748B] mb-5 sm:mb-10">My Assets</p>
             
             {portfolio.length > 0 ? (
               <div className="space-y-8">

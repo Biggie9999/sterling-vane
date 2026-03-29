@@ -1,20 +1,14 @@
-import { Navbar } from "@/components/layout/Navbar"
 import { HomeHero } from "@/components/home/HomeHero"
 import { NarrativeSections } from "@/components/home/NarrativeSections"
 import { FeaturedPortfolio } from "@/components/home/FeaturedPortfolio"
 import { ROICalculator } from "@/components/home/ROICalculator"
 import { AboutSterlingVane } from "@/components/home/AboutSterlingVane"
 import { FinalCTA } from "@/components/landing/FinalCTA"
-import { Footer } from "@/components/layout/Footer"
 
 export default function LandingPage() {
   return (
     <main className="min-h-screen w-full bg-[#F8FAFC]">
-      <Navbar />
       <HomeHero />
-      
-      {/* Starting the Presentation: Discovery Layer */}
-
 
       {/* Narrative: The Thesis */}
       <NarrativeSections />
@@ -32,8 +26,6 @@ export default function LandingPage() {
       
       {/* Final Inquiry */}
       <FinalCTA />
-
-      <Footer />
     </main>
   )
 }

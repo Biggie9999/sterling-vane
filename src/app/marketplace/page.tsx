@@ -30,7 +30,7 @@ function ListingCard({ item, index }: { item: any, index: number }) {
         className="group relative flex flex-col h-full bg-white rounded-[2rem] overflow-hidden border border-black/[0.03] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] transition-all duration-700"
       >
         {/* Cinematic Image Frame */}
-        <div className="relative h-72 w-full overflow-hidden">
+        <div className="relative h-48 sm:h-64 lg:h-72 w-full overflow-hidden">
           <div className="absolute top-6 left-6 z-20 flex gap-2">
              <div className="bg-white/90 backdrop-blur-xl px-4 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-black rounded-full border border-black/[0.03] shadow-lg">
                {item.type}
@@ -59,7 +59,7 @@ function ListingCard({ item, index }: { item: any, index: number }) {
           </div>
 
           {/* Institutional Metrics Grid */}
-          <div className="grid grid-cols-3 gap-1 py-6 border-y border-black/[0.03] mb-8">
+          <div className="grid grid-cols-3 gap-1 py-4 sm:py-6 border-y border-black/[0.03] mb-4 sm:mb-8">
             <div className="text-center">
               <p className="text-[9px] font-bold text-[#64748B] uppercase tracking-[0.2em] mb-1.5 opacity-40">Est. Yield</p>
               <p className="text-lg font-bold text-[#2563EB] tracking-tight">{item.targetYield}%</p>
@@ -152,7 +152,7 @@ function MarketplaceInner() {
   return (
     <div className="bg-[#F8FAFC] min-h-screen pb-40">
       {/* Editorial Navigation Spacer */}
-      <div className="h-24 lg:h-32" />
+      <div className="h-16 lg:h-32" />
 
       {/* Global Filter Architecture (Sticky on Scroll) */}
       <div className="sticky top-0 z-40 px-4 sm:px-6 py-4 sm:py-6 lg:py-8 bg-[#F8FAFC]/90 backdrop-blur-2xl border-b border-black/[0.03]">
@@ -177,13 +177,28 @@ function MarketplaceInner() {
                 key={t.value}
                 onClick={() => setActiveType(t.value)}
                 className={cn(
-                  "px-6 py-3 sm:px-8 sm:py-4 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap border border-black/[0.03]",
+                  "px-4 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap border border-black/[0.03]",
                   activeType === t.value ? "bg-[#0F172A] text-white shadow-xl" : "bg-white text-[#64748B] hover:text-[#0F172A] hover:bg-white"
                 )}
                >
                  {t.label}
                </button>
              ))}
+          </div>
+
+          {/* Mobile Sort — shown only on small screens */}
+          <div className="flex lg:hidden items-center gap-2 px-4 py-2.5 bg-white rounded-full border border-black/[0.03] shadow-sm shrink-0">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#2563EB]" />
+            <select
+              value={sort}
+              onChange={e => setSort(e.target.value)}
+              className="bg-transparent text-[9px] font-bold uppercase tracking-[0.2em] text-[#0F172A] focus:outline-none cursor-pointer"
+            >
+              <option value="default">Relevance</option>
+              <option value="yield">Top Yield</option>
+              <option value="price_asc">Lowest Entry</option>
+              <option value="price_desc">High Value</option>
+            </select>
           </div>
 
           {/* Sort & Tools Cluster */}
@@ -210,7 +225,7 @@ function MarketplaceInner() {
         </div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mt-16 lg:mt-24">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 mt-10 lg:mt-24 pb-24 md:pb-0">
         {/* Market Context Line */}
         <div className="flex flex-row items-center justify-between mb-10 sm:mb-16 px-2 sm:px-4">
            <div className="flex items-center gap-2 sm:gap-3">
@@ -233,7 +248,7 @@ function MarketplaceInner() {
              <p className="font-serif text-2xl font-bold text-[#0F172A] italic tracking-tight opacity-40">Synchronizing Ledger Assets...</p>
           </div>
         ) : filtered.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-8 lg:gap-12">
             {filtered.map((item, index) => <ListingCard key={`${item.id}-${index}`} item={item} index={index} />)}
           </div>
         ) : (
