@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar"
 import { HomeHero } from "@/components/home/HomeHero"
-import { PartnerOnboarding } from "@/components/home/PartnerOnboarding"
 import { NarrativeSections } from "@/components/home/NarrativeSections"
 import { FeaturedPortfolio } from "@/components/home/FeaturedPortfolio"
 import { ROICalculator } from "@/components/home/ROICalculator"
@@ -15,7 +14,7 @@ export default function LandingPage() {
       <HomeHero />
       
       {/* Starting the Presentation: Discovery Layer */}
-      <PartnerOnboarding />
+
 
       {/* Narrative: The Thesis */}
       <NarrativeSections />
