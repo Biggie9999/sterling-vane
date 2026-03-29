@@ -72,7 +72,7 @@ export async function GET() {
         name: inv.property.name,
         location: `${inv.property.city}, ${inv.property.country}`,
         status: inv.property.status === "ACTIVE" ? "Operating" : "Stabilizing",
-        yield: `$${(inv.amount * (inv.property.yieldEstimate / 100) / 4).toLocaleString()}`, // Estimated quarterly
+        yield: inv.property.yieldEstimate,
         share: `${((inv.amount / (inv.property.askingPrice || 1000000)) * 100).toFixed(1)}%`
       })),
       hasInvestments: user.investments.length > 0,

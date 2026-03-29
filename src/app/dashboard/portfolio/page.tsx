@@ -39,23 +39,23 @@ export default function PortfolioPage() {
   return (
     <div className="space-y-12 pb-24 lg:pb-0 animate-sovereign-in">
       {/* Portfolio Header Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
         {[
           { label: "Market Valuation", value: `$${totalValue.toLocaleString()}`, change: "+12.4%", icon: Globe, up: true },
           { label: "Capital Allocation", value: `$${totalEquity.toLocaleString()}`, change: "Principal", icon: ShieldCheck, up: null },
           { label: "Portfolio Yield", value: `${avgYield}%`, change: "Targeted", icon: TrendingUp, up: true },
         ].map((stat, i) => (
-          <div key={i} className="bg-white border border-slate-100 p-8 rounded-[2.5rem] shadow-sm group hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
-            <div className="flex items-center gap-5 mb-8">
-              <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:bg-[#2563EB] transition-all">
-                <stat.icon className="w-6 h-6 text-[#0F172A] group-hover:text-white transition-colors" />
+          <div key={i} className="bg-white border border-slate-100 p-6 md:p-8 rounded-[2rem] shadow-sm group hover:shadow-xl hover:-translate-y-1 transition-all duration-500">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:bg-[#2563EB] transition-all shrink-0">
+                <stat.icon className="w-4 h-4 text-[#0F172A] group-hover:text-white transition-colors" />
               </div>
-              <div className="min-w-0">
-                <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-slate-400 leading-none mb-1.5">{stat.label}</p>
-                <p className={`text-[9px] font-bold uppercase tracking-widest leading-none ${stat.up === true ? "text-emerald-500" : "text-slate-400"}`}>{stat.change}</p>
+              <div className="min-w-0 flex-1">
+                <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-slate-400 leading-none mb-1.5 truncate">{stat.label}</p>
+                <p className={`text-[8px] font-bold uppercase tracking-widest leading-none ${stat.up === true ? "text-emerald-500" : "text-slate-400"}`}>{stat.change}</p>
               </div>
             </div>
-            <p className="text-3xl sm:text-4xl font-mono font-bold text-[#0F172A] tracking-tight tabular-nums">{stat.value}</p>
+            <p className="text-3xl font-mono font-bold text-[#0F172A] tracking-tight tabular-nums truncate">{stat.value}</p>
           </div>
         ))}
       </div>
@@ -114,41 +114,41 @@ export default function PortfolioPage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 gap-4">
           {investments.map((inv, idx) => (
             <div 
               key={inv.id} 
-              className="bg-white border border-slate-100 rounded-[3rem] p-6 sm:p-10 flex flex-col md:flex-row items-center justify-between transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 group"
+              className="bg-white border border-slate-100 rounded-2xl md:rounded-[2rem] p-4 md:p-6 lg:p-8 flex flex-col xl:flex-row items-start xl:items-center justify-between transition-all duration-500 hover:shadow-xl hover:-translate-y-1 group"
             >
-              <div className="flex items-center gap-10 w-full md:w-auto mb-10 md:mb-0">
-                <div className="w-28 h-28 rounded-[2rem] overflow-hidden shrink-0 border border-slate-100 shadow-sm relative">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 lg:gap-8 w-full xl:w-auto mb-6 xl:mb-0">
+                <div className="w-full sm:w-24 sm:h-24 h-40 rounded-xl md:rounded-[1.5rem] overflow-hidden shrink-0 border border-slate-100 shadow-sm relative">
                   <img src={inv.property.images[0]} className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-1000" alt={inv.property.name} />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
                 </div>
-                <div>
-                  <h4 className="text-2xl font-serif font-bold text-[#0F172A] mb-3 tracking-tight">{inv.property.name}</h4>
-                  <div className="flex items-center gap-3 opacity-60">
-                    <MapPin className="w-3.5 h-3.5 text-[#2563EB]" />
-                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#0F172A] pt-0.5">{inv.property.location}</span>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-xl md:text-2xl font-serif font-bold text-[#0F172A] mb-2 tracking-tight line-clamp-2 sm:line-clamp-1">{inv.property.name}</h4>
+                  <div className="flex items-center gap-2 opacity-60">
+                    <MapPin className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
+                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#0F172A] truncate pt-0.5">{inv.property.location}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-8 sm:gap-14 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 md:border-l border-slate-100 pt-10 md:pt-0 md:pl-16">
-                <div className="text-right">
-                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.4em] mb-2 opacity-60 leading-none">Principal</p>
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-8 w-full xl:w-auto justify-between border-t xl:border-t-0 xl:border-l border-slate-100 pt-5 xl:pt-0 xl:pl-10">
+                <div className="w-[45%] sm:w-auto text-left sm:text-right">
+                   <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 opacity-60">Principal</p>
                    <p className="text-[#0F172A] text-lg font-mono font-bold tracking-tighter tabular-nums">${inv.amount.toLocaleString()}</p>
                 </div>
-                <div className="text-right">
-                   <p className="text-[9px] font-bold text-[#2563EB] uppercase tracking-[0.4em] mb-2 leading-none">Growth</p>
+                <div className="w-[45%] sm:w-auto text-left sm:text-right">
+                   <p className="text-[8px] font-bold text-[#2563EB] uppercase tracking-widest mb-1.5">Growth</p>
                    <p className="text-[#2563EB] text-lg font-mono font-bold tracking-tighter tabular-nums">+${(inv.amount * 0.08).toLocaleString()}</p>
                 </div>
-                <div className="text-right">
-                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.4em] mb-2 opacity-60 leading-none">Yield</p>
+                <div className="w-[45%] sm:w-auto text-left sm:text-right">
+                   <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 opacity-60">Yield</p>
                    <p className="text-[#0F172A] text-lg font-mono font-bold tracking-tighter tabular-nums">{inv.roiPercent}%</p>
                 </div>
-                <Link href={`/properties/${inv.property.id}`} className="hidden xl:flex flex-col items-center justify-center h-14 w-14 rounded-2xl bg-[#0F172A] text-white hover:bg-[#2563EB] transition-all shadow-xl group-hover:scale-110">
-                  <ArrowUpRight className="w-5 h-5" />
+                <Link href={`/properties/${inv.property.id}`} className="hidden sm:flex flex-col items-center justify-center h-12 w-12 shrink-0 rounded-xl bg-slate-50 text-slate-400 border border-slate-100 hover:bg-[#0F172A] hover:text-white transition-all shadow-sm group-hover:scale-110 ml-2">
+                  <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

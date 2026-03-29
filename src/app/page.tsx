@@ -2,6 +2,7 @@ import { HomeHero } from "@/components/home/HomeHero"
 import { FeaturedProperties } from "@/components/landing/FeaturedProperties"
 import { SovereignStory } from "@/components/landing/SovereignStory"
 import { HowItWorks } from "@/components/landing/HowItWorks"
+import { InvestmentMath } from "@/components/landing/InvestmentMath"
 import { CoreCompetencies } from "@/components/landing/CoreCompetencies"
 import { Testimonials } from "@/components/landing/Testimonials"
 import { FinalCTA } from "@/components/landing/FinalCTA"
@@ -21,6 +22,9 @@ export default function LandingPage() {
       
       {/* ── THE DIFFERENTIATOR: Comparison (Airbnb/Zillow) ── */}
       <HowItWorks />
+      
+      {/* ── THE MATH: Strict $10k Model ── */}
+      <InvestmentMath />
       
       {/* ── THE FOUNDATION: Pillars ── */}
       <CoreCompetencies />

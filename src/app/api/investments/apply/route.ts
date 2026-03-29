@@ -25,16 +25,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
 
+    const property = await prisma.property.findUnique({
+      where: { id: propertyId }
+    })
+    
+    if (!property) {
+      return NextResponse.json({ error: "Property not found" }, { status: 404 })
+    }
+
     // Create a new investment with status PENDING_WIRE
     const investment = await prisma.investment.create({
       data: {
         userId: user.id,
         propertyId,
         amount: parseFloat(amount),
-        roiPercent: 12.5, // Default for demo
+        roiPercent: property.yieldEstimate, 
         status: "PENDING_WIRE",
-        // We could also store accreditation status or shares if needed
-        // but for now let's keep it simple
       }
     })
 
