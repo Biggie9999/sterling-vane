@@ -49,6 +49,7 @@ model User {
   intent             String?          @default("invest")
   accreditation      String?          @default("none")
   createdAt          DateTime         @default(now())
+  phone              String?
   investorProfile InvestorProfile?
   investments     Investment[]
   bookings        Booking[]
@@ -99,6 +100,10 @@ model InvestorProfile {
   totalInvested     Float
   applicationStatus AppStatus    @default(PENDING)
   joinedAt          DateTime     @default(now())
+  bankName          String?
+  bankRouting       String?
+  bankAccount       String?
+  notifications     Json?
 }
 
 model Property {

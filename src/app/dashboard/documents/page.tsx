@@ -80,9 +80,9 @@ export default function DocumentsPage() {
                       <button className="w-14 h-14 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:text-[#0F172A] hover:bg-white border border-transparent hover:border-slate-200 transition-all shadow-sm">
                         <Eye className="w-5 h-5" />
                       </button>
-                      <button className="flex items-center justify-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-white bg-[#0F172A] px-10 py-5 rounded-2xl hover:bg-[#2563EB] transition-all shadow-xl group/btn">
+                      <a href="/demo-document.txt" download={`Sovereign_${doc.name.replace(/\s+/g, '_')}.txt`} className="flex items-center justify-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-white bg-[#0F172A] px-10 py-5 rounded-2xl hover:bg-[#2563EB] transition-all shadow-xl group/btn">
                          Download <Download className="w-4 h-4 text-slate-400 group-hover/btn:text-white" />
-                      </button>
+                      </a>
                     </div>
                   </div>
                 ))}

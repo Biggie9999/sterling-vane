@@ -4,17 +4,10 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
 export async function POST(request: Request) {
-  const session = await getServerSession(authOptions)
-
-  if (!session || !session.user || !session.user.email) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-  }
-
   try {
-    const { propertyId, checkIn, checkOut, amount } = await request.json()
-
-    if (!propertyId || !checkIn || !checkOut) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    const session = await getServerSession(authOptions)
+    if (!session || !session.user || !session.user.email) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     const user = await prisma.user.findUnique({
@@ -25,54 +18,35 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
 
+    const { propertyId, checkIn, checkOut, amount } = await request.json()
+
+    if (!propertyId || !checkIn || !checkOut || !amount) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    // Parse dates
+    const parsedCheckIn = new Date(checkIn)
+    const parsedCheckOut = new Date(checkOut)
+
+    if (isNaN(parsedCheckIn.getTime()) || isNaN(parsedCheckOut.getTime())) {
+      return NextResponse.json({ error: "Invalid dates provided" }, { status: 400 })
+    }
+
     const booking = await prisma.booking.create({
       data: {
         userId: user.id,
         propertyId,
-        checkIn: new Date(checkIn),
-        checkOut: new Date(checkOut),
-        guests: 1,
-        totalPrice: amount || 0,
-        status: "CONFIRMED" // For demo purposes, we'll auto-confirm
+        checkIn: parsedCheckIn,
+        checkOut: parsedCheckOut,
+        totalPrice: parseFloat(amount),
+        guests: 2, // Default for demo platform
+        status: "PENDING"
       }
     })
 
-    return NextResponse.json(booking)
+    return NextResponse.json({ success: true, booking })
   } catch (error) {
-    console.error("Booking error:", error)
+    console.error("Booking creation error:", error)
     return NextResponse.json({ error: "Failed to create booking" }, { status: 500 })
-  }
-}
-
-export async function GET() {
-  const session = await getServerSession(authOptions)
-
-  if (!session || !session.user || !session.user.email) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-  }
-
-  try {
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
-      include: {
-        bookings: {
-          include: {
-            property: true
-          },
-          orderBy: {
-            checkIn: "desc"
-          }
-        }
-      }
-    })
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 })
-    }
-
-    return NextResponse.json(user.bookings)
-  } catch (error) {
-    console.error("Booking fetch error:", error)
-    return NextResponse.json({ error: "Failed to fetch bookings" }, { status: 500 })
   }
 }
