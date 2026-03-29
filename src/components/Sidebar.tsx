@@ -149,6 +149,18 @@ export function Sidebar({ mode, userName, userEmail }: SidebarProps) {
             </Link>
           )
         })}
+        {/* Sign Out */}
+        <button
+          onClick={() => signOut({ callbackUrl: "/login" })}
+          className="flex flex-col items-center justify-center w-full py-1 gap-1 group"
+        >
+          <div className="p-2 rounded-xl transition-all duration-300 bg-transparent group-active:bg-red-50">
+            <LogOut className="w-5 h-5 text-[#64748B] group-hover:text-red-500 transition-colors" />
+          </div>
+          <span className="text-[9px] font-bold uppercase tracking-wider text-[#64748B] group-hover:text-red-500 transition-colors">
+            Sign Out
+          </span>
+        </button>
       </nav>
     </>
   )
