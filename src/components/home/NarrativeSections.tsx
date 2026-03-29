@@ -18,9 +18,6 @@ export function NarrativeSections() {
       <section className="py-20 sm:py-32 lg:py-48 px-6 sm:px-12 border-b border-[#0F172A]/5">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 sm:gap-20 items-center">
           <motion.div {...FADE_UP}>
-            <div className="flex items-center gap-3 mb-8">
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB]">The Inefficiency Gap</span>
-            </div>
             <h2 className="text-5xl sm:text-7xl font-serif font-bold text-[#0F172A] leading-tight mb-10">
               Most luxury assets sit <span className="italic font-light text-[#0F172A]/30">empty 80% of the year.</span>
             </h2>
@@ -59,7 +56,6 @@ export function NarrativeSections() {
       <section className="py-20 sm:py-32 lg:py-48 px-6 sm:px-12 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div {...FADE_UP} className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB] mb-8 block">Operational Alpha</span>
             <h2 className="text-5xl sm:text-7xl font-serif font-bold text-[#0F172A] leading-tight mb-10">
               The 90-Day <span className="italic font-light text-[#0F172A]/30">Velocity Model.</span>
             </h2>

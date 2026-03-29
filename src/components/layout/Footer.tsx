@@ -13,7 +13,7 @@ export function Footer() {
               <span className="font-serif text-3xl tracking-tight text-[#0F172A] font-bold">
                 Sterling Vane
               </span>
-              <span className="font-montserrat font-bold text-[10px] tracking-[0.4em] text-[#2563EB] uppercase mt-1">
+              <span className="font-sans font-bold text-[10px] tracking-[0.4em] text-[#2563EB] uppercase mt-1">
                 The Sovereign Collection
               </span>
             </Link>
@@ -29,7 +29,7 @@ export function Footer() {
 
           {/* Nav Columns */}
           <div className="col-span-1">
-            <h4 className="font-montserrat font-bold text-[10px] tracking-[0.3em] uppercase text-[#0F172A] mb-8">Capital</h4>
+            <h4 className="font-sans font-bold text-[10px] tracking-[0.3em] uppercase text-[#0F172A] mb-8">Capital</h4>
             <ul className="space-y-4">
               <li><Link href="/apply" className="text-[#64748B] hover:text-[#2563EB] transition-colors text-[10px] uppercase tracking-widest font-bold">The Collection</Link></li>
               <li><Link href="/apply" className="text-[#64748B] hover:text-[#2563EB] transition-colors text-[10px] uppercase tracking-widest font-bold">Priority Waitlist</Link></li>
@@ -38,7 +38,7 @@ export function Footer() {
           </div>
 
           <div className="col-span-1">
-            <h4 className="font-montserrat font-bold text-[10px] tracking-[0.3em] uppercase text-[#0F172A] mb-8">Portfolio</h4>
+            <h4 className="font-sans font-bold text-[10px] tracking-[0.3em] uppercase text-[#0F172A] mb-8">Portfolio</h4>
             <ul className="space-y-4">
               <li><Link href="/marketplace" className="text-[#64748B] hover:text-[#2563EB] transition-colors text-[10px] uppercase tracking-widest font-bold">US Flagships</Link></li>
               <li><Link href="/marketplace" className="text-[#64748B] hover:text-[#2563EB] transition-colors text-[10px] uppercase tracking-widest font-bold">Global Units</Link></li>
@@ -47,7 +47,7 @@ export function Footer() {
           </div>
 
           <div className="col-span-1">
-             <h4 className="font-montserrat font-bold text-[10px] tracking-[0.3em] uppercase text-[#0F172A] mb-8">Suites</h4>
+             <h4 className="font-sans font-bold text-[10px] tracking-[0.3em] uppercase text-[#0F172A] mb-8">Suites</h4>
              <ul className="space-y-4">
                <li><Link href="/marketplace?tab=book" className="text-[#64748B] hover:text-[#2563EB] transition-colors text-[10px] uppercase tracking-widest font-bold">Reservations</Link></li>
                <li><Link href="/marketplace?tab=book" className="text-[#64748B] hover:text-[#2563EB] transition-colors text-[10px] uppercase tracking-widest font-bold">Priority Access</Link></li>
@@ -56,7 +56,7 @@ export function Footer() {
           </div>
 
           <div className="col-span-1">
-            <h4 className="font-montserrat font-bold text-[10px] tracking-[0.3em] uppercase text-[#0F172A] mb-8">Corporate</h4>
+            <h4 className="font-sans font-bold text-[10px] tracking-[0.3em] uppercase text-[#0F172A] mb-8">Corporate</h4>
             <ul className="space-y-4">
               <li><div className="text-[#64748B] hover:text-[#2563EB] transition-colors text-[10px] uppercase tracking-widest font-bold cursor-pointer">Manifesto</div></li>
               <li><div className="text-[#64748B] hover:text-[#2563EB] transition-colors text-[10px] uppercase tracking-widest font-bold cursor-pointer">Leadership</div></li>
@@ -78,9 +78,9 @@ export function Footer() {
             &copy; {new Date().getFullYear()} STERLING VANE DEVELOPMENT GROUP. ALL RIGHTS RESERVED.
           </p>
           <div className="flex justify-center flex-wrap gap-8 md:gap-12">
-            <Link href="#" className="font-montserrat font-bold text-[9px] uppercase tracking-[0.4em] text-[#0F172A] hover:text-[#2563EB] transition-colors">Bloomberg</Link>
-            <Link href="#" className="font-montserrat font-bold text-[9px] uppercase tracking-[0.4em] text-[#0F172A] hover:text-[#2563EB] transition-colors">LinkedIn</Link>
-            <Link href="#" className="font-montserrat font-bold text-[9px] uppercase tracking-[0.4em] text-[#0F172A] hover:text-[#2563EB] transition-colors">Instagram</Link>
+            <Link href="#" className="font-sans font-bold text-[9px] uppercase tracking-[0.4em] text-[#0F172A] hover:text-[#2563EB] transition-colors">Bloomberg</Link>
+            <Link href="#" className="font-sans font-bold text-[9px] uppercase tracking-[0.4em] text-[#0F172A] hover:text-[#2563EB] transition-colors">LinkedIn</Link>
+            <Link href="#" className="font-sans font-bold text-[9px] uppercase tracking-[0.4em] text-[#0F172A] hover:text-[#2563EB] transition-colors">Instagram</Link>
           </div>
         </div>
       </div>

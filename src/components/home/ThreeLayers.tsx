@@ -42,7 +42,7 @@ export function ThreeLayers() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-[1px] w-6 bg-[#2563EB]" />
-              <p className="text-[#64748B] font-montserrat font-bold text-[10px] uppercase tracking-[0.4em]">The Ecosystem</p>
+              <p className="text-[#64748B] font-sans font-bold text-[10px] uppercase tracking-[0.4em]">The Ecosystem</p>
             </div>
             <h2 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] leading-[1.05]">
                One Platform.<br />
@@ -69,7 +69,7 @@ export function ThreeLayers() {
                      </div>
                   </div>
                   
-                  <p className="text-[#64748B] font-montserrat font-bold text-[10px] uppercase tracking-[0.3em] mb-4 group-hover:text-[#2563EB] transition-colors">{layer.label}</p>
+                  <p className="text-[#64748B] font-sans font-bold text-[10px] uppercase tracking-[0.3em] mb-4 group-hover:text-[#2563EB] transition-colors">{layer.label}</p>
                   <h3 className="text-3xl font-serif font-bold text-[#0F172A] mb-5">{layer.title}</h3>
                   <p className="text-[#64748B] font-sans text-base font-medium leading-relaxed max-w-[280px] mb-16">{layer.desc}</p>
                </div>

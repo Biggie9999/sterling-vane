@@ -15,7 +15,7 @@ export function FeaturedPortfolio() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-[1px] w-6 bg-[#2563EB]" />
-              <p className="text-[#64748B] font-montserrat font-bold text-[10px] uppercase tracking-[0.4em]">The Destinations</p>
+              <p className="text-[#64748B] font-sans font-bold text-[10px] uppercase tracking-[0.4em]">The Destinations</p>
             </div>
             <h2 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] leading-[1.05]">
                Elite Assets.<br />

@@ -110,7 +110,7 @@ function AuthInner() {
         <div className="relative z-10">
           <Link href="/" className="inline-block flex flex-col items-start gap-2">
             <h1 className="font-serif text-3xl font-bold text-[#0F172A] tracking-tight">Sterling Vane</h1>
-            <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB]">The Sovereign Collection</p>
+            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB]">The Sovereign Collection</p>
           </Link>
         </div>
 
@@ -153,7 +153,7 @@ function AuthInner() {
           <div className="lg:hidden mb-16">
             <Link href="/" className="inline-block w-full text-center">
                <h2 className="font-serif text-3xl font-bold text-[#0F172A] tracking-tighter">Sterling Vane</h2>
-               <p className="font-montserrat text-[9px] uppercase tracking-[0.5em] text-[#2563EB] font-bold mt-2">Sovereign Collection</p>
+               <p className="font-sans text-[9px] uppercase tracking-[0.5em] text-[#2563EB] font-bold mt-2">Sovereign Collection</p>
             </Link>
           </div>
 

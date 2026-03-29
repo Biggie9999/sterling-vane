@@ -155,7 +155,7 @@ function ApplyForm() {
                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <div className="mb-12">
-                    <p className="font-montserrat font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Investment Allocation</p>
+                    <p className="font-sans font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Investment Allocation</p>
                     <h1 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-10 leading-[1.05] tracking-tight">
                       Confirm your <br />
                       <span className="text-[#2563EB]">Investment.</span>
@@ -216,7 +216,7 @@ function ApplyForm() {
                    animate={{ opacity: 1, x: 0 }}
                    exit={{ opacity: 0, x: 10 }}
                 >
-                  <p className="font-montserrat font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Investment Identity</p>
+                  <p className="font-sans font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Investment Identity</p>
                   <h1 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05] tracking-tight">
                     Verify Your <br />
                     <span className="text-[#2563EB]">Status.</span>
@@ -273,7 +273,7 @@ function ApplyForm() {
                    animate={{ opacity: 1, scale: 1 }}
                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                   <p className="font-montserrat font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-6 text-center">Final Phase</p>
+                   <p className="font-sans font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-6 text-center">Final Phase</p>
                    <h1 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-6 leading-[1.05] text-center tracking-tight">Transfer Details</h1>
                    <p className="text-[#64748B] font-sans font-medium text-base text-center mb-16 max-w-sm mx-auto">Follow these details to finalize your acquisition in <strong className="text-[#0F172A] font-bold">{selectedProperty.name}</strong>.</p>
 
@@ -330,7 +330,7 @@ function ApplyForm() {
           <aside className="hidden lg:block w-[420px] shrink-0">
              <div className="sticky top-32 bg-white rounded-[3.5rem] border border-[#0F172A]/5 p-14 shadow-sm relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#2563EB]/5 blur-3xl rounded-full" />
-                <p className="font-montserrat font-bold text-[11px] uppercase tracking-[0.4em] text-[#2563EB] mb-10">Investment Portfolio</p>
+                <p className="font-sans font-bold text-[11px] uppercase tracking-[0.4em] text-[#2563EB] mb-10">Investment Portfolio</p>
                 <div className="space-y-12">
                    <div>
                       <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#64748B] mb-3">Asset Allocation</p>

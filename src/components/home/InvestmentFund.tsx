@@ -51,7 +51,7 @@ export function InvestmentFund() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-[1px] w-6 bg-[#2563EB]" />
-              <p className="text-[#64748B] font-montserrat font-bold text-[10px] uppercase tracking-[0.4em]">Preferred Tiers</p>
+              <p className="text-[#64748B] font-sans font-bold text-[10px] uppercase tracking-[0.4em]">Preferred Tiers</p>
             </div>
             <h2 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] leading-[1.05]">
                The Rental <br />
@@ -82,7 +82,7 @@ export function InvestmentFund() {
                 )}
                 
                 <div className="mb-12">
-                   <p className={`font-montserrat font-bold text-[10px] uppercase tracking-[0.3em] mb-4 ${tier.popular ? "text-[#2563EB]" : "text-[#64748B]"}`}>{tier.name} ACCESS</p>
+                   <p className={`font-sans font-bold text-[10px] uppercase tracking-[0.3em] mb-4 ${tier.popular ? "text-[#2563EB]" : "text-[#64748B]"}`}>{tier.name} ACCESS</p>
                    <p className="text-4xl font-serif font-bold mb-3">{tier.min}</p>
                    <p className={tier.popular ? "text-white/40 text-[11px] font-bold uppercase tracking-widest" : "text-[#64748B] text-[11px] font-bold uppercase tracking-widest"}>Minimum Capital</p>
                 </div>

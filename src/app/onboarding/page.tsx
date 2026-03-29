@@ -21,7 +21,7 @@ const ELIGIBILITY_OPTIONS = [
 
 export default function OnboardingPage() {
   const router = useRouter()
-  const { data: session, status } = useSession()
+  const { data: session, status, update } = useSession()
   const [step, setStep] = useState(1)
   const [intent, setIntent] = useState("invest")
   const [accreditation, setAccreditation] = useState("")
@@ -37,6 +37,7 @@ export default function OnboardingPage() {
       })
 
       if (res.ok) {
+        await update() // Force session refresh to break loop
         router.push("/dashboard")
       }
     } catch (err) {
@@ -68,7 +69,7 @@ export default function OnboardingPage() {
               className="relative z-10"
             >
               <div className="text-center mb-16">
-                <p className="font-montserrat font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Step 01 / 02</p>
+                <p className="font-sans font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Step 01 / 02</p>
                 <h1 className="text-4xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05] tracking-tight">
                   What is your <br /><span className="text-[#2563EB]">primary goal?</span>
                 </h1>
@@ -119,7 +120,7 @@ export default function OnboardingPage() {
               className="relative z-10"
             >
               <div className="text-center mb-16">
-                <p className="font-montserrat font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Step 02 / 02</p>
+                <p className="font-sans font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Step 02 / 02</p>
                 <h1 className="text-4xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05] tracking-tight">
                   Verify your <br /><span className="text-[#2563EB]">investor status.</span>
                 </h1>

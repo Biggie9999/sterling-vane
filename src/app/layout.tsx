@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { DM_Sans, Playfair_Display, Montserrat } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { LayoutShell } from "@/components/layout/LayoutShell";
 import { Providers } from "@/components/layout/Providers";
 
-const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm", display: "swap" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
-const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Sterling Vane | The Sovereign Collection",
@@ -20,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth selection:bg-[#2563EB]/30 selection:text-[#0F172A]">
-      <body className={`${dmSans.variable} ${playfair.variable} ${montserrat.variable} font-sans antialiased text-[#0F172A] bg-[#F1F5F9] min-h-screen flex flex-col`}>
+      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-[#0F172A] bg-[#F1F5F9] min-h-screen flex flex-col`}>
         <Providers>
           <LayoutShell>
             {children}

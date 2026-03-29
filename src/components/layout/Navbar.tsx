@@ -70,11 +70,14 @@ export function Navbar() {
           <Link href="/" className="flex flex-col items-start group shrink-0">
             <span className={cn(
               "font-serif text-2xl sm:text-3xl font-bold tracking-tight transition-colors duration-700",
-              "text-[#0F172A]"
+              isHomePage && !isScrolled ? "text-white" : "text-[#0F172A]"
             )}>
               Sterling Vane
             </span>
-            <span className="text-[8px] font-bold uppercase tracking-[0.5em] text-[#2563EB] mt-1 opacity-60 group-hover:opacity-100 transition-opacity">
+            <span className={cn(
+              "text-[8px] font-bold uppercase tracking-[0.5em] mt-1 opacity-60 group-hover:opacity-100 transition-opacity",
+              isHomePage && !isScrolled ? "text-white" : "text-[#2563EB]"
+            )}>
               Sovereign Collection
             </span>
           </Link>
@@ -88,8 +91,10 @@ export function Navbar() {
                 className={cn(
                   "relative px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.3em] rounded-full transition-all duration-300",
                   pathname === link.href
-                    ? "text-[#0F172A] bg-[#2563EB]/10"
-                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-[#0F172A]/5"
+                    ? (isHomePage && !isScrolled ? "text-[#0F172A] bg-white shadow-xl" : "text-[#0F172A] bg-[#2563EB]/10")
+                    : (isHomePage && !isScrolled 
+                        ? "text-white/60 hover:text-white hover:bg-white/10" 
+                        : "text-[#64748B] hover:text-[#0F172A] hover:bg-[#0F172A]/5")
                 )}
               >
                 {link.name}
@@ -105,14 +110,25 @@ export function Navbar() {
                 <>
                   <Link
                     href="/dashboard"
-                    className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#64748B] hover:text-[#0F172A] transition-all"
+                    className={cn(
+                      "flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] transition-all",
+                      isHomePage && !isScrolled ? "text-white/80 hover:text-white" : "text-[#64748B] hover:text-[#0F172A]"
+                    )}
                   >
-                    <LayoutDashboard className="w-3.5 h-3.5 text-[#2563EB]" />
+                    <LayoutDashboard className={cn(
+                      "w-3.5 h-3.5",
+                      isHomePage && !isScrolled ? "text-white" : "text-[#2563EB]"
+                    )} />
                     Dashboard
                   </Link>
                   <button
                     onClick={() => signOut({ callbackUrl: "/" })}
-                    className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] px-8 py-3.5 bg-[#0F172A] text-white rounded-full hover:bg-red-950 transition-all shadow-xl"
+                    className={cn(
+                      "group flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] px-8 py-3.5 rounded-full transition-all shadow-xl",
+                      isHomePage && !isScrolled 
+                        ? "bg-white/10 text-white hover:bg-red-500 hover:text-white" 
+                        : "bg-[#0F172A] text-white hover:bg-red-950"
+                    )}
                   >
                     Exit Portal
                   </button>
@@ -121,13 +137,21 @@ export function Navbar() {
                 <>
                   <Link
                     href="/login"
-                    className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#64748B] hover:text-[#0F172A] transition-all"
+                    className={cn(
+                      "text-[10px] font-bold uppercase tracking-[0.3em] transition-all",
+                      isHomePage && !isScrolled ? "text-white/80 hover:text-white" : "text-[#64748B] hover:text-[#0F172A]"
+                    )}
                   >
                     Log In
                   </Link>
                   <Link
                     href="/apply"
-                    className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] px-10 py-4 bg-[#0F172A] text-white rounded-full hover:bg-[#2563EB] hover:text-white transition-all shadow-2xl group"
+                    className={cn(
+                      "flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] px-10 py-4 rounded-full transition-all shadow-2xl group",
+                      isHomePage && !isScrolled 
+                        ? "bg-white text-[#0F172A] hover:bg-[#2563EB] hover:text-white" 
+                        : "bg-[#0F172A] text-white hover:bg-[#2563EB]"
+                    )}
                   >
                     Inquire <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -140,14 +164,24 @@ export function Navbar() {
                <button
                   onClick={() => setIsSearchOpen(true)}
                   aria-label="Search"
-                  className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/40 border border-[#0F172A]/5 text-[#0F172A] shadow-sm backdrop-blur-md"
+                  className={cn(
+                    "w-12 h-12 flex items-center justify-center rounded-2xl shadow-sm backdrop-blur-md transition-colors",
+                    isHomePage && !isScrolled 
+                      ? "bg-white/10 border-[#0F172A]/5 text-white hover:bg-white/20" 
+                      : "bg-white/40 border-[#0F172A]/5 text-[#0F172A]"
+                  )}
                 >
-                  <SearchIcon className="w-4 h-4 text-[#2563EB]" />
+                  <SearchIcon className={cn("w-4 h-4", isHomePage && !isScrolled ? "text-white" : "text-[#2563EB]")} />
                 </button>
                 <button
                   onClick={() => setIsOpen(true)}
                   aria-label="Open menu"
-                  className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/40 border border-[#0F172A]/5 text-[#0F172A] shadow-sm backdrop-blur-md"
+                  className={cn(
+                    "w-12 h-12 flex items-center justify-center rounded-2xl shadow-sm backdrop-blur-md transition-colors",
+                    isHomePage && !isScrolled 
+                      ? "bg-white/10 border-[#0F172A]/5 text-white hover:bg-white/20" 
+                      : "bg-white/40 border-[#0F172A]/5 text-[#0F172A]"
+                  )}
                 >
                   <Menu className="w-4 h-4" />
                 </button>
