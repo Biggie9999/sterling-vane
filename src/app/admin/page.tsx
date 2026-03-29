@@ -46,8 +46,33 @@ export default function AdminPage() {
     fetchAdminData()
   }, [])
 
-  const confirmWire = (wireId: string) => setWireStatuses(s => ({ ...s, [wireId]: "confirmed" }))
-  const rejectWire = (wireId: string) => setWireStatuses(s => ({ ...s, [wireId]: "rejected" }))
+  const confirmWire = async (wireId: string) => {
+    try {
+      const res = await fetch("/api/admin/wires", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ investmentId: wireId, action: "confirm" })
+      })
+      if (res.ok) setWireStatuses(s => ({ ...s, [wireId]: "confirmed" }))
+      else alert("Failed to confirm wire on server.")
+    } catch {
+      alert("Error communicating with server.")
+    }
+  }
+
+  const rejectWire = async (wireId: string) => {
+    try {
+      const res = await fetch("/api/admin/wires", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ investmentId: wireId, action: "reject" })
+      })
+      if (res.ok) setWireStatuses(s => ({ ...s, [wireId]: "rejected" }))
+      else alert("Failed to reject wire on server.")
+    } catch {
+      alert("Error communicating with server.")
+    }
+  }
 
   if (isLoading) {
     return (

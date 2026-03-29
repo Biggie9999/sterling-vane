@@ -42,7 +42,7 @@ function SovereignCard({ p }: { p: typeof DEMO_PROPERTIES[0] }) {
             <div className="h-8 w-px bg-white/10" />
             <div>
               <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1.5 font-bold">Target Alpha</p>
-              <p className="text-accent font-serif text-xl">{p.targetYield}%</p>
+              <p className="text-accent font-serif text-xl">{p.yieldMilestone6}%</p>
             </div>
           </div>
         </div>
