@@ -23,45 +23,45 @@ export function InvestmentMath() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-10">
           
           {/* Fixed Unit Price */}
-          <div className="bg-white/[0.03] border border-white/[0.05] rounded-[2.5rem] p-10 hover:bg-white/[0.05] transition-colors group relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-8 opacity-10">
-               <span className="font-serif text-8xl font-bold text-white tracking-tighter">$</span>
+          <div className="bg-white/[0.03] border border-white/[0.05] rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-10 hover:bg-white/[0.05] transition-colors group relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-6 sm:p-8 opacity-10">
+               <span className="font-serif text-7xl sm:text-8xl font-bold text-white tracking-tighter">$</span>
             </div>
-            <div className="w-14 h-14 rounded-2xl bg-[#2563EB]/20 flex items-center justify-center mb-8 border border-[#2563EB]/30 group-hover:bg-[#2563EB] group-hover:text-[#0F172A] transition-all text-[#2563EB]">
-               <Landmark className="w-6 h-6" />
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#2563EB]/20 flex items-center justify-center mb-6 sm:mb-8 border border-[#2563EB]/30 group-hover:bg-[#2563EB] group-hover:text-[#0F172A] transition-all text-[#2563EB]">
+               <Landmark className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Accessible Entry</p>
-            <h3 className="text-3xl font-serif font-bold text-white mb-4">$10,000 Minimum</h3>
+            <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Accessible Entry</p>
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-3 sm:mb-4">$10,000 Minimum</h3>
             <p className="text-slate-500 font-medium leading-relaxed text-sm">
               The barrier to institutional real estate is broken. Enter any Sovereign asset with a minimum commitment of $10,000, allowing for precise, scalable portfolio sizing.
             </p>
           </div>
 
           {/* Dynamic Scarcity */}
-          <div className="bg-white/[0.03] border border-white/[0.05] rounded-[2.5rem] p-10 hover:bg-white/[0.05] transition-colors group relative overflow-hidden">
-             <div className="absolute top-0 right-0 p-8 opacity-10">
-               <span className="font-serif text-8xl font-bold text-white tracking-tighter">/</span>
+          <div className="bg-white/[0.03] border border-white/[0.05] rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-10 hover:bg-white/[0.05] transition-colors group relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-6 sm:p-8 opacity-10">
+               <span className="font-serif text-7xl sm:text-8xl font-bold text-white tracking-tighter">/</span>
             </div>
-            <div className="w-14 h-14 rounded-2xl bg-[#2563EB]/20 flex items-center justify-center mb-8 border border-[#2563EB]/30 group-hover:bg-[#2563EB] group-hover:text-[#0F172A] transition-all text-[#2563EB]">
-               <Divide className="w-6 h-6" />
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#2563EB]/20 flex items-center justify-center mb-6 sm:mb-8 border border-[#2563EB]/30 group-hover:bg-[#2563EB] group-hover:text-[#0F172A] transition-all text-[#2563EB]">
+               <Divide className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Fractional Equity</p>
-            <h3 className="text-3xl font-serif font-bold text-white mb-4">True Proportionality</h3>
+            <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Fractional Equity</p>
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-3 sm:mb-4">True Proportionality</h3>
             <p className="text-slate-500 font-medium leading-relaxed text-sm">
               Your investment translates directly into a strict fractional percentage of the asset's fully capitalized valuation. A $50,000 allocation in a $5M estate equals exactly 1.00% ownership.
             </p>
           </div>
 
           {/* Capital Distribution */}
-          <div className="bg-white/[0.03] border border-white/[0.05] rounded-[2.5rem] p-10 hover:bg-white/[0.05] transition-colors group relative overflow-hidden">
-             <div className="absolute top-0 right-0 p-8 opacity-10">
-               <span className="font-serif text-8xl font-bold text-white tracking-tighter">%</span>
+          <div className="bg-white/[0.03] border border-white/[0.05] rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-10 hover:bg-white/[0.05] transition-colors group relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-6 sm:p-8 opacity-10">
+               <span className="font-serif text-7xl sm:text-8xl font-bold text-white tracking-tighter">%</span>
             </div>
-            <div className="w-14 h-14 rounded-2xl bg-[#2563EB]/20 flex items-center justify-center mb-8 border border-[#2563EB]/30 group-hover:bg-[#2563EB] group-hover:text-[#0F172A] transition-all text-[#2563EB]">
-               <PieChart className="w-6 h-6" />
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#2563EB]/20 flex items-center justify-center mb-6 sm:mb-8 border border-[#2563EB]/30 group-hover:bg-[#2563EB] group-hover:text-[#0F172A] transition-all text-[#2563EB]">
+               <PieChart className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Pro-Rata Yield</p>
-            <h3 className="text-3xl font-serif font-bold text-white mb-4">Direct Revenue Flow</h3>
+            <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Pro-Rata Yield</p>
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-3 sm:mb-4">Direct Revenue Flow</h3>
             <p className="text-slate-500 font-medium leading-relaxed text-sm">
               Own 0.58% of an asset? You receive exactly 0.58% of the net operating income from our high-frequency hospitality bookings every quarter. Absolute mathematical transparency.
             </p>
@@ -70,11 +70,11 @@ export function InvestmentMath() {
         </div>
 
         {/* Visual Example */}
-        <div className="mt-16 sm:mt-24 p-8 sm:p-14 bg-gradient-to-br from-white/[0.05] to-transparent border border-white/10 rounded-[3rem] shadow-2xl relative overflow-hidden backdrop-blur-sm">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+        <div className="mt-12 sm:mt-24 p-6 sm:p-14 bg-gradient-to-br from-white/[0.05] to-transparent border border-white/10 rounded-[2rem] sm:rounded-[3rem] shadow-2xl relative overflow-hidden backdrop-blur-sm">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10">
              <div className="md:w-1/3 text-center md:text-left">
-                <p className="text-[#2563EB] font-bold text-[10px] uppercase tracking-[0.4em] mb-2">Formula Example</p>
-                <h4 className="text-2xl font-serif font-bold text-white mb-3">Miami Waterfront Estate</h4>
+                <p className="text-[#2563EB] font-bold text-[10px] uppercase tracking-[0.4em] mb-2 sm:mb-3">Formula Example</p>
+                <h4 className="text-xl sm:text-2xl font-serif font-bold text-white mb-2 sm:mb-3">Miami Waterfront Estate</h4>
                 <p className="text-slate-400 font-medium text-sm">If the fully capitalized value of the asset is exactly $8,500,000.</p>
              </div>
              
