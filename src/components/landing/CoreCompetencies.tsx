@@ -1,179 +1,68 @@
 "use client"
 
+import { Clock, Globe, Award, ShieldCheck, ArrowRight } from "lucide-react"
 import Link from "next/link"
-import { Home, Key, TrendingUp, ArrowRight, ShieldCheck, Zap, ChevronRight, Clock, Users, Globe, Award } from "lucide-react"
 
 export function CoreCompetencies() {
   return (
-    <section className="bg-white py-16 sm:py-24 border-b border-slate-100 relative overflow-hidden">
-      {/* Subtle background glow - desktop only */}
-      <div className="hidden sm:block absolute top-0 right-0 w-[500px] h-[500px] bg-[#006AFF]/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10">
-        <div className="text-center max-w-xl mx-auto mb-10 sm:mb-16">
-          <p className="text-[#006AFF] font-bold text-[10px] uppercase tracking-widest mb-3">Platform Ecosystem</p>
-          <h2 className="text-slate-900 font-serif text-3xl sm:text-5xl font-bold tracking-tight">One platform. Three ways to win.</h2>
-        </div>
-
-        {/* MOBILE: Vertical stack with invest highlighted */}
-        <div className="flex flex-col gap-4 sm:hidden">
-          {/* Invest — BIG, first on mobile */}
-          <Link href="/apply" className="group relative bg-[#0A2540] p-7 rounded-3xl border border-slate-700 overflow-hidden flex flex-col gap-5 active:scale-[0.98] transition-transform">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#006AFF]/25 rounded-full blur-[60px] pointer-events-none" />
-            <div className="flex items-start justify-between relative z-10">
-              <div className="w-14 h-14 rounded-2xl bg-[#006AFF] flex items-center justify-center shadow-xl border border-blue-400/30">
-                <TrendingUp className="w-7 h-7 text-white" />
-              </div>
-              <div className="flex items-center gap-1.5 bg-[#006AFF] text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
-                <Zap className="w-2.5 h-2.5 fill-white" /> Top Pick
-              </div>
-            </div>
-            <div className="relative z-10">
-              <h3 className="font-serif text-2xl font-bold text-white mb-3">Invest for yield</h3>
-              <p className="text-slate-300 text-sm font-medium leading-relaxed mb-5">
-                Earn passive yield with standardized 30/60/90 return milestones and quarterly distributions. Starting at $10,000.
-              </p>
-              <div className="flex items-center gap-2 mb-5">
-                <span className="flex items-center gap-1 text-emerald-400 text-[10px] font-bold uppercase tracking-widest bg-emerald-400/10 border border-emerald-400/20 px-3 py-1.5 rounded-full"><ShieldCheck className="w-3 h-3" /> SEC Compliant</span>
-              </div>
-              <div className="w-full bg-[#006AFF] text-white py-4 rounded-xl font-bold text-xs tracking-widest uppercase text-center shadow-lg">
-                Start Investing Today
-              </div>
-            </div>
-          </Link>
-
-          {/* Buy + Rent — side by side on mobile */}
-          <div className="grid grid-cols-2 gap-4">
-            <Link href="/marketplace?tab=buy" className="group bg-slate-50 border border-slate-200 p-5 rounded-3xl flex flex-col gap-4 active:scale-[0.97] transition-transform">
-              <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm">
-                <Home className="w-6 h-6 text-slate-700" />
-              </div>
-              <div>
-                <h3 className="font-serif text-lg font-bold text-slate-900 mb-2 leading-tight">Buy a home</h3>
-                <p className="text-slate-500 text-xs font-medium leading-relaxed">Off-market luxury homes with immersive data rooms.</p>
-              </div>
-              <span className="flex items-center text-[#006AFF] text-xs font-bold mt-auto">
-                Browse <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-              </span>
-            </Link>
-
-            <Link href="/marketplace?tab=book" className="group bg-slate-50 border border-slate-200 p-5 rounded-3xl flex flex-col gap-4 active:scale-[0.97] transition-transform">
-              <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm">
-                <Key className="w-6 h-6 text-slate-700" />
-              </div>
-              <div>
-                <h3 className="font-serif text-lg font-bold text-slate-900 mb-2 leading-tight">Reserve a stay</h3>
-                <p className="text-slate-500 text-xs font-medium leading-relaxed">Live in vetted luxury fractional homes globally.</p>
-              </div>
-              <span className="flex items-center text-[#006AFF] text-xs font-bold mt-auto">
-                Explore <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-              </span>
-            </Link>
+    <section className="py-24 sm:py-32 bg-[#F1F5F9] border-t border-slate-200 overflow-hidden">
+      <div className="container mx-auto px-6 max-w-7xl">
+        
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20 sm:mb-24">
+          <div className="max-w-2xl">
+            <p className="text-[#2563EB] font-bold text-[10px] uppercase tracking-[0.4em] mb-4">Structural Integrity</p>
+            <h2 className="font-serif text-5xl sm:text-7xl text-[#0F172A] leading-[0.9] tracking-tighter">
+              Institutional <br />Foundation.
+            </h2>
+          </div>
+          <div className="max-w-md">
+            <p className="text-slate-600 font-medium text-lg sm:text-xl leading-relaxed">
+              Our model is built on physical underpinnings, not market sentiment. We operate with complete vertical integration.
+            </p>
           </div>
         </div>
 
-        {/* DESKTOP: Three columns, Invest raised in center */}
-        <div className="hidden sm:grid grid-cols-3 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
-
-          {/* Buy */}
-          <Link href="/marketplace?tab=buy" className="group bg-white p-8 lg:p-10 rounded-3xl border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
-            <div>
-              <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#006AFF]/5 transition-all duration-500 shadow-sm">
-                <Home className="w-7 h-7 text-slate-700 group-hover:text-[#006AFF] transition-colors" />
+        {/* ── PILLARS: Horizontal Swipe on Mobile ── */}
+        <div className="flex flex-row flex-nowrap lg:grid lg:grid-cols-4 gap-6 overflow-x-auto lg:overflow-x-visible no-scrollbar pb-8 lg:pb-0 snap-x snap-mandatory lg:snap-none">
+          {[
+            {
+              icon: Clock,
+              title: "Legacy",
+              desc: "Three decades of institutional execution in primary global hubs."
+            },
+            {
+              icon: Award,
+              title: "Experience",
+              desc: "Deep expertise in luxury repositioning and hospitality operations."
+            },
+            {
+              icon: Globe,
+              title: "Network",
+              desc: "Proprietary off-market deal flow within exclusive family office circles."
+            },
+            {
+              icon: ShieldCheck,
+              title: "Integrity",
+              desc: "SEC Reg D compliance with absolute transparency in reporting."
+            },
+          ].map((pillar, i) => (
+            <div
+              key={i}
+              className="snap-start shrink-0 w-[80vw] sm:w-[320px] lg:w-full group flex flex-col items-start p-10 rounded-[3rem] bg-white border border-slate-200 hover:border-[#2563EB]/40 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-[#F8FAFC] border border-slate-100 flex items-center justify-center mb-8 group-hover:bg-[#2563EB] group-hover:border-[#2563EB] transition-colors duration-500">
+                <pillar.icon className="w-6 h-6 text-[#0F172A] group-hover:text-white transition-colors duration-500" />
               </div>
-              <h3 className="font-serif text-2xl font-bold text-slate-900 mb-4">Buy a home</h3>
-              <p className="text-slate-600 font-medium leading-relaxed mb-8">
-                Find your dream primary residence or vacation home with immersive data rooms, virtual tours, and off-market inventory.
-              </p>
+              <h4 className="font-serif text-2xl font-bold text-[#0F172A] mb-4">{pillar.title}</h4>
+              <p className="text-slate-500 text-sm font-medium leading-relaxed">{pillar.desc}</p>
             </div>
-            <span className="inline-flex items-center text-slate-900 font-bold group-hover:text-[#006AFF] transition-colors">
-              Browse listings <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </Link>
-
-          {/* Invest — Center, elevated */}
-          <div className="flex flex-col -mt-6 mb-0 z-20">
-            <Link href="/apply" className="group flex-1 bg-[#0A2540] p-8 lg:p-10 rounded-3xl border border-slate-700 hover:border-[#006AFF] hover:shadow-[0_20px_60px_-15px_rgba(0,106,255,0.4)] transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#006AFF]/20 rounded-full blur-[80px] pointer-events-none group-hover:bg-[#006AFF]/40 transition-colors duration-700" />
-              <div className="absolute top-6 right-6">
-                <div className="flex items-center gap-1.5 bg-[#006AFF] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
-                  <Zap className="w-3 h-3 fill-white" /> Recommended
-                </div>
-              </div>
-              <div className="relative z-10">
-                <div className="w-20 h-20 rounded-2xl bg-[#006AFF] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-xl border border-blue-400/30">
-                  <TrendingUp className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="font-serif text-3xl font-bold text-white mb-4">Invest for yield</h3>
-                <p className="text-slate-300 font-medium leading-relaxed mb-6 text-lg">
-                  Access institutional-grade fractional assets. Earn passive yield with our standardized 30/60/90 return milestones and quarterly distributions.
-                </p>
-                <div className="flex items-center gap-3 mb-8">
-                  <span className="flex items-center gap-1 text-emerald-400 text-xs font-bold uppercase tracking-widest bg-emerald-400/10 px-3 py-1.5 rounded-full"><ShieldCheck className="w-3.5 h-3.5" /> SEC Compliant</span>
-                </div>
-              </div>
-              <span className="relative z-10 inline-flex items-center justify-center w-full bg-[#006AFF] text-white py-4 rounded-xl font-bold text-sm tracking-widest uppercase group-hover:bg-blue-500 transition-colors shadow-lg">
-                Start Investing Today
-              </span>
-            </Link>
-          </div>
-
-          {/* Rent */}
-          <Link href="/marketplace?tab=book" className="group bg-white p-8 lg:p-10 rounded-3xl border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
-            <div>
-              <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#006AFF]/5 transition-all duration-500 shadow-sm">
-                <Key className="w-7 h-7 text-slate-700 group-hover:text-[#006AFF] transition-colors" />
-              </div>
-              <h3 className="font-serif text-2xl font-bold text-slate-900 mb-4">Reserve a stay</h3>
-              <p className="text-slate-600 font-medium leading-relaxed mb-8">
-                Skip traditional hotels. Stay in fully-furnished, deeply vetted luxury fractional homes across the globe.
-              </p>
-            </div>
-            <span className="inline-flex items-center text-slate-900 font-bold group-hover:text-[#006AFF] transition-colors">
-              Find rentals <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </Link>
-
+          ))}
         </div>
 
-        {/* ── PILLARS: Legacy / Experience / Network / Integrity ── */}
-        <div className="mt-16 sm:mt-20 border-t border-slate-100 pt-12">
-          <p className="text-center text-[#006AFF] font-bold text-[10px] uppercase tracking-widest mb-10">Our Foundation</p>
-          <div className="flex sm:grid flex-row flex-nowrap sm:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto sm:overflow-x-visible no-scrollbar pb-4 sm:pb-0 snap-x snap-mandatory sm:snap-none">
-            {[
-              {
-                icon: Clock,
-                title: "Legacy",
-                desc: "Built over decades of institutional real estate execution across global tier-1 markets."
-              },
-              {
-                icon: Award,
-                title: "Experience",
-                desc: "30+ years of combined expertise in private equity, luxury development, and hospitality operations."
-              },
-              {
-                icon: Globe,
-                title: "Network",
-                desc: "Off-market deal flow sourced through an exclusive network of global family offices and brokers."
-              },
-              {
-                icon: ShieldCheck,
-                title: "Integrity",
-                desc: "SEC Reg D compliant. Full transparency on every asset, every milestone, every distribution."
-              },
-            ].map((pillar, i) => (
-              <div
-                key={i}
-                className="snap-start shrink-0 w-[80vw] sm:w-auto group flex flex-col items-start p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-[#006AFF]/30 hover:bg-white hover:shadow-lg transition-all duration-300"
-              >
-                <div className="w-11 h-11 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center mb-4 group-hover:bg-[#006AFF] group-hover:border-[#006AFF] transition-colors duration-300">
-                  <pillar.icon className="w-5 h-5 text-slate-700 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <h4 className="font-serif text-lg font-bold text-slate-900 mb-2">{pillar.title}</h4>
-                <p className="text-slate-500 text-xs font-medium leading-relaxed">{pillar.desc}</p>
-              </div>
-            ))}
-          </div>
+        <div className="mt-20 flex justify-center">
+           <Link href="/about" className="group flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.4em] text-[#0F172A] hover:text-[#2563EB] transition-colors">
+             Learn More About Our Foundation <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+           </Link>
         </div>
 
       </div>

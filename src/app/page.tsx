@@ -11,22 +11,24 @@ export default function LandingPage() {
     <main className="min-h-screen w-full bg-[#F8FAFC]">
       <HomeHero />
 
-      {/* Narrative & Yield Thesis */}
+      {/* ── IMMEDIATE VALUE: The Collection (Moved Up) ── */}
+      <div id="collection" className="scroll-mt-20">
+        <FeaturedProperties />
+      </div>
+
+      {/* ── THE THESIS: Narrative & Yield ── */}
       <SovereignStory />
       
-      {/* Structural Alpha & Comparison */}
+      {/* ── THE DIFFERENTIATOR: Comparison (Airbnb/Zillow) ── */}
       <HowItWorks />
       
-      {/* The Collection: Swipeable Carousel */}
-      <FeaturedProperties />
-      
-      {/* Foundation & Pillars */}
+      {/* ── THE FOUNDATION: Pillars ── */}
       <CoreCompetencies />
       
-      {/* Testimonials: Investor Results */}
+      {/* ── THE PROOF: Testimonials ── */}
       <Testimonials />
       
-      {/* Final Inquiry */}
+      {/* ── FINAL CTAs: Simplified Wording ── */}
       <FinalCTA />
     </main>
   )

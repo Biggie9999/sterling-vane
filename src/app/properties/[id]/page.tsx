@@ -239,7 +239,7 @@ export default async function PropertyPage({ params }: { params: { id: string } 
               href={`/apply?propertyId=${property.slug}`}
               className="w-full flex justify-between items-center bg-[#2563EB] text-white py-5 px-8 rounded-2xl font-bold uppercase tracking-[0.3em] text-[11px] hover:bg-white hover:text-[#0F172A] transition-all duration-500 shadow-xl group/btn"
             >
-              <span>Initiate Allocation</span>
+              <span>Get Started</span>
               <ArrowUpRight className="w-5 h-5 group-hover/btn:-rotate-45 transition-transform duration-500" />
             </Link>
 
