@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Home, Key, TrendingUp, ArrowRight, ShieldCheck, Zap, ChevronRight } from "lucide-react"
+import { Home, Key, TrendingUp, ArrowRight, ShieldCheck, Zap, ChevronRight, Clock, Users, Globe, Award } from "lucide-react"
 
 export function CoreCompetencies() {
   return (
@@ -135,6 +135,47 @@ export function CoreCompetencies() {
           </Link>
 
         </div>
+
+        {/* ── PILLARS: Legacy / Experience / Network / Integrity ── */}
+        <div className="mt-16 sm:mt-20 border-t border-slate-100 pt-12">
+          <p className="text-center text-[#006AFF] font-bold text-[10px] uppercase tracking-widest mb-10">Our Foundation</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+            {[
+              {
+                icon: Clock,
+                title: "Legacy",
+                desc: "Built over decades of institutional real estate execution across global tier-1 markets."
+              },
+              {
+                icon: Award,
+                title: "Experience",
+                desc: "30+ years of combined expertise in private equity, luxury development, and hospitality operations."
+              },
+              {
+                icon: Globe,
+                title: "Network",
+                desc: "Off-market deal flow sourced through an exclusive network of global family offices and brokers."
+              },
+              {
+                icon: ShieldCheck,
+                title: "Integrity",
+                desc: "SEC Reg D compliant. Full transparency on every asset, every milestone, every distribution."
+              },
+            ].map((pillar, i) => (
+              <div
+                key={i}
+                className="group flex flex-col items-start p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-[#006AFF]/30 hover:bg-white hover:shadow-lg transition-all duration-300"
+              >
+                <div className="w-11 h-11 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center mb-4 group-hover:bg-[#006AFF] group-hover:border-[#006AFF] transition-colors duration-300">
+                  <pillar.icon className="w-5 h-5 text-slate-700 group-hover:text-white transition-colors duration-300" />
+                </div>
+                <h4 className="font-serif text-lg font-bold text-slate-900 mb-2">{pillar.title}</h4>
+                <p className="text-slate-500 text-xs font-medium leading-relaxed">{pillar.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   )

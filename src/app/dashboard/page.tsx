@@ -277,9 +277,9 @@ export default function DashboardOverviewPage() {
 
           {/* Performance Targets */}
           <div className="mt-12 pt-10 border-t border-[#0F172A]/5 space-y-8">
-            <ROIBar label="Allocation Milestone 1" value={30} />
-            <ROIBar label="Allocation Milestone 2" value={60} />
-            <ROIBar label="Allocation Milestone 3" value={90} />
+            <ROIBar label="Month 2 Milestone" value={30} />
+            <ROIBar label="Month 4 Milestone" value={60} />
+            <ROIBar label="Month 6 Peak Yield" value={90} />
           </div>
         </div>
 

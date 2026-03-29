@@ -1,12 +1,14 @@
 "use client"
 
-import { LineChart, Lock, Users, ArrowRight, Check, X as XIcon } from "lucide-react"
+import { Check, ArrowRight } from "lucide-react"
+import Link from "next/link"
+import Image from "next/image"
 
 const COMPARISON = [
   { feature: "Minimum Investment", sterling: "$5,000", fundrise: "$10+", realty: "$5,000" },
   { feature: "Guaranteed Yield Milestones", sterling: true, fundrise: false, realty: false },
-  { feature: "30% Return in 60 Days", sterling: true, fundrise: false, realty: false },
-  { feature: "90% Return in 6 Months", sterling: true, fundrise: false, realty: false },
+  { feature: "30% Return at Month 2", sterling: true, fundrise: false, realty: false },
+  { feature: "90% Return at Month 6", sterling: true, fundrise: false, realty: false },
   { feature: "Luxury Off-Market Properties", sterling: true, fundrise: false, realty: false },
   { feature: "Quarterly Cash Distributions", sterling: true, fundrise: true, realty: true },
   { feature: "UHNW Short-Term Rental Model", sterling: true, fundrise: false, realty: false },
@@ -14,26 +16,32 @@ const COMPARISON = [
   { feature: "SEC Reg D Compliant", sterling: true, fundrise: true, realty: true },
 ]
 
+const X_ICON = () => (
+  <svg viewBox="0 0 24 24" className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" strokeWidth={2}>
+    <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" />
+  </svg>
+)
+
 export function HowItWorks() {
   const steps = [
     {
-      title: "1. Vetted Luxury Acquisitions",
+      title: "Acquisition",
       description: "Our institutional team underwrites entirely off-market luxury housing, focusing on tier-1 ZIP codes with extreme short-term rental arbitrage potential.",
-      image: "https://images.unsplash.com/photo-1600607687931-570d510fffc4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      icon: <Lock className="w-5 h-5 text-[#006AFF]" />
+      image: "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      phase: "Phase 1",
     },
     {
-      title: "2. The 30/60/90 Yield Curve",
-      description: "Instead of volatile equity, our assets deliver structured performance milestones: 30% at month 2, 60% at month 4, and 90% by month 6.",
+      title: "Stabilization",
+      description: "Targeted capital improvements, concierge-level hospitality onboarding, and global marketing ramp-up — delivering 30% yield by Month 2.",
       image: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      icon: <LineChart className="w-5 h-5 text-[#006AFF]" />
+      phase: "Phase 2",
     },
     {
-      title: "3. Fractionally Owned, Fully Managed",
-      description: "You purchase digital shares starting at just $5,000. We handle global concierge marketing, UHNW tenant screening, and all property management.",
+      title: "Distribution",
+      description: "Fully operational hospitality yield engine. Investors receive structured distributions aligned to the 30/60/90 milestone schedule.",
       image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      icon: <Users className="w-5 h-5 text-[#006AFF]" />
-    }
+      phase: "Phase 3",
+    },
   ]
 
   return (
@@ -51,45 +59,43 @@ export function HowItWorks() {
           </p>
         </div>
 
-        {/* Narrative Grid - mobile: vertical stack with image on side */}
-        <div className="flex flex-col gap-8 md:grid md:grid-cols-3 md:gap-10 max-w-6xl mx-auto mb-20">
+        {/* ── MOBILE: Horizontal scroll row ── */}
+        <div
+          className="sm:hidden flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth mb-14"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {steps.map((step, index) => (
+            <div key={index} className="snap-start shrink-0 w-[75vw] max-w-[260px] flex flex-col">
+              <div className="relative h-44 rounded-2xl overflow-hidden mb-4">
+                <img src={step.image} alt={step.title} className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <span className="absolute top-3 left-3 bg-white/90 text-[#1a1a1a] text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">{step.phase}</span>
+              </div>
+              <h3 className="font-serif text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
+              <p className="text-slate-500 text-xs font-medium leading-relaxed">{step.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* ── DESKTOP: 3-column grid ── */}
+        <div className="hidden sm:grid grid-cols-3 gap-10 max-w-6xl mx-auto mb-20">
           {steps.map((step, index) => (
             <div key={index} className="group">
-              {/* Mobile: horizontal card layout */}
-              <div className="md:hidden flex gap-5 bg-slate-50 rounded-3xl overflow-hidden border border-slate-100 p-0">
-                <div className="relative w-32 shrink-0 overflow-hidden rounded-l-3xl">
-                  <img
-                    src={step.image}
-                    alt={step.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div className="absolute top-3 left-3 w-9 h-9 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center shadow-md">
-                    {step.icon}
-                  </div>
-                </div>
-                <div className="flex-1 py-5 pr-5">
-                  <h3 className="font-serif text-base font-bold text-slate-900 mb-2 leading-snug">{step.title}</h3>
-                  <p className="text-slate-600 text-xs font-medium leading-relaxed">{step.description}</p>
-                </div>
+              <div className="relative h-[380px] lg:h-[440px] rounded-3xl overflow-hidden mb-6 shadow-sm">
+                <div className="absolute inset-0 bg-slate-100" />
+                <img
+                  src={step.image}
+                  alt={step.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-[#1a1a1a] text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">{step.phase}</div>
               </div>
-
-              {/* Desktop: tall image card */}
-              <div className="hidden md:flex flex-col">
-                <div className="relative h-[380px] lg:h-[440px] rounded-3xl overflow-hidden mb-6 shadow-sm">
-                  <div className="absolute inset-0 bg-slate-100" />
-                  <img
-                    src={step.image}
-                    alt={step.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                  <div className="absolute top-4 left-4 w-12 h-12 bg-white/90 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg">
-                    {step.icon}
-                  </div>
-                </div>
-                <h3 className="font-serif text-xl font-bold text-slate-900 mb-3">{step.title}</h3>
-                <p className="text-slate-600 font-medium leading-relaxed text-sm">{step.description}</p>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="w-6 h-6 rounded-full bg-[#006AFF] text-white text-[10px] font-bold flex items-center justify-center">{index + 1}</span>
+                <h3 className="font-serif text-xl font-bold text-slate-900">{step.title}</h3>
               </div>
+              <p className="text-slate-600 font-medium leading-relaxed text-sm">{step.description}</p>
             </div>
           ))}
         </div>
@@ -103,7 +109,6 @@ export function HowItWorks() {
           </div>
 
           <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
-            {/* Table Header */}
             <div className="grid grid-cols-4 bg-slate-50 border-b border-slate-200">
               <div className="p-4 sm:p-5 col-span-1">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Feature</p>
@@ -120,7 +125,6 @@ export function HowItWorks() {
               </div>
             </div>
 
-            {/* Rows */}
             {COMPARISON.map((row, i) => (
               <div key={i} className={`grid grid-cols-4 border-b border-slate-100 last:border-0 ${i % 2 === 0 ? "" : "bg-slate-50/50"}`}>
                 <div className="p-3 sm:p-4 flex items-center">
@@ -128,21 +132,21 @@ export function HowItWorks() {
                 </div>
                 <div className="p-3 sm:p-4 bg-[#0A2540]/3 border-l-2 border-[#006AFF] flex items-center justify-center">
                   {typeof row.sterling === "boolean" ? (
-                    row.sterling ? <Check className="w-5 h-5 text-emerald-500" /> : <XIcon className="w-4 h-4 text-red-400" />
+                    row.sterling ? <Check className="w-5 h-5 text-emerald-500" /> : <X_ICON />
                   ) : (
                     <span className="text-xs sm:text-sm font-bold text-[#006AFF] text-center">{row.sterling}</span>
                   )}
                 </div>
                 <div className="p-3 sm:p-4 border-l border-slate-100 flex items-center justify-center">
                   {typeof row.fundrise === "boolean" ? (
-                    row.fundrise ? <Check className="w-4 h-4 text-emerald-400" /> : <XIcon className="w-4 h-4 text-slate-300" />
+                    row.fundrise ? <Check className="w-4 h-4 text-emerald-400" /> : <X_ICON />
                   ) : (
                     <span className="text-xs sm:text-sm text-slate-600 text-center">{row.fundrise}</span>
                   )}
                 </div>
                 <div className="p-3 sm:p-4 border-l border-slate-100 flex items-center justify-center">
                   {typeof row.realty === "boolean" ? (
-                    row.realty ? <Check className="w-4 h-4 text-emerald-400" /> : <XIcon className="w-4 h-4 text-slate-300" />
+                    row.realty ? <Check className="w-4 h-4 text-emerald-400" /> : <X_ICON />
                   ) : (
                     <span className="text-xs sm:text-sm text-slate-600 text-center">{row.realty}</span>
                   )}

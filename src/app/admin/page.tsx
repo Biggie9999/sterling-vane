@@ -13,8 +13,12 @@ export default function AdminPage() {
   const [pendingWires, setPendingWires] = useState<any[]>([])
   const [recentUsers, setRecentUsers] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [tab, setTab] = useState<"overview" | "investors" | "units" | "distributions" | "wires">("overview")
+  const [tab, setTab] = useState<"overview" | "investors" | "units" | "distributions" | "wires" | "media">("overview")
   const [wireStatuses, setWireStatuses] = useState<Record<string, "pending" | "confirmed" | "rejected">>({})
+  const [founderFile, setFounderFile] = useState<File | null>(null)
+  const [founderPreview, setFounderPreview] = useState<string | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const [uploadMsg, setUploadMsg] = useState<string | null>(null)
 
   useEffect(() => {
     async function fetchAdminData() {
@@ -84,12 +88,13 @@ export default function AdminPage() {
         <div className="absolute top-0 right-0 w-[500px] h-full bg-[#2563EB]/5 blur-[120px] rounded-full translate-x-1/2 pointer-events-none" />
       </div>
 
-      {/* Tabs Navigation (Internal to Admin) */}
-      <div className="flex gap-6 border-b border-[#0F172A]/5 px-2">
+      {/* Tabs Navigation */}
+      <div className="flex gap-6 border-b border-[#0F172A]/5 px-2 overflow-x-auto">
         {[
           { id: "overview", label: "Overview", icon: Activity },
           { id: "wires", label: `Capital Queue (${pendingWires.filter(w => wireStatuses[w.id] === "pending").length})`, icon: Landmark },
           { id: "investors", label: `Partner Manifest`, icon: Users },
+          { id: "media", label: `Site Media`, icon: ShieldCheck },
         ].map((t) => (
           <button
             key={t.id}
@@ -115,7 +120,7 @@ export default function AdminPage() {
               { label: "Equity Under Control", value: `$${(totalRaised/1000000).toFixed(2)}M`, sub: `Portfolio Valuation`, icon: DollarSign, trend: "+8.2%" },
               { label: "Verified Partners", value: stats?.totalInvestors || 0, sub: `Active Allocators`, icon: Users, trend: "+12.4%" },
               { label: "Active Collection", value: stats?.activeProperties || 0, sub: `Stabilized Assets`, icon: Home, trend: "Stable" },
-              { label: "Sovereign Yield", value: "32.4%", sub: "Net Monthly Target", icon: TrendingUp, trend: "+0.6%" },
+              { label: "Peak Yield Target", value: "90%", sub: "Achieved at Month 6", icon: TrendingUp, trend: "Month 6" },
             ].map((k) => (
               <div key={k.label} className="bg-white border border-[#0F172A]/5 rounded-[2.5rem] p-10 hover:shadow-xl transition-all duration-500 group relative overflow-hidden">
                 <div className="flex items-center justify-between mb-10">
@@ -281,6 +286,70 @@ export default function AdminPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+      )}
+      {/* MEDIA MANAGEMENT */}
+      {tab === "media" && (
+        <div className="space-y-10 max-w-2xl">
+          <div className="bg-white border border-[#0F172A]/5 rounded-[3rem] p-12 shadow-sm">
+            <div className="flex items-center gap-3 mb-8">
+              <ShieldCheck className="w-5 h-5 text-[#2563EB]" />
+              <h2 className="text-lg font-serif font-bold text-[#0F172A] tracking-tight">Founder Image</h2>
+            </div>
+            <p className="text-[#64748B] text-sm mb-8 leading-relaxed">
+              Upload the founder photo displayed on the homepage. Appears in the "Execution &amp; Track Record" section.
+            </p>
+
+            {/* Current / Preview */}
+            <div className="relative h-64 w-full rounded-2xl overflow-hidden bg-[#F8FAFC] border border-[#0F172A]/5 mb-8">
+              <img
+                src={founderPreview || "/founder.jpg"}
+                alt="Founder preview"
+                className="w-full h-full object-cover object-top"
+                onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" }}
+              />
+              <div className="absolute top-3 left-3 bg-[#0F172A]/70 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                {founderPreview ? "New Preview" : "Current Image"}
+              </div>
+            </div>
+
+            <label className="block mb-6">
+              <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-[#64748B] mb-3">Select New Image</span>
+              <input
+                type="file"
+                accept="image/*"
+                className="block w-full text-sm text-[#64748B] file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-bold file:uppercase file:tracking-widest file:bg-[#006AFF] file:text-white hover:file:bg-blue-700 cursor-pointer"
+                onChange={(e) => {
+                  const f = e.target.files?.[0] ?? null
+                  setFounderFile(f)
+                  if (f) setFounderPreview(URL.createObjectURL(f))
+                }}
+              />
+            </label>
+
+            <button
+              disabled={!founderFile || uploading}
+              onClick={async () => {
+                if (!founderFile) return
+                setUploading(true)
+                setUploadMsg(null)
+                const fd = new FormData()
+                fd.append("file", founderFile)
+                const res = await fetch("/api/admin/upload-founder", { method: "POST", body: fd })
+                const json = await res.json()
+                setUploading(false)
+                setUploadMsg(json.success ? "Image updated successfully!" : "Upload failed. Try again.")
+                if (json.success) setFounderFile(null)
+              }}
+              className="w-full py-5 bg-[#0F172A] text-white rounded-2xl font-bold uppercase tracking-[0.3em] text-[11px] hover:bg-[#2563EB] transition-all duration-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+            >
+              {uploading ? <><Loader2 className="w-4 h-4 animate-spin" /> Uploading...</> : "Save Founder Image"}
+            </button>
+
+            {uploadMsg && (
+              <p className={`mt-4 text-sm font-bold text-center ${uploadMsg.includes("successfully") ? "text-emerald-500" : "text-red-400"}`}>{uploadMsg}</p>
+            )}
           </div>
         </div>
       )}
