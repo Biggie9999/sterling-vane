@@ -7,10 +7,8 @@ import { Suspense } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   ChevronRight, Lock, CheckCircle2, Copy, Building2,
-  Globe, Hash, CreditCard, AlertCircle, Clock, Mail,
-  TrendingUp, Home, Key, MapPin, ShieldCheck, ArrowRight, Info, Zap, Shield
+  ArrowRight, ShieldCheck, Shield, MapPin
 } from "lucide-react"
-
 import { DEMO_PROPERTIES } from "@/data/properties"
 
 const WIRE_DETAILS = {
@@ -21,18 +19,22 @@ const WIRE_DETAILS = {
   swiftCode: "CHASUS33",
   bankAddress: "383 Madison Avenue, New York, NY 10017",
   minimumAmount: 10000,
-  maximumAmount: 5000000,
 }
 
 type Step = 0 | 1 | 2
-
 const STEPS = ["Amount", "Verification", "Transfer"]
+
+const fade = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -8 },
+  transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
+}
 
 function ApplyForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { data: session, status } = useSession()
-
   const prefillId = searchParams.get("propertyId") || searchParams.get("property")
 
   const [step, setStep] = useState<Step>(0)
@@ -43,45 +45,36 @@ function ApplyForm() {
   const [dbProperties, setDbProperties] = useState<any[]>([])
 
   useEffect(() => {
-    async function fetchProperties() {
-      try {
-        const res = await fetch("/api/properties")
-        const data = await res.json()
+    fetch("/api/properties")
+      .then(r => r.json())
+      .then(data => {
         if (Array.isArray(data)) {
           setDbProperties(data)
-          if (!prefillId && data.length > 0) {
-            setSelectedPropertyId(data[0].id)
-          } else if (prefillId) {
-             setSelectedPropertyId(prefillId)
-          }
+          if (!prefillId && data.length > 0) setSelectedPropertyId(data[0].id)
+          else if (prefillId) setSelectedPropertyId(prefillId)
         }
-      } catch (err) {
-        console.error("Failed to fetch properties:", err)
-      }
-    }
-    fetchProperties()
+      })
+      .catch(console.error)
   }, [prefillId])
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login?mode=signup")
-    }
+    if (status === "unauthenticated") router.push("/login?mode=signup")
   }, [status, router])
 
   const selectedProperty = dbProperties.find(p => p.id === selectedPropertyId) || dbProperties[0] || DEMO_PROPERTIES[0]
-  const update = (field: string, value: string | boolean) => setForm(f => ({ ...f, [field]: value }))
-  
-  const handleCopy = (text: string, field: string) => { 
+  const update = (field: string, value: string) => setForm(f => ({ ...f, [field]: value }))
+  const handleCopy = (text: string, field: string) => {
     navigator.clipboard.writeText(text)
     setCopied(field)
-    setTimeout(() => setCopied(null), 2000) 
+    setTimeout(() => setCopied(null), 2000)
   }
 
   const sharesNum = Math.max(1, parseInt(form.shares) || 1)
   const totalAmount = sharesNum * (selectedProperty?.pricePerShare || 0)
   const minShares = Math.ceil(WIRE_DETAILS.minimumAmount / (selectedProperty?.pricePerShare || 1000))
-
   const userAccreditation = (session?.user as any)?.accreditation || "none"
+  const userName = session?.user?.name || "Investor"
+  const wireReference = `SV-${userName.split(" ").slice(-1)[0].toUpperCase().slice(0,4)}-${Date.now().toString().slice(-4)}`
 
   const handleApply = async () => {
     setLoading(true)
@@ -89,19 +82,11 @@ function ApplyForm() {
       const res = await fetch("/api/investments/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          propertyId: selectedProperty.id,
-          amount: totalAmount,
-          shares: sharesNum,
-          accreditation: form.eligibility || userAccreditation
-        })
+        body: JSON.stringify({ propertyId: selectedProperty.id, amount: totalAmount, shares: sharesNum, accreditation: form.eligibility || userAccreditation })
       })
       const data = await res.json()
-      if (res.ok) {
-        setStep(2)
-      } else {
-        throw new Error(data.error || "Submission failed")
-      }
+      if (res.ok) setStep(2)
+      else throw new Error(data.error || "Submission failed")
     } catch (err: any) {
       alert(err.message || "Failed to initiate investment.")
     } finally {
@@ -109,258 +94,222 @@ function ApplyForm() {
     }
   }
 
-  const handleContinueFromShares = () => {
-    if (userAccreditation !== "none") {
-      handleApply()
-    } else {
-      setStep(1)
-    }
-  }
-
-  const userName = session?.user?.name || "Sterling Investor"
-  const refLastName = userName.split(" ").slice(-1)[0] || "INV"
-  const wireReference = `SV-${refLastName.toUpperCase()}-${Date.now().toString().slice(-4)}`
-
   if (status === "loading" || status === "unauthenticated") {
     return (
       <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
-        <div className="w-10 h-10 border-2 border-[#2563EB] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#2563EB] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
 
+  const imgs: string[] = (typeof selectedProperty?.images === "string"
+    ? JSON.parse(selectedProperty.images)
+    : selectedProperty?.images) ?? []
+
   return (
-    <main className="min-h-screen bg-[#F8FAFC] pt-32 pb-40">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center gap-6 mb-20 max-w-lg mx-auto lg:mx-0">
+    <main className="min-h-screen bg-[#F8FAFC] pt-24 pb-24">
+      <div className="max-w-lg mx-auto px-4 sm:px-6">
+
+        {/* Step indicator */}
+        <div className="flex items-center gap-3 mb-8">
           {STEPS.map((s, i) => (
-            <div key={s} className="flex-1 flex flex-col gap-3">
-              <div className={`h-[2px] rounded-full transition-all duration-1000 ${i <= step ? "bg-[#2563EB]" : "bg-[#0F172A]/5"}`} />
-              <p className={`text-[10px] font-bold uppercase tracking-[0.3em] font-sans transition-all duration-700 ${i === step ? "text-[#0F172A] opacity-100" : "text-[#64748B] opacity-40"}`}>
-                {s}
-              </p>
+            <div key={s} className="flex-1 flex flex-col gap-2">
+              <div className={`h-[2px] rounded-full transition-all duration-700 ${i <= step ? "bg-[#2563EB]" : "bg-slate-200"}`} />
+              <p className={`text-[9px] font-bold uppercase tracking-[0.3em] transition-all ${i === step ? "text-[#0F172A]" : "text-slate-400"}`}>{s}</p>
             </div>
           ))}
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-20">
-          <div className="flex-1 max-w-2xl">
-            <AnimatePresence mode="wait">
-              {step === 0 && (
-                <motion.div 
-                   key="step0"
-                   initial={{ opacity: 0, x: -10 }}
-                   animate={{ opacity: 1, x: 0 }}
-                   exit={{ opacity: 0, x: 10 }}
-                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <div className="mb-12">
-                    <p className="font-sans font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Investment Allocation</p>
-                    <h1 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-10 leading-[1.05] tracking-tight">
-                      Confirm your <br />
-                      <span className="text-[#2563EB]">Investment.</span>
-                    </h1>
-                  </div>
+        <AnimatePresence mode="wait">
 
-                  <div className="bg-white rounded-[3.5rem] border border-[#0F172A]/5 p-12 lg:p-14 shadow-sm mb-12">
-                     <div className="flex items-center gap-8 mb-14 pb-14 border-b border-[#F8FAFC]">
-                        <div className="w-28 h-28 rounded-3xl overflow-hidden shrink-0 shadow-xl border border-[#0F172A]/5">
-                           <img src={selectedProperty?.images?.[0]} className="w-full h-full object-cover" alt="Asset" />
-                        </div>
-                        <div>
-                           <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-[0.4em] mb-2">{selectedProperty?.market} Active Asset</p>
-                           <h3 className="text-3xl font-serif font-bold text-[#0F172A] mb-2">{selectedProperty?.name}</h3>
-                           <p className="text-[#64748B] text-xs font-bold flex items-center gap-2 uppercase tracking-widest leading-none"><MapPin className="w-4 h-4 text-[#2563EB]" /> {selectedProperty?.location}</p>
-                        </div>
-                     </div>
+          {/* ── STEP 0: AMOUNT ── */}
+          {step === 0 && (
+            <motion.div key="step0" {...fade}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB] mb-2">Investment Allocation</p>
+              <h1 className="text-3xl font-serif font-bold text-[#0F172A] mb-6 leading-tight tracking-tight">
+                Confirm your<br /><span className="text-[#2563EB]">Investment.</span>
+              </h1>
 
-                     <div className="space-y-14">
-                        <div>
-                           <div className="flex justify-between items-end mb-8">
-                              <p className="text-[11px] font-bold text-[#0F172A] uppercase tracking-widest">Share Allocation</p>
-                              <p className="text-5xl font-serif font-bold text-[#0F172A]">{form.shares} <span className="text-[11px] text-[#64748B] uppercase tracking-widest font-sans align-middle ml-2">Units</span></p>
-                           </div>
-                           <input
-                              type="range"
-                              min={minShares}
-                              max={100}
-                              value={form.shares}
-                              onChange={e => update("shares", e.target.value)}
-                              className="w-full h-1.5 bg-[#F8FAFC] rounded-full appearance-none cursor-pointer accent-[#2563EB]"
-                           />
-                        </div>
-
-                        <div className="p-10 bg-[#F8FAFC] rounded-[2.5rem] border border-[#0F172A]/5">
-                           <div className="flex justify-between items-center mb-1">
-                              <p className="text-[11px] font-bold text-[#64748B] uppercase tracking-widest leading-none">Total Investment</p>
-                              <p className="text-4xl font-serif font-bold text-[#2563EB] tracking-tighter">${totalAmount.toLocaleString()}</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-                  <button 
-                    onClick={handleContinueFromShares}
-                    disabled={totalAmount < WIRE_DETAILS.minimumAmount}
-                    className="w-full py-7 bg-[#0F172A] text-white rounded-[2rem] font-bold uppercase tracking-[0.2em] text-[12px] hover:bg-[#2563EB] hover:text-[#0F172A] transition-all duration-500 shadow-2xl flex items-center justify-center gap-4 group disabled:opacity-20"
-                  >
-                    Continue to Details <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </motion.div>
-              )}
-
-              {step === 1 && (
-                <motion.div 
-                   key="step1"
-                   initial={{ opacity: 0, x: -10 }}
-                   animate={{ opacity: 1, x: 0 }}
-                   exit={{ opacity: 0, x: 10 }}
-                >
-                  <p className="font-sans font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-4">Investment Identity</p>
-                  <h1 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-8 leading-[1.05] tracking-tight">
-                    Verify Your <br />
-                    <span className="text-[#2563EB]">Status.</span>
-                  </h1>
-
-                  <div className="bg-[#F8FAFC] border border-[#0F172A]/5 rounded-[2.5rem] p-10 mb-12 flex gap-6">
-                     <Shield className="w-6 h-6 text-[#2563EB] shrink-0 mt-0.5" />
-                     <p className="text-xs text-[#64748B] leading-relaxed font-semibold uppercase tracking-wider">
-                        <strong className="text-[#0F172A]">Qualification Required.</strong> Private real estate offerings are restricted to participants who meet income or net worth thresholds.
-                     </p>
-                  </div>
-
-                  <div className="space-y-5 mb-16 text-left">
-                     {[
-                        { id: "income", label: "Annual Income", sub: ">$200k/year (or $300k joint)" },
-                        { id: "networth", label: "Capital Net Worth", sub: ">$1M excluding home" },
-                        { id: "entity", label: "Institutional Entity", sub: "Corporation or Trust with >$5M assets" }
-                     ].map(opt => (
-                        <button 
-                           key={opt.id}
-                           onClick={() => update("eligibility", opt.id)}
-                           className={`w-full flex items-center justify-between p-10 rounded-[2.5rem] border transition-all duration-700 text-left ${form.eligibility === opt.id ? "border-[#2563EB] bg-white shadow-2xl scale-[1.02]" : "border-[#0F172A]/5 bg-white/50 hover:bg-white"}`}
-                        >
-                           <div>
-                              <p className={`font-serif font-bold text-2xl mb-1 ${form.eligibility === opt.id ? "text-[#0F172A]" : "text-[#64748B]"}`}>{opt.label}</p>
-                              <p className="text-[10px] text-[#64748B] font-bold uppercase tracking-widest">{opt.sub}</p>
-                           </div>
-                           <div className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all duration-500 ${form.eligibility === opt.id ? "border-[#2563EB] bg-[#2563EB]" : "border-[#0F172A]/10"}`}>
-                              {form.eligibility === opt.id && <div className="w-2 h-2 rounded-full bg-[#0F172A]" />}
-                           </div>
-                        </button>
-                     ))}
-                  </div>
-
-                  <div className="flex items-center justify-between gap-10">
-                     <button onClick={() => setStep(0)} className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#64748B] hover:text-[#0F172A] transition-colors leading-[1]">← Back</button>
-                     <button 
-                        onClick={handleApply}
-                        disabled={loading || !form.eligibility}
-                        className="flex-1 py-7 bg-[#0F172A] text-white rounded-[2rem] font-bold uppercase tracking-[0.2em] text-[12px] hover:bg-[#2563EB] hover:text-[#0F172A] transition-all duration-500 shadow-2xl flex items-center justify-center gap-4 disabled:opacity-20 group"
-                     >
-                        {loading ? <span className="w-5 h-5 border-2 border-[#2563EB] border-t-white rounded-full animate-spin" /> : (
-                          <>Confirm & Generate Transfer <ArrowRight className="w-4 h-4 group-hover:translate-x-1" /></>
-                        )}
-                     </button>
-                  </div>
-                </motion.div>
-              )}
-
-              {step === 2 && (
-                <motion.div 
-                   key="step2"
-                   initial={{ opacity: 0, scale: 0.98 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                >
-                   <p className="font-sans font-bold text-[10px] uppercase tracking-[0.4em] text-[#2563EB] mb-6 text-center">Final Phase</p>
-                   <h1 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] mb-6 leading-[1.05] text-center tracking-tight">Transfer Details</h1>
-                   <p className="text-[#64748B] font-sans font-medium text-base text-center mb-16 max-w-sm mx-auto">Follow these details to finalize your acquisition in <strong className="text-[#0F172A] font-bold">{selectedProperty.name}</strong>.</p>
-
-                   <div className="bg-[#0F172A] text-white rounded-[4rem] p-14 mb-16 shadow-2xl relative overflow-hidden text-center group border border-white/5">
-                      <div className="absolute top-0 right-0 w-60 h-60 bg-[#2563EB]/20 blur-[100px] group-hover:bg-[#2563EB]/30 transition-colors duration-[2000ms]" />
-                      <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.4em] mb-4">Total Amount to Transfer (USD)</p>
-                      <p className="text-6xl sm:text-8xl font-serif font-bold text-[#2563EB] mb-4 tracking-tighter">${totalAmount.toLocaleString()}</p>
-                      <p className="text-white/40 text-[11px] font-bold uppercase tracking-[0.2em] italic">Confirmed for {form.shares} units</p>
-                   </div>
-
-                   <div className="bg-white border border-[#0F172A]/5 rounded-[3.5rem] overflow-hidden mb-16 shadow-sm">
-                      <div className="px-12 py-8 border-b border-[#F8FAFC] bg-[#F8FAFC]/30 flex items-center justify-between">
-                         <div className="flex items-center gap-4">
-                            <Building2 className="w-6 h-6 text-[#2563EB]" />
-                            <p className="font-bold text-[11px] uppercase tracking-[0.3em] text-[#64748B] pt-0.5">Wire Protocol Details</p>
-                         </div>
-                         <div className="px-4 py-2 bg-[#2563EB]/10 text-[#2563EB] text-[9px] font-bold uppercase tracking-widest rounded-full">Secure Tier</div>
-                      </div>
-                      <div className="px-12 divide-y divide-[#F8FAFC]">
-                         {[
-                            { label: "Bank Institution", val: WIRE_DETAILS.bankName, id: "bank" },
-                            { label: "ABA / Routing", val: WIRE_DETAILS.routingNumber, id: "routing" },
-                            { label: "Account Number", val: WIRE_DETAILS.accountNumber, id: "acc" },
-                            { label: "Transfer Reference", val: wireReference, id: "ref" }
-                         ].map(field => (
-                            <div key={field.id} className="py-10 flex items-center justify-between gap-10 group">
-                               <div className="flex-1">
-                                  <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#64748B] mb-3">{field.label}</p>
-                                  <p className="text-[#0F172A] font-mono font-bold text-2xl leading-none tracking-tight">{field.val}</p>
-                               </div>
-                               <button 
-                                  onClick={() => handleCopy(field.val, field.id)}
-                                  className="flex items-center gap-3 px-6 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-[0.2em] text-[#64748B] border border-transparent hover:border-[#2563EB]/20 hover:text-[#2563EB] hover:bg-[#2563EB]/5 transition-all duration-500"
-                               >
-                                  {copied === field.id ? <CheckCircle2 className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
-                                  {copied === field.id ? "Copied" : "Copy"}
-                                </button>
-                            </div>
-                         ))}
-                      </div>
-                   </div>
-
-                   <button 
-                      onClick={() => router.push("/dashboard")}
-                      className="w-full py-7 bg-[#0F172A] text-white rounded-[2rem] font-bold uppercase tracking-[0.2em] text-[12px] hover:bg-[#2563EB] hover:text-[#0F172A] transition-all duration-500 shadow-2xl flex items-center justify-center gap-4 group"
-                   >
-                      Go to Dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                   </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <aside className="hidden lg:block w-[420px] shrink-0">
-             <div className="sticky top-32 bg-white rounded-[3.5rem] border border-[#0F172A]/5 p-14 shadow-sm relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#2563EB]/5 blur-3xl rounded-full" />
-                <p className="font-sans font-bold text-[11px] uppercase tracking-[0.4em] text-[#2563EB] mb-10">Investment Portfolio</p>
-                <div className="space-y-12">
-                   <div>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#64748B] mb-3">Asset Allocation</p>
-                      <p className="text-2xl font-serif font-bold text-[#0F172A] leading-tight">{selectedProperty?.name}</p>
-                   </div>
-                   <div className="grid grid-cols-2 gap-10 border-t border-[#F8FAFC] pt-12">
-                      <div>
-                         <p className="text-[9px] font-bold uppercase tracking-widest text-[#64748B] mb-1">Target Yield</p>
-                         <p className="text-2xl font-serif font-bold text-[#2563EB]">{selectedProperty?.yieldEstimate}%</p>
-                      </div>
-                      <div>
-                         <p className="text-[9px] font-bold uppercase tracking-widest text-[#64748B] mb-1">Shares</p>
-                         <p className="text-2xl font-serif font-bold text-[#0F172A]">{form.shares}</p>
-                      </div>
-                   </div>
-                   <div className="border-t border-[#F8FAFC] pt-12">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-[#64748B] mb-2">Total Investment</p>
-                      <p className="text-5xl font-serif font-bold text-[#0F172A] tracking-tighter">${totalAmount.toLocaleString()}</p>
-                   </div>
-                   
-                   <div className="p-8 bg-[#F8FAFC] rounded-3xl flex items-start gap-5 border border-[#0F172A]/5">
-                      <ShieldCheck className="w-6 h-6 text-[#2563EB] shrink-0 mt-0.5 transition-transform group-hover:scale-110 duration-700" />
-                      <p className="text-[10px] font-bold text-[#64748B] leading-relaxed uppercase tracking-wider">
-                        Transfers typically execute within 1-3 business days. Your position is held under secure escrow during processing.
-                      </p>
-                   </div>
+              {/* Property card */}
+              <div className="bg-white rounded-2xl border border-slate-100 p-4 flex items-center gap-4 mb-5 shadow-sm">
+                <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-slate-100">
+                  {imgs[0] && <img src={imgs[0]} className="w-full h-full object-cover" alt="" />}
                 </div>
-             </div>
-          </aside>
-        </div>
+                <div className="min-w-0">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-1">Active Asset</p>
+                  <h3 className="text-sm font-serif font-bold text-[#0F172A] leading-tight truncate">{selectedProperty?.name}</h3>
+                  <p className="text-[10px] text-slate-400 font-medium flex items-center gap-1 mt-1 uppercase tracking-wider">
+                    <MapPin className="w-3 h-3 text-[#2563EB]" /> {selectedProperty?.location}
+                  </p>
+                </div>
+              </div>
+
+              {/* Shares + total */}
+              <div className="bg-white rounded-2xl border border-slate-100 p-5 mb-5 shadow-sm space-y-5">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Share Allocation</p>
+                    <p className="text-xl font-serif font-bold text-[#0F172A]">{form.shares} <span className="text-xs font-sans text-slate-400 font-medium">units</span></p>
+                  </div>
+                  <input
+                    type="range" min={minShares} max={100} value={form.shares}
+                    onChange={e => update("shares", e.target.value)}
+                    className="w-full h-1.5 bg-slate-100 rounded-full appearance-none cursor-pointer accent-[#2563EB]"
+                  />
+                  <div className="flex justify-between mt-1">
+                    <span className="text-[9px] font-bold text-slate-300 uppercase tracking-wider">Min {minShares}</span>
+                    <span className="text-[9px] font-bold text-slate-300 uppercase tracking-wider">Max 100</span>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-slate-50">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Total Investment</p>
+                  <p className="text-3xl font-serif font-bold text-[#2563EB] tracking-tight">${totalAmount.toLocaleString()}</p>
+                  <p className="text-[10px] text-slate-400 mt-1">@ ${selectedProperty?.pricePerShare?.toLocaleString()} per share</p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => userAccreditation !== "none" ? handleApply() : setStep(1)}
+                disabled={totalAmount < WIRE_DETAILS.minimumAmount}
+                className="w-full py-4 bg-[#0F172A] text-white rounded-xl font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-[#2563EB] transition-all shadow-lg flex items-center justify-center gap-3 group disabled:opacity-30"
+              >
+                Continue <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              {totalAmount < WIRE_DETAILS.minimumAmount && (
+                <p className="text-center text-[10px] text-slate-400 mt-3">Minimum investment is ${WIRE_DETAILS.minimumAmount.toLocaleString()}</p>
+              )}
+            </motion.div>
+          )}
+
+          {/* ── STEP 1: VERIFICATION ── */}
+          {step === 1 && (
+            <motion.div key="step1" {...fade}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB] mb-2">Investor Verification</p>
+              <h1 className="text-3xl font-serif font-bold text-[#0F172A] mb-2 leading-tight tracking-tight">
+                Verify Your <span className="text-[#2563EB]">Status.</span>
+              </h1>
+              <p className="text-sm text-slate-500 mb-6 leading-relaxed">Select the criterion that best describes your eligibility.</p>
+
+              {/* Info banner */}
+              <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3 mb-6">
+                <Shield className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  <strong className="text-[#0F172A]">Qualification required.</strong> Private real estate offerings are restricted to participants who meet income or net worth thresholds.
+                </p>
+              </div>
+
+              {/* Eligibility options */}
+              <div className="space-y-3 mb-6">
+                {[
+                  { id: "income", label: "Annual Income", sub: ">$200k/year (or $300k joint)" },
+                  { id: "networth", label: "Net Worth", sub: ">$1M excluding primary residence" },
+                  { id: "entity", label: "Institutional Entity", sub: "Corporation or Trust with >$5M assets" }
+                ].map(opt => (
+                  <button
+                    key={opt.id}
+                    onClick={() => update("eligibility", opt.id)}
+                    className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all duration-300 text-left ${
+                      form.eligibility === opt.id
+                        ? "border-[#2563EB] bg-blue-50 shadow-sm"
+                        : "border-slate-100 bg-white hover:bg-slate-50"
+                    }`}
+                  >
+                    <div>
+                      <p className={`font-serif font-bold text-base mb-0.5 ${form.eligibility === opt.id ? "text-[#0F172A]" : "text-slate-600"}`}>{opt.label}</p>
+                      <p className="text-[10px] text-slate-400 font-medium">{opt.sub}</p>
+                    </div>
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
+                      form.eligibility === opt.id ? "border-[#2563EB] bg-[#2563EB]" : "border-slate-200"
+                    }`}>
+                      {form.eligibility === opt.id && <div className="w-2 h-2 rounded-full bg-white" />}
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex gap-3">
+                <button onClick={() => setStep(0)} className="px-5 py-4 rounded-xl border border-slate-200 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-[#0F172A] transition-colors">
+                  ← Back
+                </button>
+                <button
+                  onClick={handleApply}
+                  disabled={loading || !form.eligibility}
+                  className="flex-1 py-4 bg-[#0F172A] text-white rounded-xl font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-[#2563EB] transition-all shadow-lg flex items-center justify-center gap-3 disabled:opacity-30 group"
+                >
+                  {loading ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : (
+                    <>Confirm & Continue <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></>
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ── STEP 2: TRANSFER ── */}
+          {step === 2 && (
+            <motion.div key="step2" {...fade}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB] mb-2">Final Phase</p>
+              <h1 className="text-3xl font-serif font-bold text-[#0F172A] mb-2 leading-tight tracking-tight">Transfer Details</h1>
+              <p className="text-sm text-slate-500 mb-6 leading-relaxed">
+                Wire the funds below to finalise your position in <strong className="text-[#0F172A]">{selectedProperty?.name}</strong>.
+              </p>
+
+              {/* Amount highlight card */}
+              <div className="bg-[#0F172A] text-white rounded-2xl p-6 mb-5 shadow-xl relative overflow-hidden">
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#2563EB]/20 blur-[60px] rounded-full" />
+                <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-slate-400 mb-2">Total Amount to Transfer (USD)</p>
+                <p className="text-4xl font-serif font-bold text-[#2563EB] mb-1 tracking-tight">${totalAmount.toLocaleString()}</p>
+                <p className="text-[10px] text-slate-400 uppercase tracking-widest">For {form.shares} unit{parseInt(form.shares) !== 1 ? "s" : ""} · {selectedProperty?.name}</p>
+              </div>
+
+              {/* Wire details */}
+              <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden mb-5 shadow-sm">
+                <div className="px-5 py-4 border-b border-slate-50 flex items-center gap-3 bg-slate-50/50">
+                  <Building2 className="w-4 h-4 text-[#2563EB]" />
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500">Wire Instructions</p>
+                </div>
+                <div className="divide-y divide-slate-50">
+                  {[
+                    { label: "Bank", val: WIRE_DETAILS.bankName, id: "bank" },
+                    { label: "Routing / ABA", val: WIRE_DETAILS.routingNumber, id: "routing" },
+                    { label: "Account No.", val: WIRE_DETAILS.accountNumber, id: "acc" },
+                    { label: "Reference", val: wireReference, id: "ref" },
+                    { label: "Account Name", val: WIRE_DETAILS.accountName, id: "name" },
+                  ].map(field => (
+                    <div key={field.id} className="px-5 py-4 flex items-center justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-1">{field.label}</p>
+                        <p className="text-sm font-mono font-bold text-[#0F172A] leading-none truncate">{field.val}</p>
+                      </div>
+                      <button
+                        onClick={() => handleCopy(field.val, field.id)}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-widest text-slate-400 border border-slate-200 hover:border-[#2563EB] hover:text-[#2563EB] transition-all shrink-0"
+                      >
+                        {copied === field.id ? <CheckCircle2 className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                        {copied === field.id ? "Copied" : "Copy"}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Trust note */}
+              <div className="flex items-start gap-3 p-4 bg-emerald-50 border border-emerald-100 rounded-xl mb-5">
+                <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <p className="text-xs text-emerald-700 leading-relaxed font-medium">
+                  Transfers typically process within 1–3 business days. Your position is held under secure escrow during processing.
+                </p>
+              </div>
+
+              <button
+                onClick={() => router.push("/dashboard")}
+                className="w-full py-4 bg-[#0F172A] text-white rounded-xl font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-[#2563EB] transition-all shadow-lg flex items-center justify-center gap-3 group"
+              >
+                Go to Dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </main>
   )
@@ -369,8 +318,8 @@ function ApplyForm() {
 export default function ApplyPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#F1F5F9] flex items-center justify-center">
-        <div className="w-10 h-10 border-2 border-[#2563EB] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#2563EB] border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <ApplyForm />
