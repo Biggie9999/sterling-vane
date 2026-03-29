@@ -78,7 +78,7 @@ export default function PortfolioPage() {
                 </div>
 
                 <div className="mt-auto">
-                  <Link href={`/properties/${prop.id}`} className="w-full py-4 bg-[#FAF9F6] border border-slate-200 text-slate-900 font-bold uppercase tracking-widest text-[10px] rounded-xl group-hover:bg-[#006AFF] group-hover:text-white group-hover:border-[#006AFF] transition-colors flex items-center justify-center">
+                  <Link href={`/properties/${prop.id}`} className="w-full py-4 bg-[#F8FAFC] border border-slate-200 text-slate-900 font-bold uppercase tracking-widest text-[10px] rounded-xl group-hover:bg-[#006AFF] group-hover:text-white group-hover:border-[#006AFF] transition-colors flex items-center justify-center">
                     Data Room <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
                 </div>

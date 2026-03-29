@@ -31,7 +31,7 @@ export function SovereignStory() {
               Our vertically integrated approach ensures quality control at every stage—from underwriting and acquisition to design, guest experience, and asset disposition. We manage the complexity; our partners receive the yield.
             </p>
           </div>
-          <div className="bg-[#FAF9F6] p-8 rounded-2xl border border-[#E5E5E5]">
+          <div className="bg-[#F8FAFC] p-8 rounded-2xl border border-[#E5E5E5]">
             <h3 className="text-2xl font-bold text-[#1a1a1a] mb-4">Target Metrics</h3>
             <p className="text-[#666] leading-relaxed mb-6">Our Phase 1 portfolio has been underwritten with conservative assumptions targeting the following metrics:</p>
             <ul className="space-y-4 mb-6">
@@ -115,7 +115,7 @@ export function SovereignStory() {
         </div>
 
         {/* Call to Action Final */}
-        <div className="text-center max-w-2xl mx-auto bg-[#FAF9F6] p-12 rounded-3xl border border-[#E5E5E5]">
+        <div className="text-center max-w-2xl mx-auto bg-[#F8FAFC] p-12 rounded-3xl border border-[#E5E5E5]">
           <h2 className="text-3xl font-serif text-[#1a1a1a] mb-4">Review Current Offerings</h2>
           <p className="text-[#666] mb-8 leading-relaxed">
             Phase 1 assets are currently accepting capital commitments. Review the private placement memorandums, detailed financial models, and property appraisals in our secure investor portal.

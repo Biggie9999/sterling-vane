@@ -102,66 +102,66 @@ function AuthInner() {
   }
 
   return (
-    <div className="min-h-screen flex bg-[#FAF9F6] antialiased">
+    <div className="min-h-screen flex bg-[#F8FAFC] antialiased">
       {/* Editorial Identity Panel */}
-      <div className="hidden lg:flex lg:w-[45%] bg-white flex-col justify-between p-20 relative overflow-hidden shrink-0 border-r border-[#0A0A0A]/5">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-[#C9A84C]/5 blur-[120px] rounded-full" />
+      <div className="hidden lg:flex lg:w-[45%] bg-white flex-col justify-between p-20 relative overflow-hidden shrink-0 border-r border-[#0F172A]/5">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#2563EB]/5 blur-[120px] rounded-full" />
         
         <div className="relative z-10">
           <Link href="/" className="inline-block flex flex-col items-start gap-2">
-            <h1 className="font-serif text-3xl font-bold text-[#0A0A0A] tracking-tight">Sterling Vane</h1>
-            <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.4em] text-[#C9A84C]">The Sovereign Collection</p>
+            <h1 className="font-serif text-3xl font-bold text-[#0F172A] tracking-tight">Sterling Vane</h1>
+            <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB]">The Sovereign Collection</p>
           </Link>
         </div>
 
         <div className="relative z-10 space-y-12">
           <div className="space-y-8">
-             <div className="w-14 h-14 rounded-3xl bg-[#F5F0E8] border border-[#0A0A0A]/5 flex items-center justify-center">
-                <Star className="w-6 h-6 text-[#C9A84C] fill-current" />
+             <div className="w-14 h-14 rounded-3xl bg-[#F1F5F9] border border-[#0F172A]/5 flex items-center justify-center">
+                <Star className="w-6 h-6 text-[#2563EB] fill-current" />
              </div>
-             <blockquote className="text-[#0A0A0A] text-5xl sm:text-6xl font-serif font-bold leading-[1.05] tracking-tighter max-w-sm">
-               Real estate <br /><span className="text-[#C9A84C] italic">reimagined.</span>
+             <blockquote className="text-[#0F172A] text-5xl sm:text-6xl font-serif font-bold leading-[1.05] tracking-tighter max-w-sm">
+               Real estate <br /><span className="text-[#2563EB] italic">reimagined.</span>
              </blockquote>
-             <p className="text-[#8A8A8A] text-xl font-serif italic font-medium opacity-60">"The next chapter in luxury hospitality."</p>
+             <p className="text-[#64748B] text-xl font-serif italic font-medium opacity-60">"The next chapter in luxury hospitality."</p>
           </div>
           
-          <div className="grid grid-cols-2 gap-12 pt-12 border-t border-[#0A0A0A]/5">
+          <div className="grid grid-cols-2 gap-12 pt-12 border-t border-[#0F172A]/5">
             {[
               { label: "Market Status", value: "Verified" },
               { label: "Global Presence", value: "Flagship" },
             ].map(s => (
               <div key={s.label}>
-                <p className="text-[#0A0A0A] font-bold text-xl font-serif tracking-tight">{s.value}</p>
-                <p className="text-[#C9A84C] text-[9px] font-bold uppercase tracking-[0.3em] mt-2 leading-none pt-0.5">{s.label}</p>
+                <p className="text-[#0F172A] font-bold text-xl font-serif tracking-tight">{s.value}</p>
+                <p className="text-[#2563EB] text-[9px] font-bold uppercase tracking-[0.3em] mt-2 leading-none pt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="relative z-10 flex items-center justify-between text-[#8A8A8A]/40 text-[9px] font-bold uppercase tracking-[0.4em]">
+        <div className="relative z-10 flex items-center justify-between text-[#64748B]/40 text-[9px] font-bold uppercase tracking-[0.4em]">
            <span>Partner Access Portal</span>
            <span className="flex items-center gap-3">
-             <ShieldCheck className="w-4 h-4 text-[#C9A84C]" /> Secure
+             <ShieldCheck className="w-4 h-4 text-[#2563EB]" /> Secure
            </span>
         </div>
       </div>
 
       {/* Main Entrance Panel */}
-      <div className="flex-1 flex items-center justify-center p-8 sm:p-12 lg:p-24 overflow-y-auto selection:bg-[#C9A84C]/20 bg-[#FAF9F6] lg:bg-transparent">
+      <div className="flex-1 flex items-center justify-center p-8 sm:p-12 lg:p-24 overflow-y-auto selection:bg-[#2563EB]/20 bg-[#F8FAFC] lg:bg-transparent">
         <div className="w-full max-w-md">
           {/* Mobile Identity */}
           <div className="lg:hidden mb-16">
             <Link href="/" className="inline-block w-full text-center">
-               <h2 className="font-serif text-3xl font-bold text-[#0A0A0A] tracking-tighter">Sterling Vane</h2>
-               <p className="font-montserrat text-[9px] uppercase tracking-[0.5em] text-[#C9A84C] font-bold mt-2">Sovereign Collection</p>
+               <h2 className="font-serif text-3xl font-bold text-[#0F172A] tracking-tighter">Sterling Vane</h2>
+               <p className="font-montserrat text-[9px] uppercase tracking-[0.5em] text-[#2563EB] font-bold mt-2">Sovereign Collection</p>
             </Link>
           </div>
 
           <div className="mb-14 text-center">
-            <h1 className="text-5xl font-serif font-bold text-[#0A0A0A] mb-4 tracking-tighter">
+            <h1 className="text-5xl font-serif font-bold text-[#0F172A] mb-4 tracking-tighter">
               {mode === "signin" ? "Partner Access." : "Join Us."}
             </h1>
-            <p className="text-[#8A8A8A] font-bold text-[10px] uppercase tracking-[0.3em] opacity-60">
+            <p className="text-[#64748B] font-bold text-[10px] uppercase tracking-[0.3em] opacity-60">
               {mode === "signin" ? "Log in to your private dashboard" : "Start your journey with The Sovereign Collection"}
             </p>
           </div>
@@ -170,15 +170,15 @@ function AuthInner() {
             <button 
               onClick={handleGoogleAuth} 
               disabled={loading}
-              className="w-full flex items-center justify-center gap-4 bg-white hover:bg-[#FAF9F6] border border-[#0A0A0A]/5 text-[#0A0A0A] py-5 rounded-2xl font-bold text-[11px] uppercase tracking-[0.2em] transition-all duration-500 shadow-sm disabled:opacity-50 group active:scale-95"
+              className="w-full flex items-center justify-center gap-4 bg-white hover:bg-[#F8FAFC] border border-[#0F172A]/5 text-[#0F172A] py-5 rounded-2xl font-bold text-[11px] uppercase tracking-[0.2em] transition-all duration-500 shadow-sm disabled:opacity-50 group active:scale-95"
             >
               <GoogleIcon /> Continue with Google
             </button>
 
             <div className="relative py-4 flex items-center gap-6">
-              <div className="flex-1 h-px bg-[#0A0A0A]/5" />
-              <span className="text-[9px] text-[#8A8A8A] font-bold uppercase tracking-[0.4em] opacity-40">Or</span>
-              <div className="flex-1 h-px bg-[#0A0A0A]/5" />
+              <div className="flex-1 h-px bg-[#0F172A]/5" />
+              <span className="text-[9px] text-[#64748B] font-bold uppercase tracking-[0.4em] opacity-40">Or</span>
+              <div className="flex-1 h-px bg-[#0F172A]/5" />
             </div>
 
             {error && (
@@ -195,33 +195,33 @@ function AuthInner() {
             <form onSubmit={mode === "signin" ? handleSignIn : handleSignUpSubmit} className="space-y-6">
               {mode === "signup" && (
                 <div className="space-y-3">
-                  <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.4em] pl-1">Full Name</label>
+                  <label className="block text-[9px] font-bold text-[#64748B] uppercase tracking-[0.4em] pl-1">Full Name</label>
                   <input 
                     type="text" 
                     required 
                     value={name} 
                     onChange={e => setName(e.target.value)}
-                    className="w-full px-6 py-5 rounded-2xl bg-white border border-[#0A0A0A]/5 focus:border-[#C9A84C] focus:outline-none focus:ring-4 focus:ring-[#C9A84C]/5 transition-all text-sm font-medium text-[#0A0A0A] placeholder-[#8A8A8A]/30"
+                    className="w-full px-6 py-5 rounded-2xl bg-white border border-[#0F172A]/5 focus:border-[#2563EB] focus:outline-none focus:ring-4 focus:ring-[#2563EB]/5 transition-all text-sm font-medium text-[#0F172A] placeholder-[#64748B]/30"
                     placeholder="Enter your name" 
                   />
                 </div>
               )}
               
               <div className="space-y-3">
-                <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.4em] pl-1">Email Address</label>
+                <label className="block text-[9px] font-bold text-[#64748B] uppercase tracking-[0.4em] pl-1">Email Address</label>
                 <input 
                   type="email" 
                   required 
                   value={email} 
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full px-6 py-5 rounded-2xl bg-white border border-[#0A0A0A]/5 focus:border-[#C9A84C] focus:outline-none focus:ring-4 focus:ring-[#C9A84C]/5 transition-all text-sm font-medium text-[#0A0A0A] placeholder-[#8A8A8A]/30"
+                  className="w-full px-6 py-5 rounded-2xl bg-white border border-[#0F172A]/5 focus:border-[#2563EB] focus:outline-none focus:ring-4 focus:ring-[#2563EB]/5 transition-all text-sm font-medium text-[#0F172A] placeholder-[#64748B]/30"
                   placeholder="name@example.com" 
                 />
               </div>
 
               <div className="space-y-3">
                 <div className="flex justify-between items-center px-1">
-                  <label className="block text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.4em]">Password</label>
+                  <label className="block text-[9px] font-bold text-[#64748B] uppercase tracking-[0.4em]">Password</label>
                 </div>
                 <div className="relative">
                   <input 
@@ -229,10 +229,10 @@ function AuthInner() {
                     required 
                     value={password} 
                     onChange={e => setPassword(e.target.value)}
-                    className="w-full px-6 py-5 pr-14 rounded-2xl bg-white border border-[#0A0A0A]/5 focus:border-[#C9A84C] focus:outline-none focus:ring-4 focus:ring-[#C9A84C]/5 transition-all text-sm font-medium text-[#0A0A0A] placeholder-[#8A8A8A]/30"
+                    className="w-full px-6 py-5 pr-14 rounded-2xl bg-white border border-[#0F172A]/5 focus:border-[#2563EB] focus:outline-none focus:ring-4 focus:ring-[#2563EB]/5 transition-all text-sm font-medium text-[#0F172A] placeholder-[#64748B]/30"
                     placeholder="••••••••" 
                   />
-                  <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-6 top-1/2 -translate-y-1/2 text-[#8A8A8A] hover:text-[#C9A84C] transition-colors">
+                  <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-6 top-1/2 -translate-y-1/2 text-[#64748B] hover:text-[#2563EB] transition-colors">
                     {showPwd ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
@@ -241,7 +241,7 @@ function AuthInner() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-4 bg-[#0A0A0A] hover:bg-[#C9A84C] hover:text-[#0A0A0A] text-white py-6 rounded-2xl font-bold transition-all duration-700 disabled:opacity-20 shadow-2xl active:scale-95 text-[10px] uppercase tracking-[0.4em] group"
+                className="w-full flex items-center justify-center gap-4 bg-[#0F172A] hover:bg-[#2563EB] hover:text-[#0F172A] text-white py-6 rounded-2xl font-bold transition-all duration-700 disabled:opacity-20 shadow-2xl active:scale-95 text-[10px] uppercase tracking-[0.4em] group"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
                   <>
@@ -253,20 +253,20 @@ function AuthInner() {
             </form>
 
             <div className="pt-10 text-center">
-               <p className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-[0.3em] mb-6 opacity-60">
+               <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-[0.3em] mb-6 opacity-60">
                  {mode === "signin" ? "New to Sterling Vane?" : "Already have an account?"}
                </p>
                <button 
                 onClick={() => switchMode(mode === "signin" ? "signup" : "signin")}
-                className="text-[9px] font-bold text-[#0A0A0A] border-b-2 border-[#C9A84C] pb-1 hover:text-[#C9A84C] transition-all uppercase tracking-[0.2em]"
+                className="text-[9px] font-bold text-[#0F172A] border-b-2 border-[#2563EB] pb-1 hover:text-[#2563EB] transition-all uppercase tracking-[0.2em]"
                >
                  {mode === "signin" ? "Create Account" : "Sign In"}
                </button>
             </div>
           </div>
 
-          <div className="mt-24 pt-10 border-t border-[#0A0A0A]/5 text-[9px] text-[#8A8A8A] font-bold leading-relaxed uppercase tracking-[0.3em] flex items-start gap-4 opacity-40">
-             <Globe className="w-4 h-4 shrink-0 mt-0.5 text-[#C9A84C]" />
+          <div className="mt-24 pt-10 border-t border-[#0F172A]/5 text-[9px] text-[#64748B] font-bold leading-relaxed uppercase tracking-[0.3em] flex items-start gap-4 opacity-40">
+             <Globe className="w-4 h-4 shrink-0 mt-0.5 text-[#2563EB]" />
              <p>All access is monitored for security. Verified under SEC protocol. Sterling Vane Global Asset Management.</p>
           </div>
         </div>
@@ -278,8 +278,8 @@ function AuthInner() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF9F6]">
-        <div className="w-12 h-12 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC]">
+        <div className="w-12 h-12 border-2 border-[#2563EB] border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <AuthInner />

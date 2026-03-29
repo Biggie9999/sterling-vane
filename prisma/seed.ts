@@ -43,7 +43,7 @@ async function main() {
   await prisma.property.deleteMany()
   console.log('Registry purged for fresh deployment.')
 
-  const totalAssets = 64
+  const totalAssets = 30
   
   for (let i = 0; i < totalAssets; i++) {
     const market = MARKETS[i % MARKETS.length]

@@ -42,14 +42,14 @@ export default function PendingConfirmationPage() {
         </p>
 
         {/* Reference */}
-        <div className="bg-[#0A0A0A]/50 border border-white/10 rounded-2xl p-5 mb-8 text-left">
+        <div className="bg-[#0F172A]/50 border border-white/10 rounded-2xl p-5 mb-8 text-left">
           <p className="text-white/30 text-xs font-mono uppercase tracking-widest mb-2">Your Wire Reference</p>
           <p className="text-[#006AFF] font-mono text-lg font-bold">{ref}</p>
           <p className="text-white/30 text-xs mt-1">Include this in your bank wire memo</p>
         </div>
 
         {/* Timeline */}
-        <div className="bg-[#0A0A0A]/50 border border-white/10 rounded-2xl p-6 mb-8 text-left">
+        <div className="bg-[#0F172A]/50 border border-white/10 rounded-2xl p-6 mb-8 text-left">
           <p className="text-white/40 text-xs font-mono uppercase tracking-widest mb-5">What Happens Next</p>
           <div className="space-y-5">
             {[
@@ -78,7 +78,7 @@ export default function PendingConfirmationPage() {
         </div>
 
         {/* Contact */}
-        <div className="bg-[#0A0A0A]/50 border border-white/10 rounded-2xl p-5 mb-8">
+        <div className="bg-[#0F172A]/50 border border-white/10 rounded-2xl p-5 mb-8">
           <p className="text-white/40 text-xs font-mono uppercase tracking-widest mb-4">Need Help?</p>
           <button onClick={copyEmail} className="flex items-center justify-between w-full hover:bg-white/5 p-2 rounded-lg transition-colors">
             <div className="flex items-center gap-3">

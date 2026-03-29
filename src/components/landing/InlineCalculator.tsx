@@ -39,7 +39,7 @@ export function InlineCalculator() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-[#0a0a0a] border border-border-dark p-8 md:p-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-[#0F172A] border border-border-dark p-8 md:p-12">
           
           {/* Inputs */}
           <div className="flex flex-col justify-center">

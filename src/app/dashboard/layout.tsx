@@ -26,7 +26,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Main Content Viewport */}
       <main className="flex-1 flex flex-col min-w-0 bg-white/50 backdrop-blur-sm overflow-hidden animate-sovereign-in">
-        <div className="flex-1 px-6 py-12 md:px-12 md:py-16 overflow-y-auto no-scrollbar selection:bg-accent/10 selection:text-accent">
+        <div className="flex-1 px-6 py-12 md:px-12 md:py-16 pb-28 md:pb-16 overflow-y-auto no-scrollbar selection:bg-accent/10 selection:text-accent">
           <div className="max-w-7xl mx-auto">
             {children}
           </div>

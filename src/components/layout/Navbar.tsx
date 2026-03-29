@@ -61,7 +61,7 @@ export function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-700",
           isScrolled || !isHomePage
-            ? "bg-[#FAF9F6]/90 backdrop-blur-xl border-b border-[#0A0A0A]/5 py-4"
+            ? "bg-[#F8FAFC]/90 backdrop-blur-xl border-b border-[#0F172A]/5 py-4"
             : "bg-transparent py-6"
         )}
       >
@@ -70,11 +70,11 @@ export function Navbar() {
           <Link href="/" className="flex flex-col items-start group shrink-0">
             <span className={cn(
               "font-serif text-2xl sm:text-3xl font-bold tracking-tight transition-colors duration-700",
-              "text-[#0A0A0A]"
+              "text-[#0F172A]"
             )}>
               Sterling Vane
             </span>
-            <span className="text-[8px] font-bold uppercase tracking-[0.5em] text-[#C9A84C] mt-1 opacity-60 group-hover:opacity-100 transition-opacity">
+            <span className="text-[8px] font-bold uppercase tracking-[0.5em] text-[#2563EB] mt-1 opacity-60 group-hover:opacity-100 transition-opacity">
               Sovereign Collection
             </span>
           </Link>
@@ -88,8 +88,8 @@ export function Navbar() {
                 className={cn(
                   "relative px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.3em] rounded-full transition-all duration-300",
                   pathname === link.href
-                    ? "text-[#0A0A0A] bg-[#C9A84C]/10"
-                    : "text-[#8A8A8A] hover:text-[#0A0A0A] hover:bg-[#0A0A0A]/5"
+                    ? "text-[#0F172A] bg-[#2563EB]/10"
+                    : "text-[#64748B] hover:text-[#0F172A] hover:bg-[#0F172A]/5"
                 )}
               >
                 {link.name}
@@ -105,14 +105,14 @@ export function Navbar() {
                 <>
                   <Link
                     href="/dashboard"
-                    className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#8A8A8A] hover:text-[#0A0A0A] transition-all"
+                    className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#64748B] hover:text-[#0F172A] transition-all"
                   >
-                    <LayoutDashboard className="w-3.5 h-3.5 text-[#C9A84C]" />
+                    <LayoutDashboard className="w-3.5 h-3.5 text-[#2563EB]" />
                     Dashboard
                   </Link>
                   <button
                     onClick={() => signOut({ callbackUrl: "/" })}
-                    className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] px-8 py-3.5 bg-[#0A0A0A] text-white rounded-full hover:bg-red-950 transition-all shadow-xl"
+                    className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] px-8 py-3.5 bg-[#0F172A] text-white rounded-full hover:bg-red-950 transition-all shadow-xl"
                   >
                     Exit Portal
                   </button>
@@ -121,13 +121,13 @@ export function Navbar() {
                 <>
                   <Link
                     href="/login"
-                    className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#8A8A8A] hover:text-[#0A0A0A] transition-all"
+                    className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#64748B] hover:text-[#0F172A] transition-all"
                   >
                     Log In
                   </Link>
                   <Link
                     href="/apply"
-                    className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] px-10 py-4 bg-[#0A0A0A] text-white rounded-full hover:bg-[#C9A84C] hover:text-white transition-all shadow-2xl group"
+                    className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] px-10 py-4 bg-[#0F172A] text-white rounded-full hover:bg-[#2563EB] hover:text-white transition-all shadow-2xl group"
                   >
                     Inquire <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -140,14 +140,14 @@ export function Navbar() {
                <button
                   onClick={() => setIsSearchOpen(true)}
                   aria-label="Search"
-                  className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/40 border border-[#0A0A0A]/5 text-[#0A0A0A] shadow-sm backdrop-blur-md"
+                  className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/40 border border-[#0F172A]/5 text-[#0F172A] shadow-sm backdrop-blur-md"
                 >
-                  <SearchIcon className="w-4 h-4 text-[#C9A84C]" />
+                  <SearchIcon className="w-4 h-4 text-[#2563EB]" />
                 </button>
                 <button
                   onClick={() => setIsOpen(true)}
                   aria-label="Open menu"
-                  className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/40 border border-[#0A0A0A]/5 text-[#0A0A0A] shadow-sm backdrop-blur-md"
+                  className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/40 border border-[#0F172A]/5 text-[#0F172A] shadow-sm backdrop-blur-md"
                 >
                   <Menu className="w-4 h-4" />
                 </button>
@@ -163,26 +163,26 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-[#FAF9F6]/95 backdrop-blur-3xl flex flex-col p-8 pt-32"
+            className="fixed inset-0 z-[60] bg-[#F8FAFC]/95 backdrop-blur-3xl flex flex-col p-8 pt-32"
           >
             <button 
               onClick={() => setIsSearchOpen(false)}
-              className="absolute top-10 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-[#0A0A0A]/5 shadow-sm"
+              className="absolute top-10 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-[#0F172A]/5 shadow-sm"
             >
               <X className="w-4 h-4" />
             </button>
             
             <div className="max-w-2xl mx-auto w-full">
-               <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#C9A84C] mb-8">Access the Collection</p>
+               <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB] mb-8">Access the Collection</p>
                <form onSubmit={handleSearchSubmit} className="relative group">
-                  <SearchIcon className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 text-[#0A0A0A]/10 group-focus-within:text-[#C9A84C] transition-colors" />
+                  <SearchIcon className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 text-[#0F172A]/10 group-focus-within:text-[#2563EB] transition-colors" />
                   <input 
                     autoFocus
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search by market (e.g. Dubai, London)..."
-                    className="w-full bg-transparent border-b-2 border-[#0A0A0A]/5 py-8 pl-14 text-3xl font-serif font-bold text-[#0A0A0A] placeholder:text-[#0A0A0A]/5 focus:border-[#C9A84C] outline-none transition-all"
+                    className="w-full bg-transparent border-b-2 border-[#0F172A]/5 py-8 pl-14 text-3xl font-serif font-bold text-[#0F172A] placeholder:text-[#0F172A]/5 focus:border-[#2563EB] outline-none transition-all"
                   />
                </form>
                <div className="mt-12 flex flex-wrap gap-4">
@@ -190,7 +190,7 @@ export function Navbar() {
                     <button 
                       key={loc}
                       onClick={() => {setSearchQuery(loc); router.push(`/marketplace?location=${loc}`); setIsSearchOpen(false);}}
-                      className="px-6 py-3 rounded-xl bg-white border border-[#0A0A0A]/5 text-[10px] font-bold uppercase tracking-widest text-[#8A8A8A] hover:text-[#0A0A0A] transition-all"
+                      className="px-6 py-3 rounded-xl bg-white border border-[#0F172A]/5 text-[10px] font-bold uppercase tracking-widest text-[#64748B] hover:text-[#0F172A] transition-all"
                     >
                       {loc} market
                     </button>
@@ -209,7 +209,7 @@ export function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-[#0A0A0A]/40 backdrop-blur-md"
+              className="absolute inset-0 bg-[#0F172A]/40 backdrop-blur-md"
               onClick={() => setIsOpen(false)}
             />
 
@@ -218,16 +218,16 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 200 }}
-              className="absolute top-0 right-0 h-full w-[85vw] max-w-sm bg-[#FAF9F6] shadow-2xl flex flex-col"
+              className="absolute top-0 right-0 h-full w-[85vw] max-w-sm bg-[#F8FAFC] shadow-2xl flex flex-col"
             >
-              <div className="flex items-center justify-between px-8 py-10 border-b border-[#0A0A0A]/5">
+              <div className="flex items-center justify-between px-8 py-10 border-b border-[#0F172A]/5">
                 <div>
-                   <p className="font-serif text-2xl font-bold text-[#0A0A0A]">Sterling Vane</p>
-                   <p className="text-[8px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mt-1">Sovereign Collection</p>
+                   <p className="font-serif text-2xl font-bold text-[#0F172A]">Sterling Vane</p>
+                   <p className="text-[8px] font-bold uppercase tracking-[0.3em] text-[#2563EB] mt-1">Sovereign Collection</p>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-[#0A0A0A]/5 text-[#0A0A0A]"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-[#0F172A]/5 text-[#0F172A]"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -241,28 +241,28 @@ export function Navbar() {
                     className={cn(
                       "flex items-center justify-between px-6 py-6 rounded-2xl text-[11px] font-bold uppercase tracking-[0.3em] transition-all",
                       pathname === link.href
-                        ? "text-[#0A0A0A] bg-white shadow-xl"
-                        : "text-[#8A8A8A] hover:text-[#0A0A0A] hover:bg-white/50"
+                        ? "text-[#0F172A] bg-white shadow-xl"
+                        : "text-[#64748B] hover:text-[#0F172A] hover:bg-white/50"
                     )}
                   >
                     {link.name}
-                    <ChevronRight className="w-4 h-4 text-[#C9A84C]" />
+                    <ChevronRight className="w-4 h-4 text-[#2563EB]" />
                   </Link>
                 ))}
               </nav>
 
-              <div className="px-8 pb-12 pt-6 border-t border-[#0A0A0A]/5 flex flex-col gap-4">
+              <div className="px-8 pb-12 pt-6 border-t border-[#0F172A]/5 flex flex-col gap-4">
                 {session ? (
                   <>
                     <Link
                       href="/dashboard"
-                      className="flex items-center justify-center gap-3 w-full py-5 rounded-2xl bg-white border border-[#0A0A0A]/5 text-[#0A0A0A] font-bold text-[10px] uppercase tracking-widest shadow-sm"
+                      className="flex items-center justify-center gap-3 w-full py-5 rounded-2xl bg-white border border-[#0F172A]/5 text-[#0F172A] font-bold text-[10px] uppercase tracking-widest shadow-sm"
                     >
-                      <LayoutDashboard className="w-4 h-4 text-[#C9A84C]" /> Dashboard
+                      <LayoutDashboard className="w-4 h-4 text-[#2563EB]" /> Dashboard
                     </Link>
                     <button
                       onClick={() => signOut({ callbackUrl: "/" })}
-                      className="w-full py-5 rounded-2xl bg-[#0A0A0A] text-white font-bold text-[10px] uppercase tracking-widest hover:bg-red-950 transition-colors"
+                      className="w-full py-5 rounded-2xl bg-[#0F172A] text-white font-bold text-[10px] uppercase tracking-widest hover:bg-red-950 transition-colors"
                     >
                       Exit Portal
                     </button>
@@ -271,13 +271,13 @@ export function Navbar() {
                   <>
                     <Link
                       href="/login"
-                      className="flex items-center justify-center w-full py-5 rounded-2xl bg-white border border-[#0A0A0A]/5 text-[#0A0A0A] font-bold text-[10px] uppercase tracking-widest"
+                      className="flex items-center justify-center w-full py-5 rounded-2xl bg-white border border-[#0F172A]/5 text-[#0F172A] font-bold text-[10px] uppercase tracking-widest"
                     >
                       Log In
                     </Link>
                     <Link
                       href="/apply"
-                      className="flex items-center justify-center w-full py-5 rounded-2xl bg-[#0A0A0A] text-white font-bold text-[10px] uppercase tracking-widest shadow-xl"
+                      className="flex items-center justify-center w-full py-5 rounded-2xl bg-[#0F172A] text-white font-bold text-[10px] uppercase tracking-widest shadow-xl"
                     >
                       Inquire for Access
                     </Link>

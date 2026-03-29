@@ -10,7 +10,7 @@ import { Footer } from "@/components/layout/Footer"
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen w-full bg-[#FAF9F6]">
+    <main className="min-h-screen w-full bg-[#F8FAFC]">
       <Navbar />
       <HomeHero />
       

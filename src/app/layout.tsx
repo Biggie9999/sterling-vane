@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth selection:bg-[#C9A84C]/30 selection:text-[#0A0A0A]">
-      <body className={`${dmSans.variable} ${playfair.variable} ${montserrat.variable} font-sans antialiased text-[#0A0A0A] bg-[#F5F0E8] min-h-screen flex flex-col`}>
+    <html lang="en" className="scroll-smooth selection:bg-[#2563EB]/30 selection:text-[#0F172A]">
+      <body className={`${dmSans.variable} ${playfair.variable} ${montserrat.variable} font-sans antialiased text-[#0F172A] bg-[#F1F5F9] min-h-screen flex flex-col`}>
         <Providers>
           <LayoutShell>
             {children}

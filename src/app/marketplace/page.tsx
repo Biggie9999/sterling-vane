@@ -37,7 +37,7 @@ function ListingCard({ item, index }: { item: any, index: number }) {
              </div>
           </div>
           <div className="absolute top-6 right-6 z-20 bg-black/60 backdrop-blur-md px-4 py-1.5 text-[8px] font-bold uppercase tracking-[0.2em] text-white rounded-full border border-white/10 shadow-lg flex items-center gap-2">
-             <div className={cn("w-1.5 h-1.5 rounded-full", item.status === "Funding Stage" ? "bg-[#C9A84C] animate-pulse" : "bg-white/40")} />
+             <div className={cn("w-1.5 h-1.5 rounded-full", item.status === "Funding Stage" ? "bg-[#2563EB] animate-pulse" : "bg-white/40")} />
              {item.status}
           </div>
           <img 
@@ -51,9 +51,9 @@ function ListingCard({ item, index }: { item: any, index: number }) {
         {/* Editorial Info Section */}
         <div className="p-8 flex flex-col flex-1">
           <div className="mb-6">
-            <h3 className="text-2xl font-serif font-bold text-[#0A0A0A] mb-2 tracking-tight truncate group-hover:text-[#C9A84C] transition-colors duration-500">{item.name}</h3>
-            <p className="text-sm text-[#8A8A8A] font-medium flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-[#C9A84C]" />
+            <h3 className="text-2xl font-serif font-bold text-[#0F172A] mb-2 tracking-tight truncate group-hover:text-[#2563EB] transition-colors duration-500">{item.name}</h3>
+            <p className="text-sm text-[#64748B] font-medium flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-[#2563EB]" />
               <span className="truncate uppercase tracking-widest text-[10px] opacity-60">{item.location}</span>
             </p>
           </div>
@@ -61,25 +61,25 @@ function ListingCard({ item, index }: { item: any, index: number }) {
           {/* Institutional Metrics Grid */}
           <div className="grid grid-cols-3 gap-1 py-6 border-y border-black/[0.03] mb-8">
             <div className="text-center">
-              <p className="text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.2em] mb-1.5 opacity-40">Est. Yield</p>
-              <p className="text-lg font-bold text-[#C9A84C] tracking-tight">{item.targetYield}%</p>
+              <p className="text-[9px] font-bold text-[#64748B] uppercase tracking-[0.2em] mb-1.5 opacity-40">Est. Yield</p>
+              <p className="text-lg font-bold text-[#2563EB] tracking-tight">{item.targetYield}%</p>
             </div>
             <div className="text-center border-x border-black/[0.03]">
-              <p className="text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.2em] mb-1.5 opacity-40">Cap Rate</p>
-              <p className="text-lg font-bold text-[#0A0A0A] tracking-tight">{item.capRate}%</p>
+              <p className="text-[9px] font-bold text-[#64748B] uppercase tracking-[0.2em] mb-1.5 opacity-40">Cap Rate</p>
+              <p className="text-lg font-bold text-[#0F172A] tracking-tight">{item.capRate}%</p>
             </div>
             <div className="text-center">
-              <p className="text-[9px] font-bold text-[#8A8A8A] uppercase tracking-[0.2em] mb-1.5 opacity-40">Entry</p>
-              <p className="text-lg font-bold text-[#0A0A0A] tracking-tight">${(item.pricePerShare / 1000).toFixed(1)}k</p>
+              <p className="text-[9px] font-bold text-[#64748B] uppercase tracking-[0.2em] mb-1.5 opacity-40">Entry</p>
+              <p className="text-lg font-bold text-[#0F172A] tracking-tight">${(item.pricePerShare / 1000).toFixed(1)}k</p>
             </div>
           </div>
 
           <div className="mt-auto flex items-center justify-between group-hover:px-2 transition-all duration-500">
              <div className="flex flex-col">
-                <span className="text-[9px] font-bold text-[#8A8A8A] uppercase tracking-widest opacity-40 mb-1">Asset Value</span>
-                <span className="text-sm font-bold text-[#0A0A0A] tracking-tight">${(item.propertyValue / 1e6).toFixed(1)}M</span>
+                <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-widest opacity-40 mb-1">Asset Value</span>
+                <span className="text-sm font-bold text-[#0F172A] tracking-tight">${(item.propertyValue / 1e6).toFixed(1)}M</span>
              </div>
-             <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white group-hover:bg-[#C9A84C] group-hover:text-black transition-all duration-500 shadow-xl group-hover:scale-110">
+             <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white group-hover:bg-[#2563EB] group-hover:text-black transition-all duration-500 shadow-xl group-hover:scale-110">
                 <ArrowUpRight className="w-5 h-5" />
              </div>
           </div>
@@ -150,23 +150,23 @@ function MarketplaceInner() {
   }, [query, activeType, sort, properties])
 
   return (
-    <div className="bg-[#FAF9F6] min-h-screen pb-40">
+    <div className="bg-[#F8FAFC] min-h-screen pb-40">
       {/* Editorial Navigation Spacer */}
       <div className="h-24 lg:h-32" />
 
       {/* Global Filter Architecture (Sticky on Scroll) */}
-      <div className="sticky top-0 z-40 px-6 py-6 lg:py-8 bg-[#FAF9F6]/80 backdrop-blur-2xl border-b border-black/[0.03]">
+      <div className="sticky top-0 z-40 px-6 py-6 lg:py-8 bg-[#F8FAFC]/80 backdrop-blur-2xl border-b border-black/[0.03]">
         <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-6 items-center">
           {/* Search Module */}
           <div className="relative w-full lg:w-96 group">
-            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A8A8A] group-focus-within:text-[#C9A84C] transition-colors" />
+            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#64748B] group-focus-within:text-[#2563EB] transition-colors" />
             <input 
               type="text"
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && setQuery(inputVal)}
               placeholder="Search major global markets..."
-              className="w-full bg-white rounded-full pl-14 pr-6 py-4 text-[11px] font-bold uppercase tracking-widest text-[#0A0A0A] placeholder:text-[#8A8A8A]/30 focus:outline-none focus:ring-4 focus:ring-[#C9A84C]/5 border border-black/[0.03] shadow-sm transition-all"
+              className="w-full bg-white rounded-full pl-14 pr-6 py-4 text-[11px] font-bold uppercase tracking-widest text-[#0F172A] placeholder:text-[#64748B]/30 focus:outline-none focus:ring-4 focus:ring-[#2563EB]/5 border border-black/[0.03] shadow-sm transition-all"
             />
           </div>
 
@@ -178,7 +178,7 @@ function MarketplaceInner() {
                 onClick={() => setActiveType(t.value)}
                 className={cn(
                   "px-8 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap border border-black/[0.03]",
-                  activeType === t.value ? "bg-[#0A0A0A] text-white shadow-xl" : "bg-white text-[#8A8A8A] hover:text-[#0A0A0A] hover:bg-white"
+                  activeType === t.value ? "bg-[#0F172A] text-white shadow-xl" : "bg-white text-[#64748B] hover:text-[#0F172A] hover:bg-white"
                 )}
                >
                  {t.label}
@@ -189,11 +189,11 @@ function MarketplaceInner() {
           {/* Sort & Tools Cluster */}
           <div className="ml-auto hidden lg:flex items-center gap-4">
              <div className="flex items-center gap-2 px-6 py-4 bg-white rounded-full border border-black/[0.03] shadow-sm">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-[#C9A84C]" />
+                <SlidersHorizontal className="w-3.5 h-3.5 text-[#2563EB]" />
                 <select 
                   value={sort} 
                   onChange={e => setSort(e.target.value)}
-                  className="bg-transparent text-[10px] font-bold uppercase tracking-[0.2em] text-[#0A0A0A] focus:outline-none cursor-pointer"
+                  className="bg-transparent text-[10px] font-bold uppercase tracking-[0.2em] text-[#0F172A] focus:outline-none cursor-pointer"
                 >
                   <option value="default">Sort by Relevance</option>
                   <option value="yield">Top Yield Performers</option>
@@ -202,7 +202,7 @@ function MarketplaceInner() {
                 </select>
              </div>
              
-             <button className="flex items-center gap-2 px-6 py-4 bg-[#0A0A0A] text-white rounded-full border border-black/[0.1] shadow-xl hover:bg-[#C9A84C] hover:text-black transition-all">
+             <button className="flex items-center gap-2 px-6 py-4 bg-[#0F172A] text-white rounded-full border border-black/[0.1] shadow-xl hover:bg-[#2563EB] hover:text-black transition-all">
                 <MapIcon className="w-3.5 h-3.5" />
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Map View</span>
              </button>
@@ -214,13 +214,13 @@ function MarketplaceInner() {
         {/* Market Context Line */}
         <div className="flex items-center justify-between mb-16 px-4">
            <div className="flex items-center gap-3">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] animate-pulse" />
-              <h2 className="text-[11px] font-bold text-[#0A0A0A] uppercase tracking-[0.4em]">Live Sovereign Registry</h2>
-              <span className="text-[11px] font-bold text-[#8A8A8A] uppercase tracking-[0.4em] opacity-30">— {filtered.length} AVAILABLE ASSETS</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
+              <h2 className="text-[11px] font-bold text-[#0F172A] uppercase tracking-[0.4em]">Live Sovereign Registry</h2>
+              <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-[0.4em] opacity-30">— {filtered.length} AVAILABLE ASSETS</span>
            </div>
            
            <div className="flex items-center gap-6 lg:hidden">
-              <button className="w-10 h-10 rounded-full bg-white border border-black/[0.03] flex items-center justify-center text-[#0A0A0A]">
+              <button className="w-10 h-10 rounded-full bg-white border border-black/[0.03] flex items-center justify-center text-[#0F172A]">
                   <Filter className="w-4 h-4" />
               </button>
            </div>
@@ -229,8 +229,8 @@ function MarketplaceInner() {
         {/* Global Asset Collective */}
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-60">
-             <Loader2 className="w-10 h-10 text-[#C9A84C] animate-spin mb-8" />
-             <p className="font-serif text-2xl font-bold text-[#0A0A0A] italic tracking-tight opacity-40">Synchronizing Ledger Assets...</p>
+             <Loader2 className="w-10 h-10 text-[#2563EB] animate-spin mb-8" />
+             <p className="font-serif text-2xl font-bold text-[#0F172A] italic tracking-tight opacity-40">Synchronizing Ledger Assets...</p>
           </div>
         ) : filtered.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 lg:gap-12">
@@ -238,12 +238,12 @@ function MarketplaceInner() {
           </div>
         ) : (
           <div className="text-center py-40 bg-white border border-black/[0.03] rounded-[4rem] shadow-2xl">
-             <Home className="w-16 h-16 text-[#FAF9F6] mx-auto mb-10" />
-             <p className="font-serif text-4xl font-bold text-[#0A0A0A] mb-4 tracking-tighter">No primary allocations found.</p>
-             <p className="text-[#8A8A8A] max-w-sm mx-auto mb-12 font-bold uppercase tracking-widest text-[11px] opacity-60 leading-relaxed">Adjust your profiling parameters or seek institutional secondary access.</p>
+             <Home className="w-16 h-16 text-[#F8FAFC] mx-auto mb-10" />
+             <p className="font-serif text-4xl font-bold text-[#0F172A] mb-4 tracking-tighter">No primary allocations found.</p>
+             <p className="text-[#64748B] max-w-sm mx-auto mb-12 font-bold uppercase tracking-widest text-[11px] opacity-60 leading-relaxed">Adjust your profiling parameters or seek institutional secondary access.</p>
              <button 
               onClick={() => {setQuery(""); setInputVal(""); setActiveType("");}}
-              className="px-12 py-5 bg-[#0A0A0A] text-white rounded-full font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all duration-700 shadow-xl"
+              className="px-12 py-5 bg-[#0F172A] text-white rounded-full font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-[#2563EB] hover:text-[#0F172A] transition-all duration-700 shadow-xl"
              >
                Clear Filters
              </button>
@@ -257,8 +257,8 @@ function MarketplaceInner() {
 export default function MarketplacePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF9F6]">
-        <div className="w-10 h-10 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC]">
+        <div className="w-10 h-10 border-2 border-[#2563EB] border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <MarketplaceInner />

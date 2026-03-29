@@ -31,12 +31,6 @@ const config = {
         },
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        gold: {
-          DEFAULT: "var(--gold)",
-          light: "var(--gold-light)",
-        },
-        warmGrey: "var(--warm-grey)",
-        ivory: "var(--ivory)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -78,9 +72,9 @@ const config = {
           900: '#0f172a',
         },
         brand: {
-          blue: "#0A2540",
-          light: "#F6F9FC",
-          accent: "#635BFF", // Stripe-like accent
+          blue: "#2563EB",
+          light: "#F8FAFC",
+          accent: "#3B82F6", 
         }
       },
       borderRadius: {

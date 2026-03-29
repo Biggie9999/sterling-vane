@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const idOrSlug = searchParams.get("id")
@@ -21,11 +23,11 @@ export async function GET(request: Request) {
       
       if (!property) return NextResponse.json({ error: "Property not found" }, { status: 404 })
       
-      // Parse JSON for SQLite compatibility
+      // Parse JSON safely for both SQLite and Postgres compatibility
       return NextResponse.json({
         ...property,
-        images: JSON.parse(property.images),
-        amenities: JSON.parse(property.amenities)
+        images: typeof property.images === 'string' ? JSON.parse(property.images) : property.images,
+        amenities: typeof property.amenities === 'string' ? JSON.parse(property.amenities) : property.amenities
       })
     }
 
@@ -42,11 +44,11 @@ export async function GET(request: Request) {
       return NextResponse.json([])
     }
 
-    // Parse JSON for SQLite compatibility across the vast collection
+    // Parse JSON safely for both SQLite and Postgres compatibility
     const parsedProperties = properties.map(p => ({
       ...p,
-      images: JSON.parse(p.images),
-      amenities: JSON.parse(p.amenities)
+      images: typeof p.images === 'string' ? JSON.parse(p.images) : p.images,
+      amenities: typeof p.amenities === 'string' ? JSON.parse(p.amenities) : p.amenities
     }))
 
     return NextResponse.json(parsedProperties)

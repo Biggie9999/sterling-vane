@@ -5,7 +5,7 @@ import { DEMO_PROPERTIES } from "@/data/properties"
 
 export function FeaturedProperties() {
   return (
-    <section className="py-24 bg-[#F5F0E8]">
+    <section className="py-24 bg-[#F1F5F9]">
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
           <h2 className="font-serif text-4xl md:text-5xl text-[#1a1a1a] max-w-2xl">

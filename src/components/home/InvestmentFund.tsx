@@ -50,16 +50,16 @@ export function InvestmentFund() {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-8">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-[1px] w-6 bg-[#C9A84C]" />
-              <p className="text-[#8A8A8A] font-montserrat font-bold text-[10px] uppercase tracking-[0.4em]">Preferred Tiers</p>
+              <div className="h-[1px] w-6 bg-[#2563EB]" />
+              <p className="text-[#64748B] font-montserrat font-bold text-[10px] uppercase tracking-[0.4em]">Preferred Tiers</p>
             </div>
-            <h2 className="text-5xl sm:text-6xl font-serif font-bold text-[#0A0A0A] leading-[1.05]">
+            <h2 className="text-5xl sm:text-6xl font-serif font-bold text-[#0F172A] leading-[1.05]">
                The Rental <br />
-               <span className="text-[#C9A84C]">Venture Fund.</span>
+               <span className="text-[#2563EB]">Venture Fund.</span>
             </h2>
           </div>
           <div className="lg:max-w-xs">
-            <p className="text-[#8A8A8A] font-sans text-base font-medium leading-relaxed">
+            <p className="text-[#64748B] font-sans text-base font-medium leading-relaxed">
               Curated access to Sovereign-level yields. Choose the tier that aligns with your portfolio goals.
             </p>
           </div>
@@ -73,37 +73,37 @@ export function InvestmentFund() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.8 }}
-                className={`flex flex-col p-12 rounded-[3.5rem] border transition-all duration-700 hover:shadow-2xl relative ${tier.popular ? "bg-[#0A0A0A] text-white border-[#0A0A0A]" : "bg-[#FAF9F6] border-[#0A0A0A]/5 hover:bg-white"}`}
+                className={`flex flex-col p-12 rounded-[3.5rem] border transition-all duration-700 hover:shadow-2xl relative ${tier.popular ? "bg-[#0F172A] text-white border-[#0F172A]" : "bg-[#F8FAFC] border-[#0F172A]/5 hover:bg-white"}`}
              >
                 {tier.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 bg-[#C9A84C] text-[#0A0A0A] text-[10px] font-bold uppercase tracking-[0.2em] rounded-full shadow-lg">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 bg-[#2563EB] text-[#0F172A] text-[10px] font-bold uppercase tracking-[0.2em] rounded-full shadow-lg">
                     Highest Growth
                   </div>
                 )}
                 
                 <div className="mb-12">
-                   <p className={`font-montserrat font-bold text-[10px] uppercase tracking-[0.3em] mb-4 ${tier.popular ? "text-[#C9A84C]" : "text-[#8A8A8A]"}`}>{tier.name} ACCESS</p>
+                   <p className={`font-montserrat font-bold text-[10px] uppercase tracking-[0.3em] mb-4 ${tier.popular ? "text-[#2563EB]" : "text-[#64748B]"}`}>{tier.name} ACCESS</p>
                    <p className="text-4xl font-serif font-bold mb-3">{tier.min}</p>
-                   <p className={tier.popular ? "text-white/40 text-[11px] font-bold uppercase tracking-widest" : "text-[#8A8A8A] text-[11px] font-bold uppercase tracking-widest"}>Minimum Capital</p>
+                   <p className={tier.popular ? "text-white/40 text-[11px] font-bold uppercase tracking-widest" : "text-[#64748B] text-[11px] font-bold uppercase tracking-widest"}>Minimum Capital</p>
                 </div>
 
-                <div className={`mb-12 p-8 rounded-3xl ${tier.popular ? "bg-white/5 border border-white/10" : "bg-white border border-[#0A0A0A]/5 shadow-sm"}`}>
-                   <p className={`text-[10px] font-bold uppercase tracking-widest mb-2 ${tier.popular ? "text-white/40" : "text-[#8A8A8A]"}`}>Target Yield</p>
-                   <p className="text-4xl font-serif font-bold text-[#C9A84C]">{tier.roi}</p>
+                <div className={`mb-12 p-8 rounded-3xl ${tier.popular ? "bg-white/5 border border-white/10" : "bg-white border border-[#0F172A]/5 shadow-sm"}`}>
+                   <p className={`text-[10px] font-bold uppercase tracking-widest mb-2 ${tier.popular ? "text-white/40" : "text-[#64748B]"}`}>Target Yield</p>
+                   <p className="text-4xl font-serif font-bold text-[#2563EB]">{tier.roi}</p>
                 </div>
 
                 <div className="space-y-5 mb-16 flex-1">
                    {tier.features.map(f => (
                      <div key={f} className="flex items-center gap-4">
-                        <CheckCircle2 className={`w-4 h-4 shrink-0 ${tier.popular ? "text-[#C9A84C]" : "text-[#C9A84C]"}`} />
-                        <span className={`text-[11px] font-bold uppercase tracking-widest ${tier.popular ? "text-white/70" : "text-[#0A0A0A]/60"}`}>{f}</span>
+                        <CheckCircle2 className={`w-4 h-4 shrink-0 ${tier.popular ? "text-[#2563EB]" : "text-[#2563EB]"}`} />
+                        <span className={`text-[11px] font-bold uppercase tracking-widest ${tier.popular ? "text-white/70" : "text-[#0F172A]/60"}`}>{f}</span>
                      </div>
                    ))}
                 </div>
 
                 <Link 
                   href="/apply"
-                  className={`w-full py-6 rounded-2xl font-bold uppercase tracking-widest text-[11px] transition-all duration-500 flex items-center justify-center gap-3 group shadow-xl ${tier.popular ? "bg-[#C9A84C] text-[#0A0A0A] hover:bg-white hover:text-[#0A0A0A]" : "bg-[#0A0A0A] text-white hover:bg-[#C9A84C] hover:text-[#0A0A0A]"}`}
+                  className={`w-full py-6 rounded-2xl font-bold uppercase tracking-widest text-[11px] transition-all duration-500 flex items-center justify-center gap-3 group shadow-xl ${tier.popular ? "bg-[#2563EB] text-[#0F172A] hover:bg-white hover:text-[#0F172A]" : "bg-[#0F172A] text-white hover:bg-[#2563EB] hover:text-[#0F172A]"}`}
                 >
                   Start Investing <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>

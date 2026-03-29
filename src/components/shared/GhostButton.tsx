@@ -13,8 +13,8 @@ export function GhostButton({ children, href, className, icon, light = false, ..
   const baseStyles = "inline-flex items-center justify-center px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] transition-all duration-500 border rounded-2xl hover:-translate-y-1"
   
   const colorStyles = light 
-    ? "border-white/20 text-white hover:bg-white hover:text-[#0A0A0A]" 
-    : "border-[#0A0A0A]/10 text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white"
+    ? "border-white/20 text-white hover:bg-white hover:text-[#0F172A]" 
+    : "border-[#0F172A]/10 text-[#0F172A] hover:bg-[#0F172A] hover:text-white"
 
   const content = (
     <>

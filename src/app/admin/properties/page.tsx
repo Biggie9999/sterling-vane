@@ -23,7 +23,7 @@ export default function AdminPropertiesPage() {
 
       <div className="bg-[#111] border border-border-dark overflow-x-auto">
         <table className="w-full text-left font-sans text-sm">
-          <thead className="bg-[#0a0a0a] border-b border-border-dark font-mono text-[10px] uppercase tracking-widest text-warmGrey">
+          <thead className="bg-[#0F172A] border-b border-border-dark font-mono text-[10px] uppercase tracking-widest text-warmGrey">
             <tr>
               <th className="px-6 py-4 font-normal text-gold">ID</th>
               <th className="px-6 py-4 font-normal">Property Name</th>
