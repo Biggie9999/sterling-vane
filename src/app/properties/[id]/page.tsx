@@ -171,7 +171,7 @@ export default async function PropertyPage({ params }: { params: { id: string } 
                 <span className="font-serif text-4xl font-bold text-white tracking-tighter">
                   ${property.pricePerShare.toLocaleString()}
                 </span>
-                <span className="text-slate-500 font-bold uppercase text-[9px]">/ Share</span>
+                <span className="text-slate-500 font-bold uppercase text-[9px]">Minimum</span>
               </div>
             </div>
 
@@ -230,7 +230,7 @@ export default async function PropertyPage({ params }: { params: { id: string } 
           <div className="flex-1">
             <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400 leading-none mb-0.5">{Math.round(percentFunded)}% Filled</p>
             <p className="font-serif text-lg font-bold text-[#0F172A] tracking-tight">
-              ${property.pricePerShare.toLocaleString()} <span className="text-xs font-sans font-medium text-slate-400">/ share</span>
+              ${property.pricePerShare.toLocaleString()} <span className="text-xs font-sans font-medium text-slate-400">Min.</span>
             </p>
           </div>
           <Link

@@ -25,30 +25,30 @@ export function InvestmentMath() {
           {/* Fixed Unit Price */}
           <div className="bg-white/[0.03] border border-white/[0.05] rounded-[2.5rem] p-10 hover:bg-white/[0.05] transition-colors group relative overflow-hidden">
             <div className="absolute top-0 right-0 p-8 opacity-10">
-               <span className="font-serif text-8xl font-bold text-white tracking-tighter">1</span>
+               <span className="font-serif text-8xl font-bold text-white tracking-tighter">$</span>
             </div>
             <div className="w-14 h-14 rounded-2xl bg-[#2563EB]/20 flex items-center justify-center mb-8 border border-[#2563EB]/30 group-hover:bg-[#2563EB] group-hover:text-[#0F172A] transition-all text-[#2563EB]">
                <Landmark className="w-6 h-6" />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Universal Entry</p>
-            <h3 className="text-3xl font-serif font-bold text-white mb-4">1 Unit = $10,000</h3>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Accessible Entry</p>
+            <h3 className="text-3xl font-serif font-bold text-white mb-4">$10,000 Minimum</h3>
             <p className="text-slate-500 font-medium leading-relaxed text-sm">
-              The entry price never changes. Every single property on the platform, regardless of market valuation, operates on a strict $10,000 per share fixed cost basis.
+              The barrier to institutional real estate is broken. Enter any Sovereign asset with a minimum commitment of $10,000, allowing for precise, scalable portfolio sizing.
             </p>
           </div>
 
           {/* Dynamic Scarcity */}
           <div className="bg-white/[0.03] border border-white/[0.05] rounded-[2.5rem] p-10 hover:bg-white/[0.05] transition-colors group relative overflow-hidden">
              <div className="absolute top-0 right-0 p-8 opacity-10">
-               <span className="font-serif text-8xl font-bold text-white tracking-tighter">X</span>
+               <span className="font-serif text-8xl font-bold text-white tracking-tighter">/</span>
             </div>
             <div className="w-14 h-14 rounded-2xl bg-[#2563EB]/20 flex items-center justify-center mb-8 border border-[#2563EB]/30 group-hover:bg-[#2563EB] group-hover:text-[#0F172A] transition-all text-[#2563EB]">
                <Divide className="w-6 h-6" />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Dynamic Scarcity</p>
-            <h3 className="text-3xl font-serif font-bold text-white mb-4">Total supply = Valuation / 10k</h3>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Fractional Equity</p>
+            <h3 className="text-3xl font-serif font-bold text-white mb-4">True Proportionality</h3>
             <p className="text-slate-500 font-medium leading-relaxed text-sm">
-              Shares are hard-capped by the exact asset valuation. An $8.5M estate is divided into precisely 850 units. A $12M estate equals 1,200 units. Absolute mathematical scarcity.
+              Your investment translates directly into a strict fractional percentage of the asset's fully capitalized valuation. A $50,000 allocation in a $5M estate equals exactly 1.00% ownership.
             </p>
           </div>
 
@@ -63,7 +63,7 @@ export function InvestmentMath() {
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Pro-Rata Yield</p>
             <h3 className="text-3xl font-serif font-bold text-white mb-4">Direct Revenue Flow</h3>
             <p className="text-slate-500 font-medium leading-relaxed text-sm">
-              Own 5 units of an 850-unit estate? You own 0.58% of the asset. You receive exactly 0.58% of the net operating income from our high-frequency hospitality bookings every quarter.
+              Own 0.58% of an asset? You receive exactly 0.58% of the net operating income from our high-frequency hospitality bookings every quarter. Absolute mathematical transparency.
             </p>
           </div>
 
@@ -80,17 +80,17 @@ export function InvestmentMath() {
              
              <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-3 gap-6 w-full">
                 <div className="bg-black/40 rounded-2xl p-6 text-center border border-white/5">
-                   <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Step 1: Valuation</p>
-                   <p className="text-2xl font-serif font-bold text-white tracking-tight">$8.5M</p>
+                   <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Step 1: Allocation</p>
+                   <p className="text-2xl font-serif font-bold text-white tracking-tight">$50,000</p>
                 </div>
                 <div className="bg-black/40 rounded-2xl p-6 text-center border border-white/5">
-                   <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Step 2: Divide by $10k</p>
-                   <p className="text-2xl font-serif font-bold text-[#2563EB] tracking-tight">÷ $10,000</p>
+                   <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Step 2: Valuation</p>
+                   <p className="text-2xl font-serif font-bold text-[#2563EB] tracking-tight">÷ $8.5M</p>
                 </div>
                 <div className="bg-black/40 rounded-2xl p-6 text-center border border-[#2563EB]/30 relative">
                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[1px] bg-[#2563EB] shadow-[0_0_10px_#2563EB]" />
-                   <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#60A5FA] mb-2">Step 3: Total Supply</p>
-                   <p className="text-2xl font-serif font-bold text-white tracking-tight">850 Units</p>
+                   <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#60A5FA] mb-2">Step 3: Equity Share</p>
+                   <p className="text-2xl font-serif font-bold text-white tracking-tight">0.58%</p>
                 </div>
              </div>
           </div>

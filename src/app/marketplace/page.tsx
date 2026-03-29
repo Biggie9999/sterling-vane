@@ -70,7 +70,7 @@ function ListingCard({ item, index }: { item: any, index: number }) {
             </div>
             <div className="text-center">
               <p className="text-[9px] font-bold text-[#64748B] uppercase tracking-[0.2em] mb-1.5 opacity-40">Entry</p>
-              <p className="text-lg font-bold text-[#0F172A] tracking-tight">${(item.pricePerShare / 1000).toFixed(1)}k</p>
+              <p className="text-lg font-bold text-[#0F172A] tracking-tight">${(item.pricePerShare / 1000).toFixed(1)}k <span className="text-xs font-sans font-medium text-slate-400">Min.</span></p>
             </div>
           </div>
 

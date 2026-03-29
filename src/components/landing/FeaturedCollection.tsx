@@ -37,7 +37,7 @@ function SovereignCard({ p }: { p: typeof DEMO_PROPERTIES[0] }) {
           <div className="flex items-center gap-6 border-t border-white/10 pt-6">
             <div>
               <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1.5 font-bold">Share Entry</p>
-              <p className="text-white font-serif text-xl">${p.pricePerShare.toLocaleString()}</p>
+              <p className="text-white font-serif text-xl">{p.capRate}% <span className="text-xs font-sans text-white/60">Yield</span></p>
             </div>
             <div className="h-8 w-px bg-white/10" />
             <div>

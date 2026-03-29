@@ -28,8 +28,8 @@ const fade = {
   initial: { opacity: 0, y: 8 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -8 },
-  transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] }
-}
+  transition: { duration: 0.4, ease: "easeOut" }
+} as any
 
 function ApplyForm() {
   const router = useRouter()
@@ -40,7 +40,7 @@ function ApplyForm() {
   const [step, setStep] = useState<Step>(0)
   const [selectedPropertyId, setSelectedPropertyId] = useState(prefillId || "")
   const [loading, setLoading] = useState(false)
-  const [form, setForm] = useState({ shares: "1", eligibility: "" })
+  const [form, setForm] = useState({ amount: "10000", eligibility: "" })
   const [copied, setCopied] = useState<string | null>(null)
   const [dbProperties, setDbProperties] = useState<any[]>([])
 
@@ -69,9 +69,10 @@ function ApplyForm() {
     setTimeout(() => setCopied(null), 2000)
   }
 
-  const sharesNum = Math.max(1, parseInt(form.shares) || 1)
-  const totalAmount = sharesNum * (selectedProperty?.pricePerShare || 0)
-  const minShares = Math.ceil(WIRE_DETAILS.minimumAmount / (selectedProperty?.pricePerShare || 1000))
+  const totalAmount = Math.max(WIRE_DETAILS.minimumAmount, parseInt(form.amount) || WIRE_DETAILS.minimumAmount)
+  const maxAmount = 500000 // Arbitrary high cap for the slider
+  const propertyValuation = selectedProperty?.propertyValue || selectedProperty?.askingPrice || 10000000
+  const equityPercentage = ((totalAmount / propertyValuation) * 100).toFixed(2)
   const userAccreditation = (session?.user as any)?.accreditation || "none"
   const userName = session?.user?.name || "Investor"
   const wireReference = `SV-${userName.split(" ").slice(-1)[0].toUpperCase().slice(0,4)}-${Date.now().toString().slice(-4)}`
@@ -82,7 +83,7 @@ function ApplyForm() {
       const res = await fetch("/api/investments/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ propertyId: selectedProperty.id, amount: totalAmount, shares: sharesNum, accreditation: form.eligibility || userAccreditation })
+        body: JSON.stringify({ propertyId: selectedProperty.id, amount: totalAmount, shares: 1, accreditation: form.eligibility || userAccreditation })
       })
       const data = await res.json()
       if (res.ok) setStep(2)
@@ -148,24 +149,26 @@ function ApplyForm() {
               <div className="bg-white rounded-2xl border border-slate-100 p-5 mb-5 shadow-sm space-y-5">
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Share Allocation</p>
-                    <p className="text-xl font-serif font-bold text-[#0F172A]">{form.shares} <span className="text-xs font-sans text-slate-400 font-medium">units</span></p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Total Investment</p>
+                    <p className="text-xl font-serif font-bold text-[#0F172A]">${totalAmount.toLocaleString()}</p>
                   </div>
                   <input
-                    type="range" min={minShares} max={100} value={form.shares}
-                    onChange={e => update("shares", e.target.value)}
+                    type="range" min={WIRE_DETAILS.minimumAmount} max={maxAmount} step={5000} value={form.amount}
+                    onChange={e => update("amount", e.target.value)}
                     className="w-full h-1.5 bg-slate-100 rounded-full appearance-none cursor-pointer accent-[#2563EB]"
                   />
                   <div className="flex justify-between mt-1">
-                    <span className="text-[9px] font-bold text-slate-300 uppercase tracking-wider">Min {minShares}</span>
-                    <span className="text-[9px] font-bold text-slate-300 uppercase tracking-wider">Max 100</span>
+                    <span className="text-[9px] font-bold text-slate-300 uppercase tracking-wider">Min ${WIRE_DETAILS.minimumAmount.toLocaleString()}</span>
+                    <span className="text-[9px] font-bold text-slate-300 uppercase tracking-wider">Max ${maxAmount.toLocaleString()}</span>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-50">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Total Investment</p>
-                  <p className="text-3xl font-serif font-bold text-[#2563EB] tracking-tight">${totalAmount.toLocaleString()}</p>
-                  <p className="text-[10px] text-slate-400 mt-1">@ ${selectedProperty?.pricePerShare?.toLocaleString()} per share</p>
+                <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Equity Share</p>
+                    <p className="text-3xl font-serif font-bold text-[#2563EB] tracking-tight">{equityPercentage}%</p>
+                    <p className="text-[10px] text-slate-400 mt-1">of total asset valuation</p>
+                  </div>
                 </div>
               </div>
 
@@ -259,7 +262,7 @@ function ApplyForm() {
                 <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#2563EB]/20 blur-[60px] rounded-full" />
                 <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-slate-400 mb-2">Total Amount to Transfer (USD)</p>
                 <p className="text-4xl font-serif font-bold text-[#2563EB] mb-1 tracking-tight">${totalAmount.toLocaleString()}</p>
-                <p className="text-[10px] text-slate-400 uppercase tracking-widest">For {form.shares} unit{parseInt(form.shares) !== 1 ? "s" : ""} · {selectedProperty?.name}</p>
+                <p className="text-[10px] text-slate-400 uppercase tracking-widest">{equityPercentage}% Equity · {selectedProperty?.name}</p>
               </div>
 
               {/* Wire details */}
