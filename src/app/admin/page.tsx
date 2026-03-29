@@ -7,6 +7,7 @@ import {
   ShieldCheck, AlertTriangle, TrendingUp, ArrowUpRight, Landmark, Layers
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 
 export default function AdminPage() {
   const [stats, setStats] = useState<any>(null)
@@ -64,24 +65,24 @@ export default function AdminPage() {
     <div className="space-y-16 animate-sovereign-in max-w-7xl mx-auto py-12">
       
       {/* Admin Operations Header */}
-      <div className="relative overflow-hidden p-12 bg-white border border-[#0F172A]/5 rounded-[3rem] shadow-sm group">
+      <div className="relative overflow-hidden p-8 sm:p-12 md:p-14 bg-white border border-[#0F172A]/5 rounded-[2.5rem] sm:rounded-[3rem] shadow-sm group">
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
           <div>
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
                <ShieldCheck className="w-4 h-4 text-[#2563EB]" />
-               <p className="text-[#2563EB] font-bold text-[10px] uppercase tracking-[0.4em]">The Sovereign Ledger</p>
+               <p className="text-[#2563EB] font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em]">The Sovereign Ledger</p>
             </div>
-            <h1 className="text-5xl md:text-6xl font-serif font-bold text-[#0F172A] tracking-tighter leading-tight">Administrator <br /><span className="italic text-[#2563EB]">Command.</span></h1>
-            <p className="text-[#64748B] text-base font-serif italic max-w-xl mt-6 leading-relaxed">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-[#0F172A] tracking-tighter leading-tight mt-2">Admin<br /><span className="italic text-[#2563EB]">Command.</span></h1>
+            <p className="hidden sm:block text-[#64748B] text-sm sm:text-base font-serif italic max-w-xl mt-6 leading-relaxed">
               "Manage liquidity cycles, partner onboarding, and global fund distributions with institutional precision."
             </p>
           </div>
-          <div className="flex gap-4">
-            <button className="px-8 py-4.5 bg-[#F8FAFC] border border-[#0F172A]/5 text-[#0F172A] font-bold rounded-2xl transition-all text-[10px] uppercase tracking-[0.2em] shadow-sm hover:bg-[#F8FAFC]">
-               Live Audit Log
-            </button>
-            <button className="px-10 py-5 bg-[#0F172A] text-white font-bold rounded-2xl transition-all text-[10px] uppercase tracking-[0.3em] shadow-2xl hover:bg-[#2563EB] hover:text-[#0F172A] flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+            <Link href="/admin/properties" className="w-full sm:w-auto px-8 py-4 bg-[#0F172A] text-white font-bold rounded-xl transition-all text-[10px] uppercase tracking-[0.3em] shadow-lg hover:bg-[#2563EB] flex items-center justify-center gap-3">
               Deploy Asset <ArrowUpRight className="w-4 h-4" />
+            </Link>
+            <button className="w-full sm:w-auto px-8 py-4 bg-[#F8FAFC] border border-[#0F172A]/5 text-[#0F172A] font-bold rounded-xl transition-all text-[10px] uppercase tracking-[0.2em] shadow-sm hover:bg-slate-100 flex items-center justify-center">
+               Live Audit Log
             </button>
           </div>
         </div>

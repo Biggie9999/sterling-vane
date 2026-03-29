@@ -26,9 +26,9 @@ const userLinks = [
 
 const adminLinks = [
   { name: "Operations", href: "/admin", icon: Activity },
-  { name: "The Collection", href: "/admin/properties", icon: Building },
+  { name: "Assets", href: "/admin/properties", icon: Building },
   { name: "Investors", href: "/admin/users", icon: Users },
-  { name: "Corporate Fin", href: "/admin/financials", icon: PieChart },
+  { name: "Finance", href: "/admin/financials", icon: PieChart },
 ]
 
 export function Sidebar({ mode, userName, userEmail }: SidebarProps) {
