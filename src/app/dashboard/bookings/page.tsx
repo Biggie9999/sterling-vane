@@ -90,14 +90,14 @@ export default function BookingsPage() {
 
   return (
     <div className="space-y-12">
-      <div className="relative overflow-hidden p-10 sm:p-16 bg-white border border-[#0F172A]/5 rounded-[3.5rem] shadow-sm group">
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-12">
+      <div className="relative overflow-hidden p-5 sm:p-10 lg:p-16 bg-white border border-[#0F172A]/5 rounded-2xl sm:rounded-[3.5rem] shadow-sm group">
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-12">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-4">
                <ShieldCheck className="w-4 h-4 text-[#2563EB]" />
                <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB]">Portfolio Privileges</p>
             </div>
-            <h1 className="text-5xl md:text-6xl font-serif font-bold text-[#0F172A] mb-6 tracking-tight leading-tight">Priority Stays</h1>
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-serif font-bold text-[#0F172A] mb-4 tracking-tight leading-tight">Priority Stays</h1>
             <p className="text-[#64748B] text-lg leading-relaxed font-serif italic">
               "As a principal holder in the Sovereign Collection, you receive secondary priority booking access and a <span className="text-[#2563EB] font-bold not-italic">30% reduction</span> on seasonal rates."
             </p>
@@ -115,15 +115,15 @@ export default function BookingsPage() {
         <div className="absolute top-0 right-0 w-96 h-full bg-[#2563EB]/5 blur-[120px] rounded-full translate-x-1/2 pointer-events-none" />
       </div>
 
-      <div className="grid grid-cols-1 gap-12">
+      <div className="grid grid-cols-1 gap-6 sm:gap-12">
         {properties.map((p: any, idx) => {
           const available = ["Apr 10–15", "Apr 22–28", "May 5–12"]
           return (
             <div
               key={p.id}
-              className="group bg-white rounded-[3.5rem] overflow-hidden border border-[#0F172A]/5 flex flex-col lg:flex-row transition-all duration-700 hover:shadow-2xl hover:-translate-y-1"
+              className="group bg-white rounded-2xl sm:rounded-[3.5rem] overflow-hidden border border-[#0F172A]/5 flex flex-col lg:flex-row transition-all duration-700 hover:shadow-2xl hover:-translate-y-1"
             >
-              <div className="lg:w-[450px] xl:w-[500px] h-80 lg:h-auto relative overflow-hidden">
+              <div className="lg:w-[450px] xl:w-[500px] h-48 sm:h-64 lg:h-auto relative overflow-hidden">
                 <img 
                   src={p.images[0]} 
                   alt={p.name} 
@@ -140,11 +140,11 @@ export default function BookingsPage() {
                 </div>
               </div>
 
-              <div className="flex-1 p-10 lg:p-16 flex flex-col justify-between">
+              <div className="flex-1 p-4 sm:p-8 lg:p-14 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-start justify-between gap-6 mb-8">
+                  <div className="flex items-start justify-between gap-4 sm:gap-6 mb-5 sm:mb-8">
                     <div>
-                      <h3 className="font-serif text-4xl font-bold text-[#0F172A] tracking-tight mb-3">{p.name}</h3>
+                      <h3 className="font-serif text-xl sm:text-3xl font-bold text-[#0F172A] tracking-tight mb-2">{p.name}</h3>
                       <div className="flex items-center gap-2 px-3 py-1 bg-[#F1F5F9] rounded-full w-fit">
                         <MapPin className="w-3.5 h-3.5 text-[#2563EB]" />
                         <span className="text-[10px] font-bold uppercase tracking-widest text-[#0F172A] pt-0.5">{p.location}</span>
@@ -160,7 +160,7 @@ export default function BookingsPage() {
                     {p.description}
                   </p>
 
-                  <div className="grid grid-cols-3 gap-8 mb-12 pb-10 border-b border-[#0F172A]/5">
+                  <div className="grid grid-cols-3 gap-3 sm:gap-8 mb-6 sm:mb-12 pb-6 sm:pb-10 border-b border-[#0F172A]/5">
                     <div className="space-y-1.5">
                       <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest mb-2 opacity-60">Configuration</p>
                       <p className="text-[#0F172A] font-bold flex items-center gap-3 text-sm"><Bed className="w-4 h-4 text-[#2563EB]" /> {p.bedrooms} Bedrooms</p>

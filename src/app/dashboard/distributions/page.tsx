@@ -48,13 +48,13 @@ export default function DistributionsPage() {
   return (
     <div className="space-y-12">
       {/* Page Header */}
-      <div className="relative overflow-hidden p-10 sm:p-16 bg-white border border-[#0F172A]/5 rounded-[3.5rem] shadow-sm group">
+      <div className="relative overflow-hidden p-5 sm:p-10 lg:p-16 bg-white border border-[#0F172A]/5 rounded-2xl sm:rounded-[3.5rem] shadow-sm group">
         <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-4">
             <ShieldCheck className="w-4 h-4 text-[#2563EB]" />
             <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2563EB]">Dividend Performance</p>
           </div>
-          <h1 className="text-5xl md:text-6xl font-serif font-bold text-[#0F172A] mb-6 tracking-tight">Income Distributions</h1>
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-serif font-bold text-[#0F172A] mb-4 tracking-tight">Income Distributions</h1>
           <p className="text-[#64748B] text-lg leading-relaxed font-serif italic max-w-2xl">
             "Your capital is optimized for consistent quarterly yield. Realized returns are settled directly to your primary account."
           </p>
@@ -63,21 +63,21 @@ export default function DistributionsPage() {
       </div>
 
       {/* Summary Stat Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
         {[
           { label: "Aggregate Paid", value: `$${totalPaid.toLocaleString()}`, icon: TrendingUp, color: "text-emerald-500" },
           { label: "Active Projected", value: `$${totalUpcoming.toLocaleString()}`, icon: DollarSign, color: "text-[#0F172A]" },
           { label: "Frequency", value: "Quarterly", icon: Clock, color: "text-[#64748B]" },
           { label: "Next Est. Payout", value: upcomingDist.length > 0 ? new Date(upcomingDist[0].date).toLocaleDateString() : "—", icon: Calendar, color: "text-[#2563EB]" },
         ].map((s, i) => (
-          <div key={i} className="bg-white border border-[#0F172A]/5 p-8 rounded-[2rem] shadow-sm group hover:shadow-2xl transition-all duration-500">
-            <div className="flex items-center gap-4 mb-6">
+          <div key={i} className="bg-white border border-[#0F172A]/5 p-4 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-sm group hover:shadow-2xl transition-all duration-500">
+            <div className="flex items-center gap-3 mb-3 sm:mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#F1F5F9] border border-[#0F172A]/5 flex items-center justify-center group-hover:bg-[#2563EB] group-hover:text-black transition-all">
                 <s.icon className={cn("w-4 h-4", s.color)} />
               </div>
               <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#64748B]">{s.label}</p>
             </div>
-            <p className="text-2xl font-serif font-bold text-[#0F172A] tracking-tighter">{s.value}</p>
+            <p className="text-lg sm:text-2xl font-serif font-bold text-[#0F172A] tracking-tighter">{s.value}</p>
           </div>
         ))}
       </div>
@@ -86,7 +86,7 @@ export default function DistributionsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2 space-y-12">
           <div>
-             <h2 className="text-3xl font-serif font-bold text-[#0F172A] tracking-tight mb-8 flex items-center gap-4">
+             <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#0F172A] tracking-tight mb-5 sm:mb-8 flex items-center gap-3">
                Upcoming Settlements <span className="text-[11px] font-bold bg-[#F1F5F9] px-3 py-1 rounded-full text-[#2563EB]">{upcomingDist.length}</span>
              </h2>
              <div className="bg-white border border-[#0F172A]/5 rounded-[2.5rem] overflow-hidden shadow-sm">
@@ -133,7 +133,7 @@ export default function DistributionsPage() {
           {/* Past History */}
           {paidDist.length > 0 && (
             <div>
-              <h2 className="text-2xl font-serif font-bold text-[#0F172A] tracking-tight mb-8">Settled History</h2>
+              <h2 className="text-lg sm:text-2xl font-serif font-bold text-[#0F172A] tracking-tight mb-5 sm:mb-8">Settled History</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {paidDist.map((d, i) => (
                   <div key={i} className="bg-[#F8FAFC] border border-[#0F172A]/5 p-8 rounded-[2rem] flex items-center justify-between hover:bg-white hover:shadow-xl transition-all duration-500 group">
@@ -159,7 +159,7 @@ export default function DistributionsPage() {
 
         {/* Sidebar Context */}
         <div className="space-y-8">
-          <div className="bg-[#0F172A] text-white p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group">
+          <div className="bg-[#0F172A] text-white p-6 sm:p-10 rounded-2xl sm:rounded-[3rem] shadow-2xl relative overflow-hidden group">
              <div className="absolute top-0 right-0 w-48 h-48 bg-[#2563EB]/20 blur-[80px] opacity-20" />
              <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-8 text-[#2563EB]">
@@ -176,7 +176,7 @@ export default function DistributionsPage() {
              </div>
           </div>
 
-          <div className="p-10 bg-[#F8FAFC] border border-[#0F172A]/5 rounded-[3rem] text-center shadow-sm">
+          <div className="p-6 sm:p-10 bg-[#F8FAFC] border border-[#0F172A]/5 rounded-2xl sm:rounded-[3rem] text-center shadow-sm">
              <div className="w-16 h-16 bg-white rounded-[1.5rem] shadow-xl flex items-center justify-center mx-auto mb-8 border border-[#0F172A]/5">
                 <Globe className="w-7 h-7 text-[#2563EB]" />
              </div>
